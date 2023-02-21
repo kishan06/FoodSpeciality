@@ -78,7 +78,8 @@ class _OnBoardingState extends State<OnBoarding> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: (){
-                            Get.off(LoginScreen());
+                            // Get.off(LoginScreen());
+                            Get.toNamed("/login");
                           },
                           child: textWhite16RoboBold("Skip"))
                       ),
@@ -134,7 +135,8 @@ class _OnBoardingState extends State<OnBoarding> {
                             // pref.setBool("onBoarding_done", true);
                             // Get.off(()=> const LoginScreen());
                             // Get.to(LoginScreen());
-                            Get.off(LoginScreen());
+                            // Get.off(LoginScreen());
+                            Get.toNamed("/login");
                           }
                           _controller.nextPage(
                             duration: const Duration(milliseconds: 100), 
