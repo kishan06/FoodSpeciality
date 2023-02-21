@@ -8,6 +8,7 @@ class CustomNextButton extends StatelessWidget {
     Key? key,
     GlobalKey<FormState>? form,
     this.ontap,
+    
     required this.text,
     this.colorchange = false,
     

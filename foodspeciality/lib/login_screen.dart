@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/common%20files/CustomNextButton.dart';
+import 'package:foodspeciality/create_account.dart';
+import 'package:foodspeciality/forgot_password.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,90 +15,162 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          const Image(
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-            image: AssetImage("assets/28 crop.png"),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Image(image: AssetImage("assets/Artboard 1.png")),
-              SizedBox(
-                height: 29.h,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 41),
-                child: Text(
-                  "Food Specialities is committed to bringing you versatile and exciting choices for your daily food and cooking experience!",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              const Image(image: AssetImage("assets/Sign In.png")),
-              SizedBox(
-                height: 108.h,
-              ),
-              Stack(
-                children: const [
-                  Image(image: AssetImage("assets/Rectangle 5348.png")),
-                  Image(image: AssetImage("assets/Email.png")),
-                  Image(image: AssetImage("assets/style=linear.png")),
-                ],
-              ),
-              SizedBox(
-                height: 29.h,
-              ),
-              Stack(
-                children: const [
-                  Image(image: AssetImage("assets/Rectangle 5348.png")),
-                  Image(image: AssetImage("assets/Password.png")),
-                  Image(
-                      image: AssetImage("assets/password-svgrepo-com (1).png")),
-                ],
-              ),
-              SizedBox(
-                height: 14.h,
-              ),
-              const Image(
-                image: AssetImage("assets/Forgot Password.png"),
-              ),
-              SizedBox(
-                height: 105.h,
-              ),
-              const CustomNextButton(
-                text: 'Sign In',
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              SizedBox(
-                child: Stack(
-                  children: [
-                    // SvgPicture.asset("assets/svg/Rectangle 5351.svg"),
-                    const Center(
-                      child: Text("Create account",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                    SvgPicture.asset(
-                      "assets/svg/Create account.svg",
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 3.h,
-              )
-            ],
-          )
-        ],
+        body: Container(
+      height: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/28 crop.png"),
+          fit: BoxFit.cover,
+        ),
       ),
-    );
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 60.h,
+            ),
+            const Image(image: AssetImage("assets/Artboard 1.png")),
+            SizedBox(
+              height: 29.h,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Text(
+                "Food Specialities is committed to bringing you versatile and exciting choices for your daily food and cooking experience!",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            Text(
+              "Sign In",
+              style: TextStyle(
+                fontSize: 29.h,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 104.h,
+            ),
+            SizedBox(
+              height: 50.h,
+              child: TextFormField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.r),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Email",
+                    hintStyle: TextStyle(fontSize: 17.h),
+                    filled: true,
+                    fillColor: Colors.white,
+                    suffixIcon: Image(
+                        width: 20.h,
+                        height: 17.h,
+                        image: const AssetImage("assets/style=linear.png"))),
+              ),
+            ),
+            SizedBox(height: 29.h),
+            SizedBox(
+              height: 50.h,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.r),
+                    borderSide: BorderSide.none,
+                  ),
+                  hintText: "Password",
+                  filled: true,
+                  hintStyle: TextStyle(fontSize: 17.h),
+                  fillColor: Colors.white,
+                  suffixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Colors.black54,
+                  ),
+                ),
+                obscureText: true,
+              ),
+            ),
+            SizedBox(
+              height: 14.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed("/forgetPass");
+                    // Get.back();
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 105.h,
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.r),
+                  side: BorderSide(color: Colors.white, width: 1.w),
+                  ),
+                  elevation: 0,
+                  primary: const Color.fromRGBO(84, 89, 95, 1),
+                  onPrimary: Colors.white,
+                ),
+                child: Text(
+                  'Sign In',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.h),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 18.h,
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed("/createAcc");
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => CreateAccountScreen(),
+                  //     ));
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.r),
+                    side: BorderSide(color: Colors.white, width: 1.w),
+                  ),
+                  elevation: 0,
+                  primary: Colors.transparent,
+                  onPrimary: Colors.white,
+                ),
+                child: Text(
+                  'Create Account',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }

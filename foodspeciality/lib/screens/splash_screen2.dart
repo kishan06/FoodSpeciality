@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
@@ -24,7 +23,8 @@ class _SplashScreen2State extends State<SplashScreen2> {
       body: Stack(
         children: [
           Container(
-            child: Image.asset("assets/splash_screen_bg.png",
+            child: Image.asset(
+              "assets/splash_screen_bg.png",
               height: double.infinity,
               width: double.infinity,
               fit: BoxFit.fill,
@@ -32,7 +32,6 @@ class _SplashScreen2State extends State<SplashScreen2> {
             ),
             // color: Colors.black.withOpacity(0.5),
           ),
-
           SizedBox(
             width: double.infinity,
             child: Column(
@@ -40,30 +39,24 @@ class _SplashScreen2State extends State<SplashScreen2> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 textWhite24BoldRobo("Welcome!"),
-
                 logoWithName(),
-
                 SizedBox(
-                  width: 348.w,
-                  child: textWhite14Robo("Let's connect with your community! Share and discover exciting and versatile recipes.")
-                ),
-
+                    width: 348.w,
+                    child: textWhite14Robo(
+                        "Let's connect with your community! Share and discover exciting and versatile recipes.")),
                 sizedBoxHeight(151.h),
-
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: customButtonWithBorder("Let's Get Started",
-                    onPressed: (){
-                      // print("pressed");
-                      Get.to(OnBoarding());
-                      
-                    }
-                  ),
+                      onPressed: () {
+                    // print("pressed");
+                    // Get.to(OnBoarding());
+                    Get.toNamed("/onboard");
+                  }),
                 )
-
               ],
             ),
-          )   
+          )
         ],
       ),
     );
