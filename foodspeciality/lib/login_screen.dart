@@ -85,7 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SvgPicture.asset(
                       "assets/svg/Create account.svg",
-                    )
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                   ],
                 ),
               ),
