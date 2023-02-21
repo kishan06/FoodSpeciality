@@ -65,7 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 14.h,
               ),
-              const Image(image: AssetImage("assets/Forgot Password.png")),
+              const Image(
+                image: AssetImage("assets/Forgot Password.png"),
+              ),
               SizedBox(
                 height: 105.h,
               ),
@@ -85,9 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SvgPicture.asset(
                       "assets/svg/Create account.svg",
-                    ),
-                    SizedBox(
-                      height: 10.h,
                     ),
                   ],
                 ),
