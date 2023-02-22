@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/common%20files/texts.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:foodspeciality/utils/colors.dart';
 
 Widget customButtonWithBorder(String text,

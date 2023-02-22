@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/utils/colors.dart';
 
-Widget textWhite30BoldRobo(String title) {
+Widget textBlack30BoldSp(String title) {
   return Text(
     title,
     textAlign: TextAlign.center,
     style: TextStyle(
         color: AppColors.black,
-        fontSize: 30.spMin,
+        fontSize: 30.sp,
         fontWeight: FontWeight.bold,
-        fontFamily: "Roboto"),
+        fontFamily: "StudioProB"),
   );
 }
 
@@ -23,6 +23,18 @@ Widget textgrey22BoldRobo(String title) {
         fontSize: 22.sp,
         fontWeight: FontWeight.bold,
         fontFamily: "Roboto"),
+  );
+}
+
+Widget textgrey22BoldSP(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.buttonGrey54595F,
+        fontSize: 22.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProB"),
   );
 }
 
