@@ -28,7 +28,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 60.h,
+                height: 145.h,
               ),
               const Image(image: AssetImage("assets/Artboard 1.png")),
               SizedBox(
@@ -48,7 +48,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               Text(
                 "Create Account",
                 style: TextStyle(
-                  fontSize: 29.h,
+                  fontSize: 29.spMin,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -61,7 +61,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "User Name",
@@ -81,7 +81,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "Full Name",
@@ -101,7 +101,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "Mobile Number",
@@ -121,7 +121,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "Email",
@@ -140,7 +140,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "Password",
@@ -155,15 +155,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   obscureText: true,
                 ),
               ),
-              SizedBox(
-                height: 17.h,
-              ),
+              SizedBox(height: 17.h),
               SizedBox(
                 height: 50.h,
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide.none,
                       ),
                       hintText: "Confirm Password",
@@ -179,6 +177,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
               SizedBox(height: 31.h),
               SizedBox(
+                height: 50.h,
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
@@ -194,9 +193,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     onPrimary: Colors.white,
                   ),
                   child: Text(
-                    'Sign In',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 22.h),
+                    'Sign Up',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 22.spMin),
                   ),
                 ),
               ),

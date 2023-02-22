@@ -20,48 +20,43 @@ class _SplashScreen2State extends State<SplashScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            child: Image.asset(
-              "assets/splash_screen_bg.png",
-              height: double.infinity,
-              width: double.infinity,
-              fit: BoxFit.fill,
-              // color: AppColors,
+      backgroundColor: Color(0xFFFFFFFF),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 94.h,
             ),
-            // color: Colors.black.withOpacity(0.5),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                textWhite24BoldRobo("Welcome!"),
-
-                logoWithName(),
-                
-                SizedBox(
-                  width: 348.w,
-                  child: textWhite14Robo("Let's connect with your community! Share and discover exciting and versatile recipes.")
-                ),
-
-                sizedBoxHeight(151.h),
-                
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: customButtonWithBorder("Let's Get Started",
-                      onPressed: () {
-                    // print("pressed");
-                    // Get.to(OnBoarding());
-                    Get.toNamed("/onboard");
-                  }),
-                )
-              ],
+            Image.asset(
+              "assets/FS Icon.png",
+              height: 216.h,
+              width: 216.w,
             ),
-          )
-        ],
+            SizedBox(
+              height: 40.h,
+            ),
+            textWhite30BoldRobo("Welcome!"),
+            SizedBox(
+              height: 25,
+            ),
+            SizedBox(
+                width: 348.w,
+                child: textL_grey14Robo(
+                    "Let's connect with your community! Share and discover exciting and versatile recipes.")),
+            sizedBoxHeight(314.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: customButtonWithBorder("Continue", onPressed: () {
+                // print("pressed");
+                // Get.to(OnBoarding());
+                Get.toNamed("/onboard");
+              }),
+            )
+          ],
+        ),
       ),
     );
   }
