@@ -41,6 +41,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.2.18
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -48,6 +49,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/logo.png"
+  android: true
+  ios: true
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,6 +91,18 @@ flutter:
     - family: Roboto
       fonts:
         - asset: font/Roboto-Regular.ttf
+
+    - family: StudoProR
+      fonts:
+        - asset: font/studio-pro-regular.ttf
+
+    - family: StudoProM
+      fonts:
+        - asset: font\studio-pro-medium.ttf
+
+    - family: StudoProB
+      fonts:
+        - asset: font\studio-pro-bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
