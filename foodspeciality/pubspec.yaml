@@ -92,15 +92,15 @@ flutter:
       fonts:
         - asset: font/Roboto-Regular.ttf
 
-    - family: StudoProR
+    - family: StudioProR
       fonts:
         - asset: font/studio-pro-regular.ttf
 
-    - family: StudoProM
+    - family: StudioProM
       fonts:
         - asset: font\studio-pro-medium.ttf
 
-    - family: StudoProB
+    - family: StudioProB
       fonts:
         - asset: font\studio-pro-bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf

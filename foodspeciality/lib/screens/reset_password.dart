@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/common%20files/CustomNextButton.dart';
+import 'package:foodspeciality/common%20files/app_bar.dart';
 
-import 'common files/CustomNextButton.dart';
-import 'common files/app_bar.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
