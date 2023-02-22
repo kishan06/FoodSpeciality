@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
-import 'package:foodspeciality/common%20files/logo_with_name.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-<<<<<<< Updated upstream
 import 'package:foodspeciality/common%20files/texts.dart';
-=======
-import 'package:foodspeciality/utils/texts.dart';
->>>>>>> Stashed changes
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
@@ -43,159 +38,77 @@ class _OnBoardingState extends State<OnBoarding> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.white,
-        body: SizedBox(
-          height: double.infinity,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 740.h,
-                child: PageView.builder(
-                    controller: _controller,
-                    onPageChanged: (int index) {
-=======
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SizedBox(
         height: double.infinity,
         child: Column(
           children: [
-
             Stack(
               children: [
                 SizedBox(
                   height: 740.h,
                   child: PageView.builder(
-                    controller: _controller,
-                    onPageChanged: (int index){
->>>>>>> Stashed changes
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    itemCount: contents.length,
-<<<<<<< Updated upstream
-                    itemBuilder: (_, i) {
-                      return Stack(
-                        children: [
-                          Positioned(
-                            top: 40,
-                            right: 10,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 21.w),
-                              child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                      onTap: () {
-                                        // Get.off(LoginScreen());
-                                        Get.toNamed("/login");
-                                      },
-                                      child: textWhite16RoboBold("Skip"))),
+                      controller: _controller,
+                      onPageChanged: (int index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                      itemCount: contents.length,
+                      itemBuilder: (_, i) {
+                        return Stack(
+                          children: [
+                            Image.asset(
+                              contents[i].image,
+                              height: 740.h,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
                             ),
-                          ),
-                          Image.asset(
-                            contents[i].image,
-=======
-                    itemBuilder: (_,i){
-                      return Stack(
-                        children: [
-                          Image.asset(contents[i].image,
->>>>>>> Stashed changes
-                            height: 740.h,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-<<<<<<< Updated upstream
-                          Column(
-                            children: [
-                              sizedBoxHeight(31.h),
-                              sizedBoxHeight(65.h),
-                              logoWithName(),
-                              sizedBoxHeight(420.h),
-                              textgrey22BoldRobo(contents[i].title),
-                              sizedBoxHeight(7.h),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 38.w),
-                                child: textL_grey14Robo(
-                                    contents[currentIndex].discription),
-                              ),
-=======
+                            Column(
+                              children: [
+                                // sizedBoxHeight(31.h),
 
-                          Column(
-                            children: [
-                              // sizedBoxHeight(31.h),
-                        
-                              // Row(
-                              //   children: [
-                                  
-                              //     Padding(
-                              //       padding: EdgeInsets.only(right: 21.w),
-                              //       child: Align(
-                              //         alignment: Alignment.centerRight,
-                              //         child: InkWell(
-                              //           onTap: (){
-                              //             // Get.off(LoginScreen());
-                              //             Get.toNamed("/login");
-                              //           },
-                              //           child: textWhite16RoboBold("Skip"))
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                        
-                              // sizedBoxHeight(65.h),
-                        
-                              // logoWithName(),
-                        
-                              sizedBoxHeight(650.h),
-                        
-                              textgrey22BoldRobo(contents[i].title),
-                        
-                              sizedBoxHeight(7.h),
-                        
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 38.w),
-                                child: textL_grey14Robo(contents[currentIndex].discription),
-                              ),
-                        
->>>>>>> Stashed changes
-                            ],
-                          )
-                        ],
-                      );
-<<<<<<< Updated upstream
-                    }),
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      contents.length, (index) => buildDot(index))),
-              sizedBoxHeight(40.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: customButton("Continue", onPressed: () {
-                  if (currentIndex == contents.length - 1) {
-                    // SharedPreferences pref = await SharedPreferences.getInstance();
-                    // pref.setBool("onBoarding_done", true);
-                    // Get.off(LoginScreen());
-                    Get.toNamed("/login");
-                    // Get.off
-                  }
-                  _controller.nextPage(
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.bounceIn);
-                }),
-              )
-            ],
-          ),
-=======
-                    }
-                  ),
+                                // Row(
+                                //   children: [
+
+                                //     Padding(
+                                //       padding: EdgeInsets.only(right: 21.w),
+                                //       child: Align(
+                                //         alignment: Alignment.centerRight,
+                                //         child: InkWell(
+                                //           onTap: (){
+                                //             // Get.off(LoginScreen());
+                                //             Get.toNamed("/login");
+                                //           },
+                                //           child: textWhite16RoboBold("Skip"))
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+
+                                // sizedBoxHeight(65.h),
+
+                                // logoWithName(),
+
+                                sizedBoxHeight(650.h),
+
+                                textgrey22BoldSP(contents[i].title),
+
+                                sizedBoxHeight(7.h),
+
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 38.w),
+                                  child: textL_grey14Robo(
+                                      contents[currentIndex].discription),
+                                ),
+                              ],
+                            )
+                          ],
+                        );
+                      }),
                 ),
-            
                 Positioned(
                   top: 20.h,
                   child: SizedBox(
@@ -204,65 +117,51 @@ class _OnBoardingState extends State<OnBoarding> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                    
-                        Image.asset("assets/onlyLogo.png",
+                        Image.asset(
+                          "assets/onlyLogo.png",
                           height: 93.h,
                           width: 93.h,
                         ),
-                        
-                        currentIndex == 2 ? SizedBox() : Padding(
-                          padding: EdgeInsets.only(right: 21.w),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: (){
-                                // Get.off(LoginScreen());
-                                Get.toNamed("/login");
-                              },
-                              child: textWhite16RoboBold("Skip"))
-                          ),
-                        ),
+                        currentIndex == 2
+                            ? SizedBox()
+                            : Padding(
+                                padding: EdgeInsets.only(right: 21.w),
+                                child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                        onTap: () {
+                                          // Get.off(LoginScreen());
+                                          Get.toNamed("/login");
+                                        },
+                                        child: textWhite16RoboBold("Skip"))),
+                              ),
                       ],
                     ),
                   ),
                 ),
-
               ],
             ),
-       
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                contents.length, 
-                (index) => buildDot(index)
-              )
-            ),
-      
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:
+                    List.generate(contents.length, (index) => buildDot(index))),
             sizedBoxHeight(40.h),
-      
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: customButton("Continue", 
-                onPressed: (){
-                  if (currentIndex == contents.length - 1) {
-                    // SharedPreferences pref = await SharedPreferences.getInstance();
-                    // pref.setBool("onBoarding_done", true);
-                    // Get.off(LoginScreen());
-                    Get.toNamed("/login");
-                    // Get.off
-                  }
-                  _controller.nextPage(
-                    duration: const Duration(milliseconds: 100), 
-                    curve: Curves.bounceIn
-                  );
+              child: customButtonWithBorder("Continue", onPressed: () {
+                if (currentIndex == contents.length - 1) {
+                  // SharedPreferences pref = await SharedPreferences.getInstance();
+                  // pref.setBool("onBoarding_done", true);
+                  // Get.off(LoginScreen());
+                  Get.toNamed("/login");
+                  // Get.off
                 }
-              ),
+                _controller.nextPage(
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.bounceIn);
+              }),
             )
-                       
-
-
           ],
->>>>>>> Stashed changes
         ),
       ),
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
+
 import 'package:get/get.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -13,171 +16,223 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         height: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/28 crop.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 60.h,
+                height: 55.h,
               ),
-              const Image(image: AssetImage("assets/Artboard 1.png")),
+              Image.asset(
+                "assets/logo.png",
+                height: 154.h,
+                width: 154.h,
+              ),
               SizedBox(
                 height: 29.h,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child: Text(
-                  "Join our community of cooks and discover versatile and Existing recipes.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                height: 8.h,
               ),
               Text(
                 "Create Account",
                 style: TextStyle(
-                  fontSize: 29.h,
+                  fontFamily: "StudioProR",
+                  fontSize: 24.spMin,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color(0xFF3B3F43),
+                ),
+              ),
+              sizedBoxHeight(22.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Text(
+                  "Join our community of cooks and discover versatile and Existing recipes.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color(0xFF54595F),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp),
                 ),
               ),
               SizedBox(
-                height: 32.h,
+                height: 30.h,
               ),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "User Name",
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image:
-                              const AssetImage("assets/user-svgrepo-com.png"))),
+              CustomTextFormField(
+                hintText: "Username",
+                validatorText: "",
+                suffixIcon: Image.asset(
+                  "assets/user-svgrepo-com.png",
+                  height: 20.h,
+                  width: 17.w,
+                ),
+              ),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "User Name",
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         filled: true,
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image:
+              //                 const AssetImage("assets/user-svgrepo-com.png"))),
+              //   ),
+              // ),
+
+              SizedBox(height: 17.h),
+              CustomTextFormField(
+                hintText: "Full Name",
+                validatorText: "",
+                suffixIcon: Image.asset(
+                  "assets/user-svgrepo-com.png",
+                  height: 20.h,
+                  width: 17.w,
+                ),
+              ),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Full Name",
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         filled: true,
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image:
+              //                 const AssetImage("assets/user-svgrepo-com.png"))),
+              //   ),
+              // ),
+
+              SizedBox(height: 17.h),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Mobile Number",
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         filled: true,
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image: const AssetImage(
+              //                 "assets/mobile-svgrepo-com.png"))),
+              //   ),
+              // ),
+              CustomTextFormField(
+                hintText: "Mobile Number",
+                validatorText: "",
+                suffixIcon: Image.asset(
+                  "assets/mobile-svgrepo-com.png",
+                  height: 20.h,
+                  width: 17.w,
                 ),
               ),
               SizedBox(height: 17.h),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Full Name",
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image:
-                              const AssetImage("assets/user-svgrepo-com.png"))),
+              CustomTextFormField(
+                hintText: "Email Address",
+                validatorText: "",
+                suffixIcon: Image.asset(
+                  "assets/style=linear.png",
+                  height: 20.h,
+                  width: 17.w,
                 ),
               ),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Email",
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         filled: true,
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image: const AssetImage("assets/style=linear.png"))),
+              //   ),
+              // ),
+
               SizedBox(height: 17.h),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Mobile Number",
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage(
-                              "assets/mobile-svgrepo-com.png"))),
-                ),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Password",
+              //         filled: true,
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image: const AssetImage(
+              //                 "assets/password-svgrepo-com (1).png"))),
+              //     obscureText: true,
+              //   ),
+              // ),
+              CustomTextFormField(
+                hintText: "Password",
+                validatorText: "",
+                isInputPassword: true,
               ),
+
               SizedBox(height: 17.h),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Email",
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage("assets/style=linear.png"))),
-                ),
+              // SizedBox(
+              //   height: 50.h,
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8.r),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Confirm Password",
+              //         hintStyle: TextStyle(fontSize: 17.h),
+              //         filled: true,
+              //         fillColor: Colors.white,
+              //         suffixIcon: Image(
+              //             width: 20.h,
+              //             height: 17.h,
+              //             image: const AssetImage(
+              //                 "assets/password-svgrepo-com (1).png"))),
+              //   ),
+              // ),
+              CustomTextFormField(
+                hintText: "Confirm Password",
+                validatorText: "",
+                isInputPassword: true,
               ),
-              SizedBox(height: 17.h),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Password",
-                      filled: true,
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage(
-                              "assets/password-svgrepo-com (1).png"))),
-                  obscureText: true,
-                ),
-              ),
-              SizedBox(
-                height: 17.h,
-              ),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.r),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Confirm Password",
-                      hintStyle: TextStyle(fontSize: 17.h),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage(
-                              "assets/password-svgrepo-com (1).png"))),
-                ),
-              ),
+
               SizedBox(height: 31.h),
               SizedBox(
+                height: 50.h,
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
@@ -185,7 +240,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.r),
+                      borderRadius: BorderRadius.circular(8.r),
                       side: BorderSide(color: Colors.white, width: 1.w),
                     ),
                     elevation: 0,
@@ -193,9 +248,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     onPrimary: Colors.white,
                   ),
                   child: Text(
-                    'Sign In',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 22.h),
+                    'Sign Up',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.spMin,
+                        fontFamily: "StudioProR"),
                   ),
                 ),
               ),

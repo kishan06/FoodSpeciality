@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:get/get.dart';
 
@@ -85,12 +86,15 @@ class _LoginState extends State<Login> {
                   // ),
                   SizedBox(height: 30.h),
                   CustomTextFormField(
-                    hintText: "Email Address",
-                    validatorText: "",
-                    suffixIcon: Icon(
-                      Icons.lock_outline,
-                      color: Color(0xFF54595F),
-                    ),
+                    hintText: "Password",
+                    validatorText: "", isInputPassword: true,
+                    // suffixIcon: Padding(
+                    //   padding: const EdgeInsets.only(right: 8.0),
+                    //   child: Icon(
+                    //     Icons.lock_outline,
+                    //     color: Color(0xFF54595F),
+                    //   ),
+                    // ),
                   ),
                   // SizedBox(
                   //   height: 50.h,
@@ -127,8 +131,9 @@ class _LoginState extends State<Login> {
                         child: Text(
                           'Forgot Password?',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.sp,
+                            fontFamily: "Roboto",
+                            color: Color(0xFF3B3F43),
+                            fontSize: 15.spMin,
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -136,7 +141,7 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                   SizedBox(
-                    height: 105.h,
+                    height: 70.h,
                   ),
                   SizedBox(
                     height: 50.h,
@@ -146,18 +151,17 @@ class _LoginState extends State<Login> {
                         Get.toNamed('/viewuser');
                       },
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(84, 89, 95, 1),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.r),
-                          side: BorderSide(color: Colors.white, width: 1.w),
+                          borderRadius: BorderRadius.circular(8.r),
+                          // side: BorderSide(color: Colors.white, width: 1.w),
                         ),
                         elevation: 0,
-                        primary: const Color.fromRGBO(84, 89, 95, 1),
-                        onPrimary: Colors.white,
                       ),
                       child: Text(
                         'Sign In',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22.h),
+                            fontSize: 18.sp, fontFamily: "StudioProR"),
                       ),
                     ),
                   ),
@@ -165,32 +169,98 @@ class _LoginState extends State<Login> {
                     height: 30.h,
                   ),
                   SizedBox(
-                    height: 50.h,
+                    height: 50,
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed("/createAcc");
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => CreateAccountScreen(),
-                        //     ));
-                      },
+                    child: OutlinedButton(
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.r),
-                          side: BorderSide(color: Colors.white, width: 1.w),
+                          borderRadius: BorderRadius.circular(8.r),
+                          side:
+                              BorderSide(color: Color(0xFF3B3F43), width: 1.w),
                         ),
                         elevation: 0,
-                        primary: Colors.transparent,
-                        onPrimary: Colors.white,
                       ),
-                      child: Text(
-                        'Create Account',
-                        style: TextStyle(fontSize: 16.sp),
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/google-svgrepo-com.svg",
+                            height: 28.h,
+                            width: 28.w,
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Text(
+                            "Continue with Google",
+                            style: TextStyle(
+                                fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                          ),
+                        ],
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account? ",
+                        style: TextStyle(
+                            color: Color(0xFF3B3F43),
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Roboto"),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed("/createAcc");
+                        },
+                        child: Text(
+                          "Create account",
+                          style: TextStyle(
+                            color: Color(0xFF3B3F43),
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Roboto",
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // SizedBox(
+                  //   height: 50.h,
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       Get.toNamed("/createAcc");
+                  //       // Navigator.push(
+                  //       //     context,
+                  //       //     MaterialPageRoute(
+                  //       //       builder: (context) => CreateAccountScreen(),
+                  //       //     ));
+                  //     },
+                  //     style: ElevatedButton.styleFrom(
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(25.r),
+                  //         side:
+                  //             BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                  //       ),
+                  //       elevation: 0,
+                  //       primary: Colors.transparent,
+                  //       onPrimary: Colors.white,
+                  //     ),
+                  //     child: Text(
+                  //       'Create Account',
+                  //       style: TextStyle(fontSize: 16.sp),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

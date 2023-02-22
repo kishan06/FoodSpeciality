@@ -42,6 +42,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           style: TextStyle(
               //  fontFamily: 'Helvetica',
               fontSize: 20.sm,
+              fontFamily: "StudioProR",
               fontWeight: FontWeight.w600,
               color: Color.fromRGBO(84, 89, 95, 1)),
         ),

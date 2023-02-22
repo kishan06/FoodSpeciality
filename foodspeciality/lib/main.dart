@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/create_account.dart';
+
 import 'package:foodspeciality/login.dart';
-
-
+import 'package:foodspeciality/screens/create_account.dart';
 import 'package:foodspeciality/screens/discovery_recipe.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
@@ -42,10 +41,10 @@ class _MyAppState extends State<MyApp> {
           GetPage(name: '/', page: () => SplashScreen2()),
           GetPage(name: "/onboard", page: () => OnBoarding()),
           GetPage(name: "/login", page: () => Login()),
-          GetPage(name: "/forgetPass", page: () => ForgotPassordScreen()),
+          GetPage(name: "/forgetPass", page: () => ForgotPassword()),
           GetPage(name: "/createAcc", page: () => CreateAccountScreen()),
-          GetPage(name: "/resetPass", page: () => ResetPasswordScreen()),
-          GetPage(name: "/signUpProfile", page: () => SignupProfileScreen()),
+          GetPage(name: "/resetPass", page: () => ResetPassword()),
+          GetPage(name: "/signUpProfile", page: () => SignupProfile()),
           GetPage(
               name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
           GetPage(name: "/viewuser", page: () => viewUser()),

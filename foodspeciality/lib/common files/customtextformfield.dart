@@ -48,7 +48,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
         style: TextStyle(
-          fontSize: 15.sm,
+          fontSize: 16.sm,
         ),
         readOnly: widget.readonly,
         cursorColor: const Color(0xFF3B3F43),
@@ -56,20 +56,20 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         obscureText: obscureText,
         controller: widget.textEditingController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16),
+          contentPadding: EdgeInsets.all(17),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF54595F63), width: 1),
+            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF54595F63), width: 1),
+            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF54595F63), width: 1),
+            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -97,18 +97,24 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.lock_outline,
-                              color: Colors.black54,
+                            Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.lock_outline,
+                                color: Colors.black54,
+                              ),
                             ),
                           ],
                         )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.lock_open_outlined,
-                              color: Colors.black54,
+                            Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.lock_open_outlined,
+                                color: Colors.black54,
+                              ),
                             ),
                           ],
                         ),

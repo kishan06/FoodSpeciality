@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:get/get.dart';
 
-
-class ResetPasswordScreen extends StatefulWidget {
-  ResetPasswordScreen({super.key});
+class ResetPassword extends StatefulWidget {
+  ResetPassword({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,100 +21,121 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         titleTxt: 'Reset Password',
         bottomtext: false,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Enter New Password and Confirm.",
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-              ),
-              SizedBox(
-                height: 77.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    "New Password",
-                    style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(7.5.r),
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(112, 112, 112, 0.33)),
-                      ),
-                      border: const OutlineInputBorder(),
-                      hintText: "Password",
-                      hintStyle: TextStyle(
-                          fontSize: 17.h,
-                          color: const Color.fromRGBO(112, 112, 112, 0.33)),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage(
-                              "assets/password-svgrepo-com (1).png"))),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Enter New Password and Confirm.",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color.fromRGBO(112, 112, 112, 1),
+                      fontSize: 16.sm,
+                      fontFamily: "Roboto"),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    "New Password",
-                    style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(7.5.r),
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(112, 112, 112, 0.33)),
-                      ),
-                      border: const OutlineInputBorder(),
-                      hintText: "Password",
-                      hintStyle: TextStyle(
-                          fontSize: 17.h,
-                          color: const Color.fromRGBO(112, 112, 112, 0.33)),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage(
-                              "assets/password-svgrepo-com (1).png"))),
+                SizedBox(
+                  height: 77.h,
                 ),
-              ),
-              SizedBox(
-                height: 95.h,
-              ),
-              const CustomNextButton(
-                text: 'Change Password',
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "New Password",
+                      style: TextStyle(
+                          color: Color.fromRGBO(112, 112, 112, 1),
+                          fontSize: 14.sm,
+                          fontFamily: "Roboto"),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                CustomTextFormField(
+                    hintText: "New Password",
+                    validatorText: "",
+                    isInputPassword: true),
+                // SizedBox(
+                //   height: 50.h,
+                //   child: TextFormField(
+                //     decoration: InputDecoration(
+                //         enabledBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(7.5.r),
+                //           borderSide: const BorderSide(
+                //               color: Color.fromRGBO(112, 112, 112, 0.33)),
+                //         ),
+                //         border: const OutlineInputBorder(),
+                //         hintText: "Password",
+                //         hintStyle: TextStyle(
+                //             fontSize: 17.h,
+                //             color: const Color.fromRGBO(112, 112, 112, 0.33)),
+                //         filled: true,
+                //         fillColor: Colors.white,
+                //         suffixIcon: Image(
+                //             width: 20.h,
+                //             height: 17.h,
+                //             image: const AssetImage(
+                //                 "assets/password-svgrepo-com (1).png"))),
+                //   ),
+                // ),
+
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Confirm Password",
+                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                CustomTextFormField(
+                    hintText: "Confirm Password",
+                    validatorText: "",
+                    isInputPassword: true),
+                // SizedBox(
+                //   height: 50.h,
+                //   child: TextFormField(
+                //     decoration: InputDecoration(
+                //         enabledBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(7.5.r),
+                //           borderSide: const BorderSide(
+                //               color: Color.fromRGBO(112, 112, 112, 0.33)),
+                //         ),
+                //         border: const OutlineInputBorder(),
+                //         hintText: "Password",
+                //         hintStyle: TextStyle(
+                //             fontSize: 17.h,
+                //             color: const Color.fromRGBO(112, 112, 112, 0.33)),
+                //         filled: true,
+                //         fillColor: Colors.white,
+                //         suffixIcon: Image(
+                //             width: 20.h,
+                //             height: 17.h,
+                //             image: const AssetImage(
+                //                 "assets/password-svgrepo-com (1).png"))),
+                //   ),
+                // ),
+
+                SizedBox(
+                  height: 95.h,
+                ),
+                CustomNextButton(
+                  text: 'Change Password',
+                  ontap: () {
+                    Get.toNamed("/login");
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

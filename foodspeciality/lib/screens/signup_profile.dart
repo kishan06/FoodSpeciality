@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 
 import 'discovery_recipe.dart';
 
-class SignupProfileScreen extends StatefulWidget {
-  SignupProfileScreen({super.key});
+class SignupProfile extends StatefulWidget {
+  SignupProfile({super.key});
 
   @override
-  State<SignupProfileScreen> createState() => _SignupProfileScreenState();
+  State<SignupProfile> createState() => _SignupProfileState();
 }
 
-class _SignupProfileScreenState extends State<SignupProfileScreen> {
+class _SignupProfileState extends State<SignupProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +22,16 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 20.h,
+                ),
                 Text(
                   "Set Up Your Profile",
                   style: TextStyle(
+                      fontFamily: "StudioProR",
                       fontWeight: FontWeight.bold,
                       fontSize: 24.h,
-                      color: const Color.fromRGBO(84, 89, 95, 1)),
+                      color: Color(0xFF54595F)),
                 ),
                 SizedBox(
                   height: 20.h,
