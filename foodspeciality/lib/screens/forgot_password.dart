@@ -2,38 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:get/get.dart';
 
-
-class ForgotPassordScreen extends StatefulWidget {
-  ForgotPassordScreen({super.key});
+class ForgotPassword extends StatefulWidget {
+  ForgotPassword({super.key});
 
   @override
-  State<ForgotPassordScreen> createState() => _ForgotPassordScreenState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPassordScreenState extends State<ForgotPassordScreen> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         titleTxt: 'Forgot Password',
         bottomtext: false,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Please enter your email address.You will \nreceive a link to create a new password via \nemail",
                 textAlign: TextAlign.left,
-                style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                style: TextStyle(
+                    color: Color.fromRGBO(112, 112, 112, 1),
+                    fontSize: 16.sm,
+                    fontFamily: "Roboto"),
               ),
               SizedBox(
-                height: 37.h,
+                height: 31.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -45,29 +48,12 @@ class _ForgotPassordScreenState extends State<ForgotPassordScreen> {
                 ],
               ),
               SizedBox(
-                height: 4.h,
+                height: 10.h,
               ),
-              SizedBox(
-                height: 50.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(7.5.r),
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(112, 112, 112, 0.33)),
-                      ),
-                      border: const OutlineInputBorder(),
-                      hintText: "Email Address",
-                      hintStyle: TextStyle(
-                          fontSize: 17.h,
-                          color: const Color.fromRGBO(112, 112, 112, 0.33)),
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: Image(
-                          width: 20.h,
-                          height: 17.h,
-                          image: const AssetImage("assets/style=linear.png"))),
-                ),
+              CustomTextFormField(
+                hintText: "Email Address",
+                validatorText: "",
+                suffixIcon: Icon(Icons.email_outlined),
               ),
               SizedBox(
                 height: 198.h,

@@ -8,10 +8,8 @@ class CustomNextButton extends StatelessWidget {
     Key? key,
     GlobalKey<FormState>? form,
     this.ontap,
-    
     required this.text,
     this.colorchange = false,
-    
   }) : super(key: key);
 
   final String text;
@@ -26,13 +24,12 @@ class CustomNextButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           // ignore: deprecated_member_use
-          primary:
-              colorchange ? Colors.white : const Color.fromRGBO(84, 89, 95, 1),
+          primary: colorchange ? Colors.white : const Color(0xFF3B3F43),
           shape: RoundedRectangleBorder(
             side: colorchange
                 ? const BorderSide(color: Color(0xFF707070))
                 : BorderSide.none,
-            borderRadius: BorderRadius.circular(25.h),
+            borderRadius: BorderRadius.circular(8.h),
           ),
         ),
         child: Text(

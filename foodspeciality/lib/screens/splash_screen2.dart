@@ -38,7 +38,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
             SizedBox(
               height: 40.h,
             ),
-            textWhite30BoldRobo("Welcome!"),
+            textBlack30BoldSp("Welcome!"),
             SizedBox(
               height: 25,
             ),
