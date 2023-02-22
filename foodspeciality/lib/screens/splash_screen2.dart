@@ -39,12 +39,16 @@ class _SplashScreen2State extends State<SplashScreen2> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 textWhite24BoldRobo("Welcome!"),
+
                 logoWithName(),
+                
                 SizedBox(
-                    width: 348.w,
-                    child: textWhite14Robo(
-                        "Let's connect with your community! Share and discover exciting and versatile recipes.")),
+                  width: 348.w,
+                  child: textWhite14Robo("Let's connect with your community! Share and discover exciting and versatile recipes.")
+                ),
+
                 sizedBoxHeight(151.h),
+                
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: customButtonWithBorder("Let's Get Started",
