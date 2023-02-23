@@ -177,7 +177,7 @@ class _OnBoardingState extends State<OnBoarding> {
         borderRadius: BorderRadius.circular(10.h),
         color: currentIndex == index
             ? AppColors.buttonGrey54595F
-            : AppColors.grey707070,
+            : AppColors.buttonGrey54595F,
       ),
     );
   }

@@ -22,7 +22,7 @@ class _CommonElevatedButtonState extends State<CommonElevatedButton> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 36.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -53,8 +53,8 @@ class _CommonElevatedButtonState extends State<CommonElevatedButton> {
               widget.text,
               style: TextStyle(
                 color: _colorchange ? const Color(0xFF303030) : Colors.white,
-                fontSize: 16.sm,
-                fontFamily: 'Productsans',
+                fontSize: 14.sm,
+                fontFamily: 'StudioProR',
               ),
             ),
           ],
