@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CreateAccountScreen extends StatefulWidget {
-  CreateAccountScreen({super.key});
+  CreateAccountScreen ({super.key});
 
   @override
   State<CreateAccountScreen> createState() => _CreateAccountScreenState();

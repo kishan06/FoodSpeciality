@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/common%20files/CustomNextButton.dart';
+// import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
-import 'package:foodspeciality/common%20files/logo_with_name.dart';
+// import 'package:foodspeciality/common%20files/logo_with_name.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/utils/texts.dart';
-import 'package:foodspeciality/screens/onboarding/onboarding.dart';
-import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/common%20files/texts.dart';
+// import 'package:foodspeciality/utils/texts.dart';
+// import 'package:foodspeciality/screens/onboarding/onboarding.dart';
+// import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 class SplashScreen2 extends StatefulWidget {
@@ -38,14 +39,15 @@ class _SplashScreen2State extends State<SplashScreen2> {
             SizedBox(
               height: 40.h,
             ),
-            textWhite30BoldRobo("Welcome!"),
+            textBlack30BoldSp("Welcome!"),
             SizedBox(
               height: 25,
             ),
             SizedBox(
-                width: 348.w,
-                child: textL_grey14Robo(
-                    "Let's connect with your community! Share and discover exciting and versatile recipes.")),
+              width: 348.w,
+              child: textL_grey14Robo("Let's connect with your community! Share and discover exciting and versatile recipes.")
+            ),
+          
             sizedBoxHeight(314.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),

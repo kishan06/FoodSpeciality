@@ -6,6 +6,7 @@ import 'package:foodspeciality/login.dart';
 
 import 'package:foodspeciality/screens/discovery_recipe.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
+import 'package:foodspeciality/screens/home.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
@@ -49,6 +50,8 @@ class _MyAppState extends State<MyApp> {
           GetPage(
               name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
           GetPage(name: "/viewuser", page: () => viewUser()),
+          GetPage(name: "/home", page: () => Home()),
+
         ],
       ),
     );

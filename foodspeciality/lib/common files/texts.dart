@@ -38,6 +38,18 @@ Widget textgrey22BoldSP(String title) {
   );
 }
 
+Widget textgrey18BoldSP(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.grey3B3F43,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProB"),
+  );
+}
+
 Widget textL_grey14Robo(String title) {
   return Text(
     title,

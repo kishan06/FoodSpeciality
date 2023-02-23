@@ -143,7 +143,8 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/viewuser');
+                        // Get.toNamed('/viewuser');
+                        Get.toNamed("/home");
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
