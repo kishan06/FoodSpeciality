@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/home/
 
     # - foodspeciality/assets/
     # - assets/splashScreen2/

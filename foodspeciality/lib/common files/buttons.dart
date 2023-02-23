@@ -22,6 +22,25 @@ Widget customButtonWithBorder(String text,
   );
 }
 
+Widget followButton(String text,
+    {required void Function()? onPressed}) {
+  return SizedBox(
+    // height: 30.h,
+    // width: 150.w,
+    child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          primary: AppColors.greyD3B3F43,
+          shape: RoundedRectangleBorder(
+            // side: BorderSide(color: AppColors.white, width: 1.w),
+            borderRadius: BorderRadius.circular(8.h),
+          ),
+        ),
+        child: textWhite16RoboBold(text),
+        onPressed: onPressed),
+  );
+}
+
 Widget customButton(String text, {required void Function()? onPressed}) {
   return SizedBox(
     height: 50.h,

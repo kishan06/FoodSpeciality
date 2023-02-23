@@ -30,7 +30,7 @@ Widget textL_grey14Robo(String title){
   return Text(title,
     textAlign: TextAlign.center,
     style: TextStyle(
-      color: AppColors.grey707070,
+      color: AppColors.greyM707070,
       fontSize: 14.sp,
       // fontWeight: FontWeight.bold,
       fontFamily: "Roboto"
@@ -66,7 +66,7 @@ Widget textWhite16RoboBold(String title){
   return Text(title,
     textAlign: TextAlign.center,
     style: TextStyle(
-      decoration: TextDecoration.underline,
+      // decoration: TextDecoration.underline,
       color: AppColors.white,
       fontSize: 16.sp,
       fontWeight: FontWeight.bold,

@@ -7,9 +7,9 @@ Widget CommanTabbar(String label1, String label2){
   return TabBar(
     indicatorSize: TabBarIndicatorSize.label,
     indicatorWeight: 4.h,
-    indicatorColor: AppColors.grey3B3F43,
-    unselectedLabelStyle: const TextStyle(color: AppColors.grey979797),
-    labelColor: AppColors.grey3B3F43,
+    indicatorColor: AppColors.greyD3B3F43,
+    unselectedLabelStyle: const TextStyle(color: AppColors.greyL979797),
+    labelColor: AppColors.greyD3B3F43,
     labelStyle: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 18.sp,
