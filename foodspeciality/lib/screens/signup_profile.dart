@@ -30,7 +30,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   style: TextStyle(
                       fontFamily: "StudioProR",
                       fontWeight: FontWeight.bold,
-                      fontSize: 24.h,
+                      fontSize: 20.h,
                       color: Color(0xFF54595F)),
                 ),
                 SizedBox(
@@ -58,12 +58,19 @@ class _SignupProfileState extends State<SignupProfile> {
                   height: 2.h,
                 ),
                 Text(
-                  "Your Name",
-                  style: TextStyle(fontSize: 21.h, fontWeight: FontWeight.bold),
+                  "Namrata Burondkar",
+                  style: TextStyle(
+                      fontSize: 16.h,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto"),
                 ),
-                const Text(
-                  "@userID",
-                  style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                Text(
+                  "@Namrata07",
+                  style: TextStyle(
+                      color: Color(0xFF707070),
+                      fontSize: 14.h,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto"),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -73,6 +80,11 @@ class _SignupProfileState extends State<SignupProfile> {
                   maxLines: 5,
                   decoration: InputDecoration(
                     hintText: 'Bio',
+                    hintStyle: TextStyle(
+                        color: Color(0xFF707070),
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.r),
@@ -91,7 +103,10 @@ class _SignupProfileState extends State<SignupProfile> {
                     Text(
                       "Current Location",
                       style: TextStyle(
-                          fontSize: 22.h, fontWeight: FontWeight.w500),
+                          color: Color(0xFF3B3F43),
+                          fontSize: 18.h,
+                          fontFamily: "StudioProR",
+                          fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -115,10 +130,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "South Africa,Western Cape",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -131,7 +149,10 @@ class _SignupProfileState extends State<SignupProfile> {
                     Text(
                       "Social/Website Links",
                       style: TextStyle(
-                          fontSize: 22.h, fontWeight: FontWeight.w500),
+                          color: Color(0xFF3B3F43),
+                          fontSize: 18.h,
+                          fontFamily: "StudioProR",
+                          fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -157,10 +178,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "https://foodspecialities.com",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -186,10 +210,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "https://food_specialities.com",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -215,10 +242,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "https://food_specialities/twitter.com",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -244,10 +274,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "https://foodspecialities/pinterest.com",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -273,10 +306,13 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    const Text(
+                    Text(
                       "https://foodspeciality/facebook.com",
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                      style: TextStyle(
+                          color: Color.fromRGBO(151, 151, 151, 0.48),
+                          fontFamily: "Roboto",
+                          fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -294,7 +330,7 @@ class _SignupProfileState extends State<SignupProfile> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.r),
+                            borderRadius: BorderRadius.circular(8.r),
                             side: BorderSide(color: Colors.white, width: 1.w),
                           ),
                           elevation: 0,
@@ -304,7 +340,9 @@ class _SignupProfileState extends State<SignupProfile> {
                         child: Text(
                           'Next',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 22.h),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.h,
+                              fontFamily: "StudioProR"),
                         ),
                       ),
                     ),
@@ -316,7 +354,7 @@ class _SignupProfileState extends State<SignupProfile> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.r),
+                            borderRadius: BorderRadius.circular(8.r),
                             side: BorderSide(color: Colors.grey, width: 1.w),
                           ),
                           elevation: 0,
@@ -325,7 +363,10 @@ class _SignupProfileState extends State<SignupProfile> {
                         ),
                         child: Text(
                           'Skip',
-                          style: TextStyle(fontSize: 16.spMin),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.h,
+                              fontFamily: "StudioProR"),
                         ),
                       ),
                     ),
