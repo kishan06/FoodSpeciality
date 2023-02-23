@@ -44,7 +44,8 @@ class _SignupProfileState extends State<SignupProfile> {
                         radius: 51.r,
                         backgroundColor: Colors.grey,
                         child: const Image(
-                            image: AssetImage("assets/Mask Group 40.png")),
+                          image: AssetImage("assets/Mask Group 40.png"),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -323,6 +324,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
+                      height: 50,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
@@ -331,15 +333,17 @@ class _SignupProfileState extends State<SignupProfile> {
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            side: BorderSide(color: Colors.white, width: 1.w),
+                            side: BorderSide(
+                                color: Color(0xFF54595F), width: 1.w),
                           ),
                           elevation: 0,
-                          primary: const Color.fromRGBO(84, 89, 95, 1),
-                          onPrimary: Colors.white,
+                          primary: Color(0xFF54595F),
+                          onPrimary: Colors.grey,
                         ),
                         child: Text(
                           'Next',
                           style: TextStyle(
+                              color: Color(0xFFFFFFFF),
                               fontWeight: FontWeight.w500,
                               fontSize: 18.h,
                               fontFamily: "StudioProR"),
@@ -347,6 +351,7 @@ class _SignupProfileState extends State<SignupProfile> {
                       ),
                     ),
                     SizedBox(
+                      height: 50,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
