@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -32,7 +33,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     color: Color.fromRGBO(112, 112, 112, 1),
-                    fontSize: 16.sm,
+                    fontSize: 17.sp,
                     fontFamily: "Roboto"),
               ),
               SizedBox(
@@ -40,11 +41,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Enter Your Email",
-                    style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                  ),
+                children: [
+                  // Text(
+                  //   "Enter Your Email",
+                  //   style: textformstyle(""),
+                  // ),
+                  textformstyle("Enter Your Email"),
                 ],
               ),
               SizedBox(
@@ -53,7 +55,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               CustomTextFormField(
                 hintText: "Email Address",
                 validatorText: "",
-                suffixIcon: Icon(Icons.email_outlined),
+                suffixIcon: Image.asset(
+                  "assets/style=linear.png",
+                  color: Color(0xFF54595F),
+                ),
               ),
               SizedBox(
                 height: 198.h,

@@ -39,7 +39,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 "Create Account",
                 style: TextStyle(
                   fontFamily: "StudioProR",
-                  fontSize: 24.spMin,
+                  fontSize: 30.spMin,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF3B3F43),
                 ),
@@ -54,7 +54,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       color: Color(0xFF54595F),
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.w400,
-                      fontSize: 14.sp),
+                      fontSize: 15.sp),
                 ),
               ),
               SizedBox(

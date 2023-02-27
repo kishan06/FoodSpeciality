@@ -30,7 +30,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   style: TextStyle(
                       fontFamily: "StudioProR",
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.h,
+                      fontSize: 22.h,
                       color: Color(0xFF54595F)),
                 ),
                 SizedBox(
@@ -61,7 +61,7 @@ class _SignupProfileState extends State<SignupProfile> {
                 Text(
                   "Namrata Burondkar",
                   style: TextStyle(
-                      fontSize: 16.h,
+                      fontSize: 18.h,
                       fontWeight: FontWeight.w500,
                       fontFamily: "Roboto"),
                 ),
@@ -69,7 +69,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   "@Namrata07",
                   style: TextStyle(
                       color: Color(0xFF707070),
-                      fontSize: 14.h,
+                      fontSize: 16.h,
                       fontWeight: FontWeight.w500,
                       fontFamily: "Roboto"),
                 ),

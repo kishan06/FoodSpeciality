@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:foodspeciality/login.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/create_account.dart';
 import 'package:foodspeciality/screens/discovery_recipe.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
           GetPage(
               name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
           GetPage(name: "/viewuser", page: () => viewUser()),
+          GetPage(name: "/bottomBar", page: () => NewStateless()),
         ],
       ),
     );

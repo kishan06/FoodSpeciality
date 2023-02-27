@@ -81,7 +81,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
           ),
           hintStyle: TextStyle(
               color: Color(0xFF54595F63),
-              fontSize: 14.sm,
+              fontSize: 15.sm,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
           prefixIcon: widget.leadingIcon == null

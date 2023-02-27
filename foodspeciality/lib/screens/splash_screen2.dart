@@ -40,13 +40,13 @@ class _SplashScreen2State extends State<SplashScreen2> {
             ),
             textBlack30BoldSp("Welcome!"),
             SizedBox(
-              height: 25,
+              height: 25.h,
             ),
             SizedBox(
                 width: 348.w,
                 child: textL_grey14Robo(
                     "Let's connect with your community! Share and discover exciting and versatile recipes.")),
-            sizedBoxHeight(314.h),
+            sizedBoxHeight(260.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: customButtonWithBorder("Continue", onPressed: () {
