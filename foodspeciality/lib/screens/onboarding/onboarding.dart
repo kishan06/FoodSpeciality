@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/common%20files/texts.dart';
 // import 'package:foodspeciality/utils/texts.dart';
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class OnBoarding extends StatefulWidget {

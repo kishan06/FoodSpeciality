@@ -222,7 +222,6 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                     SizedBox(
                       height: 15.h,
                     ),
-                    CommonElevatedButton(text: "Turkish"),
                   ],
                 ),
               ),

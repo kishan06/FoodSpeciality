@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -28,27 +29,28 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Enter New Password and Confirm.",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Color.fromRGBO(112, 112, 112, 1),
-                      fontSize: 16.sm,
-                      fontFamily: "Roboto"),
-                ),
+                // Text(
+                //   "Enter New Password and Confirm.",
+                //   textAlign: TextAlign.left,
+                //   style: TextStyle(
+                //       color: Color.fromRGBO(112, 112, 112, 1),
+                //       fontSize: 16.sm,
+                //       fontFamily: "Roboto"),
+                // ),
                 SizedBox(
                   height: 77.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      "New Password",
-                      style: TextStyle(
-                          color: Color.fromRGBO(112, 112, 112, 1),
-                          fontSize: 14.sm,
-                          fontFamily: "Roboto"),
-                    ),
+                    // Text(
+                    //   "New Password",
+                    //   style: TextStyle(
+                    //       color: Color.fromRGBO(112, 112, 112, 1),
+                    //       fontSize: 14.sm,
+                    //       fontFamily: "Roboto"),
+                    // ),
+                    textformstyle("New Password")
                   ],
                 ),
                 SizedBox(
@@ -87,11 +89,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Confirm Password",
-                      style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                    ),
+                  children: [
+                    // Text(
+                    //   "Confirm Password",
+                    //   style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                    // ),
+                    textformstyle("Confirm Password")
                   ],
                 ),
                 SizedBox(

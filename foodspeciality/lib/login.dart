@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
                   Text(
                     "Sign In",
                     style: TextStyle(
-                      fontSize: 24.spMin,
+                      fontSize: 30.spMin,
                       fontFamily: "StudoProR",
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF3B3F43),
@@ -51,7 +51,9 @@ class _LoginState extends State<Login> {
                       "Food Specialities is committed to bringing you versatile and exciting choices for your daily food and cooking experience!",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(0xFF54595F), fontSize: 14.spMin),
+                          color: Color(0xFF54595F),
+                          fontSize: 15.sp,
+                          fontFamily: "Roboto"),
                     ),
                   ),
                   SizedBox(
@@ -133,7 +135,7 @@ class _LoginState extends State<Login> {
                           style: TextStyle(
                             fontFamily: "Roboto",
                             color: Color(0xFF3B3F43),
-                            fontSize: 15.spMin,
+                            fontSize: 16.spMin,
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -148,7 +150,7 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/viewuser');
+                        Get.toNamed('/bottomBar');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(84, 89, 95, 1),
@@ -212,7 +214,7 @@ class _LoginState extends State<Login> {
                         "Don't have an account? ",
                         style: TextStyle(
                             color: Color(0xFF3B3F43),
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Roboto"),
                       ),
@@ -224,7 +226,7 @@ class _LoginState extends State<Login> {
                           "Create account",
                           style: TextStyle(
                             color: Color(0xFF3B3F43),
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Roboto",
                             decoration: TextDecoration.underline,
