@@ -8,7 +8,7 @@ Widget textBlack30BoldSp(String title) {
     textAlign: TextAlign.center,
     style: TextStyle(
         color: AppColors.black,
-        fontSize: 34.sp,
+        fontSize: 30.sp,
         fontWeight: FontWeight.bold,
         fontFamily: "StudioProB"),
   );
@@ -50,6 +50,18 @@ Widget textgreyD20BoldSP(String title) {
   );
 }
 
+Widget textgreyM20BoldSP(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProB"),
+  );
+}
+
 Widget textgrey18BoldSP(String title) {
   return Text(
     title,
@@ -74,13 +86,73 @@ Widget textgreyD16BoldSP(String title) {
   );
 }
 
+Widget textBlack16SP(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 16.sp,
+        // o
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack14SP_Med(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack18SP_Bold(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack15Robo(String title) {
+  return Text(
+    title,
+    // textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 15.sp,
+        // fontWeight: FontWeight.bold,
+        fontFamily: "Roboto"),
+  );
+}
+
+Widget textBlack10Robo(String title) {
+  return Text(
+    title,
+    // textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 10.sp,
+        // fontWeight: FontWeight.bold,
+        fontFamily: "Roboto"),
+  );
+}
+
 Widget textL_grey14Robo(String title) {
   return Text(
     title,
     textAlign: TextAlign.center,
     style: TextStyle(
         color: Color(0xFF54595F),
-        fontSize: 15.spMin,
+        fontSize: 14.spMin,
         // fontWeight: FontWeight.bold,
         fontFamily: "Roboto"),
   );
@@ -95,12 +167,36 @@ Widget textgreyD12Robo(String title) {
   );
 }
 
-Widget textgreyD14Robo(String title) {
+Widget textgreyM14Sp(String title) {
   return Text(
     title,
     textAlign: TextAlign.center,
     style: TextStyle(
-        color: AppColors.greyD3B3F43, fontSize: 14.sp, fontFamily: "Roboto"),
+        color: AppColors.greyM707070,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProB"),
+  );
+}
+
+Widget textgreyM10Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070,
+        fontSize: 10.sp,
+        // fontWeight: FontWeight.bold,
+        fontFamily: "Roboto"),
+  );
+}
+
+Widget textgreyD10Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyD3B3F43, fontSize: 10.sp, fontFamily: "Roboto"),
   );
 }
 
@@ -155,43 +251,6 @@ Widget textWhite16RoboBold(String title) {
         color: AppColors.white,
         fontSize: 16.sp,
         fontWeight: FontWeight.bold,
-        fontFamily: "Roboto"),
-  );
-}
-
-Widget textWhite14RoboBold(String title) {
-  return Text(
-    title,
-    textAlign: TextAlign.center,
-    style: TextStyle(
-        // decoration: TextDecoration.underline,
-        color: AppColors.white,
-        fontSize: 14.sp,
-        fontWeight: FontWeight.bold,
-        fontFamily: "Roboto"),
-  );
-}
-
-Widget textformstyle(String title) {
-  return Text(
-    title,
-    textAlign: TextAlign.center,
-    style: TextStyle(
-        color: AppColors.greyL979797,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.bold,
-        fontFamily: "Roboto"),
-  );
-}
-
-Widget textL_grey16Robo(String title) {
-  return Text(
-    title,
-    textAlign: TextAlign.center,
-    style: TextStyle(
-        color: Color(0xFF54595F),
-        fontSize: 16.spMin,
-        // fontWeight: FontWeight.bold,
         fontFamily: "Roboto"),
   );
 }

@@ -46,7 +46,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   //   "Enter Your Email",
                   //   style: textformstyle(""),
                   // ),
-                  textformstyle("Enter Your Email"),
+                  Text(
+                    "Enter Your Email",
+                    style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
+                  ),
                 ],
               ),
               SizedBox(

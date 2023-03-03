@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/common%20files/texts.dart';
 import 'package:foodspeciality/utils/colors.dart';
 
 Widget CommanTabbar(String label1, String label2) {

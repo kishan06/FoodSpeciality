@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     //       fontSize: 14.sm,
                     //       fontFamily: "Roboto"),
                     // ),
-                    textformstyle("New Password")
+                    Text("New Password")
                   ],
                 ),
                 SizedBox(
@@ -94,7 +94,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     //   "Confirm Password",
                     //   style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
                     // ),
-                    textformstyle("Confirm Password")
+                    Text("Confirm Password")
                   ],
                 ),
                 SizedBox(

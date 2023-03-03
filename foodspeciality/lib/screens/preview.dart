@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/common%20files/texts.dart';
-
-import '../utils/colors.dart';
 
 class Preview extends StatefulWidget {
   const Preview({super.key});

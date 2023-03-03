@@ -68,36 +68,9 @@ class _OnBoardingState extends State<OnBoarding> {
                             ),
                             Column(
                               children: [
-                                // sizedBoxHeight(31.h),
-
-                                // Row(
-                                //   children: [
-
-                                //     Padding(
-                                //       padding: EdgeInsets.only(right: 21.w),
-                                //       child: Align(
-                                //         alignment: Alignment.centerRight,
-                                //         child: InkWell(
-                                //           onTap: (){
-                                //             // Get.off(LoginScreen());
-                                //             Get.toNamed("/login");
-                                //           },
-                                //           child: textWhite16RoboBold("Skip"))
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
-
-                                // sizedBoxHeight(65.h),
-
-                                // logoWithName(),
-
                                 sizedBoxHeight(650.h),
-
                                 textgrey22BoldSP(contents[i].title),
-
                                 sizedBoxHeight(7.h),
-
                                 Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 38.w),
@@ -128,13 +101,15 @@ class _OnBoardingState extends State<OnBoarding> {
                             : Padding(
                                 padding: EdgeInsets.only(right: 21.w),
                                 child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: InkWell(
-                                        onTap: () {
-                                          // Get.off(LoginScreen());
-                                          Get.toNamed("/login");
-                                        },
-                                        child: textWhite16RoboBold("Skip"))),
+                                  alignment: Alignment.centerRight,
+                                  child: InkWell(
+                                    onTap: () {
+                                      // Get.off(LoginScreen());
+                                      Get.toNamed("/login");
+                                    },
+                                    child: textWhite16RoboBold("Skip"),
+                                  ),
+                                ),
                               ),
                       ],
                     ),
@@ -155,13 +130,12 @@ class _OnBoardingState extends State<OnBoarding> {
                   // pref.setBool("onBoarding_done", true);
                   // Get.off(LoginScreen());
                   Get.toNamed("/login");
-                  // Get.off
                 }
                 _controller.nextPage(
                     duration: const Duration(milliseconds: 100),
                     curve: Curves.bounceIn);
               }),
-            )
+            ),
           ],
         ),
       ),

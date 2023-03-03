@@ -379,7 +379,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: 17.sp,
-                        color: AppColors.grey6B6B6B),
+                        color: Color(0XFF6B6B6B)),
                     // color: AppColors.),
                   ),
                 ],
@@ -404,8 +404,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                         fontFamily: "Roboto",
                         color: const Color(0xff6B6B6B),
                         fontSize: 14.h),
-                    suffixIcon: const Image(
-                        image: AssetImage("assets/Group 58342.png")),
+                    suffixIcon: Image.asset("assets/camera.png"),
                   ),
                 ),
               ),
@@ -418,7 +417,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: 17.sp,
-                        color: AppColors.grey6B6B6B),
+                        color: Color(0xFF6B6B6B)),
                   ),
                 ],
               ),
@@ -442,8 +441,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                         fontFamily: "Roboto",
                         color: const Color(0xff6B6B6B),
                         fontSize: 14.h),
-                    suffixIcon: const Image(
-                        image: AssetImage("assets/Group 58342.png")),
+                    suffixIcon: Image.asset("assets/camera.png"),
                   ),
                 ),
               ),

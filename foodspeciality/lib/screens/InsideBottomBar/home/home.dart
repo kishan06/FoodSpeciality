@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -17,54 +18,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // Future<void> share() async {
+  //   await FlutterShare.share(
+  //     title: 'Example share',
+  //     text: 'Example share text',
+  //     linkUrl: 'https://flutter.dev/',
+  //     chooserTitle: 'Example Chooser Title'
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
+            // extendBody: true,
             backgroundColor: Colors.white,
             body: Column(
               children: [
                 Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 36.w, vertical: 17.h),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: CustomTextFormField(
-                              hintText: "search recipes, ingredients or tips",
-                              validatorText: "",
-                              leadingIcon: Icon(
-                                Icons.search,
-                                size: 27.h,
-                                color: AppColors.greyM707070,
-                              ),
-                              // pref
-                            ),
-                          ),
-                          sizedBoxWidth(26.w),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed("/viewuser");
-                            },
-                            child: Image.asset(
-                              "assets/icons/notification.png",
-                              width: 28.w,
-                              height: 28.w,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    searchNotification(),
                     CommanTabbar("My Community", "Inspiration"),
                   ],
                 ),
                 Expanded(
                   child: Container(
                     color: AppColors.greyLtEBEBEB,
+                    // color: Colors.red,
+
                     child: TabBarView(children: [tabbarView1(), tabbarView2()]),
                   ),
                 )
@@ -100,7 +83,7 @@ class _HomeState extends State<Home> {
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 38.w),
-                    child: textL_grey16Robo(
+                    child: textL_grey14Robo(
                         "Create your community and connect with your friends, family, chefs and other aspiring cooks."),
                   ),
 
@@ -127,7 +110,8 @@ class _HomeState extends State<Home> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 9.h),
+            padding: EdgeInsets.fromLTRB(16.w, 9.h, 16.w, 0),
+            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 9.h),
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,

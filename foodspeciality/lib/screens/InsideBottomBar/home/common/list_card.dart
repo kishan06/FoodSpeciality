@@ -1,15 +1,160 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
+import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/common%20files/video_player_network.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
+import 'package:get/get.dart';
+
+Future<void> share() async {
+  await FlutterShare.share(
+    title: 'Example share',
+    // text: 'Example share text',
+    linkUrl: 'https://flutter.dev/',
+    // chooserTitle: 'Example Chooser Title'
+  );
+}
+
+Widget tileForlist() {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        width: 35.h,
+        height: 35.h,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.h),
+            image: const DecorationImage(
+                image: AssetImage("assets/home/profile.png"),
+                fit: BoxFit.fill)),
+      ),
+      sizedBoxWidth(10.w),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // textWhite17w500("George Smith"),
+          // e=
+          textBlack16SP("Chaitali tatkare"),
+
+          sizedBoxHeight(5.h),
+
+          // textgreyD12Robo("2 Days ago")
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.h),
+                color: AppColors.greyLtEBEBEB),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+              child: textgreyD10Robo("11:36"),
+            ),
+          ),
+
+          sizedBoxHeight(5.h),
+
+          Row(
+            children: [
+              SizedBox(
+                  // hei
+                  width: 290.w,
+                  child: textBlack15Robo(
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry..")),
+              sizedBoxWidth(10.w),
+              Column(
+                children: [
+                  // /
+                  Image.asset(
+                    "assets/icons/like.png",
+                    width: 20.w,
+                    height: 18.h,
+                  ),
+
+                  sizedBoxHeight(2.h),
+
+                  textgreyL12Robo("20")
+                ],
+              )
+            ],
+          ),
+
+          sizedBoxHeight(5.h),
+
+          textgreyM14Sp("Reply")
+
+          // textGrey15W500("21 Jan, 2022, 10:41 am")
+        ],
+      )
+    ],
+  );
+}
+
+Future<T?> commentbottomSheet<T>() {
+  return Get.bottomSheet(
+    Container(
+        height: 375.h,
+        // color: AppColors.white,
+        decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.h),
+                topRight: Radius.circular(20.h))),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+
+          // padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              // tileForlist()
+              Expanded(
+                child: ListView.builder(
+                  // physics: const NeverScrollableScrollPhysics(),
+                  // shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [tileForlist(), sizedBoxHeight(13.h)],
+                    );
+                  },
+                ),
+              ),
+
+              sizedBoxHeight(15.h),
+
+              CustomTextFormField(
+                  hintText: "Add a comment",
+                  validatorText: '',
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: SizedBox(
+                        height: 50.h,
+                        width: 40.w,
+                        child: Center(child: textgreyM14Sp("Send"))),
+                  ))
+            ],
+          ),
+        )),
+    // barrierColor: Colors.red[50],
+    // isDismissible: false,
+  );
+}
 
 Widget listCard() {
   return Container(
       // height: 425.h,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.h), color: AppColors.white),
+        borderRadius: BorderRadius.circular(25.h),
+        color: AppColors.white,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyL979797,
+            blurRadius: 2.h,
+            spreadRadius: 1.h,
+          ),
+        ],
+      ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 9.w),
         child: Column(
@@ -38,12 +183,15 @@ Widget listCard() {
                         children: [
                           // textWhite17w500("George Smith"),
                           // e=
-                          textgreyD16BoldSP("Priyanka Joshi"),
+                          GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/viewuser");
+                              },
+                              child: textgreyD16BoldSP("Priyanka Joshi")),
 
                           sizedBoxHeight(5.h),
 
-                          textgreyD14Robo("2 Days ago")
-                          // textgreyD12Robo("2 Days ago")
+                          textgreyD12Robo("2 Days ago")
 
                           // textGrey15W500("21 Jan, 2022, 10:41 am")
                         ],
@@ -82,25 +230,31 @@ Widget listCard() {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 80.w,
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.h),
-                              color: AppColors.white.withOpacity(0.5)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/icons/video.png",
-                                height: 10.h,
-                                width: 15.w,
-                              ),
-                              sizedBoxWidth(2.w),
-                              textgreyD12Robo("Video")
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed("/networkplayerwidget");
+                            // Get.to(AssetPlayerWidget());
+                          },
+                          child: Container(
+                            width: 80.w,
+                            height: 30.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.h),
+                                color: AppColors.white.withOpacity(0.5)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/icons/video.png",
+                                  height: 10.h,
+                                  width: 15.w,
+                                ),
+                                sizedBoxWidth(2.w),
+                                textgreyD12Robo("Video")
+                              ],
 
-                            // Image.asset("assets/icons/video.png"),
+                              // Image.asset("assets/icons/video.png"),
+                            ),
                           ),
                         ),
 
@@ -168,16 +322,28 @@ Widget listCard() {
                         height: 18.h,
                       ),
                       sizedBoxWidth(25.w),
-                      Image.asset(
-                        "assets/icons/comment.png",
-                        width: 20.w,
-                        height: 18.h,
+                      InkWell(
+                        onTap: () {
+                          commentbottomSheet();
+                        },
+                        child: Image.asset(
+                          "assets/icons/comment.png",
+                          width: 20.w,
+                          height: 18.h,
+                        ),
                       ),
                       sizedBoxWidth(25.w),
-                      Image.asset(
-                        "assets/icons/share.png",
-                        width: 20.w,
-                        height: 18.h,
+                      InkWell(
+                        onTap: share,
+                        // (){
+                        //   shar
+                        //   // Share.share('https://www.google.co.in/');
+                        // },
+                        child: Image.asset(
+                          "assets/icons/share.png",
+                          width: 20.w,
+                          height: 18.h,
+                        ),
                       ),
                     ],
                   ),

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:foodspeciality/login.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
+import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:foodspeciality/screens/create_account.dart';
 import 'package:foodspeciality/screens/discovery_recipe.dart';
+import 'package:foodspeciality/screens/followUser.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
+import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
+import 'package:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
-import 'package:foodspeciality/viewUser.dart';
+import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:get/get.dart';
+
+import 'common files/video_player_network.dart';
+import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +56,18 @@ class _MyAppState extends State<MyApp> {
           GetPage(
               name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
           GetPage(name: "/viewuser", page: () => viewUser()),
-          GetPage(name: "/bottomBar", page: () => NewStateless()),
+          GetPage(name: "/followuser", page: () => followUser()),
+          GetPage(name: "/bottomBar", page: () => BottomBar()),
+          GetPage(
+              name: "/communityaddparticipants",
+              page: () => communityAddParticipants()),
+          GetPage(
+              name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
+          GetPage(name: "/myProfile", page: () => myProfile()),
+          GetPage(
+              name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
+          GetPage(name: "/setting", page: () => Setting()),
+          GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
         ],
       ),
     );
