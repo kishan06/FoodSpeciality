@@ -8,7 +8,7 @@ class AppColors {
   static const greyL979797 = Color(0xff979797);
   static const greyLtEBEBEB = Color(0xffEBEBEB);
   static const greyM707070CC = Color(0xff707070CC);
-  static const grey6B6B6B = Color(0xff6B6B6B);
-  static const greyABABAB = Color(0xffABABAB);
+  static const lightBlueF2F2F2 = Color(0xffF2F2F2);
+
   static const black = Colors.black;
 }

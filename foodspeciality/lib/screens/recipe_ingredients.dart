@@ -41,7 +41,7 @@ class _RecipeIngState extends State<RecipeIng> {
                         child: Text(
                           "Preview",
                           style: TextStyle(
-                              color: AppColors.greyABABAB,
+                              color: Color(0xffABABAB),
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               fontSize: 16.sp),

@@ -35,7 +35,7 @@ Widget followButton(String text, {required void Function()? onPressed}) {
             borderRadius: BorderRadius.circular(8.h),
           ),
         ),
-        child: textWhite14RoboBold(text),
+        child: textWhite18Robo(text),
         onPressed: onPressed),
   );
 }

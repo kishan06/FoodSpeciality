@@ -52,7 +52,7 @@ class _GridviewState extends State<Gridview> {
                                 3.0, // Move to right 5  horizontally
                                 3.0, // Move to bottom 5 Vertically
                               ),
-                            )
+                            ),
                           ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
