@@ -416,7 +416,7 @@ class _BottomBarState extends State<BottomBar> {
         width: 35.h,
         color: AppColors.greyL979797,
       ),
-      sizedBoxHeight(2.h),
+      sizedBoxHeight(5.h),
       CircleAvatar(
         radius: 5.h,
         backgroundColor: Colors.transparent,

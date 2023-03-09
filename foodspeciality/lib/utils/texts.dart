@@ -254,3 +254,102 @@ Widget textWhite16RoboBold(String title) {
         fontFamily: "Roboto"),
   );
 }
+
+Widget textgreyM18SpM(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack20SP_Med(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textgreyM16Sp(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070,
+        fontSize: 16.sp,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textWhite12Sp(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.white, fontSize: 12.sp, fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack20SP_Bold(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.black,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textBlack14Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        // decoration: TextDecoration.underline,
+        color: AppColors.black,
+        fontSize: 14.sp,
+        // fontWeight: FontWeight.w500,
+        fontFamily: "Roboto"),
+  );
+}
+
+Widget textgreyM16Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070, fontSize: 16.sp, fontFamily: "Roboto"),
+  );
+}
+
+Widget textgreyD16MedSP(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyD3B3F43,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: "StudioProR"),
+  );
+}
+
+Widget textgreyM14Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyM707070, fontSize: 14.sp, fontFamily: "Roboto"),
+  );
+}

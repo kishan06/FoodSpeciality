@@ -389,11 +389,19 @@ Widget listCard() {
                                 fit: BoxFit.fill)),
                       ),
                       sizedBoxWidth(5.w),
-                      textgreyL12Robo("Add a comment")
+                      InkWell(
+                          onTap: () {
+                            commentbottomSheet();
+                          },
+                          child: textgreyL12Robo("Add a comment"))
                     ],
                   ),
 
-                  textgreyD12Robo("View Recipe >")
+                  InkWell(
+                      onTap: () {
+                        Get.toNamed("/InspirationRecipeComment");
+                      },
+                      child: textgreyD12Robo("View Recipe >"))
 
                   // followButton("Follow",
                   //   onPressed: (){
