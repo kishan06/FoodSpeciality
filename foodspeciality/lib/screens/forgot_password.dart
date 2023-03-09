@@ -68,7 +68,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               CustomNextButton(
                 ontap: () {
-                  Get.toNamed("/resetPass");
+                  Get.toNamed("/otpverification");
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
