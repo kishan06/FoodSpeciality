@@ -10,10 +10,12 @@ import 'package:foodspeciality/screens/followUser.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
+import 'package:foodspeciality/screens/otpScreen.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
+import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:get/get.dart';
 
@@ -46,10 +48,12 @@ class _MyAppState extends State<MyApp> {
         // home: LoginScreen(),  title: 'FreeU',
         initialRoute: '/',
         getPages: [
+          //SplashScreen2()
           GetPage(name: '/', page: () => SplashScreen2()),
           GetPage(name: "/onboard", page: () => OnBoarding()),
           GetPage(name: "/login", page: () => Login()),
           GetPage(name: "/forgetPass", page: () => ForgotPassword()),
+          GetPage(name: "/otpverification", page: () => otpVerification()),
           GetPage(name: "/createAcc", page: () => CreateAccountScreen()),
           GetPage(name: "/resetPass", page: () => ResetPassword()),
           GetPage(name: "/signUpProfile", page: () => SignupProfile()),
@@ -68,6 +72,7 @@ class _MyAppState extends State<MyApp> {
               name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
           GetPage(name: "/setting", page: () => Setting()),
           GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
+          GetPage(name: "/notification", page: () => UserNotifications()),
         ],
       ),
     );
