@@ -12,6 +12,10 @@ Widget searchNotification() {
       children: [
         Expanded(
           child: CustomTextFormField(
+            onTap: () {
+              Get.toNamed("/SearchPage");
+            },
+            readonly: true,
             hintText: "search recipes, ingredients or tips",
             validatorText: "",
             leadingIcon: Icon(

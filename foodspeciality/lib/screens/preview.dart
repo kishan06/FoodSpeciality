@@ -113,7 +113,7 @@ class _PreviewState extends State<Preview> {
                 height: 258,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/Mask Group 14.png"),
+                    image: AssetImage("assets/home/food.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -563,8 +563,7 @@ class _PreviewState extends State<Preview> {
                             ),
                           ],
                         ),
-                        const Image(
-                            image: AssetImage("assets/Mask Group 24.png"))
+                        const Image(image: AssetImage("assets/ladoo.png"))
                       ],
                     ),
                   ),
@@ -606,8 +605,7 @@ class _PreviewState extends State<Preview> {
                             ),
                           ],
                         ),
-                        const Image(
-                            image: AssetImage("assets/Mask Group 25.png"))
+                        const Image(image: AssetImage("assets/greenveg.png"))
                       ],
                     ),
                   ),

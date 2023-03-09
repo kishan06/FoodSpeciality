@@ -406,7 +406,7 @@ class _UserNotificationsState extends State<UserNotifications> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            Get.back();
                           },
                           child: Padding(
                             padding: EdgeInsets.only(right: 10.w),
@@ -490,7 +490,7 @@ class _UserNotificationsState extends State<UserNotifications> {
                                         borderRadius:
                                             BorderRadius.circular(8.sp))),
                                 onPressed: () {
-                                  buildSubscriptionPlan();
+                                  Get.back();
                                 },
                                 child: Text(
                                   "Accept",
@@ -515,7 +515,7 @@ class _UserNotificationsState extends State<UserNotifications> {
                                         borderRadius:
                                             BorderRadius.circular(8.sp))),
                                 onPressed: () {
-                                  buildSubscriptionPlan();
+                                  Get.back();
                                 },
                                 child: Text(
                                   "Reject",

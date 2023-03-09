@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomTextFormField extends StatefulWidget {
   CustomTextFormField({
@@ -10,11 +11,13 @@ class CustomTextFormField extends StatefulWidget {
     required this.validatorText,
     this.textEditingController,
     this.leadingIcon,
+    this.onTap,
     this.suffixIcon,
     this.readonly = false,
     this.isInputPassword = false,
     this.outlineColor = const Color(0xFFFFB600),
     // this.keyboardType,
+    this.suffixIconConstraints,
     this.texttype,
   }) : super(key: key);
 
@@ -25,9 +28,11 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? leadingIcon;
   final Widget? suffixIcon;
   final bool isInputPassword;
+  void Function()? onTap;
   final bool readonly;
   final dynamic inputFormatters;
   final Color outlineColor;
+  final BoxConstraints? suffixIconConstraints;
 
   final TextInputType? texttype;
 
@@ -50,12 +55,15 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         style: TextStyle(
           fontSize: 16.sm,
         ),
+        // onTap: ontap,
         readOnly: widget.readonly,
         cursorColor: const Color(0xFF3B3F43),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: obscureText,
         controller: widget.textEditingController,
+        onTap: widget.onTap,
         decoration: InputDecoration(
+          suffixIconConstraints: BoxConstraints(),
           contentPadding: EdgeInsets.all(17),
           filled: true,
           fillColor: Colors.white,
