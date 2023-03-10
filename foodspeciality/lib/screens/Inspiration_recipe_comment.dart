@@ -5,6 +5,8 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:get/get.dart';
 
+import 'filter_bottom_sheet.dart';
+
 class InspirationRecipeComment extends StatefulWidget {
   const InspirationRecipeComment({super.key});
 
@@ -93,7 +95,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                       height: 258,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/home/food.png"),
+                          image: AssetImage("assets/Mask Group 14.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -304,7 +306,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   Column(
                     children: [
                       Image.asset(
-                        'assets/icons/like.png',
+                        'assets/like-svgrepo-com.png',
                         height: 17.h,
                       ),
                       Text(
@@ -318,7 +320,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   Column(
                     children: [
                       Image.asset(
-                        'assets/icons/comment.png',
+                        'assets/comment-blank-svgrepo-com.png',
                         height: 17.h,
                       ),
                       Text(
@@ -329,8 +331,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                     ],
                   ),
                   sizedBoxWidth(20.w),
-                  Image.asset(
-                    'assets/icons/share.png',
+                  SvgPicture.asset(
+                    'assets/share-svgrepo-com.svg',
                     height: 17.h,
                   )
                 ],
@@ -339,8 +341,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                 children: [
                   Column(
                     children: [
-                      SvgPicture.asset(
-                        'assets/Bookmark.svg',
+                      Image.asset(
+                        'assets/bookmark-svgrepo-com.png',
                         height: 19.h,
                       ),
                       Text(
@@ -418,7 +420,9 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.sp))),
                       onPressed: () {
+                        FilterBottomSheet();
                         // Get.to(const RecipeIngredientsTapbar());
+                        // Get.to(const FilterBottomSheet());
                       },
                       child: Text(
                         "Following",
@@ -546,7 +550,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                 ),
                 sizedBoxHeight(23.h),
                 SizedBox(
-                    height: 900,
+                    height: 1700.h,
                     child: TabBarView(children: [
                       _recipeTabbarView(),
                       Padding(
@@ -796,7 +800,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           ),
                         ],
                       ),
-                      const Image(image: AssetImage("assets/ladoo.png"))
+                      const Image(image: AssetImage("assets/Mask Group 24.png"))
                     ],
                   ),
                 ),
@@ -838,7 +842,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           ),
                         ],
                       ),
-                      const Image(image: AssetImage("assets/greenveg.png"))
+                      const Image(
+                          image: AssetImage("assets/Mask Group 25.png")),
                     ],
                   ),
                 ),
@@ -848,6 +853,279 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             ],
           ),
         ),
+        const Divider(
+          height: 0,
+        ),
+        sizedBoxHeight(20.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                'Other Recipes By @Priyujoshi',
+                style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
+              ),
+            ),
+          ],
+        ),
+        sizedBoxHeight(20.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: SizedBox(
+                  height: 150.h,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 93.h,
+                              width: 115.w,
+                              decoration: BoxDecoration(
+                                  image: const DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image:
+                                          AssetImage('assets/Chocolate 2.png')),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(9.r),
+                                      topRight: Radius.circular(9.r))),
+                            ),
+                            Material(
+                              borderRadius: BorderRadius.circular(9.sp),
+                              elevation: 1.2,
+                              child: Container(
+                                height: 49.h,
+                                width: 115.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(9.r),
+                                        bottomRight: Radius.circular(9.r))),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    sizedBoxHeight(3.5.h),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 7.4.w),
+                                      child: Text(
+                                        'Slappappoffer Recipe',
+                                        style: TextStyle(
+                                            fontSize: 8.sp,
+                                            fontFamily: 'Roboto'),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 7.4.w),
+                                      child: Text(
+                                        '@Priyujoshi',
+                                        style: TextStyle(
+                                            color: const Color(0xff6B6B6B),
+                                            fontSize: 5.sp,
+                                            fontFamily: 'Roboto'),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        sizedBoxWidth(8.w),
+                                        Image.asset(
+                                          'assets/like-svgrepo-com.png',
+                                          height: 10.h,
+                                          width: 11.8.w,
+                                        ),
+                                        Text(
+                                          '23k',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                        sizedBoxWidth(16.w),
+                                        Image.asset(
+                                          'assets/comment-blank-svgrepo-com.png',
+                                          height: 9.7.h,
+                                          width: 10.18.w,
+                                        ),
+                                        Text(
+                                          '150',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                        sizedBoxWidth(16.w),
+                                        Image.asset(
+                                          'assets/bookmark-svgrepo-com.png',
+                                          height: 9.h,
+                                          width: 6.8.w,
+                                        ),
+                                        Text(
+                                          '50',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          width: 11.3.w,
+                        );
+                      },
+                      itemCount: 5),
+                ),
+              ),
+            ],
+          ),
+        ),
+        sizedBoxHeight(20.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                'Similar Recipes',
+                style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
+              ),
+            ),
+          ],
+        ),
+        sizedBoxHeight(20.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: SizedBox(
+                  height: 150.h,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 93.h,
+                              width: 115.w,
+                              decoration: BoxDecoration(
+                                  image: const DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image:
+                                          AssetImage('assets/Chocolate 2.png')),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(9.r),
+                                      topRight: Radius.circular(9.r))),
+                              // child: Image.asset(
+                              //   'assets/Chocolate 2.png',
+                              //   fit: BoxFit.cover,
+                              // ),
+                            ),
+                            Material(
+                              borderRadius: BorderRadius.circular(9.sp),
+                              elevation: 1.2,
+                              child: Container(
+                                height: 49.h,
+                                width: 115.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(9.r),
+                                        bottomRight: Radius.circular(9.r))),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    sizedBoxHeight(3.5.h),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 7.4.w),
+                                      child: Text(
+                                        'Slappappoffer Recipe',
+                                        style: TextStyle(
+                                            fontSize: 8.sp,
+                                            fontFamily: 'Roboto'),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 7.4.w),
+                                      child: Text(
+                                        '@Priyujoshi',
+                                        style: TextStyle(
+                                            color: const Color(0xff6B6B6B),
+                                            fontSize: 5.sp,
+                                            fontFamily: 'Roboto'),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        sizedBoxWidth(8.w),
+                                        Image.asset(
+                                          'assets/like-svgrepo-com.png',
+                                          height: 10.h,
+                                          width: 11.8.w,
+                                        ),
+                                        Text(
+                                          '23k',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                        sizedBoxWidth(16.w),
+                                        Image.asset(
+                                          'assets/comment-blank-svgrepo-com.png',
+                                          height: 9.7.h,
+                                          width: 10.18.w,
+                                        ),
+                                        Text(
+                                          '150',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                        sizedBoxWidth(16.w),
+                                        Image.asset(
+                                          'assets/bookmark-svgrepo-com.png',
+                                          height: 9.h,
+                                          width: 6.8.w,
+                                        ),
+                                        Text(
+                                          '50',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          width: 11.3.w,
+                        );
+                      },
+                      itemCount: 5),
+                ),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -921,7 +1199,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                         children: [
                           sizedBoxHeight(25.h),
                           Image.asset(
-                            'assets/icons/like.png',
+                            'assets/like-svgrepo-com.png',
                             height: 17.h,
                           ),
                           Text(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/CommunityConversationList.dart';
+import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 class ChatCommunityPage extends StatefulWidget {
@@ -90,7 +92,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // CustomAppBarWithNotification(titleTxt: "Chats"),
               Padding(
                 padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                 child: TextField(
@@ -140,7 +141,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SizedBox(
@@ -180,161 +180,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                       showDialog(
                           context: context,
                           builder: (context) => addCommunityDailog());
-
-                      // Get.defaultDialog(
-                      //   // contentPadding: EdgeInsets.all(0),
-                      //   title: "",
-                      //   content: Stack(
-                      //     clipBehavior: Clip.none,
-                      //     children: [
-                      //       Column(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         children: [
-                      //           Row(
-                      //             mainAxisAlignment: MainAxisAlignment.end,
-                      //             children: [
-                      //               Icon(Icons.close),
-                      //             ],
-                      //           ),
-                      //           SizedBox(
-                      //             height: 10.h,
-                      //           ),
-                      //           TextFormField(
-                      //             decoration: InputDecoration(
-                      //               border: UnderlineInputBorder(
-                      //                 borderSide: BorderSide(
-                      //                     width: 2, color: Color(0xFF979797)),
-                      //               ),
-                      //               focusedBorder: UnderlineInputBorder(
-                      //                 borderSide: BorderSide(
-                      //                   width: 2,
-                      //                   color: Color(0xFF979797),
-                      //                 ),
-                      //               ),
-                      //               contentPadding: EdgeInsets.all(17),
-                      //               filled: true,
-                      //               fillColor: Colors.white,
-                      //               hintStyle: TextStyle(
-                      //                   color: Color(0xFF54595F63),
-                      //                   fontSize: 20.sm,
-                      //                   fontFamily: "StudioProR"),
-                      //               hintText: "Community Name",
-                      //             ),
-                      //             textAlign: TextAlign.center,
-                      //           ),
-                      //           SizedBox(
-                      //             height: 10,
-                      //           ),
-                      //           TextFormField(
-                      //             cursorColor: const Color(0xFFFFB600),
-                      //             autovalidateMode:
-                      //                 AutovalidateMode.onUserInteraction,
-                      //             decoration: InputDecoration(
-                      //               contentPadding: EdgeInsets.all(14),
-                      //               filled: true,
-                      //               fillColor: Colors.white,
-                      //               border: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(10),
-                      //                 borderSide: BorderSide(
-                      //                     color: Color(0xFF979797), width: 0.5),
-                      //               ),
-                      //               enabledBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(10),
-                      //                 borderSide: BorderSide(
-                      //                     color: Color(0xFF979797), width: 0.5),
-                      //               ),
-                      //               focusedBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(10),
-                      //                 borderSide: BorderSide(
-                      //                     color: Color(0xFF979797), width: 0.5),
-                      //               ),
-                      //               errorBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: const BorderSide(
-                      //                     color: Colors.red, width: 1),
-                      //               ),
-                      //               focusedErrorBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: const BorderSide(
-                      //                     color: Colors.red, width: 1),
-                      //               ),
-                      //               hintStyle: TextStyle(
-                      //                   fontFamily: "StudioProR",
-                      //                   color: Color(0x80000000),
-                      //                   fontSize: 17.sm),
-                      //               hintText: "Community Description",
-                      //             ),
-                      //             minLines: 5,
-                      //             maxLines: null,
-                      //           ),
-                      //           SizedBox(
-                      //             height: 20.h,
-                      //           ),
-                      //           SizedBox(
-                      //             height: 50.h,
-                      //             width: 170.w,
-                      //             child: ElevatedButton(
-                      //               style: ElevatedButton.styleFrom(
-                      //                 elevation: 0,
-                      //                 // ignore: deprecated_member_use
-                      //                 primary: const Color(0xFF3B3F43),
-                      //                 shape: RoundedRectangleBorder(
-                      //                   side: const BorderSide(
-                      //                       color: Color(0xFF707070)),
-                      //                   borderRadius:
-                      //                       BorderRadius.circular(8.h),
-                      //                 ),
-                      //               ),
-                      //               child: Text(
-                      //                 "Next",
-                      //                 style: TextStyle(
-                      //                   color: Colors.white,
-                      //                   fontSize: 18.sm,
-                      //                   fontFamily: 'StudioProR',
-                      //                 ),
-                      //               ),
-                      //               onPressed: () {
-                      //                 Get.toNamed("communityaddparticipants");
-                      //               },
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       Positioned(
-                      //         left: 90,
-                      //         top: -70,
-                      //         child: Container(
-                      //           decoration: BoxDecoration(
-                      //             color: Colors.white,
-                      //             shape: BoxShape.circle,
-                      //             boxShadow: [
-                      //               BoxShadow(
-                      //                   blurRadius: 60,
-                      //                   color: Colors.grey,
-                      //                   spreadRadius: 0)
-                      //             ],
-                      //           ),
-                      //           child: CircleAvatar(
-                      //             backgroundColor: Colors.white,
-                      //             //  foregroundColor: Colors.white,
-                      //             radius: 44,
-                      //             child:
-                      //                 SvgPicture.asset("assets/community.svg"),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   // title: "Welcome to Flutter Dev'S",
-                      //   // middleText:
-                      //   //     "FlutterDevs is a protruding flutter app development company with "
-                      //   //     "an extensive in-house team of 30+ seasoned professionals who know "
-                      //   //     "exactly what you need to strengthen your business across various dimensions",
-                      //   backgroundColor: Colors.white,
-                      //   titleStyle: TextStyle(fontSize: 0),
-                      //   // middleTextStyle: TextStyle(color: Colors.white),
-                      //   radius: 10
-                      // );
                     },
                   ),
                 ),
@@ -347,146 +192,161 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
   }
 
   Widget addCommunityDailog() {
-    return AlertDialog(
-      insetPadding: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      // contentPadding: const EdgeInsets.all(0),
-      content: Container(
-        // height: 350.h,
-        // width: 398.w,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(Icons.close),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 2, color: Color(0xFF979797)),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color(0xFF979797),
-                      ),
-                    ),
-                    contentPadding: EdgeInsets.all(17),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintStyle: TextStyle(
-                        color: Color(0xFF54595F63),
-                        fontSize: 20.sm,
-                        fontFamily: "StudioProR"),
-                    hintText: "Community Name",
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  cursorColor: const Color(0xFFFFB600),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(14),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Color(0xFF979797), width: 0.5),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Color(0xFF979797), width: 0.5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Color(0xFF979797), width: 0.5),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.red, width: 1),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.red, width: 1),
-                    ),
-                    hintStyle: TextStyle(
-                        fontFamily: "StudioProR",
-                        color: Color(0x80000000),
-                        fontSize: 17.sm),
-                    hintText: "Community Description",
-                  ),
-                  minLines: 5,
-                  maxLines: null,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SizedBox(
-                  height: 50.h,
-                  width: 170.w,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      // ignore: deprecated_member_use
-                      primary: const Color(0xFF3B3F43),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xFF707070)),
-                        borderRadius: BorderRadius.circular(8.h),
-                      ),
-                    ),
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sm,
-                        fontFamily: 'StudioProR',
-                      ),
-                    ),
-                    onPressed: () {
-                      Get.toNamed("communityaddparticipants");
-                    },
-                  ),
-                ),
-              ],
+    return Dialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      insetPadding: EdgeInsets.all(16.w),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.h),
+              color: AppColors.white,
             ),
-            Positioned(
-              left: 90,
-              top: -70,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 25.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          size: 30.h,
+                          color: AppColors.greyM707070,
+                        ),
+                      ),
+                    ],
+                  ),
+                  sizedBoxHeight(35.h),
+                  SizedBox(
+                    width: 200.w,
+                    height: 24.h,
+                    child: TextFormField(
+                      style: TextStyle(
+                          color: Color(0xFF979797),
+                          fontSize: 20.sp,
+                          fontFamily: "StudioProR"),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintStyle: TextStyle(
+                            color: Color(0xFF979797),
+                            fontSize: 20.sp,
+                            fontFamily: "StudioProR"),
+                        hintText: "Community Name",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  sizedBoxHeight(15.h),
+                  TextFormField(
+                    style: TextStyle(
+                        color: Color(0xFF979797),
+                        fontSize: 20.sp,
+                        fontFamily: "StudioProR"),
+                    cursorColor: const Color(0xFFFFB600),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(14),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1),
+                      ),
+                      hintStyle: TextStyle(
+                          fontFamily: "StudioProR",
+                          color: Color(0x80000000),
+                          fontSize: 17.sm),
+                      hintText: "Community Description",
+                    ),
+                    minLines: 4,
+                    maxLines: null,
+                  ),
+                  sizedBoxHeight(15.h),
+                  SizedBox(
+                    height: 50.h,
+                    width: 170.w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        // ignore: deprecated_member_use
+                        primary: const Color(0xFF3B3F43),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(color: Color(0xFF707070)),
+                          borderRadius: BorderRadius.circular(8.h),
+                        ),
+                      ),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sm,
+                          fontFamily: 'StudioProR',
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.toNamed("communityaddparticipants");
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned.fill(
+            top: -50.h,
+            child: Align(
+              alignment: Alignment.topCenter,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                        blurRadius: 60, color: Colors.grey, spreadRadius: 0)
+                        blurRadius: 5.w,
+                        color: AppColors.greyL979797,
+                        spreadRadius: 2.w)
                   ],
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  //  foregroundColor: Colors.white,
-                  radius: 44,
+                  radius: 50.h,
                   child: SvgPicture.asset("assets/community.svg"),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -81,21 +81,22 @@ class _BlockListFullState extends State<BlockListFull> {
                 SizedBox(
                   height: 31.h,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          side: BorderSide(
-                              width: 1.sp, color: const Color(0xff3B3F43)),
-                          elevation: 0,
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {},
-                      child: Text(
-                        "Unblock",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: const Color(0xff3B3F43)),
-                      )),
+                    style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                            width: 1.sp, color: const Color(0xff3B3F43)),
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.sp))),
+                    onPressed: () {},
+                    child: Text(
+                      "Unblock",
+                      style: TextStyle(
+                          fontFamily: 'Studio Pro',
+                          fontSize: 14.sp,
+                          color: const Color(0xff3B3F43)),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 16.w,
@@ -148,10 +149,11 @@ class _BlockListFullState extends State<BlockListFull> {
                       Text(
                         "Sandeep Kanojia",
                         style: TextStyle(
-                            fontFamily: "StudioProR",
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF54595F)),
+                          fontFamily: "StudioProR",
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF54595F),
+                        ),
                       ),
                       SizedBox(
                         height: 5.h,
@@ -171,21 +173,23 @@ class _BlockListFullState extends State<BlockListFull> {
                   SizedBox(
                     height: 31.h,
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            side: BorderSide(
-                                width: 1.sp, color: const Color(0xff3B3F43)),
-                            elevation: 0,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.sp))),
-                        onPressed: () {},
-                        child: Text(
-                          "Unblock",
-                          style: TextStyle(
-                              fontFamily: 'Studio Pro',
-                              fontSize: 14.sp,
-                              color: const Color(0xff3B3F43)),
-                        )),
+                      style: ElevatedButton.styleFrom(
+                          side: BorderSide(
+                              width: 1.sp, color: const Color(0xff3B3F43)),
+                          elevation: 0,
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.sp))),
+                      onPressed: () {},
+                      child: Text(
+                        "Unblock",
+                        style: TextStyle(
+                          fontFamily: 'Studio Pro',
+                          fontSize: 14.sp,
+                          color: const Color(0xff3B3F43),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 16.w,
