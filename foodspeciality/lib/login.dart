@@ -64,7 +64,8 @@ class _LoginState extends State<Login> {
                     validatorText: "",
                     suffixIcon: Image.asset(
                       "assets/style=linear.png",
-                      color: Color(0xFF54595F),
+                      height: 20.h,
+                      width: 17.w,
                     ),
                   ),
                   // SizedBox(

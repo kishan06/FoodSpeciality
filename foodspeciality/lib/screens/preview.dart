@@ -10,8 +10,42 @@ class Preview extends StatefulWidget {
   State<Preview> createState() => _PreviewState();
 }
 
-class _PreviewState extends State<Preview> {
+class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
+  bool more = false;
+  TabController? _tabController;
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController!.addListener(() {
+      setState(() {
+        switch (_tabController!.index) {
+          case 0:
+            _selectedIndex = 0;
+
+            break;
+          case 1:
+            _selectedIndex = 1;
+
+            break;
+          case 2:
+            _selectedIndex = 2;
+
+            break;
+          default:
+            _selectedIndex = 3;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController!.dispose();
+  }
 
   Color _getTabColor(int index) {
     if (index == _selectedIndex) {
@@ -149,6 +183,7 @@ class _PreviewState extends State<Preview> {
                           height: 27,
                           width: double.infinity,
                           child: TabBar(
+                              controller: _tabController,
                               onTap: (int index) {
                                 setState(() {
                                   _selectedIndex = index;
@@ -283,6 +318,7 @@ class _PreviewState extends State<Preview> {
               SizedBox(
                 height: 500,
                 child: TabBarView(
+                  controller: _tabController,
                   children: [
                     DataTabBarView(),
                     DataTabBarView(),
