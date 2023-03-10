@@ -13,8 +13,36 @@ class RecipeIng extends StatefulWidget {
   State<RecipeIng> createState() => _RecipeIngState();
 }
 
-class _RecipeIngState extends State<RecipeIng> {
-  bool? _visible = false;
+class _RecipeIngState extends State<RecipeIng>
+    with SingleTickerProviderStateMixin {
+  // bool? _visible = false;
+  TabController? _tabController;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController!.addListener(() {
+      setState(() {
+        switch (_tabController!.index) {
+          case 0:
+            _currentIndex = 0;
+            break;
+          case 1:
+            _currentIndex = 1;
+            break;
+          default:
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +58,18 @@ class _RecipeIngState extends State<RecipeIng> {
           ),
           actions: [
             Visibility(
-                visible: _visible!,
+                visible: _currentIndex == 0 ? false : true,
                 child: Row(
                   children: [
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(Preview());
+                          Get.to(const Preview());
                         },
                         child: Text(
                           "Preview",
                           style: TextStyle(
-                              color: Color(0xffABABAB),
+                              color: const Color(0xffABABAB),
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               fontSize: 16.sp),
@@ -66,18 +94,19 @@ class _RecipeIngState extends State<RecipeIng> {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20),
             child: TabBar(
-              onTap: (value) {
-                if (value == 0) {
-                  setState(() {
-                    _visible = false;
-                  });
-                } else {
-                  setState(() {
-                    _visible = true;
-                  });
-                }
-                ;
-              },
+              controller: _tabController,
+              // onTap: (value) {
+              //   if (value == 0) {
+              //     setState(() {
+              //       _visible = false;
+              //     });
+              //   } else {
+              //     setState(() {
+              //       _visible = true;
+              //     });
+              //   }
+              //   ;
+              // },
               indicator: UnderlineTabIndicator(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(width: 2.5.sp),
@@ -115,7 +144,8 @@ class _RecipeIngState extends State<RecipeIng> {
             ),
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
+            controller: _tabController,
             children: [RecipeTabbarView(), IngredientsTabbatview()]),
       ),
     );

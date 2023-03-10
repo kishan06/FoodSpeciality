@@ -5,13 +5,15 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import 'customSearchTextfield.dart';
+
 Widget searchNotification() {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 17.h),
     child: Row(
       children: [
         Expanded(
-          child: CustomTextFormField(
+          child: CustomSearchTextFormField(
             onTap: () {
               Get.toNamed("/SearchPage");
             },
