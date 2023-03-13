@@ -22,6 +22,76 @@ class _JoinChallengeState extends State<JoinChallenge> {
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(86),
+                  child: Material(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(14),
+                        topRight: Radius.circular(14)),
+                    // shape: Border.all(color: Colors.white),
+                    color: Colors.white,
+                    elevation: 2,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      height: 86.h,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          sizedBoxWidth(9.w),
+                          CircularPercentIndicator(
+                            radius: 28.r,
+                            percent: 0.72,
+                            startAngle: 320,
+                            progressColor: const Color(0xff3B3F43),
+                            lineWidth: 2,
+                            center: const Icon(
+                              Icons.calendar_today_outlined,
+                              size: 18,
+                            ),
+                          ),
+                          sizedBoxWidth(10.w),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '2 Days Left',
+                                style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontFamily: 'StudioProM',
+                                    color: const Color(0xff3B3F43)),
+                              ),
+                              sizedBoxHeight(5.h),
+                              LinearPercentIndicator(
+                                barRadius: Radius.circular(5.r),
+                                padding: const EdgeInsets.all(0),
+                                width: 186.w,
+                                percent: 0.4,
+                                progressColor: const Color(0xff979797),
+                                backgroundColor: const Color(0xffF2F2F2),
+                              ),
+                              // sizedBoxHeight(10.h)
+                            ],
+                          ),
+                          sizedBoxWidth(27.w),
+                          Text(
+                            'Submit recipe',
+                            style: TextStyle(
+                              fontFamily: 'StudioProM',
+                              fontSize: 14.sp,
+                              color: const Color(0xff3B3F43),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 16.sp,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 automaticallyImplyLeading: false,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
@@ -70,7 +140,7 @@ class _JoinChallengeState extends State<JoinChallenge> {
                                       fontFamily: "Roboto",
                                       fontSize: 16.sp),
                                 ),
-                                sizedBoxHeight(20.h),
+                                sizedBoxHeight(113.h),
                               ],
                             ),
                           ],
@@ -80,7 +150,7 @@ class _JoinChallengeState extends State<JoinChallenge> {
                   ),
                   centerTitle: true,
                 ),
-                expandedHeight: 220,
+                expandedHeight: 363,
                 backgroundColor: Colors.white,
               ),
               SliverList(
@@ -90,10 +160,7 @@ class _JoinChallengeState extends State<JoinChallenge> {
                     // physics: BouncingScrollPhysics(),
                     child: Container(
                       // padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.sp),
-                            topRight: Radius.circular(30.sp)),
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                       ),
                       width: double.infinity,
@@ -103,75 +170,6 @@ class _JoinChallengeState extends State<JoinChallenge> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            sizedBoxHeight(10.h),
-                            Material(
-                              shape: Border.all(color: Colors.transparent),
-                              color: Colors.white,
-                              elevation: 2,
-                              child: Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                height: 86.h,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    sizedBoxWidth(9.w),
-                                    CircularPercentIndicator(
-                                      radius: 28.r,
-                                      percent: 0.72,
-                                      startAngle: 320,
-                                      progressColor: const Color(0xff3B3F43),
-                                      lineWidth: 2,
-                                      center: const Icon(
-                                        Icons.calendar_today_outlined,
-                                        size: 18,
-                                      ),
-                                    ),
-                                    sizedBoxWidth(10.w),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '2 Days Left',
-                                          style: TextStyle(
-                                              fontSize: 10.sp,
-                                              fontFamily: 'StudioProM',
-                                              color: const Color(0xff3B3F43)),
-                                        ),
-                                        sizedBoxHeight(5.h),
-                                        LinearPercentIndicator(
-                                          barRadius: Radius.circular(5.r),
-                                          padding: const EdgeInsets.all(0),
-                                          width: 186.w,
-                                          percent: 0.4,
-                                          progressColor:
-                                              const Color(0xff979797),
-                                          backgroundColor:
-                                              const Color(0xffF2F2F2),
-                                        ),
-                                        // sizedBoxHeight(10.h)
-                                      ],
-                                    ),
-                                    sizedBoxWidth(27.w),
-                                    Text(
-                                      'Submit recipe',
-                                      style: TextStyle(
-                                        fontFamily: 'StudioProM',
-                                        fontSize: 14.sp,
-                                        color: const Color(0xff3B3F43),
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      size: 16.sp,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
                             // const Divider(
                             //     // color: const Color(0xff00000029),
                             //     ),

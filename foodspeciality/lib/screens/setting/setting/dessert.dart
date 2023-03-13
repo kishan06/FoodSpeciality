@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:get/get.dart';
 
 class Dessert extends StatefulWidget {
   const Dessert({super.key});
@@ -15,41 +14,78 @@ class _DessertState extends State<Dessert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBar(titleTxt: "Blogs"),
+        backgroundColor: Colors.white,
+        appBar: const CustomAppBar(titleTxt: "Blogs/News/Articles"),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
+              bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.sp),
+                            topRight: Radius.circular(30.sp)),
+                        color: Colors.white,
+                      ),
+                      width: double.infinity,
+                      height: 27.h,
+                      child: const Text(''))),
+              // leadingWidth: 132.w,
+              // leading: Container(
+              //   height: 38.h,
+              //   width: 135.w,
+              //   margin: EdgeInsets.only(
+              //     top: 14.h,
+              //     left: 18.w,
+              //   ),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(19.sp),
+              //     color: const Color.fromRGBO(59, 63, 67, 0.71),
+              //   ),
+              //   child: Center(
+              //     child: Text(
+              //       "Dessert",
+              //       style: TextStyle(
+              //           color: const Color(0xffffffff),
+              //           fontFamily: "Studio Pro",
+              //           fontSize: 18.sp),
+              //     ),
+              //   ),
+              // ),
               automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  children: [
-                    Image.asset("assets/Chocolate 2.png"),
-                    Container(
-                      margin: EdgeInsets.only(top: 14.h, left: 18.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(19.sp),
-                        color: const Color.fromRGBO(59, 63, 67, 0.71),
-                      ),
-                      height: 38.h,
-                      width: 135.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Dessert",
-                            style: TextStyle(
-                                color: const Color(0xffffffff),
-                                fontFamily: "Studio Pro",
-                                fontSize: 18.sp),
-                          ),
-                        ],
+                background: Container(
+                  height: 263,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/Chocolate 2.png'))),
+                  child: Container(
+                    height: 38.h,
+                    width: 135.w,
+                    margin: EdgeInsets.only(
+                        top: 14.h, left: 18.w, right: 280.w, bottom: 200.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(19.sp),
+                      color: const Color.fromRGBO(59, 63, 67, 0.71),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Dessert",
+                        style: TextStyle(
+                            color: const Color(0xffffffff),
+                            fontFamily: "Studio Pro",
+                            fontSize: 18.sp),
                       ),
                     ),
-                  ],
+                  ),
                 ),
                 centerTitle: true,
               ),
-              expandedHeight: 220,
+              expandedHeight: 263.h,
               backgroundColor: Colors.white,
             ),
             SliverList(
@@ -72,7 +108,7 @@ class _DessertState extends State<Dessert> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          sizedBoxHeight(27.h),
+                          // sizedBoxHeight(17.h),
                           Text(
                             "Kartikey Gautam",
                             style: TextStyle(
