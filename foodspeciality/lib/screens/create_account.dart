@@ -238,6 +238,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               //   ),
               // ),
               CustomTextFormField(
+                eyeIcon: true,
                 hintText: "Password",
                 validator: (value) {
                   if (value == value.isEmpty) {
@@ -274,6 +275,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               //   ),
               // ),
               CustomTextFormField(
+                eyeIcon: true,
                 hintText: "Confirm Password",
                 validator: (value) {
                   if (value == value.isEmpty) {

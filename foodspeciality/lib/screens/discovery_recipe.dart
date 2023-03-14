@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/common_elevatd_button.dart';
+import 'package:get/get.dart';
 
 class DiscoveryRecipesScreen extends StatefulWidget {
-  DiscoveryRecipesScreen({super.key});
+  const DiscoveryRecipesScreen({super.key});
 
   @override
   State<DiscoveryRecipesScreen> createState() => _DiscoveryRecipesScreenState();
@@ -29,7 +30,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                       fontFamily: "StudioProR",
                       fontSize: 25.h,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF54595F)),
+                      color: const Color(0xFF54595F)),
                 ),
               ),
               SizedBox(
@@ -42,7 +43,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                   style: TextStyle(
                       fontFamily: "Roboto",
                       fontSize: 16.sp,
-                      color: Color.fromRGBO(112, 112, 112, 1)),
+                      color: const Color.fromRGBO(112, 112, 112, 1)),
                 ),
               ),
               SizedBox(
@@ -51,7 +52,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               Container(
                 height: 50.h,
                 width: 250.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFEBEBEB),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
@@ -62,7 +63,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                     child: Text(
                   "South Africa Cuisine",
                   style: TextStyle(
-                      color: Color(0xFF414141),
+                      color: const Color(0xFF414141),
                       fontFamily: "StudioProR",
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w500),
@@ -73,58 +74,20 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.h),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          CommonElevatedButton(text: "Limpopo"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "Mpumalanga"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "North West"),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        children: [
-                          CommonElevatedButton(text: "Free-State"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "Eastern Cape"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "Western Cape"),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        children: [
-                          CommonElevatedButton(text: "KwaZulu-Natal"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "Northern Cape"),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          CommonElevatedButton(text: "Gauteng"),
-                        ],
-                      ),
-                    ],
-                  ),
+                child: Wrap(
+                  spacing: 15.w,
+                  runSpacing: 15.h,
+                  children: [
+                    CommonElevatedButton(text: "Limpopo"),
+                    CommonElevatedButton(text: "Mpumalanga"),
+                    CommonElevatedButton(text: "North West"),
+                    CommonElevatedButton(text: "Free-State"),
+                    CommonElevatedButton(text: "Eastern Cape"),
+                    CommonElevatedButton(text: "Western Cape"),
+                    CommonElevatedButton(text: "KwaZulu-Natal"),
+                    CommonElevatedButton(text: "Northern Cape"),
+                    CommonElevatedButton(text: "Gauteng"),
+                  ],
                 ),
               ),
               SizedBox(
@@ -133,7 +96,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               Container(
                 height: 50.h,
                 width: 250.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFEBEBEB),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
@@ -144,7 +107,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                     child: Text(
                   "International Cuisine",
                   style: TextStyle(
-                      color: Color(0xFF414141),
+                      color: const Color(0xFF414141),
                       fontFamily: "StudioProR",
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w500),
@@ -155,73 +118,22 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  spacing: 15.w,
+                  runSpacing: 15.h,
                   children: [
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Indian"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Japanese"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Italian"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Mexican"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Portuguese"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Moroccan"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Chinese"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "American"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Thai"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "German"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "French"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Spanish"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
+                    CommonElevatedButton(text: "Indian"),
+                    CommonElevatedButton(text: "Japanese"),
+                    CommonElevatedButton(text: "Italian"),
+                    CommonElevatedButton(text: "Mexican"),
+                    CommonElevatedButton(text: "Portuguese"),
+                    CommonElevatedButton(text: "Moroccan"),
+                    CommonElevatedButton(text: "Chinese"),
+                    CommonElevatedButton(text: "American"),
+                    CommonElevatedButton(text: "Thai"),
+                    CommonElevatedButton(text: "German"),
+                    CommonElevatedButton(text: "French"),
+                    CommonElevatedButton(text: "Spanish"),
                   ],
                 ),
               ),
@@ -231,7 +143,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               Container(
                 height: 50.h,
                 width: 250.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFEBEBEB),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
@@ -242,13 +154,13 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Text(
                       "Others",
                       style: TextStyle(
-                          color: Color(0xFF414141),
+                          color: const Color(0xFF414141),
                           fontFamily: "StudioProR",
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500),
@@ -261,90 +173,24 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  spacing: 15.w,
+                  runSpacing: 15.h,
                   children: [
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Make it yum !"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Quarter too quick"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Juicy Mondays"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "The healthy way"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Fry – day!"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "The future of Tradition"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Simple greens"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Deliciously diverse"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Meals for one!"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Get your veg on"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "From pizza, with love"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Follow the flavours"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        CommonElevatedButton(text: "Good mood food"),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                        CommonElevatedButton(text: "Make it Shhhnacky!"),
-                      ],
-                    ),
+                    CommonElevatedButton(text: "Make it yum !"),
+                    CommonElevatedButton(text: "Quarter too quick"),
+                    CommonElevatedButton(text: "Juicy Mondays"),
+                    CommonElevatedButton(text: "The healthy way"),
+                    CommonElevatedButton(text: "Fry – day!"),
+                    CommonElevatedButton(text: "The future of Tradition"),
+                    CommonElevatedButton(text: "Simple greens"),
+                    CommonElevatedButton(text: "Deliciously diverse"),
+                    CommonElevatedButton(text: "Meals for one!"),
+                    CommonElevatedButton(text: "Get your veg on"),
+                    CommonElevatedButton(text: "From pizza, with love"),
+                    CommonElevatedButton(text: "Follow the flavours"),
+                    CommonElevatedButton(text: "Good mood food"),
+                    CommonElevatedButton(text: "Make it Shhhnacky!"),
                   ],
                 ),
               ),
@@ -353,7 +199,11 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomNextButton(text: "Next"),
+                child: CustomNextButton(
+                    ontap: () {
+                      Get.toNamed('/bottomBar');
+                    },
+                    text: "Next"),
               ),
               SizedBox(
                 height: 50.h,

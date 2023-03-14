@@ -58,6 +58,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   height: 10.h,
                 ),
                 CustomTextFormField(
+                    eyeIcon: true,
                     hintText: "New Password",
                     validator: (value) {
                       if (value == value.isEmpty) {
@@ -112,6 +113,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   height: 10.h,
                 ),
                 CustomTextFormField(
+                    eyeIcon: true,
                     hintText: "Confirm Password",
                     validator: (value) {
                       if (value == value.isEmpty) {

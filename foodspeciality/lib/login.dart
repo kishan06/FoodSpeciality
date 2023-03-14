@@ -100,6 +100,11 @@ class _LoginState extends State<Login> {
                   // ),
                   SizedBox(height: 30.h),
                   CustomTextFormField(
+                    eyeIcon: true,
+                    // leadingIcon: IconButton(
+                    //     onPressed: () {}, icon: Icon(Icons.visibility)),
+                    // suffixIcon: IconButton(
+                    //     onPressed: () {}, icon: Icon(Icons.visibility_off)),
                     // leadingIcon: ,
                     hintText: "Password",
                     validator: (value) {
