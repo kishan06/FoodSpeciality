@@ -41,7 +41,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: const [
                   // Text(
                   //   "Enter Your Email",
                   //   style: textformstyle(""),
@@ -57,6 +57,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               CustomTextFormField(
                 hintText: "Email Address",
+                validator: (value) {
+                  if (value == value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 suffixIcon: Image.asset(
                   "assets/style=linear.png",

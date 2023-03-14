@@ -14,6 +14,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  String? _password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +43,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children: const [
                     // Text(
                     //   "New Password",
                     //   style: TextStyle(
@@ -58,6 +59,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 CustomTextFormField(
                     hintText: "New Password",
+                    validator: (value) {
+                      if (value == value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value.length < 8) {
+                        return 'Password must be at least 8 characters';
+                      }
+                      _password = value;
+                      return null;
+                    },
                     validatorText: "",
                     isInputPassword: true),
                 // SizedBox(
@@ -89,7 +100,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children: const [
                     // Text(
                     //   "Confirm Password",
                     //   style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
@@ -102,6 +113,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 CustomTextFormField(
                     hintText: "Confirm Password",
+                    validator: (value) {
+                      if (value == value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value != _password) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
                     validatorText: "",
                     isInputPassword: true),
                 // SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
@@ -62,6 +63,16 @@ class _LoginState extends State<Login> {
                   CustomTextFormField(
                     hintText: "Email Address",
                     validatorText: "",
+                    validator: (value) {
+                      if (value == value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
                     suffixIcon: Image.asset(
                       "assets/style=linear.png",
                       height: 20.h,
@@ -89,7 +100,17 @@ class _LoginState extends State<Login> {
                   // ),
                   SizedBox(height: 30.h),
                   CustomTextFormField(
+                    // leadingIcon: ,
                     hintText: "Password",
+                    validator: (value) {
+                      if (value == value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value.length < 8) {
+                        return 'Password must be at least 8 characters';
+                      }
+                      return null;
+                    },
                     validatorText: "", isInputPassword: true,
                     // suffixIcon: Padding(
                     //   padding: const EdgeInsets.only(right: 8.0),
@@ -236,6 +257,7 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
+                  sizedBoxHeight(20.h)
                   // SizedBox(
                   //   height: 50.h,
                   //   width: double.infinity,
