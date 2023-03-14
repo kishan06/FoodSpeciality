@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
+import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
@@ -43,19 +44,19 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     // searchNotification(),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 17.h),
                       // padding: const EdgeInsets.all(8.0),
-                      child: CustomTextFormField(
-                        hintText: "search recipes, ingredients or tips", 
+                      child: CustomSearchTextFormField(
+                        hintText: "search recipes, ingredients or tips",
                         validatorText: "",
-                        leadingIcon: Icon(Icons.search,
+                        leadingIcon: Icon(
+                          Icons.search,
                           size: 27.h,
                           color: AppColors.greyM707070,
                         ),
-                        suffixIconConstraints: BoxConstraints(
-                          maxWidth: 24.h,
-                          maxHeight: 24.h
-                        ),
+                        suffixIconConstraints:
+                            BoxConstraints(maxWidth: 24.h, maxHeight: 24.h),
                         suffixIcon: Padding(
                           padding: EdgeInsets.only(right: 17.w),
                           child: SvgPicture.asset(
@@ -73,12 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                   ],
                 ),
                 Expanded(
-                  child: TabBarView(
-                    children: [
-                      tabbarView1(), 
-                      tabbarView2()
-                    ]
-                  ),
+                  child: TabBarView(children: [tabbarView1(), tabbarView2()]),
                 )
               ],
             )),
@@ -91,16 +87,16 @@ class _SearchPageState extends State<SearchPage> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(17.w,15.h,0,0),
+            padding: EdgeInsets.fromLTRB(17.w, 15.h, 0, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textBlack20SP_Med("Quick Searches"),
-                  
+
                 textgreyM16Sp("South African Cuisine"),
-            
+
                 sizedBoxHeight(15.h),
-            
+
                 SizedBox(
                   height: 120.h,
                   child: ListView.separated(
@@ -116,13 +112,13 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
-            
+
                 sizedBoxHeight(26.h),
-            
+
                 textgreyM16Sp("International Cuisine"),
-            
+
                 sizedBoxHeight(14.h),
-            
+
                 SizedBox(
                   height: 120.h,
                   child: ListView.separated(
@@ -138,16 +134,14 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
-            
+
                 sizedBoxHeight(24.h),
-            
+
                 textBlack20SP_Med("Trending Tags"),
-            
+
                 // commonSelectButton()
                 sizedBoxHeight(13.h),
-            
-            
-            
+
                 SizedBox(
                   height: 30.h,
                   child: ListView.separated(
@@ -159,13 +153,13 @@ class _SearchPageState extends State<SearchPage> {
                     shrinkWrap: true,
                     itemCount: 6,
                     itemBuilder: (context, index) {
-                      return commonSelectButton(index,index + 1);
+                      return commonSelectButton(index, index + 1);
                     },
                   ),
                 ),
-            
+
                 sizedBoxHeight(8.h),
-            
+
                 SizedBox(
                   height: 30.h,
                   child: ListView.separated(
@@ -183,89 +177,84 @@ class _SearchPageState extends State<SearchPage> {
                 ),
 
                 sizedBoxHeight(20.h),
-            
+
                 textBlack20SP_Med("Popular Searches"),
-            
+
                 sizedBoxHeight(15.h),
-                
-            
               ],
             ),
           ),
-      
           Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-      
-          // padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 8,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.7,
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.w,
-              //  maxCrossAxisExtent: 200,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  Container(
-                    // height: 120.h,
-                    // width: 232.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.h),
-                        image: DecorationImage(
-                            image: index.isEven ? AssetImage("assets/home/food.png") : AssetImage("assets/Chocolate 2.png"),
-                            fit: BoxFit.fill)),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
 
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(10.w),
-                        child: textWhite18Robo(
-                          index.isEven ? "Bobotie" : "Ethiopian Doro Wat"
+            // padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 8,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1.7,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.w,
+                //  maxCrossAxisExtent: 200,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Stack(
+                  children: [
+                    Container(
+                      // height: 120.h,
+                      // width: 232.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.h),
+                          image: DecorationImage(
+                              image: index.isEven
+                                  ? AssetImage("assets/home/food.png")
+                                  : AssetImage("assets/Chocolate 2.png"),
+                              fit: BoxFit.fill)),
+
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: textWhite18Robo(
+                              index.isEven ? "Bobotie" : "Ethiopian Doro Wat"),
                         ),
                       ),
                     ),
-                  ),
 
-                  // Positioned(
-                  //   bottom: 10.h,
-                  //   right: 10.h,
-                  //   child: textWhite12Robo(
-                  //     index.isEven ? "Bobotie" : "Ethiopian Doro Wat"
-                  //   ),
-                  // )
+                    // Positioned(
+                    //   bottom: 10.h,
+                    //   right: 10.h,
+                    //   child: textWhite12Robo(
+                    //     index.isEven ? "Bobotie" : "Ethiopian Doro Wat"
+                    //   ),
+                    // )
+                  ],
+                );
 
-                ],
-              );
+                // return Container(
+                //   // height: 14.h,
+                //   // width: 14.w,
+                //   decoration: BoxDecoration(
 
+                //       image: DecorationImage(
+                //           image: index.isEven
+                //               ? AssetImage("assets/home/17.png",
 
-              // return Container(
-              //   // height: 14.h,
-              //   // width: 14.w,
-              //   decoration: BoxDecoration(
-                  
-              //       image: DecorationImage(
-              //           image: index.isEven
-              //               ? AssetImage("assets/home/17.png",
-                              
-              //               )
-              //               : AssetImage("assets/home/12.png"),
-              //           fit: BoxFit.cover
-              //           // Image.asset("name")
-              //           )),
-              // );
-              // // Image.asset("assets/home/17.png",
-              // //   height: 150.h,
-              //   width: 150.h,
-              // );
-            },
-          ),
-            )
-        
+                //               )
+                //               : AssetImage("assets/home/12.png"),
+                //           fit: BoxFit.cover
+                //           // Image.asset("name")
+                //           )),
+                // );
+                // // Image.asset("assets/home/17.png",
+                // //   height: 150.h,
+                //   width: 150.h,
+                // );
+              },
+            ),
+          )
         ],
       ),
     );
@@ -303,7 +292,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget communityTile(){
+  Widget communityTile() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 17.h),
       child: Row(
@@ -387,17 +376,15 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-    
           SizedBox(
             width: 16.w,
           )
         ],
       ),
     );
-          
   }
 
-  Widget commanCard(int index){
+  Widget commanCard(int index) {
     return Stack(
       children: [
         Container(
@@ -406,10 +393,11 @@ class _SearchPageState extends State<SearchPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.h),
               image: DecorationImage(
-                  image: index.isEven ? AssetImage("assets/home/food.png") : AssetImage("assets/Chocolate 2.png"),
+                  image: index.isEven
+                      ? AssetImage("assets/home/food.png")
+                      : AssetImage("assets/Chocolate 2.png"),
                   fit: BoxFit.fill)),
         ),
-
         Positioned(
           top: 8.h,
           left: 10.w,
@@ -419,7 +407,7 @@ class _SearchPageState extends State<SearchPage> {
                   borderRadius: BorderRadius.circular(12.h),
                   color: AppColors.greyL979797.withOpacity(0.7)),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -430,36 +418,29 @@ class _SearchPageState extends State<SearchPage> {
                       color: AppColors.white,
                     ),
                     sizedBoxWidth(4.w),
-                    textWhite12Sp(
-                      index.isEven ? "Limpopo" : "Mpumalanga")
+                    textWhite12Sp(index.isEven ? "Limpopo" : "Mpumalanga")
                   ],
-              
                 ),
               ),
             ),
           ),
         ),
-      
       ],
     );
-
   }
 
-  Widget commonSelectButton(int index, int add){
+  Widget commonSelectButton(int index, int add) {
     return UnconstrainedBox(
       child: Container(
         height: 30.h,
         // width: 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.h),
-          color: index == 0 ? AppColors.greyL979797 : AppColors.greyM707070),
+            borderRadius: BorderRadius.circular(20.h),
+            color: index == 0 ? AppColors.greyL979797 : AppColors.greyM707070),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Center(
-            child: textWhite12Sp(
-              add.isEven ? "Limpopo" : "Simple greens"
-            )
-          ),
+              child: textWhite12Sp(add.isEven ? "Limpopo" : "Simple greens")),
         ),
       ),
     );
