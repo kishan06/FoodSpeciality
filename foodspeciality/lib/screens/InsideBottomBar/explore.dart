@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,7 +35,32 @@ class _ExploreState extends State<Explore> {
               children: [
                 textgreyM20BoldSP("Join a cooking challenge"),
                 sizedBoxHeight(7.h),
-                mainChallengesCard(),
+                
+                CarouselSlider.builder(
+                  itemCount: 3,
+                  itemBuilder: (context, index, realIndex) {
+                    return Padding(
+                      padding: EdgeInsets.all(5.w),
+                      child: mainChallengesCard(),
+                    );
+                    // final sliderInfo = sliderData[index];
+                    // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
+                  },
+                  options: CarouselOptions(
+                    height: 255.h,
+                    // aspectRatio: 3 / 1,
+                    autoPlay: true,
+                    autoPlayAnimationDuration: const Duration(seconds: 3),
+                    // enlargeCenterPage: true,
+                    viewportFraction: 1,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                
+                      });
+                    },
+                  )
+                ),
+                // mainChallengesCard(),
                 sizedBoxHeight(25.h),
                 textgreyM20BoldSP("Trending Recipes")
               ],
@@ -125,7 +151,7 @@ class _ExploreState extends State<Explore> {
                   return Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: index == index.isEven
+                            image: index.isEven
                                 ? AssetImage("assets/home/17.png")
                                 : AssetImage("assets/home/12.png"),
                             fit: BoxFit.cover
@@ -293,6 +319,7 @@ class _ExploreState extends State<Explore> {
 
   Widget mainChallengesCard() {
     return Container(
+      // height: 200.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.h),
         color: AppColors.lightBlueF2F2F2,
@@ -330,21 +357,26 @@ class _ExploreState extends State<Explore> {
             sizedBoxHeight(12.h),
             textgreyM10Robo("17 recipes shared so for!"),
             sizedBoxHeight(5.h),
-            SizedBox(
-              height: 119.h,
-              child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return index == 2 ? SizedBox() : SizedBox(width: 7.w);
-                },
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return sharedRecipeCard();
-                },
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(3, (index) => sharedRecipeCard()),
             ),
+
+            // SizedBox(
+            //   height: 119.h,
+            //   child: ListView.separated(
+            //     separatorBuilder: (context, index) {
+            //       return index == 2 ? SizedBox() : SizedBox(width: 7.w);
+            //     },
+            //     scrollDirection: Axis.horizontal,
+            //     physics: const BouncingScrollPhysics(),
+            //     shrinkWrap: true,
+            //     itemCount: 4,
+            //     itemBuilder: (context, index) {
+            //       return sharedRecipeCard();
+            //     },
+            //   ),
+            // ),
             sizedBoxHeight(16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -368,39 +400,36 @@ class _ExploreState extends State<Explore> {
   }
 
   Widget sharedRecipeCard() {
-    return Padding(
-      padding: EdgeInsets.all(2),
-      child: Container(
-        height: 114.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.h),
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greyL979797,
-              blurRadius: 2.h,
-              spreadRadius: 1.h,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(2.w),
-          child: Column(
-            children: [
-              Container(
-                height: 85.h,
-                width: 113.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.h),
-                    image: DecorationImage(
-                        image: AssetImage("assets/home/food_bowl.png"),
-                        fit: BoxFit.fill)),
-              ),
-              sizedBoxHeight(5.h),
-              textgreyD10Robo("Slappappoffer Recipe"),
-              sizedBoxHeight(5.h),
-            ],
+    return Container(
+      height: 114.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.h),
+        color: AppColors.white,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyL979797,
+            blurRadius: 2.h,
+            spreadRadius: 1.h,
           ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(2.w),
+        child: Column(
+          children: [
+            Container(
+              height: 85.h,
+              width: 110.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.h),
+                  image: DecorationImage(
+                      image: AssetImage("assets/home/food_bowl.png"),
+                      fit: BoxFit.fill)),
+            ),
+            sizedBoxHeight(5.h),
+            textgreyD10Robo("Slappappoffer Recipe"),
+            sizedBoxHeight(5.h),
+          ],
         ),
       ),
     );

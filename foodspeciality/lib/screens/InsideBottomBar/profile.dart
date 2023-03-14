@@ -55,7 +55,7 @@ class _myProfileState extends State<myProfile> {
                 ),
               ),
               sizedBoxWidth(18)
-            ],
+            ], 
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,

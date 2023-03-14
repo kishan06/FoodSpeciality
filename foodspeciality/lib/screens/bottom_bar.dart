@@ -114,7 +114,8 @@ class _BottomBarState extends State<BottomBar> {
 
                   child: BottomNavigationBar(
                     // fixedColor: AppColors.transparent,
-                    // fixedColor: Colors.transparent,
+                    // fixedColor: Colors.white,
+                  
 
                     selectedLabelStyle: TextStyle(fontSize: 0),
                     unselectedLabelStyle: TextStyle(fontSize: 0),
@@ -287,7 +288,7 @@ class _BottomBarState extends State<BottomBar> {
                                   _canPop = true;
                                   Get.back();
                                   // return
-                                }),
+                                 }),
                               ),
                             ],
                           ),
@@ -320,27 +321,21 @@ class _BottomBarState extends State<BottomBar> {
   Widget bottomBarCont() {
     return Expanded(
         child: Container(
-      // width: 230,
-      // height: 90.h,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(),
-      child: Container(
-        height: 80.h,
-        margin: EdgeInsets.only(top: 10.h), // ***
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greyL979797,
-              blurRadius: 5.h,
-              spreadRadius: 2.h,
-            ),
-          ],
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35.h), topRight: Radius.circular(35.h)),
-        ),
-      ),
-    )
+          height: 80.h,
+          margin: EdgeInsets.only(top: 10.h), // ***
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.greyL979797,
+                blurRadius: 5.h,
+                spreadRadius: 2.h,
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35.h), topRight: Radius.circular(35.h)),
+          ),
+        )
 
         // Container(
         //   // width: 80.w,
