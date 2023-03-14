@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/common%20files/publish_popup.dart';
 import 'package:foodspeciality/screens/ingredients_tabbarview.dart';
 import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/recipe_tabbarview.dart';
@@ -53,8 +54,13 @@ class _RecipeIngState extends State<RecipeIng>
           elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: const Color.fromRGBO(59, 63, 67, 1),
-          leading: const Icon(
-            Icons.arrow_back,
+          leading: InkWell(
+            onTap: (){
+              Get.back();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+            ),
           ),
           actions: [
             Visibility(
@@ -78,13 +84,19 @@ class _RecipeIngState extends State<RecipeIng>
                     ),
                     SizedBox(width: 20.w),
                     Center(
-                      child: Text(
-                        "Publish",
-                        style: TextStyle(
-                            color: const Color(0xff000000),
-                            fontFamily: "Roboto",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp),
+                      child: InkWell(
+                        onTap: (){
+                          showDialog(
+                          context: context, builder: (context) => PublishPopup());
+                        },
+                        child: Text(
+                          "Publish",
+                          style: TextStyle(
+                              color: const Color(0xff000000),
+                              fontFamily: "Roboto",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.sp),
+                        ),
                       ),
                     ),
                     SizedBox(width: 16.w)

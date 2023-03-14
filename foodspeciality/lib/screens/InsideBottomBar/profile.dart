@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
@@ -40,9 +41,15 @@ class _myProfileState extends State<myProfile> {
                   color: Colors.black),
             ),
             actions: [
-              Icon(
-                Icons.edit,
-                color: Colors.black,
+              InkWell(
+                onTap: (){
+                  // Get.to(EditProfile());
+                  Get.toNamed("/EditProfile");
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.black,
+                ),
               ),
               sizedBoxWidth(20),
               GestureDetector(

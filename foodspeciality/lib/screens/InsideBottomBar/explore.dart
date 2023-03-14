@@ -44,7 +44,9 @@ class _ExploreState extends State<Explore> {
                     // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
                   },
                   options: CarouselOptions(
-                    height: 255.h,
+
+                    height: 260.h,
+
                     // aspectRatio: 3 / 1,
                     autoPlay: true,
                     autoPlayAnimationDuration: const Duration(seconds: 3),
@@ -103,16 +105,22 @@ class _ExploreState extends State<Explore> {
                   mainAxisSpacing: 7.w,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
 
-                        image: DecorationImage(
-                            image: index.isEven
-                                ? AssetImage("assets/home/17.png")
-                                : AssetImage("assets/home/12.png"),
-                            fit: BoxFit.cover
-                            // Image.asset("name")
-                            )),
+                  return InkWell(
+                  onTap: (){
+                    Get.toNamed("/InspirationRecipeComment");
+                  },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: index.isEven
+                                  ? AssetImage("assets/home/17.png")
+                                  : AssetImage("assets/home/12.png"),
+                              fit: BoxFit.cover
+                              // Image.asset("name")
+                              )),
+                    ),
+
                   );
                 },
               ),
@@ -319,27 +327,6 @@ class _ExploreState extends State<Explore> {
             textgreyD10Robo("Slappappoffer Recipe"),
             sizedBoxHeight(5.h),
           ],
-        ),
-
-        child: Padding(
-          padding: EdgeInsets.all(2.w),
-          child: Column(
-            children: [
-              Container(
-                height: 85.h,
-                width: 113.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.h),
-                  image: DecorationImage(
-                      image: AssetImage("assets/home/food_bowl.png"),
-                      fit: BoxFit.fill),
-                ),
-              ),
-              sizedBoxHeight(5.h),
-              textgreyD10Robo("Slappappoffer Recipe"),
-              sizedBoxHeight(5.h),
-            ],
-          ),
         ),
 
       ),

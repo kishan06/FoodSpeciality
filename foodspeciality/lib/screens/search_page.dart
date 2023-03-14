@@ -5,6 +5,7 @@ import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/filter_bottom_sheet.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
@@ -59,12 +60,17 @@ class _SearchPageState extends State<SearchPage> {
                             BoxConstraints(maxWidth: 24.h, maxHeight: 24.h),
                         suffixIcon: Padding(
                           padding: EdgeInsets.only(right: 17.w),
-                          child: SvgPicture.asset(
-                            "assets/icons/filter.svg",
-                            // height: 10.h,
-                            // width: 10.h,
-                            color: AppColors.greyD3B3F43,
-                            // colorFilter: AppColors.greyD3B3F43,
+                          child: InkWell(
+                            onTap: (){
+                              FilterBottomSheet();
+                            },
+                            child: SvgPicture.asset(
+                              "assets/icons/filter.svg",
+                              // height: 10.h,
+                              // width: 10.h,
+                              color: AppColors.greyD3B3F43,
+                              // colorFilter: AppColors.greyD3B3F43,
+                            ),
                           ),
                         ),
                         // pref
@@ -330,13 +336,18 @@ class _SearchPageState extends State<SearchPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Priyanka Joshi",
-                style: TextStyle(
-                    fontFamily: "StudioProR",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF54595F)),
+              InkWell(
+                onTap: (){
+                  Get.toNamed("/viewuser");
+                },
+                child: Text(
+                  "Priyanka Joshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF54595F)),
+                ),
               ),
               SizedBox(
                 height: 5.h,

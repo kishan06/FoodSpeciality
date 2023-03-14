@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/common_elevatd_button.dart';
+import 'package:get/get.dart';
 
 class DiscoveryRecipesScreen extends StatefulWidget {
   DiscoveryRecipesScreen({super.key});
@@ -353,7 +354,11 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomNextButton(text: "Next"),
+                child: CustomNextButton(text: "Next",
+                  ontap: (){
+                    Get.toNamed("/bottomBar");
+                  },
+                ),
               ),
               SizedBox(
                 height: 50.h,
