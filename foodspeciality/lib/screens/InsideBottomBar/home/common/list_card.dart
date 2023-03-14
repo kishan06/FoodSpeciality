@@ -4,6 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/common%20files/video_player_network.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
@@ -232,8 +233,8 @@ Widget listCard() {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.toNamed("/networkplayerwidget");
-                            // Get.to(AssetPlayerWidget());
+                            // Get.toNamed("/networkplayerwidget");
+                            Get.to(AssetPlayerWidget());
                           },
                           child: Container(
                             width: 80.w,
@@ -320,6 +321,7 @@ Widget listCard() {
                         "assets/icons/like.png",
                         width: 20.w,
                         height: 18.h,
+                        // color: AppColors.red,
                       ),
                       sizedBoxWidth(25.w),
                       InkWell(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../common files/app_bar.dart';
@@ -75,18 +76,29 @@ class _JoinChallengeState extends State<JoinChallenge> {
                             ],
                           ),
                           sizedBoxWidth(27.w),
-                          Text(
-                            'Submit recipe',
-                            style: TextStyle(
-                              fontFamily: 'StudioProM',
-                              fontSize: 14.sp,
-                              color: const Color(0xff3B3F43),
+                          InkWell(
+                            onTap: (){
+                              Get.toNamed("/RecipeIng");
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Submit recipe',
+                                  style: TextStyle(
+                                    fontFamily: 'StudioProM',
+                                    fontSize: 14.sp,
+                                    color: const Color(0xff3B3F43),
+                                  ),
+                                ),
+                          
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 16.sp,
+                                )
+                              ],
                             ),
                           ),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 16.sp,
-                          )
+                          
                         ],
                       ),
                     ),
