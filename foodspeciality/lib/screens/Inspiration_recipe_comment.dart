@@ -924,15 +924,16 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                           style: TextStyle(
 
                                               fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
+                                              fontSize: 6.sp
+                                          ),
                                         ),
-                                        sizedBoxWidth(16.w),
-                                        Image.asset(
-                                          'assets/icons/save.png',
-                                          height: 9.h,
-                                          width: 6.8.w,
+                                        // sizedBoxWidth(16.w),
+                                        // Image.asset(
+                                        //   'assets/icons/save.png',
+                                        //   height: 9.h,
+                                        //   width: 6.8.w,
 
-                                        ),
+                                        // ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 7.4.w),
