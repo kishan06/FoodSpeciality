@@ -13,6 +13,7 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  String? _password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +63,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
               CustomTextFormField(
                 hintText: "Username",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a Username';
+                  }
+                  if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(value)) {
+                    return 'Please enter a valid username (letters and numbers only)';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 suffixIcon: Image.asset(
                   "assets/user-svgrepo-com.png",
@@ -92,6 +102,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               SizedBox(height: 17.h),
               CustomTextFormField(
                 hintText: "Full Name",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Full Name';
+                  }
+                  if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+                    return 'Please enter a valid name';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 suffixIcon: Image.asset(
                   "assets/user-svgrepo-com.png",
@@ -140,7 +159,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               //   ),
               // ),
               CustomTextFormField(
+                texttype: TextInputType.phone,
                 hintText: "Mobile Number",
+                validator: (value) {
+                  if (value == value.isEmpty) {
+                    return 'Mobile number is required';
+                  } else if (!RegExp(r'(^(?:[+0]9)?[0-9]{10}$)')
+                      .hasMatch(value)) {
+                    return 'Enter valid mobile number';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 suffixIcon: Image.asset(
                   "assets/mobile-svgrepo-com.png",
@@ -151,6 +180,16 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               SizedBox(height: 17.h),
               CustomTextFormField(
                 hintText: "Email Address",
+                validator: (value) {
+                  if (value == value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 suffixIcon: Image.asset(
                   "assets/style=linear.png",
@@ -200,6 +239,16 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               // ),
               CustomTextFormField(
                 hintText: "Password",
+                validator: (value) {
+                  if (value == value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 8) {
+                    return 'Password must be at least 8 characters';
+                  }
+                  _password = value;
+                  return null;
+                },
                 validatorText: "",
                 isInputPassword: true,
               ),
@@ -226,6 +275,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               // ),
               CustomTextFormField(
                 hintText: "Confirm Password",
+                validator: (value) {
+                  if (value == value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value != _password) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
                 validatorText: "",
                 isInputPassword: true,
               ),

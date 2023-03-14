@@ -157,4 +157,39 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         validator: widget.validator,
         inputFormatters: widget.inputFormatters);
   }
+
+  Widget eyesuffix() {
+    return GestureDetector(
+      onTap: () => setState(() => obscureText = !obscureText),
+      child: obscureText
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Icon(
+                    Icons.lock_outline,
+                    color: Colors.black54,
+                    size: 20.sp,
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.w,
+                  ),
+                  child: Icon(
+                    Icons.lock_open_outlined,
+                    color: Colors.black54,
+                    size: 20.sp,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
 }

@@ -292,6 +292,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   // ignore: non_constant_identifier_names
   Widget DataTabBarView() {
     return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           sizedBoxHeight(23.h),
@@ -568,6 +569,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
 
   Widget _recipeTabbarView() {
     return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Padding(
