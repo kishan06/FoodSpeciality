@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
@@ -236,6 +237,7 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
+                  sizedBoxHeight(20.h)
                   // SizedBox(
                   //   height: 50.h,
                   //   width: double.infinity,
