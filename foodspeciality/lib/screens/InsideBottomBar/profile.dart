@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
@@ -40,9 +41,15 @@ class _myProfileState extends State<myProfile> {
                   color: Colors.black),
             ),
             actions: [
-              Icon(
-                Icons.edit,
-                color: Colors.black,
+              InkWell(
+                onTap: (){
+                  // Get.to(EditProfile());
+                  Get.toNamed("/EditProfile");
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.black,
+                ),
               ),
               sizedBoxWidth(20),
               GestureDetector(
@@ -55,7 +62,7 @@ class _myProfileState extends State<myProfile> {
                 ),
               ),
               sizedBoxWidth(18)
-            ],
+            ], 
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -388,31 +395,6 @@ class myfollowers extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // InkWell(
-                  //   onTap: () {},
-                  //   child: Container(
-                  //     height: 30,
-                  //     decoration: BoxDecoration(
-                  //       color: Color(0xFF3B3F43),
-                  //       borderRadius: BorderRadius.circular(8),
-                  //     ),
-                  //     child: Padding(
-                  //       padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Follow",
-                  //           style: TextStyle(
-                  //             fontFamily: "StudioProR",
-                  //             fontSize: 14.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color(0xFFFFFFFF),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
                   SizedBox(
                     width: 16.w,
                   )
@@ -484,30 +466,6 @@ class myfollowers extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  // SizedBox(
-                  //   height: 30,
-                  //   child: OutlinedButton(
-                  //       style: ButtonStyle(
-                  //         shape: MaterialStateProperty.all(
-                  //           RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(8.0),
-                  //             side: BorderSide(
-                  //               width: 3,
-                  //               color: Color(0xFF3B3F43),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {},
-                  //       child: Text(
-                  //         "Following",
-                  //         style: TextStyle(
-                  //             fontFamily: "StudioProR",
-                  //             fontSize: 14.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color(0xFF3B3F43)),
-                  //       )),
-                  // ),
                   InkWell(
                     onTap: () {},
                     child: Container(
@@ -603,30 +561,6 @@ class myfollowers extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  // SizedBox(
-                  //   height: 30,
-                  //   child: OutlinedButton(
-                  //       style: ButtonStyle(
-                  //         shape: MaterialStateProperty.all(
-                  //           RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(8.0),
-                  //             side: BorderSide(
-                  //               width: 3,
-                  //               color: Color(0xFF3B3F43),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {},
-                  //       child: Text(
-                  //         "Following",
-                  //         style: TextStyle(
-                  //             fontFamily: "StudioProR",
-                  //             fontSize: 14.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color(0xFF3B3F43)),
-                  //       )),
-                  // ),
                   InkWell(
                     onTap: () {},
                     child: Container(
@@ -722,30 +656,6 @@ class myfollowers extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  // SizedBox(
-                  //   height: 30,
-                  //   child: OutlinedButton(
-                  //       style: ButtonStyle(
-                  //         shape: MaterialStateProperty.all(
-                  //           RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(8.0),
-                  //             side: BorderSide(
-                  //               width: 3,
-                  //               color: Color(0xFF3B3F43),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {},
-                  //       child: Text(
-                  //         "Following",
-                  //         style: TextStyle(
-                  //             fontFamily: "StudioProR",
-                  //             fontSize: 14.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color(0xFF3B3F43)),
-                  //       )),
-                  // ),
                   InkWell(
                     onTap: () {},
                     child: Container(
@@ -841,30 +751,6 @@ class myfollowers extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  // SizedBox(
-                  //   height: 30,
-                  //   child: OutlinedButton(
-                  //       style: ButtonStyle(
-                  //         shape: MaterialStateProperty.all(
-                  //           RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(8.0),
-                  //             side: BorderSide(
-                  //               width: 3,
-                  //               color: Color(0xFF3B3F43),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {},
-                  //       child: Text(
-                  //         "Following",
-                  //         style: TextStyle(
-                  //             fontFamily: "StudioProR",
-                  //             fontSize: 14.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color(0xFF3B3F43)),
-                  //       )),
-                  // ),
                   InkWell(
                     onTap: () {},
                     child: Container(

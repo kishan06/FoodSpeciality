@@ -55,7 +55,11 @@ class _EditProfileState extends State<EditProfile> {
                           color: Color(0xFF54595F)),
                     ),
 
-                    textgreyD16BoldSP("Save")
+                    InkWell(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: textgreyD16BoldSP("Save"))
                   ],
                 ),
                 SizedBox(

@@ -13,6 +13,7 @@ import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/otpScreen.dart';
+import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/setting/setting/setting.dart';
@@ -48,45 +49,52 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(430, 930),
-      builder: (BuildContext context, Widget? child) => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        // home: LoginScreen(),  title: 'FreeU',
-        initialRoute: '/',
-        getPages: [
-          //SplashScreen2()
-          GetPage(name: '/', page: () => SplashScreen2()),
-          GetPage(name: "/onboard", page: () => OnBoarding()),
-          GetPage(name: "/login", page: () => Login()),
-          GetPage(name: "/forgetPass", page: () => ForgotPassword()),
-          GetPage(name: "/otpverification", page: () => otpVerification()),
-          GetPage(name: "/createAcc", page: () => CreateAccountScreen()),
-          GetPage(name: "/resetPass", page: () => ResetPassword()),
-          GetPage(name: "/signUpProfile", page: () => SignupProfile()),
-          GetPage(
-              name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
-          GetPage(name: "/viewuser", page: () => viewUser()),
-          GetPage(name: "/followuser", page: () => followUser()),
-          GetPage(name: "/bottomBar", page: () => BottomBar()),
-          GetPage(
-              name: "/communityaddparticipants",
-              page: () => communityAddParticipants()),
-          GetPage(
-              name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
-          GetPage(name: "/myProfile", page: () => myProfile()),
-          GetPage(
-              name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
-          GetPage(name: "/setting", page: () => Setting()),
-          GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
-          GetPage(name: "/notification", page: () => UserNotifications()),
-          GetPage(name: "/EditProfile", page: () => EditProfile()),
-          GetPage(name: "/Report", page: () => Report()),
-          GetPage(name: "/ReportSuccess", page: () => ReportSuccess()),
-          GetPage(
-              name: "/InspirationRecipeComment",
-              page: () => InspirationRecipeComment()),
+      builder: (BuildContext context, Widget? child) => GestureDetector(
+        onTap: (){
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          // home: LoginScreen(),  title: 'FreeU',
+          initialRoute: '/',
+          getPages: [
+            //SplashScreen2()
+            GetPage(name: '/', page: () => SplashScreen2()),
+            GetPage(name: "/onboard", page: () => OnBoarding()),
+            GetPage(name: "/login", page: () => Login()),
+            GetPage(name: "/forgetPass", page: () => ForgotPassword()),
+            GetPage(name: "/otpverification", page: () => otpVerification()),
+            GetPage(name: "/createAcc", page: () => CreateAccountScreen()),
+            GetPage(name: "/resetPass", page: () => ResetPassword()),
+            GetPage(name: "/signUpProfile", page: () => SignupProfile()),
+            GetPage(
+                name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
+            GetPage(name: "/viewuser", page: () => viewUser()),
+            GetPage(name: "/followuser", page: () => followUser()),
+            GetPage(name: "/bottomBar", page: () => BottomBar()),
+            GetPage(
+                name: "/communityaddparticipants",
+                page: () => communityAddParticipants()),
+            GetPage(
+                name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
+            GetPage(name: "/myProfile", page: () => myProfile()),
+            GetPage(
+                name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
+            GetPage(name: "/setting", page: () => Setting()),
+            GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
+            GetPage(name: "/notification", page: () => UserNotifications()),
+            GetPage(name: "/EditProfile", page: () => EditProfile()),
+            GetPage(name: "/Report", page: () => Report()),
+            GetPage(name: "/ReportSuccess", page: () => ReportSuccess()),
+            GetPage(
+                name: "/InspirationRecipeComment",
+                page: () => InspirationRecipeComment()),
+      
+            GetPage(name: "/SearchPage", page: () => SearchPage()),
+            GetPage(name: "/RecipeIng", page: () => RecipeIng()),
 
-          GetPage(name: "/SearchPage", page: () => SearchPage()),
-        ],
+          ],
+        ),
       ),
     );
   }

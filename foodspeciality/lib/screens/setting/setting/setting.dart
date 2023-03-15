@@ -165,22 +165,32 @@ class _SettingState extends State<Setting> {
               color: const Color(0xff54595F)),
         ),
         actions: [
-          Text(
-            "Cancel",
-            style: TextStyle(
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
-                color: const Color(0xff000000)),
+          InkWell(
+            onTap: (){
+              Get.back();
+            },
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16.sp,
+                  color: const Color(0xff000000)),
+            ),
           ),
           sizedBoxWidth(15.sp),
-          Text(
-            "Sign out",
-            style: TextStyle(
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
-                color: const Color(0xffB90101)),
+          InkWell(
+            onTap: () {
+              Get.toNamed("/login");
+            },
+            child: Text(
+              "Sign out",
+              style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16.sp,
+                  color: const Color(0xffB90101)),
+            ),
           ),
           sizedBoxWidth(15.sp),
         ],

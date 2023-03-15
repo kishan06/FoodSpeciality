@@ -307,7 +307,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   Column(
                     children: [
                       Image.asset(
-                        'assets/like-svgrepo-com.png',
+                        'assets/icons/like.png',
                         height: 17.h,
                       ),
                       Text(
@@ -321,7 +321,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   Column(
                     children: [
                       Image.asset(
-                        'assets/comment-blank-svgrepo-com.png',
+                        'assets/icons/comment.png',
                         height: 17.h,
                       ),
                       Text(
@@ -921,9 +921,18 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         child: Text(
                                           'Slappappoffer Recipe',
                                           style: TextStyle(
-                                              fontSize: 8.sp,
-                                              fontFamily: 'Roboto'),
+
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp
+                                          ),
                                         ),
+                                        // sizedBoxWidth(16.w),
+                                        // Image.asset(
+                                        //   'assets/icons/save.png',
+                                        //   height: 9.h,
+                                        //   width: 6.8.w,
+
+                                        // ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 7.4.w),
