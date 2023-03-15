@@ -34,10 +34,12 @@ class _ChattabViewState extends State<ChattabView> {
                   CommanTabbar("Private", "Community"),
                   SizedBox(
                     height: 750.h,
-                    child: TabBarView(children: [
-                      ChatPage(),
-                      ChatCommunityPage(),
-                    ]),
+                    child: TabBarView(
+                      children: [
+                        ChatPage(),
+                        ChatCommunityPage(),
+                      ],
+                    ),
                   )
                 ],
               ),

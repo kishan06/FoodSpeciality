@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 
@@ -26,7 +27,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 55.h,
+                height: 30.h,
               ),
               Image.asset(
                 "assets/logo.png",
@@ -34,7 +35,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 width: 154.h,
               ),
               SizedBox(
-                height: 29.h,
+                height: 2.h,
               ),
               Text(
                 "Create Account",
@@ -59,7 +60,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
               ),
               SizedBox(
-                height: 30.h,
+                height: 25.h,
               ),
               CustomTextFormField(
                 hintText: "Username",
@@ -290,7 +291,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 isInputPassword: true,
               ),
 
-              SizedBox(height: 31.h),
+              SizedBox(height: 21.h),
               SizedBox(
                 height: 50.h,
                 width: double.infinity,
@@ -317,7 +318,75 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
               ),
               SizedBox(
-                height: 3.h,
+                height: 20.h,
+              ),
+              SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                      side: BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                    ),
+                    elevation: 0,
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "assets/google-svgrepo-com.svg",
+                        height: 28.h,
+                        width: 28.w,
+                      ),
+                      SizedBox(
+                        width: 20.w,
+                      ),
+                      Text(
+                        "Continue with Google",
+                        style: TextStyle(
+                            fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(
+                        color: Color(0xFF3B3F43),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Roboto"),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed("/login");
+                    },
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Color(0xFF3B3F43),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Roboto",
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                height: 10.h,
               )
             ],
           ),

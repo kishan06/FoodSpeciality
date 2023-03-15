@@ -177,7 +177,7 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/bottomBar');
+                        Get.toNamed('/signUpProfile');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(84, 89, 95, 1),
