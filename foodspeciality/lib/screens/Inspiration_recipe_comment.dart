@@ -82,9 +82,9 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      child: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 sizedBoxHeight(8.h),
@@ -270,7 +270,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   ],
                 ),
                 SizedBox(
-                  height: 500,
+                  height: MediaQuery.of(context).size.height,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
@@ -551,7 +551,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                 ),
                 sizedBoxHeight(23.h),
                 SizedBox(
-                    height: 530.h,
+                    height: MediaQuery.of(context).size.shortestSide,
                     child: TabBarView(children: [
                       _recipeTabbarView(),
                       Padding(
@@ -569,7 +569,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
 
   Widget _recipeTabbarView() {
     return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
+      // physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Padding(
@@ -853,7 +853,6 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   ),
                 ),
                 sizedBoxHeight(42.h),
-                // _commentTabbarView()
               ],
             ),
           ),

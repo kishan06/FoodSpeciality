@@ -13,6 +13,7 @@ class CustomTextFormField extends StatefulWidget {
     this.textEditingController,
     this.leadingIcon,
     this.onTap,
+    this.eyeIcon = false,
     this.suffixIcon,
     this.readonly = false,
     this.isInputPassword = false,
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
   final String hintText;
   final String validatorText;
   final Widget? leadingIcon;
+  final bool eyeIcon;
   final Widget? suffixIcon;
   final bool isInputPassword;
   void Function()? onTap;
@@ -43,11 +45,13 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomtextFormFieldState extends State<CustomTextFormField> {
   late bool obscureText;
+  // late bool eyeseIcon;
 
   @override
   void initState() {
     super.initState();
     obscureText = widget.isInputPassword;
+    // eyeseIcon = widget.eyeIcon;
   }
 
   @override
@@ -93,6 +97,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
               fontSize: 15.sm,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
+          suffix: widget.eyeIcon ? eyesuffix() : null,
           suffixIcon: widget.leadingIcon == null
               ? null
               : Padding(
@@ -105,37 +110,18 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
             mainAxisSize: MainAxisSize.min,
             children: [
               widget.isInputPassword
-                  ? GestureDetector(
-                      onTap: () => setState(() => obscureText = !obscureText),
-                      child: obscureText
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10.w),
-                                  child: Icon(
-                                    Icons.lock_outline,
-                                    color: Colors.black54,
-                                    size: 20.sp,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.w,
-                                  ),
-                                  child: Icon(
-                                    Icons.lock_open_outlined,
-                                    color: Colors.black54,
-                                    size: 20.sp,
-                                  ),
-                                ),
-                              ],
-                            ),
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: Icon(
+                            Icons.lock_outline,
+                            color: Colors.black54,
+                            size: 20.sp,
+                          ),
+                        ),
+                      ],
                     )
                   : Padding(
                       padding: EdgeInsets.only(left: 15.w),
@@ -168,7 +154,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.w),
                   child: Icon(
-                    Icons.lock_outline,
+                    Icons.visibility,
                     color: Colors.black54,
                     size: 20.sp,
                   ),
@@ -183,7 +169,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                     left: 10.w,
                   ),
                   child: Icon(
-                    Icons.lock_open_outlined,
+                    Icons.visibility_off,
                     color: Colors.black54,
                     size: 20.sp,
                   ),
