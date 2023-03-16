@@ -508,7 +508,7 @@ class _followUserState extends State<followUser> {
                           ),
                         ]),
                     SizedBox(
-                      height: 470.h,
+                      // height: 470.h,
                       child: TabBarView(children: [
                         SingleChildScrollView(
                             controller: controller,

@@ -21,6 +21,7 @@ import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
 import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
+import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 import 'common files/video_player_network.dart';
@@ -54,6 +55,9 @@ class _MyAppState extends State<MyApp> {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: GetMaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.white
+          ),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
           initialRoute: '/',

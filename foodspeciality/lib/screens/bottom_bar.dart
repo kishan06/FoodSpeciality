@@ -180,6 +180,7 @@ class _BottomBarState extends State<BottomBar> {
                       child: FloatingActionButton(
                         backgroundColor: AppColors.buttonGrey54595F,
                         onPressed: () {
+                          Get.toNamed("/RecipeIng");
                           // Get.to(()=> AddNfts());
                         },
                         // onPressed: () =>
@@ -268,9 +269,10 @@ class _BottomBarState extends State<BottomBar> {
             sizedBoxWidth(15.sp),
             InkWell(
               onTap: () {
+                SystemNavigator.pop();
                 // Get.toNamed("/login");
-                Get.back();
-                _canPop = true;
+                // Get.back();
+                // _canPop = true;
               },
               child: Text(
                 "Yes",
