@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 import 'discovery_recipe.dart';
@@ -15,6 +16,7 @@ class _SignupProfileState extends State<SignupProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Container(
           height: double.infinity,
@@ -87,12 +89,38 @@ class _SignupProfileState extends State<SignupProfile> {
                         fontWeight: FontWeight.w400,
                         fontFamily: "Roboto"),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r)),
-                        borderSide: BorderSide(
-                            width: 0.5.w,
-                            color: const Color.fromRGBO(191, 191, 191, 1))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -116,6 +144,7 @@ class _SignupProfileState extends State<SignupProfile> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
                       children: [
@@ -131,13 +160,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "South Africa,Western Cape",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "South Africa,Western Cape",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -179,13 +222,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspecialities.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -211,13 +268,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://food_specialities.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -243,13 +314,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://food_specialities/twitter.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://food_specialities/twitter.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -275,13 +360,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspecialities/pinterest.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities/pinterest.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -307,13 +406,27 @@ class _SignupProfileState extends State<SignupProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspeciality/facebook.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspeciality/facebook.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -324,7 +437,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 50.h,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
@@ -351,7 +464,7 @@ class _SignupProfileState extends State<SignupProfile> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 50.h,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {

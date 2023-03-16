@@ -86,30 +86,63 @@ class _OtpScreenState extends State<OtpScreen> {
           SizedBox(
             height: 130.h,
           ),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: InkWell(
-              onTap: () {
-                Get.toNamed("/resetPass");
-              },
-              child: Container(
-                height: 50.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Color(0xFF54595F),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Center(
-                  child: Text(
-                    "Verify",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 18,
-                        color: Colors.white),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 16.w),
+
+            // padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 50.h,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed("/resetPass");
+          
+                  // Get.toNamed("/otpverification");
+                  // Get.toNamed('/signUpProfile');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    // side: BorderSide(color: Colors.white, width: 1.w),
                   ),
+                  elevation: 0,
+                ),
+                child: Text(
+                  'Verify',
+                  style: TextStyle(
+                      fontSize: 18.sp, fontFamily: "StudioProR"),
                 ),
               ),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          //   child: InkWell(
+          //     onTap: () {
+          //       Get.toNamed("/resetPass");
+          //     },
+          //     child: Container(
+          //       height: 50.h,
+          //       width: double.infinity,
+          //       decoration: BoxDecoration(
+          //           color: Color(0xFF54595F),
+          //           borderRadius: BorderRadius.circular(8)),
+          //       child: Center(
+          //         child: Text(
+          //           "Verify",
+          //           style: TextStyle(
+          //               fontFamily: "StudioProR",
+          //               fontSize: 18,
+          //               color: Colors.white),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        
+        
           SizedBox(
             height: 15,
           ),

@@ -57,8 +57,9 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        textAlignVertical: TextAlignVertical.center,
         style: TextStyle(
-          fontSize: 16.sm,
+          fontSize: 16.sp,
         ),
         // onTap: ontap,
         readOnly: widget.readonly,
@@ -68,8 +69,9 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         controller: widget.textEditingController,
         onTap: widget.onTap,
         decoration: InputDecoration(
+          isCollapsed: true,
           suffixIconConstraints: const BoxConstraints(),
-          contentPadding: const EdgeInsets.all(17),
+          contentPadding: EdgeInsets.all(17.h),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(

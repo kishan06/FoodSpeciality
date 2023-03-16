@@ -51,17 +51,19 @@ class _BottomBarState extends State<BottomBar> {
     return SafeArea(
         child: WillPopScope(
           onWillPop: () async {
-            if (_canPop) {
-              return true;
-            } else {
-              await showDialog(
-                context: context,
-                builder: (context) => exitDialog()
-              );
-              print("infalse");
-              print(_canPop);
-              return _canPop;
-            }
+            await dialoBox();
+            return _canPop;
+            // if (_canPop) {
+            //   return true;
+            // } else {
+            //   await showDialog(
+            //     context: context,
+                // builder: (context) => exitDialog()
+            //   );
+            //   print("infalse");
+            //   print(_canPop);
+            //   return _canPop;
+            // }
           },
           child: Scaffold(
               // backgroundColor: Colors.transparent,
@@ -219,6 +221,71 @@ class _BottomBarState extends State<BottomBar> {
               ),
               )),
         ));
+  }
+
+  dialoBox() {
+    return showDialog(
+      context: context,
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(15.w),
+        child: AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+          insetPadding: const EdgeInsets.symmetric(vertical: 10),
+          title: Text(
+            "Exit App",
+            style: TextStyle(
+                fontFamily: 'Studio Pro',
+                fontWeight: FontWeight.bold,
+                fontSize: 18.sp,
+                color: const Color(0xff3B3F43)),
+          ),
+          content: SizedBox(
+            // margin: EdgeInsets.symmetric(horizontal: 10.w),
+            width: MediaQuery.of(context).size.width,
+            child: Text(
+              "Are you sure you want to Exit App?",
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 16.sp,
+                  color: const Color(0xff54595F)),
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: (){
+                Get.back();
+              },
+              child: Text(
+                "No",
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.sp,
+                    color: const Color(0xff000000)),
+              ),
+            ),
+            sizedBoxWidth(15.sp),
+            InkWell(
+              onTap: () {
+                // Get.toNamed("/login");
+                Get.back();
+                _canPop = true;
+              },
+              child: Text(
+                "Yes",
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.sp,
+                    color: const Color(0xffB90101)),
+              ),
+            ),
+            sizedBoxWidth(15.sp),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget exitDialog(){

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -41,7 +42,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               //  fontFamily: 'Helvetica',
-              fontSize: 20.sm,
+              fontSize: 20.sp,
               fontFamily: "StudioProR",
               fontWeight: FontWeight.w600,
               color: Color.fromRGBO(84, 89, 95, 1)),
@@ -49,12 +50,12 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Get.back();
         },
         icon: Icon(
           Icons.arrow_back,
         ),
-        iconSize: 22.sm,
+        iconSize: 22.sp,
         color: Color.fromRGBO(84, 89, 95, 1),
       ),
     );
