@@ -87,7 +87,7 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     icon: Icon(
                       Icons.arrow_back,

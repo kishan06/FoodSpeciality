@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -49,7 +50,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Get.back();
         },
         icon: Icon(
           Icons.arrow_back,
