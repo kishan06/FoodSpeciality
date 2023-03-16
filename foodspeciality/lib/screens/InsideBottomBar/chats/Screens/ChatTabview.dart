@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatCommunityPage.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatPage.dart';
+import 'package:get/get.dart';
 
 class ChattabView extends StatefulWidget {
   const ChattabView({Key? key}) : super(key: key);

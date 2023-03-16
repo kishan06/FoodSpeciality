@@ -25,7 +25,7 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
             // RichText(text: 'text'),
             sizedBoxHeight(20.h),
             Text(
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ……….." ,
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a",
               maxLines: more ? null : 2,
               // overflow: TextOverflow.fade,
             ),

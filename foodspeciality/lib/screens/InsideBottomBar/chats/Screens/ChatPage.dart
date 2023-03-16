@@ -68,68 +68,73 @@ class _ChatPageState extends State<ChatPage> {
     ),
   ];
 
+  TextEditingController textcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
       backgroundColor: Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // CustomAppBarWithNotification(titleTxt: "Chats"),
-                Padding(
-                  padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search...",
-                      hintStyle: TextStyle(color: Colors.grey.shade600),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.grey.shade600,
-                        size: 20,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: EdgeInsets.all(8),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Color(0xFF707070),
+      body: GestureDetector(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // CustomAppBarWithNotification(titleTxt: "Chats"),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    child: TextField(
+                      controller: textcontroller,
+                      decoration: InputDecoration(
+                        hintText: "Search...",
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.grey.shade600,
+                          size: 20,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Color(0xFF707070),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsets.all(8),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: Color(0xFF707070),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: Color(0xFF707070),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                ListView.builder(
-                  itemCount: chatPrivate.length,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 16),
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return ConversationList(
-                      name: chatPrivate[index].name,
-                      messageText: chatPrivate[index].messageText,
-                      imageUrl: chatPrivate[index].imageURL,
-                      time: chatPrivate[index].time,
-                      isMessageRead: (index == 0 || index == 3 || index == 2)
-                          ? true
-                          : false,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
+                  ListView.builder(
+                    itemCount: chatPrivate.length,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(top: 16),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return ConversationList(
+                        name: chatPrivate[index].name,
+                        messageText: chatPrivate[index].messageText,
+                        imageUrl: chatPrivate[index].imageURL,
+                        time: chatPrivate[index].time,
+                        isMessageRead: (index == 0 || index == 3 || index == 2)
+                            ? true
+                            : false,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

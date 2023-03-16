@@ -86,7 +86,9 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
               child: Row(
                 children: <Widget>[
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.back();
+                    },
                     icon: Icon(
                       Icons.arrow_back,
                       color: Colors.black,

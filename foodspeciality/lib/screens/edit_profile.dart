@@ -134,7 +134,7 @@ class _EditProfileState extends State<EditProfile> {
                           // TextStyle(
                           //     color: Color.fromRGBO(151, 151, 151, 0.48),
                           //     fontFamily: "Roboto",
-                          //     fontSize: 16.sp),
+                          //     fontSize: 16.sp),`
                           TextStyle(
                               color: AppColors.greyM707070,
                               fontSize: 14.sp,
