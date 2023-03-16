@@ -35,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Get.back();
                       },
                       child: SvgPicture.asset(
@@ -45,7 +45,6 @@ class _EditProfileState extends State<EditProfile> {
                         color: AppColors.greyD3B3F43,
                       ),
                     ),
-
                     Text(
                       "Edit Profile",
                       style: TextStyle(
@@ -54,12 +53,11 @@ class _EditProfileState extends State<EditProfile> {
                           fontSize: 22.h,
                           color: Color(0xFF54595F)),
                     ),
-
                     InkWell(
-                      onTap: (){
-                        Get.back();
-                      },
-                      child: textgreyD16BoldSP("Save"))
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: textgreyD16BoldSP("Save"))
                   ],
                 ),
                 SizedBox(
@@ -83,15 +81,15 @@ class _EditProfileState extends State<EditProfile> {
                           top: 10.h,
                           left: 100.w,
                           child: Image(
-                            height: 22.h,
-                            width: 22.h,
-                            image: AssetImage("assets/Group 57623.png")))
+                              height: 22.h,
+                              width: 22.h,
+                              image: AssetImage("assets/Group 57623.png")))
                     ],
                   ),
                 ),
 
                 sizedBoxHeight(25.h),
-                
+
                 // TextFormField(
                 //   maxLength: 100,
                 //   maxLines: 5,
@@ -119,7 +117,33 @@ class _EditProfileState extends State<EditProfile> {
 
                 sizedBoxHeight(4.h),
 
-                textgreyM14Robo("@Namrata07"),
+                SizedBox(
+                  width: 340.w,
+                  height: 25.h,
+                  child: TextFormField(
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 14.sp,
+                        fontFamily: "Roboto"),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 12),
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintStyle:
+                          // TextStyle(
+                          //     color: Color.fromRGBO(151, 151, 151, 0.48),
+                          //     fontFamily: "Roboto",
+                          //     fontSize: 16.sp),
+                          TextStyle(
+                              color: AppColors.greyM707070,
+                              fontSize: 14.sp,
+                              fontFamily: "Roboto"),
+                      hintText: "@Namrata07",
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
 
                 sizedBoxHeight(20.h),
                 // textgreyM14Robo("@Namrata07"),
@@ -128,7 +152,33 @@ class _EditProfileState extends State<EditProfile> {
 
                 sizedBoxHeight(4.h),
 
-                textgreyM14Robo("Namrata"),
+                SizedBox(
+                  width: 340.w,
+                  height: 25.h,
+                  child: TextFormField(
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 14.sp,
+                        fontFamily: "Roboto"),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 12),
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintStyle:
+                          // TextStyle(
+                          //     color: Color.fromRGBO(151, 151, 151, 0.48),
+                          //     fontFamily: "Roboto",
+                          //     fontSize: 16.sp),
+                          TextStyle(
+                              color: AppColors.greyM707070,
+                              fontSize: 14.sp,
+                              fontFamily: "Roboto"),
+                      hintText: "Namrata",
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
 
                 sizedBoxHeight(20.h),
 
@@ -136,52 +186,87 @@ class _EditProfileState extends State<EditProfile> {
 
                 sizedBoxHeight(4.h),
 
-                textgreyM14Robo("Burondkar"),
+                SizedBox(
+                  width: 340.w,
+                  height: 25.h,
+                  child: TextFormField(
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 14.sp,
+                        fontFamily: "Roboto"),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 12),
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintStyle:
+                          // TextStyle(
+                          //     color: Color.fromRGBO(151, 151, 151, 0.48),
+                          //     fontFamily: "Roboto",
+                          //     fontSize: 16.sp),
+                          TextStyle(
+                              color: AppColors.greyM707070,
+                              fontSize: 14.sp,
+                              fontFamily: "Roboto"),
+                      hintText: "Borundkar",
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
 
                 sizedBoxHeight(15.h),
 
                 textgreyD16MedSP("Bio"),
-                
+                SizedBox(
+                  height: 10.h,
+                ),
                 TextFormField(
-                  // maxLength: 100,
                   maxLines: 2,
                   decoration: InputDecoration(
                     hintText: 'Bio',
                     hintStyle: TextStyle(
                         color: Color(0xFF707070),
-                        fontSize: 14.sp,
-                        // fontWeight: FontWeight.w400,
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.w400,
                         fontFamily: "Roboto"),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r)),
-                        borderSide: BorderSide(
-                            width: 0.5.w,
-                            color: AppColors.greyL979797  )
-                      ),
-                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r)),
-                        borderSide: BorderSide(
-                            width: 0.5.w,
-                            color: AppColors.greyL979797  )
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r)),
-                        borderSide: BorderSide(
-                            width: 0.5.w,
-                            color: AppColors.greyL979797  )
-                      ),
-
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFF707070), width: 1),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r)),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
                   ),
                 ),
 
                 sizedBoxHeight(22.h),
-                 
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -200,6 +285,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
                       children: [
@@ -215,13 +301,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "South Africa,Western Cape",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "South Africa,Western Cape",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -263,13 +363,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspecialities.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -295,13 +409,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://food_specialities.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -327,13 +455,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://food_specialities/twitter.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://food_specialities/twitter.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -359,13 +501,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspecialities/pinterest.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspecialities/pinterest.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
@@ -391,13 +547,27 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Text(
-                      "https://foodspeciality/facebook.com",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(151, 151, 151, 0.48),
-                          fontFamily: "Roboto",
-                          fontSize: 16.sp),
+                    SizedBox(
+                      width: 340.w,
+                      height: 25.h,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 16.sp),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              fontFamily: "Roboto",
+                              fontSize: 16.sp),
+                          hintText: "https://foodspeciality/facebook.com",
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
