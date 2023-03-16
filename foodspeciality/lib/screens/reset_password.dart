@@ -30,28 +30,28 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   "Enter New Password and Confirm.",
-                //   textAlign: TextAlign.left,
-                //   style: TextStyle(
-                //       color: Color.fromRGBO(112, 112, 112, 1),
-                //       fontSize: 16.sm,
-                //       fontFamily: "Roboto"),
-                // ),
+                Text(
+                  "Enter New Password and Confirm.",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color.fromRGBO(112, 112, 112, 1),
+                      fontSize: 16.sp,
+                      fontFamily: "Roboto"),
+                ),
                 SizedBox(
                   height: 77.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    // Text(
-                    //   "New Password",
-                    //   style: TextStyle(
-                    //       color: Color.fromRGBO(112, 112, 112, 1),
-                    //       fontSize: 14.sm,
-                    //       fontFamily: "Roboto"),
-                    // ),
-                    Text("New Password")
+                  children: [
+                    Text(
+                      "New Password",
+                      style: TextStyle(
+                          color: const Color.fromRGBO(112, 112, 112, 1),
+                          fontSize: 14.sp,
+                          fontFamily: "Roboto"),
+                    ),
+                    // Text("New Password")
                   ],
                 ),
                 SizedBox(
@@ -101,12 +101,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    // Text(
-                    //   "Confirm Password",
-                    //   style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                    // ),
-                    Text("Confirm Password")
+                  children: [
+                    Text(
+                      "Confirm Password",
+                      style: TextStyle(
+                          color: const Color(0xff707070),
+                          fontSize: 14.sp,
+                          fontFamily: "Roboto"),
+                    ),
+                    // Text("Confirm Password")
                   ],
                 ),
                 SizedBox(
