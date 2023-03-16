@@ -324,7 +324,7 @@ class _SignupProfileState extends State<SignupProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 50.h,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
@@ -351,7 +351,7 @@ class _SignupProfileState extends State<SignupProfile> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 50.h,
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {

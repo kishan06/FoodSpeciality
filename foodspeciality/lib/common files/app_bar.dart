@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               //  fontFamily: 'Helvetica',
-              fontSize: 20.sm,
+              fontSize: 20.sp,
               fontFamily: "StudioProR",
               fontWeight: FontWeight.w600,
               color: Color.fromRGBO(84, 89, 95, 1)),
@@ -54,7 +54,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         icon: Icon(
           Icons.arrow_back,
         ),
-        iconSize: 22.sm,
+        iconSize: 22.sp,
         color: Color.fromRGBO(84, 89, 95, 1),
       ),
     );

@@ -319,7 +319,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 height: 20.h,
               ),
               SizedBox(
-                height: 50,
+                height: 50.h,
                 width: double.infinity,
                 child: OutlinedButton(
                   style: ElevatedButton.styleFrom(
