@@ -49,8 +49,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(16.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -83,8 +85,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(16.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -117,8 +121,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(20.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -151,8 +157,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(20.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -195,8 +203,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(14.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -229,8 +239,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(20.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -273,8 +285,10 @@ class _AccordionState extends State<Accordion> {
               sizedBoxHeight(14.h),
               GFAccordion(
                 margin: const EdgeInsets.all(0),
-                titlePadding: EdgeInsets.only(top: 10.h, right: 15.w),
-                contentPadding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                titlePadding: EdgeInsets.only(
+                    top: 10.h, right: 10.w, left: 10.w, bottom: 10.h),
+                contentPadding: EdgeInsets.only(
+                    top: 20.h, bottom: 20.h, right: 10.w, left: 10.w),
                 expandedTitleBackgroundColor: const Color(0xffF2F2F2),
                 collapsedIcon: Icon(
                   Icons.arrow_forward_ios_outlined,

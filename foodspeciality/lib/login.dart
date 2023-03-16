@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 55.h,
+                    height: 15.h,
                   ),
                   Image.asset(
                     "assets/logo.png",
@@ -194,7 +194,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                
+
                   SizedBox(
                     height: 30.h,
                   ),
@@ -233,7 +233,44 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(
-                    height: 30.h,
+                    height: 20.h,
+                  ),
+                  SizedBox(
+                    height: 50.h,
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          side:
+                              BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                        ),
+                        elevation: 0,
+                      ),
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/Apple-Logo.png",
+                            height: 50.h,
+                            width: 50.w,
+                          ),
+                          // SizedBox(
+                          //   width: 10.w,
+                          // ),
+                          Text(
+                            "Continue with Apple",
+                            style: TextStyle(
+                                fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
