@@ -15,7 +15,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
     return Scaffold(
       appBar: const CustomAppBar(titleTxt: "Privacy Policy"),
       body: Padding(
-        padding:const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -42,15 +42,17 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Lorem Ipsum is simply dummy text of the printing\nand typesetting industry. Lorem Ipsum has been the \nindustrys standard dummy text ever since the 1500s, \nwhen an unknown printer took a galley of type and\nscrambled it to make a type specimen book.\n \n'
-                  'survived not only five centuries, but also the leap into \nelectronic typesetting, remaining essentially \nunchanged.It was popularised in the 1960s with the \nrelease ofLetraset sheets containing Lorem Ipsum\n\n'
-                  'passages, and more recently with desktop publishing \nsoftware like Aldus PageMaker including versions\nof Lorem Ipsum.\n\n'
-                  'survived not only five centuries, but also the leap into \nelectronic typesetting, remaining essentially \nunchanged. It was popularised in the 1960s with the \nrelease of Letraset sheets containing Lorem Ipsum \n\npassages, and more recently with desktop publishing \nsoftware like Aldus PageMaker including versions \nof Lorem Ipsum.',
-                  style: TextStyle(
-                    fontFamily: "Roboto",
-                    color: Colors.black,
-                    fontSize: 14.sp,
+                Expanded(
+                  child: Text(
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\n'
+                    'Survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release ofLetraset sheets containing Lorem Ipsum\n\n'
+                    'passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n'
+                    'survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n',
+                    style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               ],

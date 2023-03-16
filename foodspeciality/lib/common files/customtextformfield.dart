@@ -99,13 +99,13 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
               fontSize: 15.sm,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
-          suffix: widget.eyeIcon ? eyesuffix() : null,
-          suffixIcon: widget.leadingIcon == null
-              ? null
-              : Padding(
-                  padding: const EdgeInsets.only(left: 14, right: 14),
-                  child: widget.leadingIcon!,
-                ),
+          suffixIcon: widget.eyeIcon ? eyesuffix() : null,
+          // suffixIcon: widget.leadingIcon == null
+          //     ? null
+          //     : Padding(
+          //         padding: const EdgeInsets.only(left: 14, right: 14),
+          //         child: widget.leadingIcon!,
+          //       ),
           prefixIconConstraints: const BoxConstraints(minWidth: 20),
           prefixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -147,37 +147,40 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
   }
 
   Widget eyesuffix() {
-    return GestureDetector(
-      onTap: () => setState(() => obscureText = !obscureText),
-      child: obscureText
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10.w),
-                  child: Icon(
-                    Icons.visibility,
-                    color: Colors.black54,
-                    size: 20.sp,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: GestureDetector(
+        onTap: () => setState(() => obscureText = !obscureText),
+        child: obscureText
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w),
+                    child: Icon(
+                      Icons.visibility,
+                      color: Colors.black54,
+                      size: 20.sp,
+                    ),
                   ),
-                ),
-              ],
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 10.w,
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.w,
+                    ),
+                    child: Icon(
+                      Icons.visibility_off,
+                      color: Colors.black54,
+                      size: 20.sp,
+                    ),
                   ),
-                  child: Icon(
-                    Icons.visibility_off,
-                    color: Colors.black54,
-                    size: 20.sp,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 }

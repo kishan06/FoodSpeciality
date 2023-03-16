@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
@@ -81,6 +82,12 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
       members: '4 Members',
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+  }
 
   @override
   Widget build(BuildContext context) {

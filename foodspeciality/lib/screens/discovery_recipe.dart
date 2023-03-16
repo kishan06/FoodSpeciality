@@ -199,6 +199,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
 
+
                 padding:  EdgeInsets.symmetric(horizontal: 16.w),
                 child: SizedBox(
                   height: 50.h,
@@ -231,6 +232,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                 //     Get.toNamed("/bottomBar");
                 //   },
                 // ),
+
               ),
               SizedBox(
                 height: 50.h,

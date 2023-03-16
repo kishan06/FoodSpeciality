@@ -50,178 +50,174 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: WillPopScope(
-          onWillPop: () async {
-            await dialoBox();
-            return _canPop;
-            // if (_canPop) {
-            //   return true;
-            // } else {
-            //   await showDialog(
-            //     context: context,
-                // builder: (context) => exitDialog()
-            //   );
-            //   print("infalse");
-            //   print(_canPop);
-            //   return _canPop;
-            // }
-          },
-          child: Scaffold(
-              // backgroundColor: Colors.transparent,
-              extendBody: true,
-              backgroundColor: AppColors.white,
-              body: Obx(() => _widgetOptions.elementAt(_selectedIndex.value)),
-              bottomNavigationBar: Obx(() => 
-              Stack(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      bottomBarCont(),
-          
-                      // sizedBoxWidth(20.w),
-                      Container(height: 80.h,
-                        width: 20.w,
-                        color: AppColors.white,
+      onWillPop: () async {
+        await dialoBox();
+        return _canPop;
+        // if (_canPop) {
+        //   return true;
+        // } else {
+        //   await showDialog(
+        //     context: context,
+        // builder: (context) => exitDialog()
+        //   );
+        //   print("infalse");
+        //   print(_canPop);
+        //   return _canPop;
+        // }
+      },
+      child: Scaffold(
+          // backgroundColor: Colors.transparent,
+          extendBody: true,
+          backgroundColor: AppColors.white,
+          body: Obx(() => _widgetOptions.elementAt(_selectedIndex.value)),
+          bottomNavigationBar: Obx(
+            () => Stack(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    bottomBarCont(),
+
+                    // sizedBoxWidth(20.w),
+                    Container(
+                      height: 80.h,
+                      width: 20.w,
+                      color: AppColors.white,
+                    ),
+
+                    bottomBarCont()
+                  ],
+                ),
+
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Padding(
+                //     padding: EdgeInsets.only(bottom: 45.h),
+                //     child: SizedBox(
+                //       height: 65.h,
+                //       width: 65.h,
+                //       child: FloatingActionButton(
+                //         backgroundColor: AppColors.greyD3B3F43,
+                //         onPressed: () {
+                //           // Get.to(()=> AddNfts());
+                //         },
+                //         // onPressed: () =>
+                //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
+                //         child: Icon(Icons.add,
+                //           size: 35.h,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+
+                SizedBox(
+                    // height: 90.h,
+                    child: Padding(
+                  // padding: EdgeInsets.only(top: 0.h),
+                  padding: EdgeInsets.only(top: 20.h),
+
+                  child: BottomNavigationBar(
+                    // fixedColor: AppColors.transparent,
+                    // fixedColor: Colors.transparent,
+
+                    selectedLabelStyle: TextStyle(fontSize: 0),
+                    unselectedLabelStyle: TextStyle(fontSize: 0),
+                    iconSize: 30.h,
+                    selectedItemColor: AppColors.greyD3B3F43,
+                    unselectedItemColor: AppColors.greyL979797,
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    type: BottomNavigationBarType.fixed,
+                    items: <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        activeIcon: activeIcon("assets/bottomBar/home.svg"),
+                        icon: inactiveIcon("assets/bottomBar/home.svg"),
+                        // icon: Icon(Icons.home),
+                        label: "",
                       ),
-          
-                      bottomBarCont()
+                      BottomNavigationBarItem(
+                        // icon: Icon(Icons.explore),
+                        activeIcon: activeIcon("assets/bottomBar/explore.svg"),
+                        icon: inactiveIcon("assets/bottomBar/explore.svg"),
+                        label: "",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.circle, size: 0),
+                        label: "",
+                      ),
+                      BottomNavigationBarItem(
+                        activeIcon: activeIcon("assets/bottomBar/chat.svg"),
+                        icon: inactiveIcon("assets/bottomBar/chat.svg"),
+                        label: "",
+                      ),
+                      BottomNavigationBarItem(
+                        activeIcon: activeIcon("assets/bottomBar/profile.svg"),
+                        icon: inactiveIcon("assets/bottomBar/profile.svg"),
+                        label: "",
+                      ),
                     ],
+                    currentIndex: _selectedIndex.value,
+
+                    onTap: (int index) {
+                      if (index != 2) {
+                        _selectedIndex.value = index;
+                      }
+                    },
                   ),
-          
-                  // Align(
-                  //   alignment: Alignment.bottomCenter,
-                  //   child: Padding(
-                  //     padding: EdgeInsets.only(bottom: 45.h),
-                  //     child: SizedBox(
-                  //       height: 65.h,
-                  //       width: 65.h,
-                  //       child: FloatingActionButton(
-                  //         backgroundColor: AppColors.greyD3B3F43,
-                  //         onPressed: () {
-                  //           // Get.to(()=> AddNfts());
-                  //         },
-                  //         // onPressed: () =>
-                  //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
-                  //         child: Icon(Icons.add,
-                  //           size: 35.h,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-          
-                  SizedBox(
-                      // height: 90.h,
-                      child: Padding(
-                        // padding: EdgeInsets.only(top: 0.h),
-                        padding: EdgeInsets.only(top: 20.h),
+                )),
 
-                        child: BottomNavigationBar(
-                          // fixedColor: AppColors.transparent,
-                          // fixedColor: Colors.transparent,
 
-                          selectedLabelStyle: TextStyle(
-                            fontSize: 0
-                          ),
-                          unselectedLabelStyle: TextStyle(
-                            fontSize: 0
-                          ),
-                          iconSize: 30.h,
-                          selectedItemColor: AppColors.greyD3B3F43,
-                          unselectedItemColor: AppColors.greyL979797,
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                          type: BottomNavigationBarType.fixed,
-                          items: <BottomNavigationBarItem>[
-                            BottomNavigationBarItem(
-                              activeIcon: activeIcon("assets/bottomBar/home.svg"),
-                              icon: inactiveIcon("assets/bottomBar/home.svg"),
-                              // icon: Icon(Icons.home),
-                              label: "",
-                            ),
-                            BottomNavigationBarItem(
-                              // icon: Icon(Icons.explore),
-                              activeIcon: activeIcon("assets/bottomBar/explore.svg"),
-                              icon: inactiveIcon("assets/bottomBar/explore.svg"),
-                              label: "",
-                            ), 
-                            BottomNavigationBarItem(
-                              icon: Icon(Icons.circle, size: 0),
-                              label: "",
-                            ),
-                            BottomNavigationBarItem(
-                              activeIcon: activeIcon("assets/bottomBar/chat.svg"),
-                              icon: inactiveIcon("assets/bottomBar/chat.svg"),
-                              label: "",
-                            ),
-                            BottomNavigationBarItem(
-                              activeIcon: activeIcon("assets/bottomBar/profile.svg"),
-                              icon: inactiveIcon("assets/bottomBar/profile.svg"),
-                              label: "",
-                            ),
-                          ],
-                          currentIndex: _selectedIndex.value, 
-                                        
-                          onTap: (int index){
-                            if (index != 2) {
-                              _selectedIndex.value = index;
-                            }
-                          },
-                        ),
-                      )
-                    ),
-              
-          
-                  Positioned(
-                    left: (MediaQuery.of(context).size.width/2) - 32.5.h,
-                    child: SizedBox(
-                      height: 65.h,
-                      width: 65.h,
-                      child: FloatingActionButton(
-                        backgroundColor: AppColors.buttonGrey54595F,
-                        onPressed: () {
-                          Get.toNamed("/RecipeIng");
-                          // Get.to(()=> AddNfts());
-                        },
-                        // onPressed: () =>
-                        //     Navigator.pushNamed(context, AppNavigator.createItemPage),
-                        child: SvgPicture.asset("assets/bottomBar/food.svg",
-                          height: 25.h,
-                          width: 25.h,
-                          // color: AppColors.white,
-                        ),
-                        // Icon(Icons.add,
-                        //   size: 35.h,
-                        // ),
+                Positioned(
+                  left: (MediaQuery.of(context).size.width / 2) - 32.5.h,
+                  child: SizedBox(
+                    height: 65.h,
+                    width: 65.h,
+                    child: FloatingActionButton(
+                      backgroundColor: AppColors.buttonGrey54595F,
+                      onPressed: () {
+                        Get.toNamed("/RecipeIng");
+                      },
+                      // onPressed: () =>
+                      //     Navigator.pushNamed(context, AppNavigator.createItemPage),
+                      child: SvgPicture.asset(
+                        "assets/bottomBar/food.svg",
+                        height: 25.h,
+                        width: 25.h,
+                        // color: AppColors.white,
                       ),
+                      // Icon(Icons.add,
+                      //   size: 35.h,
+                      // ),
                     ),
                   ),
-                  
-                  // Align(
-                  //   alignment: Alignment.bottomCenter,
-                  //   child: Padding(
-                  //     padding: EdgeInsets.only(bottom: 45.h),
-                  //     child: SizedBox(
-                  //       height: 65.h,
-                  //       width: 65.h,
-                  //       child: FloatingActionButton(
-                  //         backgroundColor: AppColors.greyD3B3F43,
-                  //         onPressed: () {
-                  //           // Get.to(()=> AddNfts());
-                  //         },
-                  //         // onPressed: () =>
-                  //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
-                  //         child: Icon(Icons.add,
-                  //           size: 35.h,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-              )),
-        ));
+                ),
+
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Padding(
+                //     padding: EdgeInsets.only(bottom: 45.h),
+                //     child: SizedBox(
+                //       height: 65.h,
+                //       width: 65.h,
+                //       child: FloatingActionButton(
+                //         backgroundColor: AppColors.greyD3B3F43,
+                //         onPressed: () {
+                //           // Get.to(()=> AddNfts());
+                //         },
+                //         // onPressed: () =>
+                //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
+                //         child: Icon(Icons.add,
+                //           size: 35.h,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
+            ),
+          )),
+    ));
   }
 
   dialoBox() {
@@ -254,7 +250,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
           actions: [
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.back();
               },
               child: Text(
@@ -290,7 +286,7 @@ class _BottomBarState extends State<BottomBar> {
     );
   }
 
-  Widget exitDialog(){
+  Widget exitDialog() {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       contentPadding: const EdgeInsets.all(0),
@@ -352,29 +348,22 @@ class _BottomBarState extends State<BottomBar> {
                             children: [
                               SizedBox(
                                 width: 100.w,
-                                child: followButton("No", 
-                                  onPressed: (){
-                                    Get.back();
-                                  }
-                                ),
+                                child: followButton("No", onPressed: () {
+                                  Get.back();
+                                }),
                               ),
-
                               SizedBox(
                                 width: 100.w,
-                                child: followButton("Yes", 
-                                  onPressed: (){
-                                    _canPop = true;
-                                    Get.back();
-                                    // return 
-                                    
-                                  }
-                                ),
+                                child: followButton("Yes", onPressed: () {
+                                  _canPop = true;
+                                  Get.back();
+                                  // return
+                                }),
                               ),
                             ],
                           ),
-                       
-                          Spacer(),
 
+                          Spacer(),
                         ],
                       ),
                     ),
@@ -401,110 +390,108 @@ class _BottomBarState extends State<BottomBar> {
 
   Widget bottomBarCont() {
     return Expanded(
-      child: Container(
-        // width: 230,
-        // height: 90.h,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(),
         child: Container(
-          height: 80.h,
-          margin: EdgeInsets.only(top: 10.h), // ***
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.greyL979797,
-                blurRadius: 5.h,
-                spreadRadius: 2.h,
-              ),
-            ],
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35.h),
-              topRight: Radius.circular(35.h)
+      // width: 230,
+      // height: 90.h,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(),
+      child: Container(
+        height: 80.h,
+        margin: EdgeInsets.only(top: 10.h), // ***
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greyL979797,
+              blurRadius: 5.h,
+              spreadRadius: 2.h,
             ),
-          ),
+          ],
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.h), topRight: Radius.circular(35.h)),
         ),
+      ),
+    )
+
+        // Container(
+        //   // width: 80.w,
+        //   // width: double.infinity,
+        //   height: 80.h,
+        //   // decoration: BoxDecoration(
+        //   //   boxShadow: [
+        //   //     BoxShadow(
+        //   //       color: AppColors.greyL979797,
+        //   //       blurRadius: 10.h,
+        //   //       spreadRadius: 2.h,
+        //   //       offset: Offset(0, -5)
+
+        //   //     )
+        //   //   ],
+        //   //   // borderRadius: BorderRadius.circular(5.h),
+        //   //   borderRadius: BorderRadius.only(
+        //   //     topLeft: Radius.circular(35.h),
+        //   //     topRight: Radius.circular(35.h)
+        //   //   ),
+
+        //   //   color: AppColors.black
+        //   // ),
+        //   child: Container(
+        //     margin: EdgeInsets.only(top: 5.h),
+        //    // decoration: BoxDecoration(
+        //   //   boxShadow: [
+        //   //     BoxShadow(
+        //   //       color: AppColors.greyL979797,
+        //   //       blurRadius: 10.h,
+        //   //       spreadRadius: 2.h,
+        //   //       offset: Offset(0, -5)
+
+        //   //     )
+        //   //   ],
+        //   //   // borderRadius: BorderRadius.circular(5.h),
+        //   //   borderRadius: BorderRadius.only(
+        //   //     topLeft: Radius.circular(35.h),
+        //   //     topRight: Radius.circular(35.h)
+        //   //   ),
+
+        //   //   color: AppColors.black
+        //   // ),,
+        //   ),
+
+        // ),
+
+        );
+  }
+
+  Widget activeIcon(String imagePath) {
+    return Column(children: [
+      SvgPicture.asset(
+        imagePath,
+        height: 35.h,
+        width: 35.h,
+        color: AppColors.greyD3B3F43,
+        // colorFilter: AppColors.greyD3B3F43,
+      ),
+      sizedBoxHeight(5.h),
+      CircleAvatar(
+        radius: 5.h,
+        backgroundColor: AppColors.greyD3B3F43,
       )
-
-      // Container(
-      //   // width: 80.w,
-      //   // width: double.infinity,
-      //   height: 80.h,
-      //   // decoration: BoxDecoration(
-      //   //   boxShadow: [
-      //   //     BoxShadow(
-      //   //       color: AppColors.greyL979797,
-      //   //       blurRadius: 10.h,
-      //   //       spreadRadius: 2.h,
-      //   //       offset: Offset(0, -5)
-      
-      //   //     )
-      //   //   ],
-      //   //   // borderRadius: BorderRadius.circular(5.h),
-      //   //   borderRadius: BorderRadius.only(
-      //   //     topLeft: Radius.circular(35.h),
-      //   //     topRight: Radius.circular(35.h)
-      //   //   ),
-      
-      //   //   color: AppColors.black
-      //   // ),
-      //   child: Container(
-      //     margin: EdgeInsets.only(top: 5.h),
-      //    // decoration: BoxDecoration(
-      //   //   boxShadow: [
-      //   //     BoxShadow(
-      //   //       color: AppColors.greyL979797,
-      //   //       blurRadius: 10.h,
-      //   //       spreadRadius: 2.h,
-      //   //       offset: Offset(0, -5)
-      
-      //   //     )
-      //   //   ],
-      //   //   // borderRadius: BorderRadius.circular(5.h),
-      //   //   borderRadius: BorderRadius.only(
-      //   //     topLeft: Radius.circular(35.h),
-      //   //     topRight: Radius.circular(35.h)
-      //   //   ),
-      
-      //   //   color: AppColors.black
-      //   // ),,
-      //   ),
-      
-      // ),
-   
-    );
+    ]);
   }
 
-  Widget activeIcon(String imagePath){
-    return Column(
-      children: [
-        SvgPicture.asset(imagePath,
-          height: 35.h,
-          width: 35.h,
-          color: AppColors.greyD3B3F43,
-          // colorFilter: AppColors.greyD3B3F43,
-        ),
-        sizedBoxHeight(5.h),
-        CircleAvatar(radius: 5.h,
-          backgroundColor: AppColors.greyD3B3F43,
-        )
-      ]
-    );
-  }
-
-  Widget inactiveIcon(String imagePath){
-    return Column(
-      children: [
-        SvgPicture.asset(imagePath,
-          height: 35.h,
-          width: 35.h,
-          color: AppColors.greyL979797,
-        ),
-        sizedBoxHeight(2.h),
-        CircleAvatar(radius: 5.h,
-          backgroundColor: Colors.transparent,
-        )
-      ]
-    );
+  Widget inactiveIcon(String imagePath) {
+    return Column(children: [
+      SvgPicture.asset(
+        imagePath,
+        height: 35.h,
+        width: 35.h,
+        color: AppColors.greyL979797,
+      ),
+      sizedBoxHeight(2.h),
+      CircleAvatar(
+        radius: 5.h,
+        backgroundColor: Colors.transparent,
+      )
+    ]);
   }
 }
