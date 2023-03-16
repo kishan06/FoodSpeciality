@@ -15,7 +15,7 @@ class _UserNotificationsState extends State<UserNotifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(titleTxt: ""),
+      appBar: const CustomAppBar(titleTxt: "Notifications"),
       body: Container(
         color: Colors.white,
         child: SingleChildScrollView(
@@ -27,14 +27,14 @@ class _UserNotificationsState extends State<UserNotifications> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Notifications",
-                      style: TextStyle(
-                          fontFamily: 'Studio Pro',
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff54595F)),
-                    ),
+                    // Text(
+                    //   "Notifications",
+                    //   style: TextStyle(
+                    //       fontFamily: 'Studio Pro',
+                    //       fontSize: 20.sp,
+                    //       fontWeight: FontWeight.w500,
+                    //       color: const Color(0xff54595F)),
+                    // ),
                     sizedBoxHeight(18.h),
                     Text(
                       "Today",

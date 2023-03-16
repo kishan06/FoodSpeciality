@@ -167,6 +167,7 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 )),
 
+
                 Positioned(
                   left: (MediaQuery.of(context).size.width / 2) - 32.5.h,
                   child: SizedBox(
@@ -264,9 +265,10 @@ class _BottomBarState extends State<BottomBar> {
             sizedBoxWidth(15.sp),
             InkWell(
               onTap: () {
+                SystemNavigator.pop();
                 // Get.toNamed("/login");
-                Get.back();
-                _canPop = true;
+                // Get.back();
+                // _canPop = true;
               },
               child: Text(
                 "Yes",
