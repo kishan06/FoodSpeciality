@@ -77,17 +77,42 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(
                 height: 198.h,
               ),
-              CustomNextButton(
-                ontap: () {
-                  Get.toNamed("/otpverification");
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => ResetPasswordScreen(),
-                  //     ));
-                },
-                text: 'Next',
-              )
+
+              SizedBox(
+                height: 50.h,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed("/otpverification");
+                    // Get.toNamed('/signUpProfile');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                      // side: BorderSide(color: Colors.white, width: 1.w),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                        fontSize: 18.sp, fontFamily: "StudioProR"),
+                  ),
+                ),
+              ),
+            
+              // CustomNextButton(
+              //   ontap: () {
+              //     Get.toNamed("/otpverification");
+              //     // Navigator.push(
+              //     //     context,
+              //     //     MaterialPageRoute(
+              //     //       builder: (context) => ResetPasswordScreen(),
+              //     //     ));
+              //   },
+              //   text: 'Next',
+              // )
             ],
           ),
         ),

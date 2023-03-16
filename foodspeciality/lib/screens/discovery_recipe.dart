@@ -198,13 +198,39 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                 height: 64.h,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomNextButton(
-                  text: "Next",
-                  ontap: () {
-                    Get.toNamed("/bottomBar");
-                  },
+
+                padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                child: SizedBox(
+                  height: 50.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed("/bottomBar");
+ 
+                      // Get.toNamed('/signUpProfile');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        // side: BorderSide(color: Colors.white, width: 1.w),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                          fontSize: 18.sp, fontFamily: "StudioProR"),
+                    ),
+                  ),
+
                 ),
+                
+                // CustomNextButton(text: "Next",
+                //   ontap: (){
+                //     Get.toNamed("/bottomBar");
+                //   },
+                // ),
               ),
               SizedBox(
                 height: 50.h,

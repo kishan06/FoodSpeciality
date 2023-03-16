@@ -153,12 +153,39 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(
                   height: 95.h,
                 ),
-                CustomNextButton(
-                  text: 'Change Password',
-                  ontap: () {
-                    Get.toNamed("/login");
-                  },
-                )
+
+                SizedBox(
+                  height: 50.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed("/login");
+                      // Get.toNamed("/otpverification");
+                      // Get.toNamed('/signUpProfile');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        // side: BorderSide(color: Colors.white, width: 1.w),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Change Password',
+                      style: TextStyle(
+                          fontSize: 18.sp, fontFamily: "StudioProR"),
+                    ),
+                  ),
+                ),
+              
+                // CustomNextButton(
+                //   text: 'Change Password',
+                //   ontap: () {
+                //     Get.toNamed("/login");
+                //   },
+                // )
+             
               ],
             ),
           ),
