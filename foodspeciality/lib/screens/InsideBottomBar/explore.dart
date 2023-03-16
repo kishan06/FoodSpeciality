@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+// import 'package:foodspeciality/common%20files/texts.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ class _ExploreState extends State<Explore> {
       body: Column(
         children: [
           searchNotification(),
+
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -132,6 +134,7 @@ class _ExploreState extends State<Explore> {
                   )
               
                 ],
+
               ),
             ),
           ),
@@ -148,6 +151,7 @@ class _ExploreState extends State<Explore> {
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.greyL979797),
         borderRadius: BorderRadius.circular(9.h),
+        // color: AppColors.lightBlueF2F2F2,
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
@@ -170,37 +174,99 @@ class _ExploreState extends State<Explore> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // textWhite17w500("George Smith"),
+                    // e=
                     textBlack14SP_Med("Bunny Chow"),
+                    // textgreyD16BoldSP("Priyanka Joshi"),
+
                     sizedBoxHeight(5.h),
+
                     textgreyM10Robo("@Priyujoshi")
+
+                    // textgreyD12Robo("2 Days ago")
+
+                    // textGrey15W500("21 Jan, 2022, 10:41 am")
                   ],
-                ),
+                )
               ],
             ),
+
+            // sizedBoxHeight(.h),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
+                    // Row(
+                    //   children: [
+                    //     Image.asset("assets/icons/like.png",
+                    //       width: 18.w,
+                    //       height: 16.h,
+                    //     ),
+
+                    //     textBlack10Robo("55")
+                    //   ],
+                    // ),
+
                     iconText("assets/icons/like.png", "55"),
+
                     sizedBoxWidth(25.w),
+
+                    // InkWell(
+                    //   onTap: (){
+                    //     // commentbottomSheet();
+                    //   },
+                    //   child: Image.asset("assets/icons/comment.png",
+                    //     width: 18.w,
+                    //     height: 16.h,
+                    //   ),
+                    // ),
+
                     iconText("assets/icons/comment.png", "30"),
+
                     sizedBoxWidth(25.w),
+
+                    // InkWell(
+                    //   // onTap: share,
+                    //   // (){
+                    //   //   shar
+                    //   //   // Share.share('https://www.google.co.in/');
+                    //   // },
+                    //   child: Image.asset("assets/icons/share.png",
+                    //     width: 18.w,
+                    //     height: 16.h,
+                    //   ),
+                    // ),
                     iconText("assets/icons/save.png", "25"),
                   ],
                 ),
+
+                // Image.asset("assets/icons/save.png",
+                //   width: 18.w,
+                //   height: 16.h,
+                // ),
                 Row(
                   children: [
+                    // Image.asset(imagePath,
+                    //   width: 18.w,
+                    //   height: 16.h,
+                    //   color: AppColors.greyM707070,
+                    // ),
                     SvgPicture.asset(
                       "assets/icons/time.svg",
                       height: 16.h,
                       width: 18.w,
                       color: AppColors.greyM707070,
+                      // colorFilter: AppColors.greyD3B3F43,
                     ),
+
                     sizedBoxWidth(2.w),
+
                     textBlack10Robo("30 Min")
                   ],
                 ),
+                // iconText("assets/icons/save.png", "30 Min")
               ],
             ),
           ],
@@ -338,7 +404,6 @@ class _ExploreState extends State<Explore> {
             sizedBoxHeight(5.h),
           ],
         ),
-
       ),
     );
   }
