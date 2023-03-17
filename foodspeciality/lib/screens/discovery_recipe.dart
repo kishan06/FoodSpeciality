@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/common_elevatd_button.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:get/get.dart';
 
 class DiscoveryRecipesScreen extends StatefulWidget {
@@ -199,39 +200,16 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
               ),
               Padding(
 
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                child: SizedBox(
-                  height: 50.h,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed("/bottomBar");
- 
-                      // Get.toNamed('/signUpProfile');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(84, 89, 95, 1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                        // side: BorderSide(color: Colors.white, width: 1.w),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Next',
-                      style: TextStyle(
-                          fontSize: 18.sp, fontFamily: "StudioProR"),
-                    ),
-                  ),
-
+                child: CustomNextButton(text: "Next",
+                  ontap: (){
+                  Get.to(BottomBar(),duration:Duration(milliseconds:500),
+                    transition: Transition.rightToLeft);
+                    //Get.toNamed("/bottomBar");
+                  },
                 ),
-                
-                // CustomNextButton(text: "Next",
-                //   ontap: (){
-                //     Get.toNamed("/bottomBar");
-                //   },
-                // ),
+
 
               ),
               SizedBox(

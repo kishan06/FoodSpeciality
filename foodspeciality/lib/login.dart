@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
@@ -177,7 +178,9 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/signUpProfile');
+                        //Get.toNamed('/signUpProfile');
+                          Get.to(SignupProfile(),duration:Duration(milliseconds:500),
+                            transition: Transition.rightToLeft);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(84, 89, 95, 1),

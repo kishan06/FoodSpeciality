@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/login.dart';
 // import 'package:foodspeciality/utils/texts.dart';
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -18,6 +19,7 @@ class OnBoarding extends StatefulWidget {
 
 class _OnBoardingState extends State<OnBoarding> {
   int currentIndex = 0;
+
   // var currentIndex = 0.obs;
 
   late PageController _controller;
@@ -73,7 +75,7 @@ class _OnBoardingState extends State<OnBoarding> {
                                 sizedBoxHeight(7.h),
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 38.w),
+                                  EdgeInsets.symmetric(horizontal: 38.w),
                                   child: textL_grey14Robo(
                                       contents[currentIndex].discription),
                                 ),
@@ -99,18 +101,18 @@ class _OnBoardingState extends State<OnBoarding> {
                         currentIndex == 2
                             ? SizedBox()
                             : Padding(
-                                padding: EdgeInsets.only(right: 21.w),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      // Get.off(LoginScreen());
-                                      Get.toNamed("/login");
-                                    },
-                                    child: textWhite16RoboBold("Skip"),
-                                  ),
-                                ),
-                              ),
+                          padding: EdgeInsets.only(right: 21.w),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                              onTap: () {
+                                // Get.off(LoginScreen());
+                                Get.toNamed("/login");
+                              },
+                              child: textWhite16RoboBold("Skip"),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -120,7 +122,7 @@ class _OnBoardingState extends State<OnBoarding> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:
-                    List.generate(contents.length, (index) => buildDot(index))),
+                List.generate(contents.length, (index) => buildDot(index))),
             sizedBoxHeight(40.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -129,7 +131,9 @@ class _OnBoardingState extends State<OnBoarding> {
                   // SharedPreferences pref = await SharedPreferences.getInstance();
                   // pref.setBool("onBoarding_done", true);
                   // Get.off(LoginScreen());
-                  Get.toNamed("/login");
+                  //Navigator.push(context, _createRoute());
+                  Get.to(()=>Login(),duration:Duration(milliseconds:500),
+                 transition: Transition.rightToLeft);
                 }
                 _controller.nextPage(
                     duration: const Duration(milliseconds: 100),

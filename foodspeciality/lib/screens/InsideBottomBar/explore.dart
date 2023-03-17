@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-// import 'package:foodspeciality/common%20files/texts.dart';
+import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -356,7 +356,9 @@ class _ExploreState extends State<Explore> {
               children: [
                 GestureDetector( 
                     onTap: () {
-                      Get.toNamed("/joinchallenge");
+                      //Get.toNamed("/joinchallenge");
+                      Get.to(JoinChallenge(),duration:Duration(milliseconds:500),
+                          transition: Transition.fadeIn);
                     },
                     child: textBlack14SP_Med("Join Challenge")),
                 Icon(

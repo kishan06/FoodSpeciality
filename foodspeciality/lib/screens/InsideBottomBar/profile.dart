@@ -7,6 +7,7 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
 import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
+import 'package:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
@@ -44,7 +45,9 @@ class _myProfileState extends State<myProfile> {
               InkWell(
                 onTap: (){
                   // Get.to(EditProfile());
-                  Get.toNamed("/EditProfile");
+                 // Get.toNamed("/EditProfile");
+                  Get.to(EditProfile(),duration:Duration(milliseconds:500),
+                      transition: Transition.downToUp);
                 },
                 child: Icon(
                   Icons.edit,
@@ -54,7 +57,9 @@ class _myProfileState extends State<myProfile> {
               sizedBoxWidth(20),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed("/setting");
+                 // Get.toNamed("/setting");
+                  Get.to(Setting(),duration:Duration(milliseconds:500),
+                      transition: Transition.downToUp);
                 },
                 child: Icon(
                   Icons.settings_outlined,
