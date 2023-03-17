@@ -6,7 +6,6 @@ import 'package:foodspeciality/screens/common_chip.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
-
 // ignore: non_constant_identifier_names
 Future<T?> FilterBottomSheet<T>() {
   return Get.bottomSheet(
@@ -29,7 +28,7 @@ Future<T?> FilterBottomSheet<T>() {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.back();
                           },
                           child: Text(
@@ -120,43 +119,22 @@ Future<T?> FilterBottomSheet<T>() {
                         ],
                       ),
                       sizedBoxHeight(13.h),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Wrap(
+                        spacing: 11.w,
+                        runSpacing: 7.h,
                         children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                const CommonChip(text: "Savoury moments"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "Quarter to quick"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "Juicy Mondays"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "The healthy way"),
-                                sizedBoxWidth(11.w),
-                              ],
-                            ),
-                          ),
+                          const CommonChip(text: "Savoury moments"),
+                          const CommonChip(text: "Quarter to quick"),
+                          const CommonChip(text: "Juicy Mondays"),
+                          const CommonChip(text: "The healthy way"),
+                          const CommonChip(text: "Fry-day!!"),
+                          const CommonChip(text: "Simple greens"),
+                          const CommonChip(text: "Flavour explosions"),
+                          const CommonChip(text: "The healthy way"),
                           SizedBox(
-                            height: 7.h,
+                            height: 18.h,
+                            width: double.infinity,
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                const CommonChip(text: "Fry-day!!"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "Simple greens"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "Flavour explosions"),
-                                sizedBoxWidth(11.w),
-                                const CommonChip(text: "The healthy way"),
-                                sizedBoxWidth(11.w),
-                              ],
-                            ),
-                          ),
-                          sizedBoxHeight(25.h),
                           Text(
                             "South Africa Cuisine",
                             style: TextStyle(
@@ -166,37 +144,22 @@ Future<T?> FilterBottomSheet<T>() {
                               color: const Color(0xFF3E3D3D),
                             ),
                           ),
-                          sizedBoxHeight(12.h),
-                          Row(
-                            children: [
-                              const CommonChip(text: "Limpopo"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Easy"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Food"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Carrot"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Quick"),
-                            ],
-                          ),
                           SizedBox(
+                            height: 5.h,
+                            width: double.infinity,
+                          ),
+                          const CommonChip(text: "Limpopo"),
+                          const CommonChip(text: "Easy"),
+                          const CommonChip(text: "Food"),
+                          const CommonChip(text: "Carrot"),
+                          const CommonChip(text: "Quick"),
+                          const CommonChip(text: "Yoghurt"),
+                          const CommonChip(text: "Breakfast"),
+                          const CommonChip(text: "Quick"),
+                          const CommonChip(text: "Yoghurt"),
+                          SizedBox(
+                            width: double.infinity,
                             height: 13.h,
-                          ),
-                          Row(
-                            children: [
-                              const CommonChip(text: "Yoghurt"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Breakfast"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Quick"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Yoghurt"),
-                              sizedBoxWidth(11.w),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20.h,
                           ),
                           Text(
                             "International Cuisine",
@@ -207,36 +170,23 @@ Future<T?> FilterBottomSheet<T>() {
                               color: const Color(0xFF3E3D3D),
                             ),
                           ),
-                          sizedBoxHeight(12.h),
-                          Row(
-                            children: [
-                              const CommonChip(text: "Limpopo"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Easy"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Food"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Carrot"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Quick"),
-                            ],
+                          SizedBox(
+                            height: 5.h,
+                            width: double.infinity,
                           ),
+                          const CommonChip(text: "Limpopo"),
+                          const CommonChip(text: "Easy"),
+                          const CommonChip(text: "Food"),
+                          const CommonChip(text: "Carrot"),
+                          const CommonChip(text: "Quick"),
+                          const CommonChip(text: "Yoghurt"),
+                          const CommonChip(text: "Breakfast"),
+                          const CommonChip(text: "Quick"),
+                          const CommonChip(text: "Yoghurt"),
                           SizedBox(
                             height: 13.h,
+                            width: double.infinity,
                           ),
-                          Row(
-                            children: [
-                              const CommonChip(text: "Yoghurt"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Breakfast"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Quick"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Yoghurt"),
-                              sizedBoxWidth(11.w),
-                            ],
-                          ),
-                          sizedBoxHeight(20.h),
                           Text(
                             "Select Difficulty",
                             style: TextStyle(
@@ -246,16 +196,13 @@ Future<T?> FilterBottomSheet<T>() {
                               color: const Color(0xFF3E3D3D),
                             ),
                           ),
-                          sizedBoxHeight(12.h),
-                          Row(
-                            children: [
-                              const CommonChip(text: "Easy"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Medium"),
-                              sizedBoxWidth(11.w),
-                              const CommonChip(text: "Hard"),
-                            ],
+                          SizedBox(
+                            height: 5.h,
+                            width: double.infinity,
                           ),
+                          const CommonChip(text: "Easy"),
+                          const CommonChip(text: "Medium"),
+                          const CommonChip(text: "Hard"),
                         ],
                       ),
                       sizedBoxHeight(32.h),

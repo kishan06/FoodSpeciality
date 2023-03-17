@@ -11,9 +11,18 @@ import 'customSearchTextfield.dart';
 
 Widget searchNotification() {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 17.h),
+    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
     child: Row(
       children: [
+        Image.asset(
+          "assets/logo.png",
+          width: 60.w,
+          height: 60.w,
+        ),
+
+        sizedBoxWidth(5.w),
+
+
         Expanded(
           child: CustomSearchTextFormField(
             onTap: () {
@@ -32,7 +41,7 @@ Widget searchNotification() {
             // pref
           ),
         ),
-        sizedBoxWidth(26.w),
+        sizedBoxWidth(5.w),
         GestureDetector(
           onTap: () {
             //Get.toNamed("/notification");

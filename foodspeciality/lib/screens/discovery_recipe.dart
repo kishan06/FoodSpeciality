@@ -199,6 +199,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                 height: 64.h,
               ),
               Padding(
+
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
                 child: CustomNextButton(text: "Next",
@@ -208,6 +209,7 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                     //Get.toNamed("/bottomBar");
                   },
                 ),
+
 
               ),
               SizedBox(

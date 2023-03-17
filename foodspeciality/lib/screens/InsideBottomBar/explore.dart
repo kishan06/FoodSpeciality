@@ -27,141 +27,118 @@ class _ExploreState extends State<Explore> {
         children: [
           searchNotification(),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                textgreyM20BoldSP("Join a cooking challenge"),
-                sizedBoxHeight(7.h),
-
-                CarouselSlider.builder(
-                    itemCount: 3,
-                    itemBuilder: (context, index, realIndex) {
-                      return Padding(
-                        padding: EdgeInsets.all(5.w),
-                        child: mainChallengesCard(),
-                      );
-                      // final sliderInfo = sliderData[index];
-                      // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                    },
-                    options: CarouselOptions(
-                      height: 255.h,
-                      // aspectRatio: 3 / 1,
-                      autoPlay: true,
-                      autoPlayAnimationDuration: const Duration(seconds: 3),
-                      // enlargeCenterPage: true,
-                      viewportFraction: 1,
-                      onPageChanged: (index, reason) {
-                        setState(() {});
-                      },
-                    )),
-                // mainChallengesCard(),
-                sizedBoxHeight(25.h),
-                textgreyM20BoldSP("Trending Recipes")
-              ],
-            ),
-          ),
-
-          sizedBoxHeight(11.h),
-
-          Padding(
-            padding: EdgeInsets.only(left: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 98.h,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return SizedBox(width: 9.w);
-                    },
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return trendingRecipeCard();
-                    },
-                  ),
-                ),
-
-                sizedBoxHeight(20.h),
-                // trendingRecipeCard()
-                // textgreyM20BoldSP("Trending Recipes"),
-                textgreyM20BoldSP("Explore"),
-
-                sizedBoxHeight(15.h),
-              ],
-            ),
-          ),
-
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
-          //   child: Column(
-
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       textgreyM20BoldSP("Explore"),
-
-          //       sizedBoxHeight(7.h),
-
-          //     ],
-          //   ),
-          // ),
-
           Expanded(
-            child:
-                // GridView.count(
-                //     crossAxisCount: 3,
-                //     childAspectRatio: 1.2,
-                //     // crossAxisSpacing: 2,
-                //     // mainAxisSpacing: ,
-                //     children: List.generate(8, (index) {
-                //       return Center(
-                //         child: Image.asset("assets/home/17.png",
-                //           // height: 100.h,
-                //           // width: 100.h,
-                //         ),
-                //         // child: SelectCard(choice: choices[index]),
-                //       );
-                //     }
-                //     )
-                // )
-                Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: SingleChildScrollView(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textgreyM20BoldSP("Join a cooking challenge"),
+                        sizedBoxHeight(7.h),
+                        
+                        CarouselSlider.builder(
+                          itemCount: 3,
+                          itemBuilder: (context, index, realIndex) {
+                            return Padding(
+                              padding: EdgeInsets.all(5.w),
+                              child: mainChallengesCard(),
+                            );
+                            // final sliderInfo = sliderData[index];
+                            // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
+                          },
+                          options: CarouselOptions(
+                    
+                            height: 260.h,
+                    
+                            // aspectRatio: 3 / 1,
+                            autoPlay: true,
+                            autoPlayAnimationDuration: const Duration(seconds: 3),
+                            // enlargeCenterPage: true,
+                            viewportFraction: 1,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                        
+                              });
+                            },
+                          )
+                        ),
+                        // mainChallengesCard(),
+                        sizedBoxHeight(25.h),
+                        textgreyM20BoldSP("Trending Recipes")
+                      ],
+                    ),
+                  ),
+              
+                  sizedBoxHeight(11.h),
+                  Padding(
+                    padding: EdgeInsets.only(left: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 98.h,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return SizedBox(width: 9.w);
+                            },
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 4,
+                            itemBuilder: (context, index) {
+                              return trendingRecipeCard();
+                            },
+                          ),
+                        ),
+                        sizedBoxHeight(20.h),
+                        textgreyM20BoldSP("Explore"),
+                        sizedBoxHeight(15.h),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 13,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 7.w,
+                        mainAxisSpacing: 7.w,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+              
+                        return InkWell(
+                        onTap: (){
+                          Get.toNamed("/InspirationRecipeComment");
+                        },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: index.isEven
+                                        ? AssetImage("assets/home/17.png")
+                                        : AssetImage("assets/home/12.png"),
+                                    fit: BoxFit.cover
+                                    // Image.asset("name")
+                                    )),
+                          ),
+              
+                        );
+                      },
+                    ),
+                  )
+              
+                ],
 
-              // padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemCount: 8,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  //  childAspectRatio: 1.2,
-                  crossAxisSpacing: 7.w,
-                  mainAxisSpacing: 7.w,
-                  //  maxCrossAxisExtent: 200,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: index.isEven
-                                ? AssetImage("assets/home/17.png")
-                                : AssetImage("assets/home/12.png"),
-                            fit: BoxFit.cover
-                            // Image.asset("name")
-                            )),
-                  );
-                  // Image.asset("assets/home/17.png",
-                  //   height: 150.h,
-                  //   width: 150.h,
-                  // );
-                },
               ),
             ),
-          )
+          ),
+          
         ],
       ),
     );
@@ -377,7 +354,7 @@ class _ExploreState extends State<Explore> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
+                GestureDetector( 
                     onTap: () {
                       //Get.toNamed("/joinchallenge");
                       Get.to(JoinChallenge(),duration:Duration(milliseconds:500),

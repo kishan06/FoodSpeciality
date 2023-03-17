@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/setting/setting/dessert.dart';
+import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 class BlogsNewsArticles extends StatefulWidget {
@@ -48,10 +49,19 @@ class _BlogsNewsArticlesState extends State<BlogsNewsArticles> {
                     child: TextFormField(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            gapPadding: 0,
-                            borderSide:
-                                const BorderSide(color: Color(0xff707070)),
                             borderRadius: BorderRadius.circular(8.r),
+                            borderSide:
+                                BorderSide(color: Color(0xFF707070), width: 1),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                            borderSide:
+                                BorderSide(color: Color(0xFF707070), width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                            borderSide:
+                                BorderSide(color: Color(0xFF707070), width: 1),
                           ),
                           hintText: "Search",
                           hintStyle: TextStyle(
@@ -65,46 +75,81 @@ class _BlogsNewsArticlesState extends State<BlogsNewsArticles> {
                     ),
                   ),
                   sizedBoxHeight(25.h),
+                  // TabBar(
+                  //     indicatorSize: TabBarIndicatorSize.label,
+                  //     indicatorWeight: 4.h,
+                  //     indicatorColor: AppColors.greyD3B3F43,
+                  //     unselectedLabelStyle:
+                  //         const TextStyle(color: AppColors.greyL979797),
+                  //     labelColor: AppColors.greyD3B3F43,
+                  //     labelStyle: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 18.sp,
+                  //     ),
+                  //     tabs: [
+                  //       Text(
+                  //         "Dessert",
+                  //         style: TextStyle(
+                  //             fontFamily: "Studio Pro",
+                  //             fontSize: 18.sp,
+                  //             fontWeight: FontWeight.w500),
+                  //       ),
+                  //       Text(
+                  //         "Breakfast",
+                  //         style: TextStyle(
+                  //             fontFamily: "Studio Pro",
+                  //             fontSize: 18.sp,
+                  //             fontWeight: FontWeight.w500),
+                  //       ),
+                  //       Text(
+                  //         "Healthy",
+                  //         style: TextStyle(
+                  //             fontFamily: "Studio Pro",
+                  //             fontSize: 18.sp,
+                  //             fontWeight: FontWeight.w500),
+                  //       ),
+                  //     ])
                   TabBar(
-                      indicator: UnderlineTabIndicator(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 2.5.sp),
-                          insets: EdgeInsets.symmetric(horizontal: 90.w)),
-                      indicatorSize: TabBarIndicatorSize.label,
-                      // indicatorWeight: 4,
-
-                      indicatorColor: const Color(0xFF3B3F43),
-                      unselectedLabelStyle:
-                          const TextStyle(color: Color(0xFF979797)),
-                      labelColor: const Color(0xff3B3F43),
-                      labelStyle: TextStyle(
-                        fontFamily: "Studio Pro",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18.sp,
-                      ),
-                      tabs: [
-                        Text(
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorWeight: 4.h,
+                    indicatorColor: AppColors.greyD3B3F43,
+                    unselectedLabelStyle:
+                        const TextStyle(color: AppColors.greyL979797),
+                    labelColor: AppColors.greyD3B3F43,
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
+                    tabs: [
+                      Tab(
+                        child:
+                            // textgrey18BoldSP(label1)
+                            Text(
                           "Dessert",
                           style: TextStyle(
-                              fontFamily: "Studio Pro",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.bold, fontSize: 18.sp),
                         ),
-                        Text(
+                      ),
+                      Tab(
+                        child:
+                            // textgrey18BoldSP(label2)
+                            Text(
                           "Breakfast",
                           style: TextStyle(
-                              fontFamily: "Studio Pro",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.bold, fontSize: 18.sp),
                         ),
-                        Text(
+                      ),
+                      Tab(
+                        child:
+                            // textgrey18BoldSP(label2)
+                            Text(
                           "Healthy",
                           style: TextStyle(
-                              fontFamily: "Studio Pro",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.bold, fontSize: 18.sp),
                         ),
-                      ])
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -298,7 +343,7 @@ class _BlogsNewsArticlesState extends State<BlogsNewsArticles> {
                 ],
               ),
             ),
-            sizedBoxHeight(19.h),
+            sizedBoxHeight(80.h),
           ],
         ),
       ),

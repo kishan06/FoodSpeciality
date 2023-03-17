@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/publish_popup.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
 class Preview extends StatefulWidget {
@@ -71,15 +72,34 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: const Color.fromRGBO(59, 63, 67, 1),
-          leading: InkWell(
-            onTap: (){
-              Get.back();
-            },
-            child: const Icon(
-              Icons.arrow_back,
+          // leading: InkWell(
+          //   onTap: (){
+          //     Get.back();
+          //   },
+          //   child: const Icon(
+          //     Icons.arrow_back,
+          //   ),
+          // ),
+          title: Padding(
+            padding: EdgeInsets.only(top: 0.h),
+            child: InkWell(
+              onTap: (){
+                Get.back();
+              },
+              child: Image.asset("assets/icons/back_arrow.png",
+                height: 20.h,
+                width: 30.w,
+                color: AppColors.greyD3B3F43,
+              
+                // color: ,
+              )
+              // const Icon(
+              //   Icons.arrow_back,
+              // ),
             ),
           ),
           actions: [

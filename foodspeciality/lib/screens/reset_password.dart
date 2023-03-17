@@ -30,28 +30,28 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   "Enter New Password and Confirm.",
-                //   textAlign: TextAlign.left,
-                //   style: TextStyle(
-                //       color: Color.fromRGBO(112, 112, 112, 1),
-                //       fontSize: 16.sm,
-                //       fontFamily: "Roboto"),
-                // ),
+                Text(
+                  "Enter New Password and Confirm.",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color.fromRGBO(112, 112, 112, 1),
+                      fontSize: 16.sp,
+                      fontFamily: "Roboto"),
+                ),
                 SizedBox(
                   height: 77.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    // Text(
-                    //   "New Password",
-                    //   style: TextStyle(
-                    //       color: Color.fromRGBO(112, 112, 112, 1),
-                    //       fontSize: 14.sm,
-                    //       fontFamily: "Roboto"),
-                    // ),
-                    Text("New Password")
+                  children: [
+                    Text(
+                      "New Password",
+                      style: TextStyle(
+                          color: const Color.fromRGBO(112, 112, 112, 1),
+                          fontSize: 14.sp,
+                          fontFamily: "Roboto"),
+                    ),
+                    // Text("New Password")
                   ],
                 ),
                 SizedBox(
@@ -101,12 +101,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    // Text(
-                    //   "Confirm Password",
-                    //   style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                    // ),
-                    Text("Confirm Password")
+                  children: [
+                    Text(
+                      "Confirm Password",
+                      style: TextStyle(
+                          color: const Color(0xff707070),
+                          fontSize: 14.sp,
+                          fontFamily: "Roboto"),
+                    ),
+                    // Text("Confirm Password")
                   ],
                 ),
                 SizedBox(
@@ -153,12 +156,39 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(
                   height: 95.h,
                 ),
-                CustomNextButton(
-                  text: 'Change Password',
-                  ontap: () {
-                    Get.toNamed("/login");
-                  },
-                )
+
+                SizedBox(
+                  height: 50.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed("/login");
+                      // Get.toNamed("/otpverification");
+                      // Get.toNamed('/signUpProfile');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        // side: BorderSide(color: Colors.white, width: 1.w),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Change Password',
+                      style: TextStyle(
+                          fontSize: 18.sp, fontFamily: "StudioProR"),
+                    ),
+                  ),
+                ),
+              
+                // CustomNextButton(
+                //   text: 'Change Password',
+                //   ontap: () {
+                //     Get.toNamed("/login");
+                //   },
+                // )
+             
               ],
             ),
           ),

@@ -77,7 +77,7 @@ class _JoinChallengeState extends State<JoinChallenge> {
                           ),
                           sizedBoxWidth(27.w),
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Get.toNamed("/RecipeIng");
                             },
                             child: Row(
@@ -90,7 +90,6 @@ class _JoinChallengeState extends State<JoinChallenge> {
                                     color: const Color(0xff3B3F43),
                                   ),
                                 ),
-                          
                                 Icon(
                                   Icons.arrow_forward_ios_rounded,
                                   size: 16.sp,
@@ -98,7 +97,6 @@ class _JoinChallengeState extends State<JoinChallenge> {
                               ],
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -129,7 +127,12 @@ class _JoinChallengeState extends State<JoinChallenge> {
                             Column(
                               children: [
                                 sizedBoxHeight(26.h),
-                                SvgPicture.asset('assets/Path 39.svg'),
+                                GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child:
+                                        SvgPicture.asset('assets/Path 39.svg')),
                               ],
                             ),
                             Column(
