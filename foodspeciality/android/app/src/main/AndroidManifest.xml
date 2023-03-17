@@ -2,9 +2,9 @@
     package="com.example.foodspeciality">
    <application
         android:usesCleartextTraffic="true"
-        android:label="foodspeciality"
+        android:label="Food Specialities"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -26,6 +26,7 @@ import 'package:get/get.dart';
 
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
+import 'screens/communityAddparticipants.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 
@@ -51,13 +52,11 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(430, 930),
       builder: (BuildContext context, Widget? child) => GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: GetMaterialApp(
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.white
-          ),
+          theme: ThemeData(scaffoldBackgroundColor: AppColors.white),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
           initialRoute: '/',
@@ -72,7 +71,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/resetPass", page: () => ResetPassword()),
             GetPage(name: "/signUpProfile", page: () => SignupProfile()),
             GetPage(
-                name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
+                name: "/discoveryRecipes",
+                page: () => DiscoveryRecipesScreen()),
             GetPage(name: "/viewuser", page: () => viewUser()),
             GetPage(name: "/followuser", page: () => followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
@@ -80,10 +80,12 @@ class _MyAppState extends State<MyApp> {
                 name: "/communityaddparticipants",
                 page: () => communityAddParticipants()),
             GetPage(
-                name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
+                name: "/chatcommunitydetail",
+                page: () => ChatCommunityDetail()),
             GetPage(name: "/myProfile", page: () => myProfile()),
             GetPage(
-                name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
+                name: "/networkplayerwidget",
+                page: () => NetworkPlayerWidget()),
             GetPage(name: "/setting", page: () => Setting()),
             GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
             GetPage(name: "/notification", page: () => UserNotifications()),
@@ -93,10 +95,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => InspirationRecipeComment()),
-      
+
             GetPage(name: "/SearchPage", page: () => SearchPage()),
             GetPage(name: "/RecipeIng", page: () => RecipeIng()),
-
           ],
         ),
       ),

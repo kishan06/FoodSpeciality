@@ -49,6 +49,7 @@ class _SearchPageState extends State<SearchPage> {
                           horizontal: 16.w, vertical: 17.h),
                       // padding: const EdgeInsets.all(8.0),
                       child: CustomSearchTextFormField(
+                        //    autofocus: true,
                         hintText: "search recipes, ingredients or tips",
                         validatorText: "",
                         leadingIcon: Icon(
@@ -61,7 +62,7 @@ class _SearchPageState extends State<SearchPage> {
                         suffixIcon: Padding(
                           padding: EdgeInsets.only(right: 17.w),
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               FilterBottomSheet();
                             },
                             child: SvgPicture.asset(
@@ -337,7 +338,7 @@ class _SearchPageState extends State<SearchPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: (){
+                onTap: () {
                   Get.toNamed("/viewuser");
                 },
                 child: Text(
