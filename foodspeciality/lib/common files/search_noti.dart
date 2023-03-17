@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/search_page.dart';
+import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +17,9 @@ Widget searchNotification() {
         Expanded(
           child: CustomSearchTextFormField(
             onTap: () {
-              Get.toNamed("/SearchPage");
+              //Get.toNamed("/SearchPage");
+              Get.to(SearchPage(),duration:Duration(milliseconds:500),
+                  transition: Transition.downToUp);
             },
             readonly: true,
             hintText: "search recipes, ingredients or tips",
@@ -31,7 +35,9 @@ Widget searchNotification() {
         sizedBoxWidth(26.w),
         GestureDetector(
           onTap: () {
-            Get.toNamed("/notification");
+            //Get.toNamed("/notification");
+            Get.to(UserNotifications(),duration:Duration(milliseconds:500),
+                transition: Transition.downToUp);
           },
           child: Image.asset(
             "assets/icons/notification.png",

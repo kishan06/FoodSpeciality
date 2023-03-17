@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -441,7 +442,9 @@ class _SignupProfileState extends State<SignupProfile> {
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed("/discoveryRecipes");
+                          Get.to(DiscoveryRecipesScreen(),duration:Duration(milliseconds:500),
+                          transition: Transition.rightToLeft);
+                          //Get.toNamed("/discoveryRecipes");
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -468,7 +471,9 @@ class _SignupProfileState extends State<SignupProfile> {
                       width: MediaQuery.of(context).size.width / 2 - 30.w,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed("/discoveryRecipes");
+                          //Get.toNamed("/discoveryRecipes");
+                          Get.to(Home(),duration:Duration(milliseconds:500),
+                              transition: Transition.rightToLeft);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
