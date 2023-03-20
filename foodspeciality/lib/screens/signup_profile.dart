@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'discovery_recipe.dart';
 
@@ -15,6 +20,106 @@ class SignupProfile extends StatefulWidget {
 }
 
 class _SignupProfileState extends State<SignupProfile> {
+  bool isSwitched = false;
+  File? _image;
+
+  Future getImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      // final imagePermanent = await saveFilePermanently(image.path);
+
+      setState(() {
+        this._image = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveFilePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File(imagePath).copy(imagePath);
+  }
+
+  builduploadprofile() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.camera);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Camera',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.gallery);
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.image,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Gallery',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,24 +145,34 @@ class _SignupProfileState extends State<SignupProfile> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      child: CircleAvatar(
-                        radius: 51.r,
-                        backgroundColor: Colors.grey,
-                        child: const Image(
-                          image: AssetImage("assets/Mask Group 40.png"),
+                Center(
+                  child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        ClipOval(
+                          child: SizedBox.fromSize(
+                              size: Size.fromRadius(50),
+                              child: _image != null
+                                  ? Image.file(
+                                      _image!,
+                                      width: 150.w,
+                                      height: 150.h,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset('assets/Mask Group 40.png')),
                         ),
-                      ),
-                    ),
-                    Positioned(
-                        top: 10.h,
-                        left: 100.w,
-                        child: const Image(
-                            image: AssetImage("assets/Group 57623.png")))
-                  ],
+                        Positioned(
+                          bottom: 70,
+                          right: 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              builduploadprofile();
+                            },
+                            child: Image.asset("assets/Group 57623.png"),
+                          ),
+                        ),
+                      ]),
                 ),
                 SizedBox(
                   height: 2.h,
