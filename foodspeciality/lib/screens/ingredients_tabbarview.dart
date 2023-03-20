@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/utils/colors.dart';
-import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class IngredientsTabbatview extends StatefulWidget {
@@ -17,10 +15,21 @@ class IngredientsTabbatview extends StatefulWidget {
 class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   List<Widget> widgetsInColumn = [];
   List<Widget> stepsInColumn = [];
-  int number = 1;
-  int _TBS = 1;
-  final TextEditingController _TEC = TextEditingController();
+  final List<TextEditingController> _controllers = [];
+  int number = 2;
+  int textControllerNumber = 0;
+  final TextEditingController _tec = TextEditingController();
   int servigCount = 0;
+  late int _selectedHour;
+  late int _selectedMinute;
+
+  @override
+  void initState() {
+    _controllers.add(TextEditingController());
+    super.initState();
+    _selectedHour = 0;
+    _selectedMinute = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +85,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontFamily: "Roboto",
-                              color: Color(0xff979797),
+                              color: const Color(0xff979797),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.bold),
                         ),
@@ -85,7 +94,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     sizedBoxWidth(55.w),
                     GestureDetector(
                       onTap: () {
-                        Get.bottomSheet(_servings());
+                        Get.bottomSheet(_timeForServing());
                       },
                       child: Container(
                           decoration: ShapeDecoration(
@@ -100,14 +109,9 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "$servigCount",
+                                "$_selectedHour Hr $_selectedMinute Min",
                                 style: const TextStyle(
                                     fontFamily: "Roboto", fontSize: 20),
-                              ),
-                              const Text(
-                                " Min",
-                                style: TextStyle(
-                                    fontFamily: "Roboto", fontSize: 15),
                               ),
                               sizedBoxWidth(1),
                             ],
@@ -146,7 +150,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                           "How many people does \nthis recipe serve?",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              color: Color(0xff979797),
+                              color: const Color(0xff979797),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.bold),
                         ),
@@ -197,13 +201,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                 ],
               ),
               sizedBoxHeight(15.h),
-              _recipeDetails(),
+              _recipeDetails(_tec),
               Column(
                 children: widgetsInColumn,
               ),
-              // ListView(
-              //   children: widgetsInColumn,
-              // ),
               sizedBoxHeight(13.h),
               SizedBox(
                 height: 40.h,
@@ -223,13 +224,24 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     style: TextStyle(
                       fontFamily: "Roboto",
                       color: Colors.white,
-                      fontSize: 16.sm,
+                      fontSize: 16.sp,
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      widgetsInColumn.add(_recipeDetails());
-                    });
+                    if (textControllerNumber < 5) {
+                      textControllerNumber++;
+                      _controllers.add(TextEditingController());
+                      // if (_tec.text.isEmpty) {
+                      //   return;
+                      // } else {
+                      //   setState(() {
+                      //     widgetsInColumn.add(_recipeDetails(null));
+                      //   });
+                      // }
+                      setState(() {
+                        widgetsInColumn.add(_recipeDetails(null));
+                      });
+                    }
                   },
                 ),
               ),
@@ -249,11 +261,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                 ],
               ),
               sizedBoxHeight(20.h),
-              // _instructionSteps(),
+              _instructionSteps(1),
               Column(
                 children: stepsInColumn,
               ),
-
               sizedBoxHeight(14.h),
               SizedBox(
                 height: 40.h,
@@ -277,10 +288,12 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      stepsInColumn.add(_instructionSteps());
-                      number++;
-                    });
+                    if (number < 5) {
+                      setState(() {
+                        stepsInColumn.add(_instructionSteps(null));
+                        number++;
+                      });
+                    }
                   },
                 ),
               ),
@@ -292,7 +305,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
     );
   }
 
-  Widget _recipeDetails() {
+  Widget _recipeDetails(TextEditingController? controller) {
     return Column(
       children: [
         Row(
@@ -301,19 +314,30 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 155.w,
               child: TextFormField(
+                validator: (value) {
+                  if (_tec.text.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                controller: controller == null
+                    ? _controllers[textControllerNumber]
+                    : _tec,
                 decoration: InputDecoration(
+                  isCollapsed: true,
+                  contentPadding: EdgeInsets.all(15.h),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xff70707054)),
+                    borderSide: const BorderSide(color: Color(0xff707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF70707054)),
+                    borderSide: const BorderSide(color: Color(0xFF707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   hintText: "Ex. Salt",
                   hintStyle: TextStyle(
                       fontFamily: "Roboto",
-                      color: const Color(0xff54595f63),
+                      color: const Color(0xff54595f),
                       fontSize: 17.h),
                 ),
               ),
@@ -321,13 +345,11 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(33.w),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  _TBS--;
-                });
+                setState(() {});
               },
               child: CircleAvatar(
                 radius: 16.r,
-                backgroundColor: Color(0xffE1E1E1),
+                backgroundColor: const Color(0xffE1E1E1),
                 child: const Text(
                   "-",
                   style: TextStyle(
@@ -343,22 +365,23 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-                controller: _TEC,
                 // initialValue: '$_TBS',
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                  isCollapsed: true,
+                  contentPadding: EdgeInsets.all(15.h),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xff70707054)),
+                    borderSide: const BorderSide(color: Color(0xff707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF70707054)),
+                    borderSide: const BorderSide(color: Color(0xFF707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   hintText: "Ex. 1 TBS",
                   hintStyle: TextStyle(
                       fontFamily: "Roboto",
-                      color: const Color(0xff54595f63),
+                      color: const Color(0xff54595f),
                       fontSize: 17.h),
                 ),
               ),
@@ -366,9 +389,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(10.w),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  _TBS++;
-                });
+                setState(() {});
               },
               child: CircleAvatar(
                 radius: 16.r,
@@ -390,18 +411,18 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
     );
   }
 
-  Widget _instructionSteps() {
+  Widget _instructionSteps(int? stepNum) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Step $number",
+              stepNum == null ? "Step $number" : 'Step 1',
               style: TextStyle(
                   fontFamily: "Roboto",
                   fontSize: 17.sp,
-                  color: Color(0XFF6B6B6B)),
+                  color: const Color(0XFF6B6B6B)),
               // color: AppColors.),
             ),
           ],
@@ -456,6 +477,82 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               );
             }),
           ),
+        );
+      },
+      onClosing: () {
+        Get.back();
+      },
+    );
+  }
+
+  Widget _timeForServing() {
+    return BottomSheet(
+      builder: (context) {
+        return Column(
+          children: [
+            sizedBoxHeight(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                Text(
+                  'Hours',
+                  style: TextStyle(fontSize: 20, fontFamily: "Roboto"),
+                ),
+                SizedBox(),
+                Text(
+                  "Minutes",
+                  style: TextStyle(fontSize: 20, fontFamily: "Roboto"),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 200.0,
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: CupertinoPicker(
+                    itemExtent: 32.0,
+                    onSelectedItemChanged: (int index) {
+                      setState(() {
+                        _selectedHour = index;
+                      });
+                    },
+                    children: List<Widget>.generate(24, (int index) {
+                      return Center(
+                        child: Text(
+                          '$index ',
+                          style: const TextStyle(
+                              fontSize: 20, fontFamily: "Roboto"),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                SizedBox(
+                  height: 200.0,
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: CupertinoPicker(
+                    itemExtent: 32.0,
+                    onSelectedItemChanged: (int index) {
+                      setState(() {
+                        _selectedMinute = index;
+                      });
+                    },
+                    children: List<Widget>.generate(60, (int index) {
+                      return Center(
+                        child: Text(
+                          '$index ',
+                          style: const TextStyle(
+                              fontSize: 20, fontFamily: "Roboto"),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                // Text('data')
+              ],
+            ),
+          ],
         );
       },
       onClosing: () {

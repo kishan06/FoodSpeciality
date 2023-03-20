@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -33,7 +34,16 @@ class _AssetPlayerWidgetState extends State<AssetPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return VideoPlayerWidget(controller: videoController);
+    return Scaffold(
+      // backgroundColor: Colors.transparent,
+      appBar: CustomAppBar(titleTxt: ""),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          VideoPlayerWidget(controller: videoController),
+        ],
+      ),
+    );
     // return VideoPlayerWidget();
     // return VideoPlayerWidget()
     // return const Placeholder();

@@ -37,7 +37,8 @@ class CustomSearchTextFormField extends StatefulWidget {
   final TextInputType? texttype;
 
   @override
-  State<CustomSearchTextFormField> createState() => _CustomSearchtextFormFieldState();
+  State<CustomSearchTextFormField> createState() =>
+      _CustomSearchtextFormFieldState();
 }
 
 class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
@@ -52,6 +53,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        autofocus: true,
         style: TextStyle(
           fontSize: 16.sm,
         ),

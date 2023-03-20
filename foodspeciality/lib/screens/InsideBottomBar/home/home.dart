@@ -12,17 +12,17 @@ import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 List listCardData = [
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-    {"like": 0, "save":0},
-  ];
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0},
+];
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -32,6 +32,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int selectedVideoIndex = 0;
   // Future<void> share() async {
   //   await FlutterShare.share(
   //     title: 'Example share',
@@ -145,8 +146,10 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    listCard(listCardData[index]["like"],listCardData[index]["save"],index),
-                    sizedBoxHeight(13.h)],
+                    listCard(listCardData[index]["like"],
+                        listCardData[index]["save"], index),
+                    sizedBoxHeight(13.h)
+                  ],
                 );
               },
             ),
@@ -287,19 +290,28 @@ class _HomeState extends State<Home> {
                               shrinkWrap: true,
                               itemCount: 8,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.h),
-                                      color: index == 0
-                                          ? AppColors.white.withOpacity(0.7)
-                                          : AppColors.greyD3B3F43
-                                              .withOpacity(0.7)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 7.w, vertical: 5.h),
-                                    child: index == 0
-                                        ? textgreyD12Robo("Video")
-                                        : textWhite12Robo("video"),
+                                return InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedVideoIndex = index;
+                                      // listCardData[index]["selectedVideoInde"] = index;
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.h),
+                                        color: index == selectedVideoIndex
+                                            ? AppColors.white.withOpacity(0.7)
+                                            : AppColors.greyD3B3F43
+                                                .withOpacity(0.7)),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 7.w, vertical: 5.h),
+                                      child: selectedVideoIndex == index
+                                          ? textgreyD12Robo("Video")
+                                          : textWhite12Robo("video"),
+                                    ),
                                   ),
                                 );
                               },
@@ -333,28 +345,29 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             // sets
                             // like = !like;
                             setState(() {
                               listCardData[index]["like"] = like == 0 ? 1 : 0;
+                              // sdf
                             });
                           },
                           child: like == 0
-                          ? Image.asset(
-                            "assets/icons/like.png",
-                            width: 20.w,
-                            height: 18.h,
-                            // color: like == 0 ? AppColors.red:AppColors.black,
-                            // color: like ?AppColors.white : null ,
-                          ) 
-                          : Image.asset(
-                            "assets/icons/like_filled.png",
-                            width: 20.w,
-                            height: 18.h,
-                            // color: like == 0 ? AppColors.red:AppColors.black,
-                            // color: like ?AppColors.white : null ,
-                          ),
+                              ? Image.asset(
+                                  "assets/icons/like.png",
+                                  width: 20.w,
+                                  height: 18.h,
+                                  // color: like == 0 ? AppColors.red:AppColors.black,
+                                  // color: like ?AppColors.white : null ,
+                                )
+                              : Image.asset(
+                                  "assets/icons/like_filled.png",
+                                  width: 20.w,
+                                  height: 18.h,
+                                  // color: like == 0 ? AppColors.red:AppColors.black,
+                                  // color: like ?AppColors.white : null ,
+                                ),
                         ),
                         sizedBoxWidth(25.w),
                         InkWell(
@@ -383,22 +396,22 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         setState(() {
                           listCardData[index]["save"] = save == 0 ? 1 : 0;
                         });
                       },
-                      child: save == 0 
-                      ? Image.asset(
-                        "assets/icons/save.png",
-                        width: 20.w,
-                        height: 18.h,
-                      )
-                      :Image.asset(
-                        "assets/icons/save_filled.png",
-                        width: 20.w,
-                        height: 18.h,
-                      ),
+                      child: save == 0
+                          ? Image.asset(
+                              "assets/icons/save.png",
+                              width: 20.w,
+                              height: 18.h,
+                            )
+                          : Image.asset(
+                              "assets/icons/save_filled.png",
+                              width: 20.w,
+                              height: 18.h,
+                            ),
                     ),
                   ],
                 ),
@@ -473,5 +486,4 @@ class _HomeState extends State<Home> {
           ),
         ));
   }
-
 }
