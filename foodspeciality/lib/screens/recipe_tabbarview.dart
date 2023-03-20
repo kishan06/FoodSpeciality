@@ -1,10 +1,13 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
-
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'common_chip.dart';
 
 class RecipeTabbarView extends StatefulWidget {
@@ -15,6 +18,107 @@ class RecipeTabbarView extends StatefulWidget {
 }
 
 class _RecipeTabbarViewState extends State<RecipeTabbarView> {
+  bool isSwitched = false;
+  File? _image;
+
+  Future getImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      // final imagePermanent = await saveFilePermanently(image.path);
+
+      setState(() {
+        this._image = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveFilePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File(imagePath).copy(imagePath);
+  }
+
+  builduploadprofile() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.camera);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Camera',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.gallery);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.image,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Gallery',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,45 +177,59 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
               ),
               sizedBoxHeight(20.h),
               Container(
-                  // color: const Color(0xFF3B3F43),
-                  decoration: ShapeDecoration(
-                    color: const Color.fromRGBO(242, 242, 242, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.r),
-                      side: BorderSide(
-                          color: const Color(0xFF979797), width: 1.w),
-                    ),
+                height: 200.h,
+                width: double.infinity,
+                decoration: ShapeDecoration(
+                  color: const Color.fromRGBO(242, 242, 242, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14.r),
+                    side:
+                        BorderSide(color: const Color(0xFF979797), width: 1.w),
                   ),
-                  height: 200.h,
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      sizedBoxHeight(30.h),
-                      SvgPicture.asset(
-                        "assets/svg/upload-filled-svgrepo-com.svg",
-                        height: 47.h,
-                      ),
-                      sizedBoxHeight(11.h),
-                      Text(
-                        "Add Cover Image",
-                        style: TextStyle(
-                          fontFamily: "Studio Pro",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18.spMin,
-                          color: const Color(0xFF3E3D3D),
-                        ),
-                      ),
-                      sizedBoxHeight(7.h),
-                      Text(
-                        "Add a high quality and perfect image of \nyour food to inspire others.",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 12.spMin,
-                            color: const Color(0xFF979797)),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  )),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    builduploadprofile();
+                  },
+                  child: Container(
+                    child: _image != null
+                        ? Image.file(
+                            _image!,
+                            width: 150.w,
+                            height: 150.h,
+                            fit: BoxFit.cover,
+                          )
+                        : Column(
+                            children: [
+                              sizedBoxHeight(30.h),
+                              SvgPicture.asset(
+                                "assets/svg/upload-filled-svgrepo-com.svg",
+                                height: 47.h,
+                              ),
+                              sizedBoxHeight(11.h),
+                              Text(
+                                "Add Cover Image",
+                                style: TextStyle(
+                                  fontFamily: "Studio Pro",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.spMin,
+                                  color: const Color(0xFF3E3D3D),
+                                ),
+                              ),
+                              sizedBoxHeight(7.h),
+                              Text(
+                                "Add a high quality and perfect image of \nyour food to inspire others.",
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 12.spMin,
+                                    color: const Color(0xFF979797)),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                  ),
+                ),
+              ),
               sizedBoxHeight(20.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
