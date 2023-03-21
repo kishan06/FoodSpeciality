@@ -83,6 +83,9 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        // appBar: AppBar(
+        //   title: ,
+        // ),
         body: SafeArea(
           child: Column(
             children: [
@@ -289,9 +292,137 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                   ),
                 ),
               ),
+          
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: 
+                  // NestedScrollView(
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   scrollDirection: Axis.vertical,
+                  //   headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                  //     SliverToBoxAdapter(
+                  //       child: Column(
+                  //         children: [
+                  //           TabBar(
+                  //             indicator: UnderlineTabIndicator(
+                  //               borderRadius: BorderRadius.circular(10),
+                  //               borderSide: BorderSide(width: 2.5.sp),
+                  //               // insets: EdgeInsets.symmetric(horizontal: 80.w),
+                  //             ),
+                  //             indicatorSize: TabBarIndicatorSize.tab,
+                  //             indicatorPadding:
+                  //                 const EdgeInsets.symmetric(horizontal: 50),
+                  //             // indicatorWeight: 4,
+                    
+                  //             indicatorColor: const Color(0xFF3B3F43),
+                  //             unselectedLabelStyle:
+                  //                 const TextStyle(color: Color(0xFF6B6B6B)),
+                  //             labelColor: const Color.fromRGBO(59, 63, 67, 1),
+                  //             labelStyle: TextStyle(
+                  //               fontWeight: FontWeight.bold,
+                  //               fontSize: 18.sp,
+                  //             ),
+                  //             tabs: [
+                  //               Tab(
+                  //                 child: Text(
+                  //                   "Recipe",
+                  //                   style: TextStyle(
+                  //                       fontFamily: "StudioProM", fontSize: 17.sp),
+                  //                 ),
+                  //               ),
+                  //               Tab(
+                  //                 child: Text(
+                  //                   "Comments",
+                  //                   style: TextStyle(
+                  //                       fontFamily: "StudioProM", fontSize: 17.sp),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     )
+                  //   ], 
+                  //   body: 
+                  //   // SizedBox(
+                  //   //   height: 10.h,
+                  //   // )
+                  //   TabBarView(
+                  //     physics: NeverScrollableScrollPhysics(),
+                  //     children: [
+                  //     _recipeTabbarView(),
+                  //     Padding(
+                  //       padding: EdgeInsets.symmetric(horizontal: 22.w),
+                  //       child: _commentTabbarView(),
+                  //     )
+                  //   ])
+                  // )
+               
+                  Column(
+                    children: [
+                      PreferredSize(
+                        preferredSize: const Size.fromHeight(20),
+                        child: TabBar(
+                          indicator: UnderlineTabIndicator(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(width: 2.5.sp),
+                            // insets: EdgeInsets.symmetric(horizontal: 80.w),
+                          ),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorPadding:
+                              const EdgeInsets.symmetric(horizontal: 50),
+                          // indicatorWeight: 4,
+                
+                          indicatorColor: const Color(0xFF3B3F43),
+                          unselectedLabelStyle:
+                              const TextStyle(color: Color(0xFF6B6B6B)),
+                          labelColor: const Color.fromRGBO(59, 63, 67, 1),
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                          ),
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                "Recipe",
+                                style: TextStyle(
+                                    fontFamily: "StudioProM", fontSize: 17.sp),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                "Comments",
+                                style: TextStyle(
+                                    fontFamily: "StudioProM", fontSize: 17.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      sizedBoxHeight(23.h),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.shortestSide,
+                          child: TabBarView(
+                            // physics: NeverScrollableScrollPhysics(),
+                            children: [
+                            _recipeTabbarView(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 22.w),
+                              child: _commentTabbarView(),
+                            )
+                          ])
+                  ),
+                    ],
+                  ),
+              
+                ),
+              ),
+            
             ],
           ),
         ),
+        
       ),
     );
   }
@@ -299,7 +430,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   // ignore: non_constant_identifier_names
   Widget DataTabBarView() {
     return SingleChildScrollView(
-      // physics: NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           sizedBoxHeight(23.h),
@@ -513,639 +644,703 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             ],
           ),
           sizedBoxHeight(21.h),
-          DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                PreferredSize(
-                  preferredSize: const Size.fromHeight(20),
-                  child: TabBar(
-                    indicator: UnderlineTabIndicator(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(width: 2.5.sp),
-                      // insets: EdgeInsets.symmetric(horizontal: 80.w),
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding:
-                        const EdgeInsets.symmetric(horizontal: 50),
-                    // indicatorWeight: 4,
+          // DefaultTabController(
+          //   length: 2,
+          //   child: NestedScrollView(
+          //     scrollDirection: Axis.vertical,
+          //     headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          //       SliverToBoxAdapter(
+          //         child: Column(
+          //           children: [
+          //             TabBar(
+          //               indicator: UnderlineTabIndicator(
+          //                 borderRadius: BorderRadius.circular(10),
+          //                 borderSide: BorderSide(width: 2.5.sp),
+          //                 // insets: EdgeInsets.symmetric(horizontal: 80.w),
+          //               ),
+          //               indicatorSize: TabBarIndicatorSize.tab,
+          //               indicatorPadding:
+          //                   const EdgeInsets.symmetric(horizontal: 50),
+          //               // indicatorWeight: 4,
+              
+          //               indicatorColor: const Color(0xFF3B3F43),
+          //               unselectedLabelStyle:
+          //                   const TextStyle(color: Color(0xFF6B6B6B)),
+          //               labelColor: const Color.fromRGBO(59, 63, 67, 1),
+          //               labelStyle: TextStyle(
+          //                 fontWeight: FontWeight.bold,
+          //                 fontSize: 18.sp,
+          //               ),
+          //               tabs: [
+          //                 Tab(
+          //                   child: Text(
+          //                     "Recipe",
+          //                     style: TextStyle(
+          //                         fontFamily: "StudioProM", fontSize: 17.sp),
+          //                   ),
+          //                 ),
+          //                 Tab(
+          //                   child: Text(
+          //                     "Comments",
+          //                     style: TextStyle(
+          //                         fontFamily: "StudioProM", fontSize: 17.sp),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ],
+          //         ),
+          //       )
+          //     ], 
+          //     body: 
+          //     SizedBox(
+          //       height: 10.h,
+          //     )
+          //     // TabBarView(
+          //     //   // physics: NeverScrollableScrollPhysics(),
+          //     //   children: [
+          //     //   _recipeTabbarView(),
+          //     //   Padding(
+          //     //     padding: EdgeInsets.symmetric(horizontal: 22.w),
+          //     //     child: _commentTabbarView(),
+          //     //   )
+          //     // ])
+          //   )
+          //   // Column(
+          //   //   children: [
+          //   //     PreferredSize(
+          //   //       preferredSize: const Size.fromHeight(20),
+          //   //       child: TabBar(
+          //   //         indicator: UnderlineTabIndicator(
+          //   //           borderRadius: BorderRadius.circular(10),
+          //   //           borderSide: BorderSide(width: 2.5.sp),
+          //   //           // insets: EdgeInsets.symmetric(horizontal: 80.w),
+          //   //         ),
+          //   //         indicatorSize: TabBarIndicatorSize.tab,
+          //   //         indicatorPadding:
+          //   //             const EdgeInsets.symmetric(horizontal: 50),
+          //   //         // indicatorWeight: 4,
           
-                    indicatorColor: const Color(0xFF3B3F43),
-                    unselectedLabelStyle:
-                        const TextStyle(color: Color(0xFF6B6B6B)),
-                    labelColor: const Color.fromRGBO(59, 63, 67, 1),
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                    ),
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "Recipe",
-                          style: TextStyle(
-                              fontFamily: "StudioProM", fontSize: 17.sp),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "Comments",
-                          style: TextStyle(
-                              fontFamily: "StudioProM", fontSize: 17.sp),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                sizedBoxHeight(23.h),
-                SizedBox(
-                    height: MediaQuery.of(context).size.shortestSide,
-                    child: TabBarView(
-                      // physics: NeverScrollableScrollPhysics(),
-                      children: [
-                      _recipeTabbarView(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
-                        child: _commentTabbarView(),
-                      )
-                    ])),
-              ],
-            ),
-          ),
+          //   //         indicatorColor: const Color(0xFF3B3F43),
+          //   //         unselectedLabelStyle:
+          //   //             const TextStyle(color: Color(0xFF6B6B6B)),
+          //   //         labelColor: const Color.fromRGBO(59, 63, 67, 1),
+          //   //         labelStyle: TextStyle(
+          //   //           fontWeight: FontWeight.bold,
+          //   //           fontSize: 18.sp,
+          //   //         ),
+          //   //         tabs: [
+          //   //           Tab(
+          //   //             child: Text(
+          //   //               "Recipe",
+          //   //               style: TextStyle(
+          //   //                   fontFamily: "StudioProM", fontSize: 17.sp),
+          //   //             ),
+          //   //           ),
+          //   //           Tab(
+          //   //             child: Text(
+          //   //               "Comments",
+          //   //               style: TextStyle(
+          //   //                   fontFamily: "StudioProM", fontSize: 17.sp),
+          //   //             ),
+          //   //           ),
+          //   //         ],
+          //   //       ),
+          //   //     ),
+          //   //     sizedBoxHeight(23.h),
+          //   //     SizedBox(
+          //   //         height: MediaQuery.of(context).size.shortestSide,
+          //   //         child: TabBarView(
+          //   //           // physics: NeverScrollableScrollPhysics(),
+          //   //           children: [
+          //   //           _recipeTabbarView(),
+          //   //           Padding(
+          //   //             padding: EdgeInsets.symmetric(horizontal: 22.w),
+          //   //             child: _commentTabbarView(),
+          //   //           )
+          //   //         ])
+          //   // ),
+          //   //   ],
+          //   // ),
+          // ),
+        
         ],
       ),
     );
   }
 
   Widget _recipeTabbarView() {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Ingredients",
-                style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
-              ),
-              sizedBoxHeight(11.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "chomolia, finely chopped",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                  Text(
-                    "1 Bunch",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                thickness: 0.5,
-              ),
-              sizedBoxHeight(15.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Onion, finely chopped",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                  Text(
-                    "1",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                thickness: 0.5,
-              ),
-              sizedBoxHeight(15.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Yellow pepper, finely chopped",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                  Text(
-                    "1",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                thickness: 0.5,
-              ),
-              sizedBoxHeight(15.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Olive oil",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                  Text(
-                    "2 TBS",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                thickness: 0.5,
-              ),
-              sizedBoxHeight(15.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Benny spice",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                  Text(
-                    "To Taste",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xff414141)),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                thickness: 0.5,
-              ),
-            ],
-          ),
-        ),
-        sizedBoxHeight(30.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Instructions",
-                style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
-              ),
-              sizedBoxHeight(15.h),
-              Container(
-                height: 80.h,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xff7070705E)),
-                      borderRadius: BorderRadius.circular(8)),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Ingredients",
+                  style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      sizedBoxWidth(6.w),
-                      CircleAvatar(
-                        radius: 11.sp,
-                        backgroundColor: const Color(0xff6B6B6B),
-                        child: Text(
-                          "1",
-                          style:
-                              TextStyle(fontSize: 14.sp, color: Colors.white),
-                        ),
-                      ),
-                      sizedBoxWidth(7.w),
-                      Text(
-                        "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: const Color(0xff707070),
-                          fontSize: 15.spMin,
-                        ),
-                      ),
-                    ],
-                  ),
+                sizedBoxHeight(11.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "chomolia, finely chopped",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                    Text(
+                      "1 Bunch",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                  ],
                 ),
-              ),
-              sizedBoxHeight(14.h),
-              Container(
-                height: 80.h,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xff7070705E)),
-                      borderRadius: BorderRadius.circular(8)),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      sizedBoxWidth(6.w),
-                      CircleAvatar(
-                        radius: 11.sp,
-                        backgroundColor: const Color(0xff6B6B6B),
-                        child: Text(
-                          "2",
-                          style:
-                              TextStyle(fontSize: 14.sp, color: Colors.white),
-                        ),
-                      ),
-                      sizedBoxWidth(7.w),
-                      Text(
-                        "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: const Color(0xff707070),
-                          fontSize: 15.spMin,
-                        ),
-                      ),
-                    ],
-                  ),
+                sizedBoxHeight(15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Onion, finely chopped",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                    Text(
+                      "1",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                  ],
                 ),
-              ),
-              sizedBoxHeight(14.h),
-              Container(
-                height: 285.h,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xff7070705E)),
-                      borderRadius: BorderRadius.circular(8)),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          sizedBoxWidth(6.w),
-                          CircleAvatar(
-                            radius: 11.sp,
-                            backgroundColor: const Color(0xff6B6B6B),
-                            child: Text(
-                              "3",
-                              style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.white),
-                            ),
-                          ),
-                          sizedBoxWidth(7.w),
-                          Text(
-                            "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: const Color(0xff707070),
-                              fontSize: 15.spMin,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Image(
-                          image: AssetImage("assets/Mask Group 24.png"))
-                    ],
-                  ),
+                sizedBoxHeight(15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Yellow pepper, finely chopped",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                    Text(
+                      "1",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                  ],
                 ),
-              ),
-              sizedBoxHeight(14.h),
-              Container(
-                height: 285.h,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xff7070705E)),
-                      borderRadius: BorderRadius.circular(8)),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          sizedBoxWidth(6.w),
-                          CircleAvatar(
-                            radius: 11.sp,
-                            backgroundColor: const Color(0xff6B6B6B),
-                            child: Text(
-                              "4",
-                              style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.white),
-                            ),
-                          ),
-                          sizedBoxWidth(7.w),
-                          Text(
-                            "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: const Color(0xff707070),
-                              fontSize: 15.spMin,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Image(
-                          image: AssetImage("assets/Mask Group 25.png")),
-                    ],
-                  ),
+                sizedBoxHeight(15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Olive oil",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                    Text(
+                      "2 TBS",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                  ],
                 ),
-              ),
-              sizedBoxHeight(42.h),
-            ],
-          ),
-        ),
-        const Divider(
-          height: 0,
-        ),
-        sizedBoxHeight(20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                'Other Recipes By @Priyujoshi',
-                style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
-              ),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
+                ),
+                sizedBoxHeight(15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Benny spice",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                    Text(
+                      "To Taste",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff414141)),
+                    ),
+                  ],
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
+                ),
+              ],
             ),
-          ],
-        ),
-        sizedBoxHeight(20.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: SizedBox(
-                  height: 150.h,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Column(
+          ),
+          sizedBoxHeight(30.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Instructions",
+                  style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
+                ),
+                sizedBoxHeight(15.h),
+                Container(
+                  height: 80.h,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xff7070705E)),
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 12.h),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        sizedBoxWidth(6.w),
+                        CircleAvatar(
+                          radius: 11.sp,
+                          backgroundColor: const Color(0xff6B6B6B),
+                          child: Text(
+                            "1",
+                            style:
+                                TextStyle(fontSize: 14.sp, color: Colors.white),
+                          ),
+                        ),
+                        sizedBoxWidth(7.w),
+                        Text(
+                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: const Color(0xff707070),
+                            fontSize: 15.spMin,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBoxHeight(14.h),
+                Container(
+                  height: 80.h,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xff7070705E)),
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 12.h),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        sizedBoxWidth(6.w),
+                        CircleAvatar(
+                          radius: 11.sp,
+                          backgroundColor: const Color(0xff6B6B6B),
+                          child: Text(
+                            "2",
+                            style:
+                                TextStyle(fontSize: 14.sp, color: Colors.white),
+                          ),
+                        ),
+                        sizedBoxWidth(7.w),
+                        Text(
+                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: const Color(0xff707070),
+                            fontSize: 15.spMin,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBoxHeight(14.h),
+                Container(
+                  height: 285.h,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xff7070705E)),
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 12.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 93.h,
-                              width: 115.w,
-                              decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          'assets/Chocolate 2.png')),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(9.r),
-                                      topRight: Radius.circular(9.r))),
+                            sizedBoxWidth(6.w),
+                            CircleAvatar(
+                              radius: 11.sp,
+                              backgroundColor: const Color(0xff6B6B6B),
+                              child: Text(
+                                "3",
+                                style: TextStyle(
+                                    fontSize: 14.sp, color: Colors.white),
+                              ),
                             ),
-                            Material(
-                              borderRadius: BorderRadius.circular(9.sp),
-                              elevation: 1.2,
-                              child: Container(
-                                height: 49.h,
-                                width: 115.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(9.r),
-                                        bottomRight: Radius.circular(9.r))),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    sizedBoxHeight(3.5.h),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.4.w),
-                                      child: Text(
-                                        'Slappappoffer Recipe',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 6.sp),
-                                      ),
-                                      // sizedBoxWidth(16.w),
-                                      // Image.asset(
-                                      //   'assets/icons/save.png',
-                                      //   height: 9.h,
-                                      //   width: 6.8.w,
-
-                                      // ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.4.w),
-                                      child: Text(
-                                        '@Priyujoshi',
-                                        style: TextStyle(
-                                            color: const Color(0xff6B6B6B),
-                                            fontSize: 5.sp,
-                                            fontFamily: 'Roboto'),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        sizedBoxWidth(8.w),
-                                        Image.asset(
-                                          'assets/like-svgrepo-com.png',
-                                          height: 10.h,
-                                          width: 11.8.w,
-                                        ),
-                                        Text(
-                                          '23k',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                        sizedBoxWidth(16.w),
-                                        Image.asset(
-                                          'assets/comment-blank-svgrepo-com.png',
-                                          height: 9.7.h,
-                                          width: 10.18.w,
-                                        ),
-                                        Text(
-                                          '150',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                        sizedBoxWidth(16.w),
-                                        Image.asset(
-                                          'assets/bookmark-svgrepo-com.png',
-                                          height: 9.h,
-                                          width: 6.8.w,
-                                        ),
-                                        Text(
-                                          '50',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                            sizedBoxWidth(7.w),
+                            Text(
+                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: const Color(0xff707070),
+                                fontSize: 15.spMin,
                               ),
                             ),
                           ],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          width: 11.3.w,
-                        );
-                      },
-                      itemCount: 5),
+                        ),
+                        const Image(
+                            image: AssetImage("assets/Mask Group 24.png"))
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        sizedBoxHeight(20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                'Similar Recipes',
-                style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
-              ),
-            ),
-          ],
-        ),
-        sizedBoxHeight(20.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: SizedBox(
-                  height: 150.h,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Column(
+                sizedBoxHeight(14.h),
+                Container(
+                  height: 285.h,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xff7070705E)),
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 12.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 93.h,
-                              width: 115.w,
-                              decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          'assets/Chocolate 2.png')),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(9.r),
-                                      topRight: Radius.circular(9.r))),
-                              // child: Image.asset(
-                              //   'assets/Chocolate 2.png',
-                              //   fit: BoxFit.cover,
-                              // ),
+                            sizedBoxWidth(6.w),
+                            CircleAvatar(
+                              radius: 11.sp,
+                              backgroundColor: const Color(0xff6B6B6B),
+                              child: Text(
+                                "4",
+                                style: TextStyle(
+                                    fontSize: 14.sp, color: Colors.white),
+                              ),
                             ),
-                            Material(
-                              borderRadius: BorderRadius.circular(9.sp),
-                              elevation: 1.2,
-                              child: Container(
-                                height: 49.h,
-                                width: 115.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(9.r),
-                                        bottomRight: Radius.circular(9.r))),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    sizedBoxHeight(3.5.h),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.4.w),
-                                      child: Text(
-                                        'Slappappoffer Recipe',
-                                        style: TextStyle(
-                                            fontSize: 8.sp,
-                                            fontFamily: 'Roboto'),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.4.w),
-                                      child: Text(
-                                        '@Priyujoshi',
-                                        style: TextStyle(
-                                            color: const Color(0xff6B6B6B),
-                                            fontSize: 5.sp,
-                                            fontFamily: 'Roboto'),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        sizedBoxWidth(8.w),
-                                        Image.asset(
-                                          'assets/like-svgrepo-com.png',
-                                          height: 10.h,
-                                          width: 11.8.w,
-                                        ),
-                                        Text(
-                                          '23k',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                        sizedBoxWidth(16.w),
-                                        Image.asset(
-                                          'assets/comment-blank-svgrepo-com.png',
-                                          height: 9.7.h,
-                                          width: 10.18.w,
-                                        ),
-                                        Text(
-                                          '150',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                        sizedBoxWidth(16.w),
-                                        Image.asset(
-                                          'assets/bookmark-svgrepo-com.png',
-                                          height: 9.h,
-                                          width: 6.8.w,
-                                        ),
-                                        Text(
-                                          '50',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 6.sp),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                            sizedBoxWidth(7.w),
+                            Text(
+                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: const Color(0xff707070),
+                                fontSize: 15.spMin,
                               ),
                             ),
                           ],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          width: 11.3.w,
-                        );
-                      },
-                      itemCount: 5),
+                        ),
+                        const Image(
+                            image: AssetImage("assets/Mask Group 25.png")),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBoxHeight(42.h),
+              ],
+            ),
+          ),
+          const Divider(
+            height: 0,
+          ),
+          sizedBoxHeight(20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text(
+                  'Other Recipes By @Priyujoshi',
+                  style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
                 ),
               ),
             ],
           ),
-        )
-      ],
+          sizedBoxHeight(20.h),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: SizedBox(
+                    height: 150.h,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 93.h,
+                                width: 115.w,
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                            'assets/Chocolate 2.png')),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(9.r),
+                                        topRight: Radius.circular(9.r))),
+                              ),
+                              Material(
+                                borderRadius: BorderRadius.circular(9.sp),
+                                elevation: 1.2,
+                                child: Container(
+                                  height: 49.h,
+                                  width: 115.w,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(9.r),
+                                          bottomRight: Radius.circular(9.r))),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      sizedBoxHeight(3.5.h),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.4.w),
+                                        child: Text(
+                                          'Slappappoffer Recipe',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 6.sp),
+                                        ),
+                                        // sizedBoxWidth(16.w),
+                                        // Image.asset(
+                                        //   'assets/icons/save.png',
+                                        //   height: 9.h,
+                                        //   width: 6.8.w,
+    
+                                        // ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.4.w),
+                                        child: Text(
+                                          '@Priyujoshi',
+                                          style: TextStyle(
+                                              color: const Color(0xff6B6B6B),
+                                              fontSize: 5.sp,
+                                              fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          sizedBoxWidth(8.w),
+                                          Image.asset(
+                                            'assets/like-svgrepo-com.png',
+                                            height: 10.h,
+                                            width: 11.8.w,
+                                          ),
+                                          Text(
+                                            '23k',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                          sizedBoxWidth(16.w),
+                                          Image.asset(
+                                            'assets/comment-blank-svgrepo-com.png',
+                                            height: 9.7.h,
+                                            width: 10.18.w,
+                                          ),
+                                          Text(
+                                            '150',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                          sizedBoxWidth(16.w),
+                                          Image.asset(
+                                            'assets/bookmark-svgrepo-com.png',
+                                            height: 9.h,
+                                            width: 6.8.w,
+                                          ),
+                                          Text(
+                                            '50',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: 11.3.w,
+                          );
+                        },
+                        itemCount: 5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          sizedBoxHeight(20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text(
+                  'Similar Recipes',
+                  style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
+                ),
+              ),
+            ],
+          ),
+          sizedBoxHeight(20.h),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: SizedBox(
+                    height: 150.h,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 93.h,
+                                width: 115.w,
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                            'assets/Chocolate 2.png')),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(9.r),
+                                        topRight: Radius.circular(9.r))),
+                                // child: Image.asset(
+                                //   'assets/Chocolate 2.png',
+                                //   fit: BoxFit.cover,
+                                // ),
+                              ),
+                              Material(
+                                borderRadius: BorderRadius.circular(9.sp),
+                                elevation: 1.2,
+                                child: Container(
+                                  height: 49.h,
+                                  width: 115.w,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(9.r),
+                                          bottomRight: Radius.circular(9.r))),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      sizedBoxHeight(3.5.h),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.4.w),
+                                        child: Text(
+                                          'Slappappoffer Recipe',
+                                          style: TextStyle(
+                                              fontSize: 8.sp,
+                                              fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.4.w),
+                                        child: Text(
+                                          '@Priyujoshi',
+                                          style: TextStyle(
+                                              color: const Color(0xff6B6B6B),
+                                              fontSize: 5.sp,
+                                              fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          sizedBoxWidth(8.w),
+                                          Image.asset(
+                                            'assets/like-svgrepo-com.png',
+                                            height: 10.h,
+                                            width: 11.8.w,
+                                          ),
+                                          Text(
+                                            '23k',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                          sizedBoxWidth(16.w),
+                                          Image.asset(
+                                            'assets/comment-blank-svgrepo-com.png',
+                                            height: 9.7.h,
+                                            width: 10.18.w,
+                                          ),
+                                          Text(
+                                            '150',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                          sizedBoxWidth(16.w),
+                                          Image.asset(
+                                            'assets/bookmark-svgrepo-com.png',
+                                            height: 9.h,
+                                            width: 6.8.w,
+                                          ),
+                                          Text(
+                                            '50',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 6.sp),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: 11.3.w,
+                          );
+                        },
+                        itemCount: 5),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
