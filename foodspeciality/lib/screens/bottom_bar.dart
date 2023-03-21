@@ -7,7 +7,7 @@ import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview.dart';
 // import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/explore.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -36,7 +36,9 @@ class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
-    const Explore(),
+    // Explore()
+    // explore
+    Explore(),
     Container(),
     // const Chat(),
     // const Profile(),
