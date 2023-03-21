@@ -48,8 +48,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: WillPopScope(
+    return WillPopScope(
       onWillPop: () async {
         await dialoBox();
         return _canPop;
@@ -69,7 +68,8 @@ class _BottomBarState extends State<BottomBar> {
           // backgroundColor: Colors.transparent,
           extendBody: true,
           backgroundColor: AppColors.white,
-          body: Obx(() => _widgetOptions.elementAt(_selectedIndex.value)),
+          body: SafeArea(
+              child: Obx(() => _widgetOptions.elementAt(_selectedIndex.value))),
           bottomNavigationBar: Obx(
             () => Stack(
               children: [
@@ -167,7 +167,6 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 )),
 
-
                 Positioned(
                   left: (MediaQuery.of(context).size.width / 2) - 32.5.h,
                   child: SizedBox(
@@ -217,7 +216,7 @@ class _BottomBarState extends State<BottomBar> {
               ],
             ),
           )),
-    ));
+    );
   }
 
   dialoBox() {
