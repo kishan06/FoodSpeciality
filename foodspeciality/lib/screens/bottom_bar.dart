@@ -7,7 +7,7 @@ import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview.dart';
 // import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/explore.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -36,7 +36,9 @@ class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
-    const Explore(),
+    // Explore()
+    // explore
+    Explore(),
     Container(),
     // const Chat(),
     // const Profile(),
@@ -48,8 +50,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: WillPopScope(
+    return WillPopScope(
       onWillPop: () async {
         await dialoBox();
         return _canPop;
@@ -69,7 +70,8 @@ class _BottomBarState extends State<BottomBar> {
           // backgroundColor: Colors.transparent,
           extendBody: true,
           backgroundColor: AppColors.white,
-          body: Obx(() => _widgetOptions.elementAt(_selectedIndex.value)),
+          body: SafeArea(
+              child: Obx(() => _widgetOptions.elementAt(_selectedIndex.value))),
           bottomNavigationBar: Obx(
             () => Stack(
               children: [
@@ -167,7 +169,6 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 )),
 
-
                 Positioned(
                   left: (MediaQuery.of(context).size.width / 2) - 32.5.h,
                   child: SizedBox(
@@ -217,7 +218,7 @@ class _BottomBarState extends State<BottomBar> {
               ],
             ),
           )),
-    ));
+    );
   }
 
   dialoBox() {

@@ -48,32 +48,52 @@ class _SearchPageState extends State<SearchPage> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w, vertical: 17.h),
                       // padding: const EdgeInsets.all(8.0),
-                      child: CustomSearchTextFormField(
-                        hintText: "search recipes, ingredients or tips",
-                        validatorText: "",
-                        leadingIcon: Icon(
-                          Icons.search,
-                          size: 27.h,
-                          color: AppColors.greyM707070,
-                        ),
-                        suffixIconConstraints:
-                            BoxConstraints(maxWidth: 24.h, maxHeight: 24.h),
-                        suffixIcon: Padding(
-                          padding: EdgeInsets.only(right: 17.w),
-                          child: InkWell(
-                            onTap: (){
-                              FilterBottomSheet();
+                      child: Row(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
                             },
                             child: SvgPicture.asset(
-                              "assets/icons/filter.svg",
-                              // height: 10.h,
-                              // width: 10.h,
+                              "assets/icons/back_arrow.svg",
+                              height: 18.h,
+                              width: 27.w,
                               color: AppColors.greyD3B3F43,
-                              // colorFilter: AppColors.greyD3B3F43,
                             ),
                           ),
-                        ),
-                        // pref
+                          sizedBoxWidth(20.w),
+                          Expanded(
+                            child: CustomSearchTextFormField(
+                              autofocus: true,
+                              hintText: "search recipes, ingredients or tips",
+                              validatorText: "",
+                              leadingIcon: Icon(
+                                Icons.search,
+                                size: 27.h,
+                                color: AppColors.greyM707070,
+                              ),
+                              suffixIconConstraints: BoxConstraints(
+                                  maxWidth: 24.h, maxHeight: 24.h),
+                              suffixIcon: Padding(
+                                padding: EdgeInsets.only(right: 17.w),
+                                child: InkWell(
+                                  onTap: () {
+                                    FilterBottomSheet();
+                                  },
+                                  child: SvgPicture.asset(
+                                    "assets/icons/filter.svg",
+                                    // height: 10.h,
+                                    // width: 10.h,
+                                    color: AppColors.greyD3B3F43,
+                                    // colorFilter: AppColors.greyD3B3F43,
+                                  ),
+                                ),
+                              ),
+                              // pref
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     CommanTabbar("Recipes", "Community"),
@@ -337,7 +357,7 @@ class _SearchPageState extends State<SearchPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: (){
+                onTap: () {
                   Get.toNamed("/viewuser");
                 },
                 child: Text(
