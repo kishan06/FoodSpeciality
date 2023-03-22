@@ -17,8 +17,8 @@ class Gridview extends StatefulWidget {
 
 class _GridviewState extends State<Gridview> {
   int currentIndex = 0;
-  int like = 0;
-  int index = 0;
+
+  // int index = 0;
 
   @override
   void initState() {
@@ -44,14 +44,14 @@ class _GridviewState extends State<Gridview> {
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 10),
                 itemCount: gridCardData.length,
-                itemBuilder: (_, i) {
+                itemBuilder: (context, index) {
                   return gridCard(
-                      gridCardData[i]["like"],
-                      gridCardData[i]["save"],
-                      gridCardData[i]["recipeimage"],
-                      gridCardData[i]["title"],
-                      gridCardData[i]["name"],
-                      gridCardData[i]);
+                      gridCardData[index]["like"],
+                      gridCardData[index]["save"],
+                      gridCardData[index]["recipeimage"],
+                      gridCardData[index]["title"],
+                      gridCardData[index]["name"],
+                      index);
                   // listCardData[index]["isFollowedByMe"]);
                 }),
           ],
@@ -60,11 +60,11 @@ class _GridviewState extends State<Gridview> {
     );
   }
 
-  Widget gridCard(int like, int save, List griddata, dynamic recipeimage,
+  Widget gridCard(int index, int like, int save, dynamic recipeimage,
       dynamic name, dynamic title) {
     // bool like = false;
 
-    print(griddata);
+    // print(griddata);
     return Container(
         height: 200.h,
         width: 190.w,
