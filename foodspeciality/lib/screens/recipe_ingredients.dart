@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/publish_popup.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/ingredients_tabbarview.dart';
 import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/recipe_tabbarview.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
+
+// int currentIndex = 0;
+TabController? tabController;
+
 
 class RecipeIng extends StatefulWidget {
   const RecipeIng({super.key});
@@ -17,21 +22,26 @@ class RecipeIng extends StatefulWidget {
 class _RecipeIngState extends State<RecipeIng>
     with SingleTickerProviderStateMixin {
   // bool? _visible = false;
-  TabController? _tabController;
-  int _currentIndex = 0;
+  // TabController? tabController;
+
+  HomeController controllerHome = HomeController();
+  // int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController!.addListener(() {
+    tabController = TabController(length: 2, vsync: this);
+    tabController!.addListener(() {
       setState(() {
-        switch (_tabController!.index) {
+        switch (tabController!.index) {
           case 0:
-            _currentIndex = 0;
+            // controllerHome.currentIndex = 0;
+            controllerHome.changeTab(0);
             break;
           case 1:
-            _currentIndex = 1;
+            // currentIndex = 1;
+            controllerHome.changeTab(1);
+
             break;
           default:
         }
@@ -41,7 +51,7 @@ class _RecipeIngState extends State<RecipeIng>
 
   @override
   void dispose() {
-    _tabController!.dispose();
+    tabController!.dispose();
     super.dispose();
   }
 
@@ -49,7 +59,8 @@ class _RecipeIngState extends State<RecipeIng>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
+      child: GetBuilder<HomeController>(builder: (_){
+        return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -90,7 +101,7 @@ class _RecipeIngState extends State<RecipeIng>
           ),
           actions: [
             Visibility(
-                visible: _currentIndex == 0 ? false : true,
+                visible: controllerHome.currentIndex == 0 ? false : true,
                 child: Row(
                   children: [
                     Center(
@@ -132,7 +143,7 @@ class _RecipeIngState extends State<RecipeIng>
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20),
             child: TabBar(
-              controller: _tabController,
+              controller: tabController,
               // onTap: (value) {
               //   if (value == 0) {
               //     setState(() {
@@ -183,9 +194,11 @@ class _RecipeIngState extends State<RecipeIng>
           ),
         ),
         body: TabBarView(
-            controller: _tabController,
+            controller: tabController,
             children: [RecipeTabbarView(), IngredientsTabbatview()]),
-      ),
+      );
+      })
+      
     );
   }
 }

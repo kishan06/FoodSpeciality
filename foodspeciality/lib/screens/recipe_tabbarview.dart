@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
+import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,6 +22,8 @@ class RecipeTabbarView extends StatefulWidget {
 class _RecipeTabbarViewState extends State<RecipeTabbarView> {
   bool isSwitched = false;
   File? _image;
+  HomeController controllerHome = HomeController();
+
 
   Future getImage(ImageSource source) async {
     try {
@@ -121,8 +125,10 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return 
+    // Scaffold(
+    //   body: 
+      Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
           child: Column(
@@ -468,14 +474,19 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    "Next",
-                    style: TextStyle(
-                      fontFamily: "Studio Pro",
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18.spMin,
-                      color: const Color(0xFF3E3D3D),
+                  InkWell(
+                    onTap: (){
+                      tabController!.animateTo(1);
+                    },
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        fontFamily: "Studio Pro",
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18.spMin,
+                        color: const Color(0xFF3E3D3D),
+                      ),
                     ),
                   ),
                 ],
@@ -484,7 +495,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    // );
   }
 }
