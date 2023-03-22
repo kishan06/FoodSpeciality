@@ -22,6 +22,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   int servigCount = 0;
   late int _selectedHour;
   late int _selectedMinute;
+  final TextEditingController _tbsController = TextEditingController(text: '1');
+  int _tbsInitialValue = 1;
 
   @override
   void initState() {
@@ -345,7 +347,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(33.w),
             GestureDetector(
               onTap: () {
-                setState(() {});
+                setState(() {
+                  _tbsInitialValue == 1 ? null : _tbsInitialValue--;
+                  _tbsController.text = '$_tbsInitialValue';
+                });
               },
               child: CircleAvatar(
                 radius: 16.r,
@@ -365,31 +370,37 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-                // initialValue: '$_TBS',
+                controller: _tbsController,
+                // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,
+                maxLength: 2,
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  isCollapsed: true,
-                  contentPadding: EdgeInsets.all(15.h),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xff707070)),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF707070)),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  hintText: "Ex. 1 TBS",
-                  hintStyle: TextStyle(
-                      fontFamily: "Roboto",
-                      color: const Color(0xff54595f),
-                      fontSize: 17.h),
-                ),
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.all(15.h),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xff707070)),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFF707070)),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    hintText: "Ex. 1 TBS",
+                    hintStyle: TextStyle(
+                        fontFamily: "Roboto",
+                        color: const Color(0xff54595f),
+                        fontSize: 17.h),
+                    counterText: ''),
               ),
             ),
             sizedBoxWidth(10.w),
             GestureDetector(
               onTap: () {
-                setState(() {});
+                setState(() {
+                  _tbsInitialValue == 99 ? null : _tbsInitialValue++;
+                  _tbsController.text = '$_tbsInitialValue';
+                });
               },
               child: CircleAvatar(
                 radius: 16.r,

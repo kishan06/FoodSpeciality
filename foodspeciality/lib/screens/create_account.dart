@@ -14,6 +14,12 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  bool v1 = false;
+  bool v2 = false;
+  bool v3 = false;
+  bool v4 = false;
+  bool v5 = false;
+  bool v6 = false;
   String? _password;
   @override
   Widget build(BuildContext context) {
@@ -68,6 +74,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(value)) {
                     return 'Please enter a valid username (letters and numbers only)';
                   }
+                  v1 = true;
                   return null;
                 },
                 validatorText: "",
@@ -107,6 +114,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
                     return 'Please enter a valid name';
                   }
+                  v2 = true;
                   return null;
                 },
                 validatorText: "",
@@ -166,6 +174,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       .hasMatch(value)) {
                     return 'Enter valid mobile number';
                   }
+                  v3 = true;
                   return null;
                 },
                 validatorText: "",
@@ -186,6 +195,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       .hasMatch(value)) {
                     return 'Please enter a valid email address';
                   }
+                  v4 = true;
                   return null;
                 },
                 validatorText: "",
@@ -246,6 +256,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     return 'Password must be at least 8 characters';
                   }
                   _password = value;
+                  v5 = true;
                   return null;
                 },
                 validatorText: "",
@@ -282,6 +293,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   if (value != _password) {
                     return 'Passwords do not match';
                   }
+                  v6 = true;
                   return null;
                 },
                 validatorText: "",
@@ -294,7 +306,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed("/signUpProfile");
+                    v1 && v2 && v3 && v4 && v5 && v6
+                        ? Get.toNamed("/signUpProfile")
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                backgroundColor: Colors.grey,
+                                content:
+                                    Center(child: Text('Validation Error'))));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
