@@ -1,7 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  // _currentIndex
+  int _currentIndex = 0;
+  int get currentIndex => _currentIndex;
+
+  // TabController? _tabController;
+  // TabController? get tabController => _tabController;
+  
+
+
+  
   List _commentLike = [
     {
       "like": 0,
@@ -36,6 +47,11 @@ class HomeController extends GetxController {
     },
   ];
   List get commentLike => _commentLike;
+
+  changeTab(int index){
+    _currentIndex = index;
+    update();
+  }
 
   likeMethod(int index, int like) {
     _commentLike[index]["like"] = like == 0 ? 1 : 0;

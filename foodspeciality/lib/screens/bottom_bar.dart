@@ -9,6 +9,7 @@ import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview
 // import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/new_profile.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
@@ -36,14 +37,11 @@ class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
-    // Explore()
-    // explore
-    Explore(),
+    const Explore(),
     Container(),
-    // const Chat(),
-    // const Profile(),
     ChattabView(),
-    myProfile()
+    // myProfile()
+    NewProfile()
   ];
   bool _canPop = false;
   // DateTime timebackPressed = DateTime.now();

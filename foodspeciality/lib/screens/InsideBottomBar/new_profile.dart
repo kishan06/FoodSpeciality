@@ -14,292 +14,282 @@ import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class myProfile extends StatefulWidget {
-  const myProfile({super.key});
+class NewProfile extends StatefulWidget {
+  const NewProfile({super.key});
 
   @override
-  State<myProfile> createState() => _myProfileState();
+  State<NewProfile> createState() => _NewProfileState();
 }
 
 ScrollController? controller;
 
-class _myProfileState extends State<myProfile> {
+class _NewProfileState extends State<NewProfile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          AppBar(
-            elevation: 0,
-            backgroundColor: Color(0xFFFFFFFF),
-            centerTitle: true,
-            title: Text(
-              "Complete Your Profile",
-              style: TextStyle(
-                  fontFamily: "StudioProR",
-                  fontSize: 16.spMin,
-                  color: Colors.black),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              elevation: 0,
+              backgroundColor: Color(0xFFFFFFFF),
+              centerTitle: true,
+              title: Text(
+                "Complete Your Profile",
+                style: TextStyle(
+                    fontFamily: "StudioProR",
+                    fontSize: 16.spMin,
+                    color: Colors.black),
+              ),
+              actions: [
+                InkWell(
+                  onTap: (){
+                    // Get.to(EditProfile());
+                   // Get.toNamed("/EditProfile");
+                    Get.to(EditProfile(),duration:Duration(milliseconds:500),
+                        transition: Transition.downToUp);
+                  },
+                  child: Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                  ),
+                ),
+                sizedBoxWidth(20),
+                GestureDetector(
+                  onTap: () {
+                   // Get.toNamed("/setting");
+                    Get.to(Setting(),duration:Duration(milliseconds:500),
+                        transition: Transition.downToUp);
+                  },
+                  child: Icon(
+                    Icons.settings_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+                sizedBoxWidth(18)
+              ], 
             ),
-            actions: [
-              InkWell(
-                onTap: (){
-                  // Get.to(EditProfile());
-                 // Get.toNamed("/EditProfile");
-                  Get.to(EditProfile(),duration:Duration(milliseconds:500),
-                      transition: Transition.downToUp);
-                },
-                child: Icon(
-                  Icons.edit,
-                  color: Colors.black,
-                ),
-              ),
-              sizedBoxWidth(20),
-              GestureDetector(
-                onTap: () {
-                 // Get.toNamed("/setting");
-                  Get.to(Setting(),duration:Duration(milliseconds:500),
-                      transition: Transition.downToUp);
-                },
-                child: Icon(
-                  Icons.settings_outlined,
-                  color: Colors.black,
-                ),
-              ),
-              sizedBoxWidth(18)
-            ], 
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: CircularPercentIndicator(
-                  startAngle: 110,
-                  radius: 55.0,
-                  lineWidth: 7.0,
-                  animation: true,
-                  percent: 0.70,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  progressColor: Colors.black,
-                  backgroundColor: Colors.grey,
-                  center: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    radius: 40.0,
-                    backgroundImage: AssetImage(
-                      'assets/profile.png',
-                    ),
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: CircularPercentIndicator(
+                startAngle: 110,
+                radius: 55.0,
+                lineWidth: 7.0,
+                animation: true,
+                percent: 0.70,
+                circularStrokeCap: CircularStrokeCap.round,
+                progressColor: Colors.black,
+                backgroundColor: Colors.grey,
+                center: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  radius: 40.0,
+                  backgroundImage: AssetImage(
+                    'assets/profile.png',
                   ),
                 ),
               ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Namrata Burondkar",
-                style: TextStyle(
-                    fontFamily: "Roboto",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF54595F)),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                "@Namrata07",
-                style: TextStyle(
-                    fontFamily: "Roboto",
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromRGBO(59, 63, 67, 0.49)),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 108.h,
-                    width: 183.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF2F2F2),
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.29),
-                          blurRadius: 3.0, // soften the shadow
-                          spreadRadius: 0.2, //extend the shadow
-                          offset: Offset(
-                            3.0, // Move to right 5  horizontally
-                            3.0, // Move to bottom 5 Vertically
-                          ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Text(
+              "Namrata Burondkar",
+              style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF54595F)),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              "@Namrata07",
+              style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromRGBO(59, 63, 67, 0.49)),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  height: 108.h,
+                  width: 183.h,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.29),
+                        blurRadius: 3.0, // soften the shadow
+                        spreadRadius: 0.2, //extend the shadow
+                        offset: Offset(
+                          3.0, // Move to right 5  horizontally
+                          3.0, // Move to bottom 5 Vertically
+                        ),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset("assets/bookmark (2).svg"),
+                      Text("Level : Silver")
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 108.h,
+                  width: 183.h,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.29),
+                        blurRadius: 3.0, // soften the shadow
+                        spreadRadius: 0.2, //extend the shadow
+                        offset: Offset(
+                          3.0, // Move to right 5  horizontally
+                          3.0, // Move to bottom 5 Vertically
+                        ),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset("assets/coin.svg"),
+                      Text("Total Coins : 500")
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+
+            TabBar(
+              indicatorColor: Color(0xFF3B3F43),
+              unselectedLabelStyle:
+                  TextStyle(color: Color(0xFF6B6B6B)),
+              tabs: [
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        '1',
+                        style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff000000),
+                            fontSize: 20.sp),
+                      ),
+                      Text(
+                        'Recipes',
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff54595F),
+                            fontSize: 16.sm),
+                      ),
+                    ],
+                  ),
+                ),
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        '0',
+                        style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff000000),
+                            fontSize: 20.sp),
+                      ),
+                      Text(
+                        'Saved',
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff54595F),
+                            fontSize: 16.sm),
+                      ),
+                    ],
+                  ),
+                ),
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        '5',
+                        style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff000000),
+                            fontSize: 20.sp),
+                      ),
+                      Text(
+                        'Following',
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff54595F),
+                            fontSize: 16.sm),
+                      ),
+                    ],
+                  ),
+                ),
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        '6',
+                        style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff000000),
+                            fontSize: 20.sp),
+                      ),
+                      Text(
+                        'Followers',
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff54595F),
+                            fontSize: 16.sm),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+            
+            Expanded(
+              child: TabBarView(children: [
+                SingleChildScrollView(
+                    controller: controller,
+                    child: Column(
+                      children: [
+                        Gridview(),
+                        SizedBox(
+                          height: 20,
                         )
                       ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset("assets/bookmark (2).svg"),
-                        Text("Level : Silver")
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 108.h,
-                    width: 183.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF2F2F2),
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.29),
-                          blurRadius: 3.0, // soften the shadow
-                          spreadRadius: 0.2, //extend the shadow
-                          offset: Offset(
-                            3.0, // Move to right 5  horizontally
-                            3.0, // Move to bottom 5 Vertically
-                          ),
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset("assets/coin.svg"),
-                        Text("Total Coins : 500")
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              DefaultTabController(
-                length: 4,
-                child: Column(
-                  children: [
-                    TabBar(
-                        indicatorColor: Color(0xFF3B3F43),
-                        unselectedLabelStyle:
-                            TextStyle(color: Color(0xFF6B6B6B)),
-                        tabs: [
-                          Tab(
-                            child: Column(
-                              children: [
-                                Text(
-                                  '1',
-                                  style: TextStyle(
-                                      fontFamily: "StudioProR",
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff000000),
-                                      fontSize: 20.sp),
-                                ),
-                                Text(
-                                  'Recipes',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff54595F),
-                                      fontSize: 16.sm),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Tab(
-                            child: Column(
-                              children: [
-                                Text(
-                                  '0',
-                                  style: TextStyle(
-                                      fontFamily: "StudioProR",
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff000000),
-                                      fontSize: 20.sp),
-                                ),
-                                Text(
-                                  'Saved',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff54595F),
-                                      fontSize: 16.sm),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Tab(
-                            child: Column(
-                              children: [
-                                Text(
-                                  '5',
-                                  style: TextStyle(
-                                      fontFamily: "StudioProR",
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff000000),
-                                      fontSize: 20.sp),
-                                ),
-                                Text(
-                                  'Following',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff54595F),
-                                      fontSize: 16.sm),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Tab(
-                            child: Column(
-                              children: [
-                                Text(
-                                  '6',
-                                  style: TextStyle(
-                                      fontFamily: "StudioProR",
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff000000),
-                                      fontSize: 20.sp),
-                                ),
-                                Text(
-                                  'Followers',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff54595F),
-                                      fontSize: 16.sm),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
-                    SizedBox(
-                      height: 383.h,
-                      child: TabBarView(children: [
-                        SingleChildScrollView(
-                            controller: controller,
-                            child: Column(
-                              children: [
-                                Gridview(),
-                                SizedBox(
-                                  height: 20,
-                                )
-                              ],
-                            )),
-                        mySaved(),
-                        myfollowing(),
-                        myfollowers()
-                      ]),
-                    ),
-                  ],
-                ),
-              )
-           
-            ],
-          )
-        ],
+                    )),
+                mySaved(),
+                myfollowing(),
+                myfollowers()
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }
