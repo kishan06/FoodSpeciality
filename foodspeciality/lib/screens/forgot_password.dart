@@ -14,16 +14,17 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  bool v1 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         titleTxt: 'Forgot Password',
         bottomtext: false,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +33,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 "Please enter your email address.You will \nreceive a link to create a new password via \nemail",
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    color: Color.fromRGBO(112, 112, 112, 1),
+                    color: const Color.fromRGBO(112, 112, 112, 1),
                     fontSize: 17.sp,
                     fontFamily: "Roboto"),
               ),
@@ -65,6 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       .hasMatch(value)) {
                     return 'Please enter a valid email address';
                   }
+                  v1 = true;
                   return null;
                 },
                 validatorText: "",
@@ -83,7 +85,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed("/otpverification");
+                    v1
+                        ? Get.toNamed("/otpverification")
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                backgroundColor: Colors.grey,
+                                content:
+                                    Center(child: Text('Enter Valid Email'))));
                     // Get.toNamed('/signUpProfile');
                   },
                   style: ElevatedButton.styleFrom(
@@ -96,12 +104,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                   child: Text(
                     'Next',
-                    style: TextStyle(
-                        fontSize: 18.sp, fontFamily: "StudioProR"),
+                    style: TextStyle(fontSize: 18.sp, fontFamily: "StudioProR"),
                   ),
                 ),
               ),
-            
+
               // CustomNextButton(
               //   ontap: () {
               //     Get.toNamed("/otpverification");

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
-import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/common%20files/video_player.dart';
@@ -14,16 +13,22 @@ import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 List listCardData = [
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0},
+  {
+    "like": 0,
+    "save": 0,
+    "selectedVideoInde": 0,
+    "isFollowedByMe": 0,
+    "imagePath": ""
+  },
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
+  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
 ];
 
 class Home extends StatefulWidget {
@@ -34,7 +39,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final tecComment = TextEditingController();
   int selectedVideoIndex = 0;
   HomeController controllerHome = Get.put(HomeController());
@@ -151,8 +155,11 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    listCard(listCardData[index]["like"],
-                        listCardData[index]["save"], index),
+                    listCard(
+                        listCardData[index]["like"],
+                        listCardData[index]["save"],
+                        index,
+                        listCardData[index]["isFollowedByMe"]),
                     sizedBoxHeight(13.h)
                   ],
                 );
@@ -164,8 +171,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget listCard(int like, int save, int index) {
+  Widget listCard(int like, int save, int index, int isFollowedByMe) {
     // bool like = false;
+
     return Container(
         // height: 425.h,
         decoration: BoxDecoration(
@@ -208,10 +216,11 @@ class _HomeState extends State<Home> {
                             // textWhite17w500("George Smith"),
                             // e=
                             GestureDetector(
-                                onTap: () {
-                                  Get.toNamed("/viewuser");
-                                },
-                                child: textgreyD16BoldSP("Priyanka Joshi")),
+                              onTap: () {
+                                Get.toNamed("/viewuser");
+                              },
+                              child: textgreyD16BoldSP("Priyanka Joshi"),
+                            ),
 
                             sizedBoxHeight(5.h),
 
@@ -223,7 +232,41 @@ class _HomeState extends State<Home> {
                       ],
                     ),
 
-                    followButton("Follow", onPressed: () {})
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          listCardData[index]["isFollowedByMe"] =
+                              isFollowedByMe == 0 ? 1 : 0;
+                        });
+                      },
+                      child: isFollowedByMe == 0
+                          ? AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              height: 35,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: AppColors.greyD3B3F43,
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.grey.shade700),
+                              ),
+                              child: Center(
+                                child: textWhite18Robo("follow"),
+                              ),
+                            )
+                          : AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              height: 35,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: AppColors.greyD3B3F43,
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.grey.shade700),
+                              ),
+                              child: Center(
+                                child: textWhite18Robo("following"),
+                              ),
+                            ),
+                    ),
 
                     // customButtonWithBorder(
                     //   "text",
@@ -641,25 +684,27 @@ class _HomeState extends State<Home> {
                 sizedBoxHeight(15.h),
 
                 CustomSearchTextFormField(
-                  textEditingController: tecComment,
-                  autofocus: false,
-                  hintText: "Add a comment",
-                  validatorText: '',
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: SizedBox(
-                        height: 50.h,
-                        width: 40.w,
-                        child: Center(child: InkWell(
-                          onTap: (){
-                            if (tecComment.text.isNotEmpty) {
-                              // print(tecComment.text);
-                              controllerHome.commentMethod(tecComment.text);
-                              tecComment.clear();
-                            }
-                          },
-                          child: textgreyM14Sp("Send")))),
-                  ))
+                    textEditingController: tecComment,
+                    autofocus: false,
+                    hintText: "Add a comment",
+                    validatorText: '',
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: SizedBox(
+                          height: 50.h,
+                          width: 40.w,
+                          child: Center(
+                              child: InkWell(
+                                  onTap: () {
+                                    if (tecComment.text.isNotEmpty) {
+                                      // print(tecComment.text);
+                                      controllerHome
+                                          .commentMethod(tecComment.text);
+                                      tecComment.clear();
+                                    }
+                                  },
+                                  child: textgreyM14Sp("Send")))),
+                    ))
               ],
             ),
           )),
