@@ -83,194 +83,204 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        // appBar: AppBar(
+        //   title: ,
+        // ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                sizedBoxHeight(8.h),
-                Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 258,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/Mask Group 14.png"),
-                          fit: BoxFit.cover,
-                        ),
+          child: Column(
+            children: [
+              // sizedBoxHeight(8.h),
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 258.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Mask Group 14.png"),
+                        fit: BoxFit.cover,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 16.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                sizedBoxHeight(26.h),
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.back();
-                                    },
-                                    child:
-                                        SvgPicture.asset('assets/Path 39.svg')),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                    "assets/svg/media-play-circle-svgrepo-com.svg"),
-                                sizedBoxHeight(30.h),
-                                sizedBoxHeight(5.h),
-                                Container(
-                                  decoration: BoxDecoration(boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.9),
-                                      blurRadius: 25.0, // soften the shadow
-                                      spreadRadius: 20.0, //extend the shadow
-                                      offset: const Offset(
-                                        5.0, // Move to right 5  horizontally
-                                        5.0, // Move to bottom 5 Vertically
-                                      ),
-                                    )
-                                  ]),
-                                  height: 35.h,
-                                  width: double.infinity,
-                                  child: Text(
-                                    "Chomolia Recipe",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20.sp),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              sizedBoxHeight(26.h),
+                              GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child:
+                                      SvgPicture.asset('assets/Path 39.svg',
+                                        height: 18.h,
+                                        width: 27.w,
+                                      )),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(
+                                  "assets/svg/media-play-circle-svgrepo-com.svg",
+                                    height: 63.h,
+                                    width: 63.h,
                                   ),
+                              sizedBoxHeight(30.h),
+                              sizedBoxHeight(5.h),
+                              Container(
+                                decoration: BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.9),
+                                    blurRadius: 25.0, // soften the shadow
+                                    spreadRadius: 20.0, //extend the shadow
+                                    offset: const Offset(
+                                      5.0, // Move to right 5  horizontally
+                                      5.0, // Move to bottom 5 Vertically
+                                    ),
+                                  )
+                                ]),
+                                height: 35.h,
+                                width: double.infinity,
+                                child: Text(
+                                  "Chomolia Recipe",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20.sp),
                                 ),
-                                SizedBox(
-                                    height: 27,
-                                    width: double.infinity,
-                                    child: TabBar(
-                                        controller: _tabController,
-                                        // onTap: (int index) {
-                                        //   setState(() {
-                                        //     _selectedIndex = index;
-                                        //   });
-                                        // },
-                                        indicatorColor: Colors.transparent,
-                                        unselectedLabelColor:
-                                            Colors.amberAccent,
-                                        labelPadding:
-                                            const EdgeInsets.only(right: 9),
-                                        isScrollable: true,
-                                        indicator: null,
-                                        // indicatorWeight: 0,
-                                        tabs: [
-                                          Container(
+                              ),
+                              SizedBox(
+                                  height: 27.h,
+                                  width: double.infinity,
+                                  child: TabBar(
+                                      controller: _tabController,
+                                      // onTap: (int index) {
+                                      //   setState(() {
+                                      //     _selectedIndex = index;
+                                      //   });
+                                      // },
+                                      indicatorColor: Colors.transparent,
+                                      unselectedLabelColor:
+                                          Colors.amberAccent,
+                                      labelPadding:
+                                          EdgeInsets.only(right: 9.w),
+                                      isScrollable: true,
+                                      indicator: null,
+                                      // indicatorWeight: 0,
+                                      tabs: [
+                                        Container(
+                                          height: 27,
+                                          decoration: BoxDecoration(
+                                              color: _getTabColor(0),
+                                              //  Color(0xffE1E1E1),
+                                              borderRadius:
+                                                  BorderRadius.circular(14)),
+                                          child: Center(
+                                            widthFactor: 1.3,
+                                            child: Text(
+                                              "Limpopo",
+                                              style: TextStyle(
+                                                  color: _getTextColor(0),
+                                                  fontFamily: "StudioProR",
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
                                             height: 27,
                                             decoration: BoxDecoration(
-                                                color: _getTabColor(0),
+                                                color: _getTabColor(1),
                                                 //  Color(0xffE1E1E1),
                                                 borderRadius:
-                                                    BorderRadius.circular(14)),
+                                                    BorderRadius.circular(
+                                                        14)),
                                             child: Center(
                                               widthFactor: 1.3,
                                               child: Text(
-                                                "Limpopo",
+                                                "Simple greens",
                                                 style: TextStyle(
-                                                    color: _getTextColor(0),
-                                                    fontFamily: "StudioProR",
+                                                    color: _getTextColor(1),
+                                                    fontFamily: "Studio Pro",
                                                     fontSize: 10),
                                               ),
-                                            ),
-                                          ),
-                                          Container(
-                                              height: 27,
-                                              decoration: BoxDecoration(
-                                                  color: _getTabColor(1),
-                                                  //  Color(0xffE1E1E1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14)),
-                                              child: Center(
-                                                widthFactor: 1.3,
-                                                child: Text(
-                                                  "Simple greens",
-                                                  style: TextStyle(
-                                                      color: _getTextColor(1),
-                                                      fontFamily: "Studio Pro",
-                                                      fontSize: 10),
-                                                ),
-                                              )),
-                                          Container(
-                                              height: 27,
-                                              decoration: BoxDecoration(
-                                                  color: _getTabColor(2),
-                                                  //  Color(0xffE1E1E1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14)),
-                                              child: Center(
-                                                widthFactor: 1.3,
-                                                child: Text(
-                                                  "Flavour explosions",
-                                                  style: TextStyle(
-                                                      color: _getTextColor(2),
-                                                      fontFamily: "Studio Pro",
-                                                      fontSize: 10),
-                                                ),
-                                              )),
-                                          Container(
-                                              height: 27,
-                                              decoration: BoxDecoration(
-                                                  color: _getTabColor(3),
-                                                  //  Color(0xffE1E1E1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14)),
-                                              child: Center(
-                                                widthFactor: 1.3,
-                                                child: Text(
-                                                  "The healthy way",
-                                                  style: TextStyle(
-                                                      color: _getTextColor(3),
-                                                      fontFamily: "Studio Pro",
-                                                      fontSize: 10),
-                                                ),
-                                              )),
-                                        ])),
-                                sizedBoxHeight(8.h),
-                              ],
-                            )
-                          ],
-                        ),
+                                            )),
+                                        Container(
+                                            height: 27,
+                                            decoration: BoxDecoration(
+                                                color: _getTabColor(2),
+                                                //  Color(0xffE1E1E1),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        14)),
+                                            child: Center(
+                                              widthFactor: 1.3,
+                                              child: Text(
+                                                "Flavour explosions",
+                                                style: TextStyle(
+                                                    color: _getTextColor(2),
+                                                    fontFamily: "Studio Pro",
+                                                    fontSize: 10),
+                                              ),
+                                            )),
+                                        Container(
+                                            height: 27,
+                                            decoration: BoxDecoration(
+                                                color: _getTabColor(3),
+                                                //  Color(0xffE1E1E1),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        14)),
+                                            child: Center(
+                                              widthFactor: 1.3,
+                                              child: Text(
+                                                "The healthy way",
+                                                style: TextStyle(
+                                                    color: _getTextColor(3),
+                                                    fontFamily: "Studio Pro",
+                                                    fontSize: 10),
+                                              ),
+                                            )),
+                                      ])),
+                              sizedBoxHeight(8.h),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                    Positioned(
-                      bottom: 80.h,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              size: 14.sp,
-                              color: Colors.white,
-                            ),
-                            sizedBoxWidth(3.w),
-                            Text(
-                              "30 Min",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontFamily: 'StudioProM',
-                                  fontSize: 12.sp,
-                                  color: const Color(0xffFFFFFF)),
-                            ),
-                          ],
-                        ),
+                  ),
+                  Positioned(
+                    bottom: 80.h,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            size: 14.sp,
+                            color: Colors.white,
+                          ),
+                          sizedBoxWidth(3.w),
+                          Text(
+                            "30 Min",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontFamily: 'StudioProM',
+                                fontSize: 12.sp,
+                                color: const Color(0xffFFFFFF)),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
+                  ),
+                ],
+              ),
+              // xd
+              Expanded(
+                child: SizedBox(
+                  // height: MediaQuery.of(context).size.height,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
@@ -281,10 +291,138 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+          
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: 
+                  // NestedScrollView(
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   scrollDirection: Axis.vertical,
+                  //   headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                  //     SliverToBoxAdapter(
+                  //       child: Column(
+                  //         children: [
+                  //           TabBar(
+                  //             indicator: UnderlineTabIndicator(
+                  //               borderRadius: BorderRadius.circular(10),
+                  //               borderSide: BorderSide(width: 2.5.sp),
+                  //               // insets: EdgeInsets.symmetric(horizontal: 80.w),
+                  //             ),
+                  //             indicatorSize: TabBarIndicatorSize.tab,
+                  //             indicatorPadding:
+                  //                 const EdgeInsets.symmetric(horizontal: 50),
+                  //             // indicatorWeight: 4,
+                    
+                  //             indicatorColor: const Color(0xFF3B3F43),
+                  //             unselectedLabelStyle:
+                  //                 const TextStyle(color: Color(0xFF6B6B6B)),
+                  //             labelColor: const Color.fromRGBO(59, 63, 67, 1),
+                  //             labelStyle: TextStyle(
+                  //               fontWeight: FontWeight.bold,
+                  //               fontSize: 18.sp,
+                  //             ),
+                  //             tabs: [
+                  //               Tab(
+                  //                 child: Text(
+                  //                   "Recipe",
+                  //                   style: TextStyle(
+                  //                       fontFamily: "StudioProM", fontSize: 17.sp),
+                  //                 ),
+                  //               ),
+                  //               Tab(
+                  //                 child: Text(
+                  //                   "Comments",
+                  //                   style: TextStyle(
+                  //                       fontFamily: "StudioProM", fontSize: 17.sp),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     )
+                  //   ], 
+                  //   body: 
+                  //   // SizedBox(
+                  //   //   height: 10.h,
+                  //   // )
+                  //   TabBarView(
+                  //     physics: NeverScrollableScrollPhysics(),
+                  //     children: [
+                  //     _recipeTabbarView(),
+                  //     Padding(
+                  //       padding: EdgeInsets.symmetric(horizontal: 22.w),
+                  //       child: _commentTabbarView(),
+                  //     )
+                  //   ])
+                  // )
+               
+                  Column(
+                    children: [
+                      PreferredSize(
+                        preferredSize: const Size.fromHeight(20),
+                        child: TabBar(
+                          indicator: UnderlineTabIndicator(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(width: 2.5.sp),
+                            // insets: EdgeInsets.symmetric(horizontal: 80.w),
+                          ),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorPadding:
+                              const EdgeInsets.symmetric(horizontal: 50),
+                          // indicatorWeight: 4,
+                
+                          indicatorColor: const Color(0xFF3B3F43),
+                          unselectedLabelStyle:
+                              const TextStyle(color: Color(0xFF6B6B6B)),
+                          labelColor: const Color.fromRGBO(59, 63, 67, 1),
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                          ),
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                "Recipe",
+                                style: TextStyle(
+                                    fontFamily: "StudioProM", fontSize: 17.sp),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                "Comments",
+                                style: TextStyle(
+                                    fontFamily: "StudioProM", fontSize: 17.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      sizedBoxHeight(23.h),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.shortestSide,
+                          child: TabBarView(
+                            // physics: NeverScrollableScrollPhysics(),
+                            children: [
+                            _recipeTabbarView(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 22.w),
+                              child: _commentTabbarView(),
+                            )
+                          ])
+                  ),
+                    ],
+                  ),
+              
+                ),
+              ),
+            
+            ],
           ),
         ),
+        
       ),
     );
   }
@@ -506,62 +644,126 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             ],
           ),
           sizedBoxHeight(21.h),
-          DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                PreferredSize(
-                  preferredSize: const Size.fromHeight(20),
-                  child: TabBar(
-                    indicator: UnderlineTabIndicator(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(width: 2.5.sp),
-                      // insets: EdgeInsets.symmetric(horizontal: 80.w),
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding:
-                        const EdgeInsets.symmetric(horizontal: 50),
-                    // indicatorWeight: 4,
-
-                    indicatorColor: const Color(0xFF3B3F43),
-                    unselectedLabelStyle:
-                        const TextStyle(color: Color(0xFF6B6B6B)),
-                    labelColor: const Color.fromRGBO(59, 63, 67, 1),
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                    ),
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "Recipe",
-                          style: TextStyle(
-                              fontFamily: "StudioProM", fontSize: 17.sp),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "Comments",
-                          style: TextStyle(
-                              fontFamily: "StudioProM", fontSize: 17.sp),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                sizedBoxHeight(23.h),
-                SizedBox(
-                    height: MediaQuery.of(context).size.shortestSide,
-                    child: TabBarView(children: [
-                      _recipeTabbarView(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
-                        child: _commentTabbarView(),
-                      )
-                    ])),
-              ],
-            ),
-          ),
+          // DefaultTabController(
+          //   length: 2,
+          //   child: NestedScrollView(
+          //     scrollDirection: Axis.vertical,
+          //     headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          //       SliverToBoxAdapter(
+          //         child: Column(
+          //           children: [
+          //             TabBar(
+          //               indicator: UnderlineTabIndicator(
+          //                 borderRadius: BorderRadius.circular(10),
+          //                 borderSide: BorderSide(width: 2.5.sp),
+          //                 // insets: EdgeInsets.symmetric(horizontal: 80.w),
+          //               ),
+          //               indicatorSize: TabBarIndicatorSize.tab,
+          //               indicatorPadding:
+          //                   const EdgeInsets.symmetric(horizontal: 50),
+          //               // indicatorWeight: 4,
+              
+          //               indicatorColor: const Color(0xFF3B3F43),
+          //               unselectedLabelStyle:
+          //                   const TextStyle(color: Color(0xFF6B6B6B)),
+          //               labelColor: const Color.fromRGBO(59, 63, 67, 1),
+          //               labelStyle: TextStyle(
+          //                 fontWeight: FontWeight.bold,
+          //                 fontSize: 18.sp,
+          //               ),
+          //               tabs: [
+          //                 Tab(
+          //                   child: Text(
+          //                     "Recipe",
+          //                     style: TextStyle(
+          //                         fontFamily: "StudioProM", fontSize: 17.sp),
+          //                   ),
+          //                 ),
+          //                 Tab(
+          //                   child: Text(
+          //                     "Comments",
+          //                     style: TextStyle(
+          //                         fontFamily: "StudioProM", fontSize: 17.sp),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ],
+          //         ),
+          //       )
+          //     ], 
+          //     body: 
+          //     SizedBox(
+          //       height: 10.h,
+          //     )
+          //     // TabBarView(
+          //     //   // physics: NeverScrollableScrollPhysics(),
+          //     //   children: [
+          //     //   _recipeTabbarView(),
+          //     //   Padding(
+          //     //     padding: EdgeInsets.symmetric(horizontal: 22.w),
+          //     //     child: _commentTabbarView(),
+          //     //   )
+          //     // ])
+          //   )
+          //   // Column(
+          //   //   children: [
+          //   //     PreferredSize(
+          //   //       preferredSize: const Size.fromHeight(20),
+          //   //       child: TabBar(
+          //   //         indicator: UnderlineTabIndicator(
+          //   //           borderRadius: BorderRadius.circular(10),
+          //   //           borderSide: BorderSide(width: 2.5.sp),
+          //   //           // insets: EdgeInsets.symmetric(horizontal: 80.w),
+          //   //         ),
+          //   //         indicatorSize: TabBarIndicatorSize.tab,
+          //   //         indicatorPadding:
+          //   //             const EdgeInsets.symmetric(horizontal: 50),
+          //   //         // indicatorWeight: 4,
+          
+          //   //         indicatorColor: const Color(0xFF3B3F43),
+          //   //         unselectedLabelStyle:
+          //   //             const TextStyle(color: Color(0xFF6B6B6B)),
+          //   //         labelColor: const Color.fromRGBO(59, 63, 67, 1),
+          //   //         labelStyle: TextStyle(
+          //   //           fontWeight: FontWeight.bold,
+          //   //           fontSize: 18.sp,
+          //   //         ),
+          //   //         tabs: [
+          //   //           Tab(
+          //   //             child: Text(
+          //   //               "Recipe",
+          //   //               style: TextStyle(
+          //   //                   fontFamily: "StudioProM", fontSize: 17.sp),
+          //   //             ),
+          //   //           ),
+          //   //           Tab(
+          //   //             child: Text(
+          //   //               "Comments",
+          //   //               style: TextStyle(
+          //   //                   fontFamily: "StudioProM", fontSize: 17.sp),
+          //   //             ),
+          //   //           ),
+          //   //         ],
+          //   //       ),
+          //   //     ),
+          //   //     sizedBoxHeight(23.h),
+          //   //     SizedBox(
+          //   //         height: MediaQuery.of(context).size.shortestSide,
+          //   //         child: TabBarView(
+          //   //           // physics: NeverScrollableScrollPhysics(),
+          //   //           children: [
+          //   //           _recipeTabbarView(),
+          //   //           Padding(
+          //   //             padding: EdgeInsets.symmetric(horizontal: 22.w),
+          //   //             child: _commentTabbarView(),
+          //   //           )
+          //   //         ])
+          //   // ),
+          //   //   ],
+          //   // ),
+          // ),
+        
         ],
       ),
     );
@@ -569,7 +771,6 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
 
   Widget _recipeTabbarView() {
     return SingleChildScrollView(
-      // physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Padding(
@@ -921,17 +1122,15 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         child: Text(
                                           'Slappappoffer Recipe',
                                           style: TextStyle(
-
                                               fontFamily: 'Roboto',
-                                              fontSize: 6.sp
-                                          ),
+                                              fontSize: 6.sp),
                                         ),
                                         // sizedBoxWidth(16.w),
                                         // Image.asset(
                                         //   'assets/icons/save.png',
                                         //   height: 9.h,
                                         //   width: 6.8.w,
-
+    
                                         // ),
                                       ),
                                       Padding(

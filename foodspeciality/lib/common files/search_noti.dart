@@ -19,15 +19,14 @@ Widget searchNotification() {
           width: 60.w,
           height: 60.w,
         ),
-
         sizedBoxWidth(5.w),
-
-
         Expanded(
           child: CustomSearchTextFormField(
+            autofocus: true,
             onTap: () {
               //Get.toNamed("/SearchPage");
-              Get.to(SearchPage(),duration:Duration(milliseconds:500),
+              Get.to(SearchPage(),
+                  duration: Duration(milliseconds: 500),
                   transition: Transition.downToUp);
             },
             readonly: true,
@@ -45,7 +44,8 @@ Widget searchNotification() {
         GestureDetector(
           onTap: () {
             //Get.toNamed("/notification");
-            Get.to(UserNotifications(),duration:Duration(milliseconds:500),
+            Get.to(UserNotifications(),
+                duration: Duration(milliseconds: 500),
                 transition: Transition.downToUp);
           },
           child: Image.asset(

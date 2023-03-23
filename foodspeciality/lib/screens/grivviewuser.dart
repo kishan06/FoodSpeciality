@@ -44,14 +44,14 @@ class _GridviewState extends State<Gridview> {
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 10),
                 itemCount: gridCardData.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (_, index) {
                   return gridCard(
                       gridCardData[index]["like"],
                       gridCardData[index]["save"],
+                      index,
                       gridCardData[index]["recipeimage"],
                       gridCardData[index]["title"],
-                      gridCardData[index]["name"],
-                      index);
+                      gridCardData[index]["name"]);
                   // listCardData[index]["isFollowedByMe"]);
                 }),
           ],
@@ -60,7 +60,7 @@ class _GridviewState extends State<Gridview> {
     );
   }
 
-  Widget gridCard(int index, int like, int save, dynamic recipeimage,
+  Widget gridCard(int like, int save, int index, dynamic recipeimage,
       dynamic name, dynamic title) {
     // bool like = false;
 
@@ -120,7 +120,7 @@ class _GridviewState extends State<Gridview> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                listCardData[index]["like"] = like == 0 ? 1 : 0;
+                                gridCardData[index]["like"] = like == 0 ? 1 : 0;
                               });
                             },
                             child: like == 0
@@ -164,10 +164,23 @@ class _GridviewState extends State<Gridview> {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            "assets/Bookmark.svg",
-                            height: 16.h,
-                            width: 19.w,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                gridCardData[index]["save"] = save == 0 ? 1 : 0;
+                              });
+                            },
+                            child: save == 0
+                                ? Image.asset(
+                                    "assets/icons/save.png",
+                                    width: 20.w,
+                                    height: 18.h,
+                                  )
+                                : Image.asset(
+                                    "assets/icons/save_filled.png",
+                                    width: 20.w,
+                                    height: 18.h,
+                                  ),
                           ),
                           SizedBox(
                             width: 4.w,

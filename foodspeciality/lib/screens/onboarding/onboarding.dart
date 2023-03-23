@@ -43,104 +43,108 @@ class _OnBoardingState extends State<OnBoarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SizedBox(
-        height: double.infinity,
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: 740.h,
-                  child: PageView.builder(
-                      controller: _controller,
-                      onPageChanged: (int index) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                      itemCount: contents.length,
-                      itemBuilder: (_, i) {
-                        return Stack(
-                          children: [
-                            Image.asset(
-                              contents[i].image,
-                              height: 740.h,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                            Column(
-                              children: [
-                                sizedBoxHeight(650.h),
-                                textgrey22BoldSP(contents[i].title),
-                                sizedBoxHeight(7.h),
-                                Padding(
-                                  padding:
-                                  EdgeInsets.symmetric(horizontal: 38.w),
-                                  child: textL_grey14Robo(
-                                      contents[currentIndex].discription),
-                                ),
-                              ],
-                            )
-                          ],
-                        );
-                      }),
-                ),
-                Positioned(
-                  top: 20.h,
-                  child: SizedBox(
-                    // width: double.infinity,
-                    width: 430.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          "assets/onlyLogo.png",
-                          height: 93.h,
-                          width: 93.h,
-                        ),
-                        currentIndex == 2
-                            ? SizedBox()
-                            : Padding(
-                          padding: EdgeInsets.only(right: 21.w),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: () {
-                                // Get.off(LoginScreen());
-                                Get.toNamed("/login");
-                              },
-                              child: textWhite16RoboBold("Skip"),
-                            ),
+      body: SafeArea(
+        child: SizedBox(
+          height: double.infinity,
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 720.h,
+                    child: PageView.builder(
+                        controller: _controller,
+                        onPageChanged: (int index) {
+                          setState(() {
+                            currentIndex = index;
+                          });
+                        },
+                        itemCount: contents.length,
+                        itemBuilder: (_, i) {
+                          return Stack(
+                            children: [
+                              Image.asset(
+                                contents[i].image,
+                                height: 740.h,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                              Column(
+                                children: [
+                                  sizedBoxHeight(645.h),
+                                  textgrey22BoldSP(contents[i].title),
+                                  sizedBoxHeight(7.h),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 38.w),
+                                    child: textL_grey14Robo(
+                                        contents[currentIndex].discription),
+                                  ),
+                                ],
+                              )
+                            ],
+                          );
+                        }),
+                  ),
+                  Positioned(
+                    top: 10.h,
+                    child: SizedBox(
+                      // width: double.infinity,
+                      width: 430.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            "assets/onlyLogo.png",
+                            height: 93.h,
+                            width: 93.h,
                           ),
-                        ),
-                      ],
+                          currentIndex == 2
+                              ? SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.only(right: 21.w),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                      onTap: () {
+                                        // Get.off(LoginScreen());
+                                        Get.toNamed("/login");
+                                      },
+                                      child: textWhite16RoboBold("Skip"),
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:
-                List.generate(contents.length, (index) => buildDot(index))),
-            sizedBoxHeight(40.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: customButtonWithBorder("Continue", onPressed: () {
-                if (currentIndex == contents.length - 1) {
-                  // SharedPreferences pref = await SharedPreferences.getInstance();
-                  // pref.setBool("onBoarding_done", true);
-                  // Get.off(LoginScreen());
-                  //Navigator.push(context, _createRoute());
-                  Get.to(()=>Login(),duration:Duration(milliseconds:500),
-                 transition: Transition.rightToLeft);
-                }
-                _controller.nextPage(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.bounceIn);
-              }),
-            ),
-          ],
+                ],
+              ),
+              sizedBoxHeight(10.h),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      contents.length, (index) => buildDot(index))),
+              sizedBoxHeight(30.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: customButtonWithBorder("Continue", onPressed: () {
+                  if (currentIndex == contents.length - 1) {
+                    // SharedPreferences pref = await SharedPreferences.getInstance();
+                    // pref.setBool("onBoarding_done", true);
+                    // Get.off(LoginScreen());
+                    //Navigator.push(context, _createRoute());
+                    Get.to(() => Login(),
+                        duration: Duration(milliseconds: 500),
+                        transition: Transition.rightToLeft);
+                  }
+                  _controller.nextPage(
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.bounceIn);
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
