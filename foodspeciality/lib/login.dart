@@ -228,7 +228,9 @@ class _LoginState extends State<Login> {
                         ),
                         elevation: 0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/bottomBar");
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
