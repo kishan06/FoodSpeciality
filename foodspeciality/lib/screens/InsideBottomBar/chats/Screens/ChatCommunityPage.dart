@@ -97,124 +97,178 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
     return Scaffold(
       key: _key,
       backgroundColor: Color(0xFFFFFFFF),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-            child: TextField(
-              onChanged: (text){
-
-                text = text.toLowerCase();
-                controllerChat.searchFunctionCom(text);
-              },
-              decoration: InputDecoration(
-                hintText: "Search...",
-                hintStyle: TextStyle(color: Colors.grey.shade600),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey.shade600,
-                  size: 20,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: EdgeInsets.all(8),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Color(0xFF707070),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: Color(0xFF707070),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              // height: 620.h,
-              child: Padding(
-                padding: EdgeInsets.only(top: 10.h,
-                  bottom: 5.h
-                ),
-                child: SingleChildScrollView(
-                  child: 
-                  GetBuilder<ChatController>(builder: (_){
-                    return ListView.builder(
-                      itemCount: controllerChat.chatcommunity.length,
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.only(top: 16),
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return CommunityConversationList(
-                          name: controllerChat.chatcommunity[index].name,
-                          member: controllerChat.chatcommunity[index].members,
-                          messageText: controllerChat.chatcommunity[index].messageText,
-                          imageUrl: controllerChat.chatcommunity[index].imageURL,
-                          isMessageRead: (index == 0 || index == 3 || index == 2)
-                              ? true
-                              : false,
-                        );
-                      },
-                    );
-                  })
-                  
-                ),
-              ),
-            ),
-          ),
-          // Container(height: 20.h,
-          // color: AppColors.black,),
-          // sizedBoxHeight(10.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              height: 50.h,
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  // ignore: deprecated_member_use
-                  primary: const Color(0xFF3B3F43),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xFF707070)),
-                    borderRadius: BorderRadius.circular(8.h),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_circle_outlined,
-                      color: Colors.white,
+      body: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                child: TextField(
+                  onChanged: (text){
+      
+                    text = text.toLowerCase();
+                    controllerChat.searchFunctionCom(text);
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Search...",
+                    hintStyle: TextStyle(color: Colors.grey.shade600),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
                     ),
-                    SizedBox(
-                      width: 10.h,
-                    ),
-                    Text(
-                      "New Community",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sm,
-                        fontFamily: 'StudioProR',
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        color: Color(0xFF707070),
                       ),
                     ),
-                  ],
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        color: Color(0xFF707070),
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => addCommunityDailog());
-                },
               ),
-            ),
+              Expanded(
+                child: Container(
+                  // height: 620.h,
+                  // color: AppColors.red,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10.h,
+                      bottom: 5.h
+                    ),
+                    child: SingleChildScrollView(
+                      child: 
+                      GetBuilder<ChatController>(builder: (_){
+                        return ListView.builder(
+                          itemCount: controllerChat.chatcommunity.length,
+                          shrinkWrap: true,
+                          // padding: EdgeInsets.only(top: 16),
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return CommunityConversationList(
+                              name: controllerChat.chatcommunity[index].name,
+                              member: controllerChat.chatcommunity[index].members,
+                              messageText: controllerChat.chatcommunity[index].messageText,
+                              imageUrl: controllerChat.chatcommunity[index].imageURL,
+                              isMessageRead: (index == 0 || index == 3 || index == 2)
+                                  ? true
+                                  : false,
+                            );
+                          },
+                        );
+                      })
+                      
+                    ),
+                  ),
+                ),
+              ),
+              // Container(height: 20.h,
+              // color: AppColors.black,),
+              // sizedBoxHeight(10.h),
+      
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: SizedBox(
+                  height: 50.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      // ignore: deprecated_member_use
+                      primary: const Color(0xFF3B3F43),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xFF707070)),
+                        borderRadius: BorderRadius.circular(8.h),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add_circle_outlined,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10.h,
+                        ),
+                        Text(
+                          "New Community",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sm,
+                            fontFamily: 'StudioProR',
+                          ),
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => addCommunityDailog());
+                    },
+                  ),
+                ),
+              ),
+           
+              sizedBoxHeight(60.h)
+            ],
           ),
-       
-          sizedBoxHeight(35.h)
+        
+          // Positioned(
+          //   bottom: 0,
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          //     child: SizedBox(
+          //       height: 50.h,
+          //       width: double.infinity,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           elevation: 0,
+          //           // ignore: deprecated_member_use
+          //           primary: const Color(0xFF3B3F43),
+          //           shape: RoundedRectangleBorder(
+          //             side: const BorderSide(color: Color(0xFF707070)),
+          //             borderRadius: BorderRadius.circular(8.h),
+          //           ),
+          //         ),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Icon(
+          //               Icons.add_circle_outlined,
+          //               color: Colors.white,
+          //             ),
+          //             SizedBox(
+          //               width: 10.h,
+          //             ),
+          //             Text(
+          //               "New Community",
+          //               style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 18.sm,
+          //                 fontFamily: 'StudioProR',
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //         onPressed: () {
+          //           showDialog(
+          //               context: context,
+          //               builder: (context) => addCommunityDailog());
+          //         },
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        
         ],
       ),
     );
