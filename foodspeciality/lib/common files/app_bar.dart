@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
@@ -43,22 +43,20 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         padding: EdgeInsets.only(left: 10.w),
         child: Row(
           children: [
-
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.back();
               },
-              child: Image.asset("assets/icons/back_arrow.png",
+              child: Image.asset(
+                "assets/icons/back_arrow.png",
                 height: 20.h,
                 width: 30.w,
                 color: AppColors.greyD3B3F43,
-              
+
                 // color: ,
               ),
             ),
-
             sizedBoxWidth(10.w),
-
             Text(
               titleTxt,
               softWrap: true,
@@ -70,20 +68,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   fontWeight: FontWeight.w600,
                   color: Color.fromRGBO(84, 89, 95, 1)),
             ),
-
-            
           ],
         ),
       ),
       // leadingWidth: 27.w,
-      // automaticallyImplyLeading: 
-      
-      // leading: 
+      // automaticallyImplyLeading:
+
+      // leading:
       // Image.asset("assets/icons/back_arrow.png",
       //   height: 18.h,
       //   width: 27.w,
       //   color: AppColors.greyD3B3F43,
-      
+
       //   // color: ,
       // )
       // SvgPicture.asset("assets/icons/back_arrow.svg",

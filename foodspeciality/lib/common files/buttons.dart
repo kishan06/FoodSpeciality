@@ -32,7 +32,7 @@ Widget followButton(String text, {required void Function()? onPressed}) {
           primary: AppColors.greyD3B3F43,
           shape: RoundedRectangleBorder(
             // side: BorderSide(color: AppColors.white, width: 1.w),
-            borderRadius: BorderRadius.circular(8.h),
+            borderRadius: BorderRadius.circular(8.r),
           ),
         ),
         child: textWhite18Robo(text),

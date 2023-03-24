@@ -14,6 +14,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool v1 = false;
+  bool v2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +74,7 @@ class _LoginState extends State<Login> {
                           .hasMatch(value)) {
                         return 'Please enter a valid email address';
                       }
+                      v1 = true;
                       return null;
                     },
                     suffixIcon: Image.asset(
@@ -115,6 +118,7 @@ class _LoginState extends State<Login> {
                       if (value.length < 8) {
                         return 'Password must be at least 8 characters';
                       }
+                      v2 = true;
                       return null;
                     },
                     validatorText: "", isInputPassword: true,
@@ -176,24 +180,34 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 50.h,
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        //Get.toNamed('/signUpProfile');
-                          Get.to(SignupProfile(),duration:Duration(milliseconds:500),
-                            transition: Transition.rightToLeft);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(84, 89, 95, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          // side: BorderSide(color: Colors.white, width: 1.w),
+                    child: Form(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Get.toNamed('/signUpProfile');
+                          v1 && v2
+                              ? Get.to(SignupProfile(),
+                                  duration: const Duration(milliseconds: 500),
+                                  transition: Transition.rightToLeft)
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.grey,
+                                      content: Center(
+                                          child: Text(
+                                              'Email or Password Wrong'))));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // side: BorderSide(color: Colors.white, width: 1.w),
+                          ),
+                          elevation: 0,
                         ),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                            fontSize: 18.sp, fontFamily: "StudioProR"),
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                              fontSize: 18.sp, fontFamily: "StudioProR"),
+                        ),
                       ),
                     ),
                   ),
@@ -214,7 +228,9 @@ class _LoginState extends State<Login> {
                         ),
                         elevation: 0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/bottomBar");
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -14,6 +14,8 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  bool v1 = false;
+  bool v2 = false;
   String? _password;
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         return 'Password must be at least 8 characters';
                       }
                       _password = value;
+                      v1 = true;
                       return null;
                     },
                     validatorText: "",
@@ -125,6 +128,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       if (value != _password) {
                         return 'Passwords do not match';
                       }
+                      v2 = true;
                       return null;
                     },
                     validatorText: "",
@@ -162,12 +166,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.toNamed("/login");
+                      v1 && v2
+                          ? Get.toNamed("/login")
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  backgroundColor: Colors.grey,
+                                  content:
+                                      Center(child: Text('Validation Error'))));
                       // Get.toNamed("/otpverification");
                       // Get.toNamed('/signUpProfile');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                      backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
                         // side: BorderSide(color: Colors.white, width: 1.w),
@@ -176,19 +186,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                     child: Text(
                       'Change Password',
-                      style: TextStyle(
-                          fontSize: 18.sp, fontFamily: "StudioProR"),
+                      style:
+                          TextStyle(fontSize: 18.sp, fontFamily: "StudioProR"),
                     ),
                   ),
                 ),
-              
+
                 // CustomNextButton(
                 //   text: 'Change Password',
                 //   ontap: () {
                 //     Get.toNamed("/login");
                 //   },
                 // )
-             
               ],
             ),
           ),

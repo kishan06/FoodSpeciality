@@ -9,8 +9,7 @@ import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview
 // import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/new_profile.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/new_profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 

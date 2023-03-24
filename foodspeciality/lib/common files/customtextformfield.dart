@@ -158,7 +158,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w),
                     child: Icon(
-                      Icons.visibility,
+                      Icons.visibility_off,
                       color: Colors.black54,
                       size: 20.sp,
                     ),
@@ -173,7 +173,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                       left: 10.w,
                     ),
                     child: Icon(
-                      Icons.visibility_off,
+                      Icons.visibility,
                       color: Colors.black54,
                       size: 20.sp,
                     ),
