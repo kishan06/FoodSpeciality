@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/login.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/profile.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
@@ -23,7 +22,6 @@ import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
-
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/report.dart';
@@ -51,13 +49,11 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(430, 930),
       builder: (BuildContext context, Widget? child) => GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: GetMaterialApp(
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.white
-          ),
+          theme: ThemeData(scaffoldBackgroundColor: AppColors.white),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
           initialRoute: '/',
@@ -72,7 +68,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/resetPass", page: () => ResetPassword()),
             GetPage(name: "/signUpProfile", page: () => SignupProfile()),
             GetPage(
-                name: "/discoveryRecipes", page: () => DiscoveryRecipesScreen()),
+                name: "/discoveryRecipes",
+                page: () => DiscoveryRecipesScreen()),
             GetPage(name: "/viewuser", page: () => viewUser()),
             GetPage(name: "/followuser", page: () => followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
@@ -80,10 +77,12 @@ class _MyAppState extends State<MyApp> {
                 name: "/communityaddparticipants",
                 page: () => communityAddParticipants()),
             GetPage(
-                name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
-            GetPage(name: "/myProfile", page: () => myProfile()),
+                name: "/chatcommunitydetail",
+                page: () => ChatCommunityDetail()),
+            // GetPage(name: "/myProfile", page: () => myProfile()),
             GetPage(
-                name: "/networkplayerwidget", page: () => NetworkPlayerWidget()),
+                name: "/networkplayerwidget",
+                page: () => NetworkPlayerWidget()),
             GetPage(name: "/setting", page: () => Setting()),
             GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
             GetPage(name: "/notification", page: () => UserNotifications()),
@@ -93,10 +92,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => InspirationRecipeComment()),
-      
+
             GetPage(name: "/SearchPage", page: () => SearchPage()),
             GetPage(name: "/RecipeIng", page: () => RecipeIng()),
-
           ],
         ),
       ),
