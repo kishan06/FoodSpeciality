@@ -67,11 +67,12 @@ class _OnBoardingState extends State<OnBoarding> {
                                 contents[i].image,
                                 height: 740.h,
                                 width: double.infinity,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               ),
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  sizedBoxHeight(645.h),
+                                  // sizedBoxHeight(645.h),
                                   textgrey22BoldSP(contents[i].title),
                                   sizedBoxHeight(7.h),
                                   Padding(

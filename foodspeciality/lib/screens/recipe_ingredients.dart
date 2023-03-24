@@ -195,7 +195,11 @@ class _RecipeIngState extends State<RecipeIng>
         ),
         body: TabBarView(
             controller: tabController,
-            children: [RecipeTabbarView(), IngredientsTabbatview()]),
+            children: [
+              RecipeTabbarView(), 
+              IngredientsTabbatview()
+            ]
+          ),
       );
       })
       

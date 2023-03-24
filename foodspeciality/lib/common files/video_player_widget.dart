@@ -14,6 +14,7 @@ class VideoPlayerWidget extends StatelessWidget {
   Widget build(BuildContext context) =>
       controller != null && controller.value.isInitialized
           ? Container(
+            // height: 300.h,
               alignment: Alignment.topCenter,
               child: buildVideo(),
             )
@@ -26,29 +27,35 @@ class VideoPlayerWidget extends StatelessWidget {
 
   Widget buildVideo() => OrientationBuilder(builder: (context, orientation) {
         final isPortrait = orientation == Orientation.portrait;
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                controller.value.isPlaying
-                    ? controller.pause()
-                    : controller.play();
-              },
-              child: Stack(
-                // fit: isPortrait ? StackFit.loose :StackFit.expand,
-                children: [
-                  buildVideoPlayer(),
-                  Positioned.fill(child: buildPlay()),
-                ],
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  controller.value.isPlaying
+                      ? controller.pause()
+                      : controller.play();
+                },
+                child: Stack(
+                  // fit: isPortrait ? StackFit.loose :StackFit.expand,
+                  children: [
+                    Container(
+                      // color: AppColors.black,
+                      height: 400.h,
+                      child: buildVideoPlayer()),
+                    Positioned.fill(child: buildPlay()),
+                  ],
+                ),
               ),
-            ),
-            buildIndicator()
-            // Positioned.fill(
-            //   // bottom: 0,
-            //   child: BasicOverLayWidget(controller: controller,)
-            // )
-          ],
+              buildIndicator()
+              // Positioned.fill(
+              //   // bottom: 0,
+              //   child: BasicOverLayWidget(controller: controller,)
+              // )
+            ],
+          ),
         );
       });
   // Column(
