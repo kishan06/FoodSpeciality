@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/CommunityConversationList.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -17,71 +18,73 @@ class ChatCommunityPage extends StatefulWidget {
 
 class _ChatCommunityPageState extends State<ChatCommunityPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  List<ChatCommunity> chatcommunity = [
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "Food Specialities",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "Food Specialities",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "Food Specialities",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-    ChatCommunity(
-      name: "WDIPL",
-      messageText:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-      imageURL: "assets/community.png",
-      members: '4 Members',
-    ),
-  ];
+  // List<ChatCommunity> chatcommunity = [
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "Food Specialities",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "Food Specialities",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "Food Specialities",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  //   ChatCommunity(
+  //     name: "WDIPL",
+  //     messageText:
+  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+  //     imageURL: "assets/community.png",
+  //     members: '4 Members',
+  //   ),
+  // ];
+  final controllerChat = Get.put(ChatController());
+  
 
   @override
   void initState() {
@@ -100,6 +103,11 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
           Padding(
             padding: EdgeInsets.only(top: 16, left: 16, right: 16),
             child: TextField(
+              onChanged: (text){
+
+                text = text.toLowerCase();
+                controllerChat.searchFunctionCom(text);
+              },
               decoration: InputDecoration(
                 hintText: "Search...",
                 hintStyle: TextStyle(color: Colors.grey.shade600),
@@ -134,23 +142,27 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                   bottom: 5.h
                 ),
                 child: SingleChildScrollView(
-                  child: ListView.builder(
-                    itemCount: chatcommunity.length,
-                    shrinkWrap: true,
-                    // padding: EdgeInsets.only(top: 16),
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return CommunityConversationList(
-                        name: chatcommunity[index].name,
-                        member: chatcommunity[index].members,
-                        messageText: chatcommunity[index].messageText,
-                        imageUrl: chatcommunity[index].imageURL,
-                        isMessageRead: (index == 0 || index == 3 || index == 2)
-                            ? true
-                            : false,
-                      );
-                    },
-                  ),
+                  child: 
+                  GetBuilder<ChatController>(builder: (_){
+                    return ListView.builder(
+                      itemCount: controllerChat.chatcommunity.length,
+                      shrinkWrap: true,
+                      // padding: EdgeInsets.only(top: 16),
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return CommunityConversationList(
+                          name: controllerChat.chatcommunity[index].name,
+                          member: controllerChat.chatcommunity[index].members,
+                          messageText: controllerChat.chatcommunity[index].messageText,
+                          imageUrl: controllerChat.chatcommunity[index].imageURL,
+                          isMessageRead: (index == 0 || index == 3 || index == 2)
+                              ? true
+                              : false,
+                        );
+                      },
+                    );
+                  })
+                  
                 ),
               ),
             ),

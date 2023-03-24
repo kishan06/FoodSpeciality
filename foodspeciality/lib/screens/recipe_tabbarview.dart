@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
+import 'package:foodspeciality/common%20files/video_player_file.dart';
+import 'package:foodspeciality/common%20files/video_player_widget.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
+// import 'package:foodspeciality/screens/videowalapage.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
 import 'common_chip.dart';
 
 class RecipeTabbarView extends StatefulWidget {
@@ -20,10 +23,45 @@ class RecipeTabbarView extends StatefulWidget {
 }
 
 class _RecipeTabbarViewState extends State<RecipeTabbarView> {
+  final List<String> _textList = [];
+  final TextEditingController _textController = TextEditingController();
+
+  bool textFieldVisibile = false;
+  XFile? file;
+
   bool isSwitched = false;
   File? _image;
-  HomeController controllerHome = HomeController();
+  bool isVideo = false;
 
+
+  File? galleryFile;
+  final ImagePicker _picker = ImagePicker();
+
+  final picker = ImagePicker();
+  late VideoPlayerController _videoPlayerController;
+  @override
+  void dispose() {
+    super.dispose();
+    _videoPlayerController.dispose();
+  }
+
+  // late VideoPlayerController _controller;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   videoController = VideoPlayerController.asset(galleryFile!.path)
+  //     ..addListener(() => setState(() {}))
+  //     ..setLooping(true)
+  //     ..initialize().then((_) => videoController.play());
+  // }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   videoController.dispose();
+  // }
 
   Future getImage(ImageSource source) async {
     try {
@@ -45,7 +83,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
     return File(imagePath).copy(imagePath);
   }
 
-  builduploadprofile() {
+  builduploadprofile(bool uploadVideo) {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -73,11 +111,19 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.camera);
-                        Get.back();
+                        if (uploadVideo) {
+                          _onImageButtonPressed(ImageSource.camera);
+                          Get.back();
+
+                        } else {
+                          getImage(ImageSource.camera);
+                          Get.back();
+                        }
+                        // getImage(ImageSource.camera);
+                        // Get.back();
                       },
                       child: Column(
-                        children: [
+                        children: const [
                           Icon(
                             Icons.camera,
                             size: 30,
@@ -94,11 +140,19 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.gallery);
-                        Get.back();
+                        if (uploadVideo) {
+                          _onImageButtonPressed(ImageSource.gallery);
+                          Get.back();
+
+                        } else {
+                          getImage(ImageSource.gallery);
+                          Get.back();
+                        }
+                        // getImage(ImageSource.gallery);
+                        // Get.back();
                       },
                       child: Column(
-                        children: [
+                        children: const [
                           Icon(
                             Icons.image,
                             size: 30,
@@ -125,10 +179,8 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    // Scaffold(
-    //   body: 
-      Padding(
+    return Scaffold(
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
           child: Column(
@@ -148,39 +200,168 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 ],
               ),
               sizedBoxHeight(20.h),
-              SizedBox(
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    // ignore: deprecated_member_use
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xff707070)),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/svg/add-media-svgrepo-com.svg"),
-                      SizedBox(
-                        width: 7.42.w,
+              file == null
+                  ? SizedBox(
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          // ignore: deprecated_member_use
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Color(0xff707070)),
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                "assets/svg/add-media-svgrepo-com.svg"),
+                            SizedBox(
+                              width: 7.42.w,
+                            ),
+                            Text(
+                              "Upload Video",
+                              style: TextStyle(
+                                fontFamily: "Studio Pro",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.spMin,
+                                color: const Color(0xFF3E3D3D),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          // isVideo = true;
+                          // _onImageButtonPressed(ImageSource.gallery);
+                          builduploadprofile(true);
+              
+                          // _showPicker(context: context);
+                        },
                       ),
-                      Text(
-                        "Upload Video",
-                        style: TextStyle(
-                          fontFamily: "Studio Pro",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18.spMin,
-                          color: const Color(0xFF3E3D3D),
+                    )
+                  : Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 50.h,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              // ignore: deprecated_member_use
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(color: Color(0xff707070)),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.play_arrow,
+                                  size: 25.h,
+                                  color: const Color(0xFF3E3D3D),
+                      
+                                ),
+                                // SvgPicture.asset(
+                                //     "assets/svg/add-media-svgrepo-com.svg"),
+                                SizedBox(
+                                  width: 7.42.w,
+                                ),
+                                Text(
+                                  "Preview",
+                                  style: TextStyle(
+                                    fontFamily: "Studio Pro",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.spMin,
+                                    color: const Color(0xFF3E3D3D),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              //Get.to(FilePlayerWidget(file: file));
+                              Get.toNamed("/FilePlayerWidget",
+                                arguments: file
+                              );
+                              // Get.to))
+                              // isVideo = true;
+                              // _onImageButtonPressed(ImageSource.gallery);
+                              // builduploadprofile(true);
+                                  
+                              // _showPicker(context: context);
+                            },
+                          ),
                         ),
                       ),
+
+                      sizedBoxWidth(10.w),
+
+                      Expanded(
+                        child: SizedBox(
+                          height: 50.h,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              // ignore: deprecated_member_use
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(color: Color(0xff707070)),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.delete,
+                                  size: 22.h,
+                                  color: const Color(0xFF3E3D3D),
+                      
+                                ),
+                                // SvgPicture.asset(
+                                //     "assets/svg/add-media-svgrepo-com.svg"),
+                                SizedBox(
+                                  width: 7.42.w,
+                                ),
+                                Text(
+                                  "Delete",
+                                  style: TextStyle(
+                                    fontFamily: "Studio Pro",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.spMin,
+                                    color: const Color(0xFF3E3D3D),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              file = null;
+                              setState(() {
+                                
+                              });
+                              // isVideo = true;
+                              // _onImageButtonPressed(ImageSource.gallery);
+                              // builduploadprofile(true);
+                                  
+                              // _showPicker(context: context);
+                            },
+                          ),
+                        ),
+                      ),
+                    
                     ],
                   ),
-                  onPressed: () {},
-                ),
-              ),
+                  // Column(
+                  //     children: [
+                  //       Center(child: Text(galleryFile!.path)),
+                  //       SizedBox(
+                  //         height: 200,
+                  //         child: VideoPlayer(_videoPlayerController),
+                  //       ),
+                  //       // video should display here
+                  //     ],
+                  //   ),
               sizedBoxHeight(20.h),
               Container(
                 height: 200.h,
@@ -195,7 +376,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    builduploadprofile();
+                    builduploadprofile(false);
                   },
                   child: Container(
                     child: _image != null
@@ -335,36 +516,78 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 ],
               ),
               sizedBoxHeight(18.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.sp),
-                      color: AppColors.buttonGrey54595F,
-                    ),
-                    height: 27.h,
-                    width: 70.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        sizedBoxWidth(6.w),
-                        SvgPicture.asset(
-                          "assets/svg/add-circle-svgrepo-com.svg",
-                          // height: 15.h,
-                          // width: 15.w,
+              Visibility(
+                visible: !textFieldVisibile,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textFieldVisibile = true;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.sp),
+                          color: AppColors.buttonGrey54595F,
                         ),
-                        Text(
-                          "  Custom",
-                          style: TextStyle(
-                              color: Color(0xffffffff),
-                              fontFamily: "Studio Pro",
-                              fontSize: 10.sp),
+                        height: 27.h,
+                        width: 70.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            sizedBoxWidth(6.w),
+                            SvgPicture.asset(
+                              "assets/svg/add-circle-svgrepo-com.svg",
+                              // height: 15.h,
+                              // width: 15.w,
+                            ),
+                            Text(
+                              "  Custom",
+                              style: TextStyle(
+                                  color: const Color(0xffffffff),
+                                  fontFamily: "Studio Pro",
+                                  fontSize: 10.sp),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: textFieldVisibile,
+                child: TextField(
+                  autofocus: true,
+                  textAlignVertical: TextAlignVertical.center,
+                  style: TextStyle(
+                    fontSize: 10.sp,
                   ),
-                ],
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    suffixIconConstraints: const BoxConstraints(),
+                    contentPadding: EdgeInsets.all(17.h),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                        color: const Color(0xff54595f),
+                        fontSize: 10.sp,
+                        fontFamily: "Roboto"),
+                    hintText: 'Enter text here',
+                  ),
+                  cursorColor: const Color(0xFF3B3F43),
+                  onSubmitted: (String value) {
+                    setState(() {
+                      textFieldVisibile = !textFieldVisibile;
+                      _textController.clear();
+                      _textList.add(value);
+                    });
+                  },
+                  controller: _textController,
+                ),
               ),
               sizedBoxHeight(20.h),
               Row(
@@ -386,6 +609,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 spacing: 11.w,
                 runSpacing: 7.h,
                 children: [
+                  ..._textList.map((text) => CommonChip(text: text)).toList(),
                   const CommonChip(text: "Savoury moments"),
                   const CommonChip(text: "Quarter to quick"),
                   const CommonChip(text: "Juicy Mondays"),
@@ -495,7 +719,159 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
             ],
           ),
         ),
-      );
-    // );
+      ),
+    );
+  }
+
+  Future<void> _onImageButtonPressed(ImageSource source,
+      {BuildContext? context, bool isMultiImage = false}) async {
+    // if (_controller != null) {
+    //   await _controller!.setVolume(0.0);
+    // }
+    // if (isVideo) {
+      file = await _picker.pickVideo(
+          source: source, maxDuration: const Duration(seconds: 10));
+      setState(() {
+        
+      });
+      // await _playVideo(file);
+      // Get.to(()=> FilePlayerWidget(file: file));
+      // FilePlayerWidget(file: file);
+    // } 
+  }
+
+  // Future<void> _disposeVideoController() async {
+  //   if (_toBeDisposed != null) {
+  //     await _toBeDisposed!.dispose();
+  //   }
+  //   _toBeDisposed = _controller;
+  //   _controller = null;
+  // }
+
+  // Future<void> _playVideo(XFile? file) async {
+  //   if (file != null && mounted) {
+  //     await _disposeVideoController();
+  //     late VideoPlayerController controller;
+  //     if (kIsWeb) {
+  //       controller = VideoPlayerController.network(file.path);
+  //     } else {
+  //       controller = VideoPlayerController.file(File(file.path));
+  //     }
+  //     _controller = controller;
+  //     // In web, most browsers won't honor a programmatic call to .play
+  //     // if the video has a sound track (and is not muted).
+  //     // Mute the video so it auto-plays in web!
+  //     // This is not needed if the call to .play is the result of user
+  //     // interaction (clicking on a "play" button, for example).
+  //     const double volume = kIsWeb ? 0.0 : 1.0;
+  //     await controller.setVolume(volume);
+  //     await controller.initialize();
+  //     await controller.setLooping(true);
+  //     await controller.play();
+  //     setState(() {});
+  //   }
+  // }
+
+
+  void _showPicker({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        getVideo(ImageSource.camera);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Camera',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getVideo(ImageSource.gallery);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.image,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Gallery',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future getVideo(
+    ImageSource vid,
+  ) async {
+    final pickedFile = await picker.pickVideo(
+        source: vid,
+        preferredCameraDevice: CameraDevice.front,
+        maxDuration: const Duration(minutes: 20));
+    XFile? xfilePick = pickedFile;
+    setState(
+      () {
+        if (xfilePick != null) {
+          galleryFile = File(pickedFile!.path);
+          _videoPlayerController = VideoPlayerController.file(galleryFile!);
+          _videoPlayerController.initialize();
+        } else { 
+          ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
+              const SnackBar(content: Text('Nothing is selected')));
+        }
+      },
+    );
   }
 }

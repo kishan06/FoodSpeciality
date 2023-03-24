@@ -152,7 +152,7 @@ Widget textL_grey14Robo(String title) {
     textAlign: TextAlign.center,
     style: TextStyle(
         color: Color(0xFF54595F),
-        fontSize: 14.spMin,
+        fontSize: 14.sp,
         // fontWeight: FontWeight.bold,
         fontFamily: "Roboto"),
   );
