@@ -18,7 +18,7 @@ List listCardData = [
     "save": 0,
     "selectedVideoInde": 0,
     "isFollowedByMe": 0,
-    "imagePath": ""
+    // "imagePath": ""
   },
   {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
   {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
@@ -234,38 +234,53 @@ class _HomeState extends State<Home> {
 
                     GestureDetector(
                       onTap: () {
+                        print("pressed");
                         setState(() {
                           listCardData[index]["isFollowedByMe"] =
                               isFollowedByMe == 0 ? 1 : 0;
                         });
                       },
                       child: isFollowedByMe == 0
-                          ? AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              height: 35,
-                              width: 100,
+                          ? Container(
+                            width: 80.w,
                               decoration: BoxDecoration(
                                 color: AppColors.greyD3B3F43,
                                 borderRadius: BorderRadius.circular(8.r),
                                 border: Border.all(color: Colors.grey.shade700),
                               ),
-                              child: Center(
-                                child: textWhite18Robo("follow"),
+                              child: Padding(
+                                padding: EdgeInsets.all(5.h),
+                                child: Center(
+                                  child: textWhite14Robo("Follow"),
+                                ),
                               ),
                             )
-                          : AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              height: 35,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                color: AppColors.greyD3B3F43,
-                                borderRadius: BorderRadius.circular(8.r),
-                                border: Border.all(color: Colors.grey.shade700),
-                              ),
-                              child: Center(
-                                child: textWhite18Robo("following"),
+                          : Container(
+                            width: 80.w,
+                            // height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                color: Color(0xFF3B3F43),
                               ),
                             ),
+                            child: Padding(
+                              padding: EdgeInsets.all(5.h),
+                              child: Center(
+                                child: textgreyD14Robo("Following")
+                                // Text(
+                                //   "Following",
+                                //   style: TextStyle(
+                                //     fontFamily: "StudioProR",
+                                //     fontSize: 14.sp,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: Color(0xFF3B3F43),
+                                //   ),
+                                // ),
+                              ),
+                            ),
+                          )
                     ),
 
                     // customButtonWithBorder(

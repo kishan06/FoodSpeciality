@@ -67,6 +67,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
         controller: widget.textEditingController,
         onTap: widget.onTap,
         decoration: InputDecoration(
+          
           suffixIconConstraints: BoxConstraints(),
           contentPadding: EdgeInsets.all(17),
           filled: true,
@@ -93,7 +94,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
           ),
           hintStyle: TextStyle(
               color: Color(0xFF54595F63),
-              fontSize: 15.sm,
+              fontSize: 15.sp,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
           prefixIcon: widget.leadingIcon == null

@@ -630,7 +630,8 @@ class _ExploreState extends State<Explore> {
             //     },
             //   ),
             // ),
-            sizedBoxHeight(16.h),
+            // sizedBoxHeight(16.h),
+            Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -681,9 +682,11 @@ class _ExploreState extends State<Explore> {
                       image: AssetImage("assets/home/food_bowl.png"),
                       fit: BoxFit.fill)),
             ),
-            sizedBoxHeight(5.h),
+            // sizedBoxHeight(5.h),
+            Spacer(),
             textgreyD10Robo("Slappappoffer Recipe"),
-            sizedBoxHeight(5.h),
+            // sizedBoxHeight(5.h),
+            Spacer()
           ],
         ),
       ),
