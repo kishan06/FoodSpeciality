@@ -146,33 +146,41 @@ class _SignupProfileState extends State<SignupProfile> {
                   height: 20.h,
                 ),
                 Center(
-                  child: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
-                      children: [
-                        ClipOval(
-                          child: SizedBox.fromSize(
-                              size: Size.fromRadius(50),
-                              child: _image != null
-                                  ? Image.file(
-                                      _image!,
-                                      width: 150.w,
+                  child: InkWell(
+                    onTap: (){
+                      builduploadprofile();
+                    },
+                    child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: Alignment.center,
+                        children: [
+                          ClipOval(
+                            child: SizedBox.fromSize(
+                                size: Size.fromRadius(50.h),
+                                child: _image != null
+                                    ? Image.file(
+                                        _image!,
+                                        width: 150.h,
+                                        height: 150.h,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset('assets/Mask Group 40.png',
+                                      width: 150.h,
                                       height: 150.h,
                                       fit: BoxFit.cover,
-                                    )
-                                  : Image.asset('assets/Mask Group 40.png')),
-                        ),
-                        Positioned(
-                          bottom: 70,
-                          right: 5,
-                          child: GestureDetector(
-                            onTap: () {
-                              builduploadprofile();
-                            },
-                            child: Image.asset("assets/Group 57623.png"),
+                                    )),
                           ),
-                        ),
-                      ]),
+                          Positioned(
+                            // bottom: .h,
+                            top: 10.h,
+                            right: 0.w,
+                            child: Image.asset("assets/Group 57623.png",
+                              height: 24.h,
+                              width: 24.h,
+                            ),
+                          ),
+                        ]),
+                  ),
                 ),
                 SizedBox(
                   height: 2.h,
@@ -196,13 +204,20 @@ class _SignupProfileState extends State<SignupProfile> {
                   height: 20.h,
                 ),
                 TextFormField(
+                  style: TextStyle(
+                    fontSize: 14.sp
+                  ),
+                  
                   maxLength: 100,
                   maxLines: 5,
                   decoration: InputDecoration(
+                    counterStyle: TextStyle(
+                      fontSize: 14.sp
+                    ),
                     hintText: 'Bio',
                     hintStyle: TextStyle(
                         color: Color(0xFF707070),
-                        fontSize: 14.h,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         fontFamily: "Roboto"),
                     border: OutlineInputBorder(

@@ -167,6 +167,24 @@ Widget textgreyD12Robo(String title) {
   );
 }
 
+Widget textgreyD18Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyD3B3F43, fontSize: 18.sp, fontFamily: "Roboto"),
+  );
+}
+
+Widget textgreyD14Robo(String title) {
+  return Text(
+    title,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: AppColors.greyD3B3F43, fontSize: 14.sp, fontFamily: "Roboto"),
+  );
+}
+
 Widget textgreyM14Sp(String title) {
   return Text(
     title,

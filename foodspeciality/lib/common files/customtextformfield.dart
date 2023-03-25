@@ -61,6 +61,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         style: TextStyle(
           fontSize: 16.sp,
         ),
+        // hin
         // onTap: ontap,
         readOnly: widget.readonly,
         cursorColor: const Color(0xFF3B3F43),
@@ -69,6 +70,9 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         controller: widget.textEditingController,
         onTap: widget.onTap,
         decoration: InputDecoration(
+          errorStyle: TextStyle(
+            fontSize: 14.sp
+          ),
           isCollapsed: true,
           suffixIconConstraints: const BoxConstraints(),
           contentPadding: EdgeInsets.all(17.h),
@@ -96,7 +100,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
           ),
           hintStyle: TextStyle(
               color: const Color(0xFF54595F63),
-              fontSize: 15.sm,
+              fontSize: 15.sp,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
           suffixIcon: widget.eyeIcon ? eyesuffix() : null,
@@ -120,7 +124,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                           child: Icon(
                             Icons.lock_outline,
                             color: Colors.black54,
-                            size: 20.sp,
+                            size: 25.w,
                           ),
                         ),
                       ],
