@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/new_insp_reci_Comt.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:get/get.dart';
 
@@ -124,11 +125,16 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                         ),
                         Column(
                           children: [
-                            SvgPicture.asset(
-                                "assets/svg/media-play-circle-svgrepo-com.svg",
-                                  height: 63.h,
-                                  width: 63.h,
-                                ),
+                            InkWell(
+                              onTap: (){
+                                Get.to(()=> NewInspiRecipeComment());
+                              },
+                              child: SvgPicture.asset(
+                                  "assets/svg/media-play-circle-svgrepo-com.svg",
+                                    height: 63.h,
+                                    width: 63.h,
+                                  ),
+                            ),
                             sizedBoxHeight(30.h),
                             sizedBoxHeight(5.h),
                             Container(
@@ -231,6 +237,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         )),
                                   ],
                                 )),
+                            
                             sizedBoxHeight(8.h),
                           ],
                         )
