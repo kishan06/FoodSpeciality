@@ -516,6 +516,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                               ),
                             ],
                           ),
+                   
                         ],
                       )
                 ),
@@ -534,7 +535,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                     PreferredSize(
                       preferredSize: const Size.fromHeight(20),
                       child: TabBar(
-                        controller: _tabController,
+                        // controller: _tabController,
                         indicator: UnderlineTabIndicator(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(width: 2.5.sp),
@@ -1296,4 +1297,5 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
       ),
     );
   }
+
 }
