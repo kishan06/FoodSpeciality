@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/gridviewuser_content.dart';
-import 'package:foodspeciality/utils/texts.dart';
-import 'package:get/get.dart';
 
 class Gridview extends StatefulWidget {
   const Gridview({
@@ -85,7 +82,7 @@ class _GridviewState extends State<Gridview> {
           children: [
             Image.asset(
               recipeimage,
-              height: 140,
+              height: 140.h,
             ),
             SizedBox(
               height: 8.h,

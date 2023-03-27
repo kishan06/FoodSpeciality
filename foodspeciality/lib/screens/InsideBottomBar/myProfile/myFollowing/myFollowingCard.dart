@@ -61,6 +61,7 @@ class _myFollowingState extends State<myFollowingCard> {
 
     return Column(
       children: [
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -78,6 +79,7 @@ class _myFollowingState extends State<myFollowingCard> {
                     child: Image.asset(
                       recipeimage,
                       height: 50.h,
+
                     ),
                   ),
                 ),
@@ -88,6 +90,7 @@ class _myFollowingState extends State<myFollowingCard> {
                     "assets/rating-svgrepo-com.svg",
                     height: 22.h,
                   ),
+
                 ),
               ],
             ),
@@ -136,6 +139,7 @@ class _myFollowingState extends State<myFollowingCard> {
                           borderRadius: BorderRadius.circular(8.r),
                           border: Border.all(
                             color: const Color(0xFF3B3F43),
+
                           ),
                         ),
                         child: Padding(
@@ -151,6 +155,7 @@ class _myFollowingState extends State<myFollowingCard> {
                               ),
                             ),
                           ),
+
                         ),
                       )
                     : Container(
@@ -169,6 +174,7 @@ class _myFollowingState extends State<myFollowingCard> {
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xFFFFFFFF),
+
                               ),
                             ),
                           ),
