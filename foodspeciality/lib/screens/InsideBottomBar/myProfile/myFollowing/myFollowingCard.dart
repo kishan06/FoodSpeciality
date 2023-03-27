@@ -73,13 +73,13 @@ class _myFollowingState extends State<myFollowingCard> {
               Stack(
                 children: [
                   SizedBox(
-                    width: 50,
+                    width: 50.w,
                     child: CircleAvatar(
                       radius: 25.r,
                       backgroundColor: Colors.grey,
                       child: Image.asset(
                         recipeimage,
-                        height: 50,
+                        height: 50.h,
                       ),
                     ),
                   ),
@@ -88,7 +88,7 @@ class _myFollowingState extends State<myFollowingCard> {
                     left: 35.w,
                     child: SvgPicture.asset(
                       "assets/rating-svgrepo-com.svg",
-                      height: 22,
+                      height: 22.h,
                     ),
                   ),
                 ],
@@ -132,10 +132,10 @@ class _myFollowingState extends State<myFollowingCard> {
                   },
                   child: isFollowedByMe == 0
                       ? Container(
-                          height: 30,
+                          height: 30.h,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                             border: Border.all(
                               color: Color(0xFF3B3F43),
                             ),
@@ -156,7 +156,7 @@ class _myFollowingState extends State<myFollowingCard> {
                           ),
                         )
                       : Container(
-                          height: 30,
+                          height: 30.h,
                           decoration: BoxDecoration(
                             color: Color(0xFF3B3F43),
                             borderRadius: BorderRadius.circular(8),
@@ -187,7 +187,7 @@ class _myFollowingState extends State<myFollowingCard> {
           indent: 20,
         ),
         SizedBox(
-          height: 15,
+          height: 15.h,
         ),
       ],
     ));

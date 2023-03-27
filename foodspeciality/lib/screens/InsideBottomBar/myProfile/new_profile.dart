@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingContent.dart';
 import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
-import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dart';
 import 'package:foodspeciality/screens/setting/setting/setting.dart';
-import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -61,7 +55,7 @@ class _NewProfileState extends State<NewProfile> {
                     color: Colors.black,
                   ),
                 ),
-                sizedBoxWidth(20),
+                sizedBoxWidth(20.w),
                 GestureDetector(
                   onTap: () {
                     // Get.toNamed("/setting");
@@ -74,7 +68,7 @@ class _NewProfileState extends State<NewProfile> {
                     color: Colors.black,
                   ),
                 ),
-                sizedBoxWidth(18)
+                sizedBoxWidth(18.w)
               ],
             ),
             Padding(
@@ -90,7 +84,7 @@ class _NewProfileState extends State<NewProfile> {
                 backgroundColor: Colors.grey,
                 center: CircleAvatar(
                   backgroundColor: Colors.blue,
-                  radius: 40.0,
+                  radius: 40.r,
                   backgroundImage: AssetImage(
                     'assets/profile.png',
                   ),
@@ -127,7 +121,7 @@ class _NewProfileState extends State<NewProfile> {
               children: [
                 Container(
                   height: 108.h,
-                  width: 183.h,
+                  width: 183.w,
                   decoration: BoxDecoration(
                     color: Color(0xFFF2F2F2),
                     borderRadius: BorderRadius.circular(16),
@@ -147,13 +141,19 @@ class _NewProfileState extends State<NewProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SvgPicture.asset("assets/bookmark (2).svg"),
-                      Text("Level : Silver")
+                      Text(
+                        "Level : Silver",
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w500),
+                      )
                     ],
                   ),
                 ),
                 Container(
                   height: 108.h,
-                  width: 183.h,
+                  width: 183.w,
                   decoration: BoxDecoration(
                     color: Color(0xFFF2F2F2),
                     borderRadius: BorderRadius.circular(16),
@@ -173,7 +173,13 @@ class _NewProfileState extends State<NewProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SvgPicture.asset("assets/coin.svg"),
-                      Text("Total Coins : 500")
+                      Text(
+                        "Total Coins : 500",
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontFamily: "StudioProR",
+                            fontWeight: FontWeight.w500),
+                      )
                     ],
                   ),
                 ),
@@ -187,6 +193,7 @@ class _NewProfileState extends State<NewProfile> {
                 unselectedLabelStyle: TextStyle(color: Color(0xFF6B6B6B)),
                 tabs: [
                   Tab(
+                    height: 70.h,
                     child: Column(
                       children: [
                         Text(
@@ -203,12 +210,13 @@ class _NewProfileState extends State<NewProfile> {
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               color: Color(0xff54595F),
-                              fontSize: 16.sm),
+                              fontSize: 16.sp),
                         ),
                       ],
                     ),
                   ),
                   Tab(
+                    height: 70.h,
                     child: Column(
                       children: [
                         Text(
@@ -225,12 +233,13 @@ class _NewProfileState extends State<NewProfile> {
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               color: Color(0xff54595F),
-                              fontSize: 16.sm),
+                              fontSize: 16.sp),
                         ),
                       ],
                     ),
                   ),
                   Tab(
+                    height: 70.h,
                     child: Column(
                       children: [
                         Text(
@@ -247,12 +256,13 @@ class _NewProfileState extends State<NewProfile> {
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               color: Color(0xff54595F),
-                              fontSize: 16.sm),
+                              fontSize: 16.sp),
                         ),
                       ],
                     ),
                   ),
                   Tab(
+                    height: 70.h,
                     child: Column(
                       children: [
                         Text(
@@ -269,7 +279,7 @@ class _NewProfileState extends State<NewProfile> {
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               color: Color(0xff54595F),
-                              fontSize: 16.sm),
+                              fontSize: 16.sp),
                         ),
                       ],
                     ),
@@ -283,7 +293,7 @@ class _NewProfileState extends State<NewProfile> {
                       children: [
                         Gridview(),
                         SizedBox(
-                          height: 20,
+                          height: 20.h,
                         )
                       ],
                     )),
@@ -311,7 +321,7 @@ class myfollowers extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Container(
               child: Row(
@@ -324,22 +334,22 @@ class myfollowers extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 50,
+                        width: 50.w,
                         child: CircleAvatar(
                           radius: 25.r,
                           backgroundColor: Colors.grey,
                           child: Image.asset(
                             "assets/Mask Group 86.png",
-                            height: 50,
+                            height: 50.h,
                           ),
                         ),
                       ),
                       Positioned(
-                          bottom: 0.h,
-                          left: 35.w,
+                          bottom: 0,
+                          left: 35,
                           child: SvgPicture.asset(
                             "assets/rating-svgrepo-com.svg",
-                            height: 22,
+                            height: 22.h,
                           )),
                     ],
                   ),
@@ -374,7 +384,7 @@ class myfollowers extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      height: 30,
+                      height: 30.h,
                       decoration: BoxDecoration(
                         color: Color(0xFF3B3F43),
                         borderRadius: BorderRadius.circular(8),
@@ -406,7 +416,7 @@ class myfollowers extends StatelessWidget {
               indent: 20,
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Container(
               child: Row(
@@ -419,19 +429,19 @@ class myfollowers extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 50,
+                        width: 50.w,
                         child: CircleAvatar(
                           radius: 25.r,
                           backgroundColor: Colors.grey,
                           child: Image.asset(
                             "assets/Mask Group 86.png",
-                            height: 50,
+                            height: 50.h,
                           ),
                         ),
                       ),
                       Positioned(
-                          bottom: 0.h,
-                          left: 35.w,
+                          bottom: 0,
+                          left: 35,
                           child: SvgPicture.asset(
                             "assets/rating-svgrepo-com.svg",
                             height: 22,
@@ -469,7 +479,7 @@ class myfollowers extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      height: 30,
+                      height: 30.h,
                       decoration: BoxDecoration(
                         color: Color(0xFF3B3F43),
                         borderRadius: BorderRadius.circular(8),
@@ -501,7 +511,7 @@ class myfollowers extends StatelessWidget {
               indent: 20,
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Container(
               child: Row(
@@ -514,13 +524,13 @@ class myfollowers extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 50,
+                        width: 50.w,
                         child: CircleAvatar(
                           radius: 25.r,
                           backgroundColor: Colors.grey,
                           child: Image.asset(
                             "assets/Mask Group 86.png",
-                            height: 50,
+                            height: 50.h,
                           ),
                         ),
                       ),
@@ -564,7 +574,7 @@ class myfollowers extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      height: 30,
+                      height: 30.h,
                       decoration: BoxDecoration(
                         color: Color(0xFF3B3F43),
                         borderRadius: BorderRadius.circular(8),
@@ -596,7 +606,7 @@ class myfollowers extends StatelessWidget {
               indent: 20,
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Container(
               child: Row(
@@ -609,13 +619,13 @@ class myfollowers extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 50,
+                        width: 50.w,
                         child: CircleAvatar(
                           radius: 25.r,
                           backgroundColor: Colors.grey,
                           child: Image.asset(
                             "assets/Mask Group 86.png",
-                            height: 50,
+                            height: 50.h,
                           ),
                         ),
                       ),
@@ -624,7 +634,7 @@ class myfollowers extends StatelessWidget {
                           left: 35.w,
                           child: SvgPicture.asset(
                             "assets/rating-svgrepo-com.svg",
-                            height: 22,
+                            height: 22.h,
                           )),
                     ],
                   ),
@@ -659,7 +669,7 @@ class myfollowers extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      height: 30,
+                      height: 30.h,
                       decoration: BoxDecoration(
                         color: Color(0xFF3B3F43),
                         borderRadius: BorderRadius.circular(8),
