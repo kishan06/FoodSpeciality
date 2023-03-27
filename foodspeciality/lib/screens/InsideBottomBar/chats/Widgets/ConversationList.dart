@@ -37,7 +37,7 @@ class _ConversationListState extends State<ConversationList> {
       },
       child: Container(
         padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+            EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 10.w),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -47,10 +47,10 @@ class _ConversationListState extends State<ConversationList> {
                 children: <Widget>[
                   CircleAvatar(
                     backgroundImage: AssetImage(widget.imageUrl),
-                    maxRadius: 30,
+                    maxRadius: 30.r,
                   ),
-                  const SizedBox(
-                    width: 16,
+                  SizedBox(
+                    width: 16.w,
                   ),
                   Expanded(
                     child: Container(
@@ -61,18 +61,18 @@ class _ConversationListState extends State<ConversationList> {
                           Text(
                             widget.name,
                             style: TextStyle(
-                                fontSize: 18.sm,
+                                fontSize: 18.sp,
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500),
                           ),
-                          const SizedBox(
-                            height: 7,
+                          SizedBox(
+                            height: 7.h,
                           ),
                           Text(
                             widget.messageText,
                             style: TextStyle(
                                 fontFamily: "Roboto",
-                                fontSize: 15.sm,
+                                fontSize: 15.sp,
                                 color: Colors.grey.shade800,
                                 fontWeight: widget.isMessageRead
                                     ? FontWeight.bold

@@ -25,7 +25,7 @@ class _ChattabViewState extends State<ChattabView> {
     return Scaffold(
       // appBar: CustomAppBar(titleTxt: ""),
       key: _key,
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -57,7 +57,7 @@ class _ChattabViewState extends State<ChattabView> {
                   CommanTabbar("Private", "Community"),
                   SizedBox(
                     height: 750.h,
-                    child: TabBarView(
+                    child: const TabBarView(
                       children: [
                         ChatPage(),
                         ChatCommunityPage(),

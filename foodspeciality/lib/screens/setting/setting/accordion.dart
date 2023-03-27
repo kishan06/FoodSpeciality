@@ -19,7 +19,7 @@ class _AccordionState extends State<Accordion> {
       appBar: const CustomAppBar(titleTxt: "Frequently Asked Questions"),
       body: Container(
         color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding:  EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

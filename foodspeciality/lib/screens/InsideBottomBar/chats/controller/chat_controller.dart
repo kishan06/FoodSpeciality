@@ -60,7 +60,7 @@ class ChatController extends GetxController {
   ];
   List<ChatPrivate> get chatPrivate => _chatPrivate;
 
-  List<ChatPrivate> _chatPrivateBackup = [
+  final List<ChatPrivate> _chatPrivateBackup = [
     ChatPrivate(
       name: "Priyanka Joshi",
       messageText: "Awesome Setup",
@@ -185,7 +185,7 @@ class ChatController extends GetxController {
   ];
   List<ChatCommunity> get chatcommunity => _chatcommunity;
 
-  List<ChatCommunity> _chatcommunityBackUp = [
+  final List<ChatCommunity> _chatcommunityBackUp = [
     ChatCommunity(
       name: "WDIPL",
       messageText:
@@ -252,27 +252,29 @@ class ChatController extends GetxController {
   ];
   List<ChatCommunity> get chatcommunityBackUp => _chatcommunityBackUp;
 
+  searchFunction(String text) {
+    _chatPrivate = _chatPrivateBackup
+        .where((tName) {
+          var tNameTitle = tName.name.toLowerCase();
+          // var tNameTitle = _chatPrivate.
 
-  searchFunction(String text){
-    _chatPrivate = _chatPrivateBackup.where((tName) {
-
-      var tNameTitle = tName.name.toLowerCase();
-      // var tNameTitle = _chatPrivate.
-
-      return tNameTitle.contains(text);
-    }).toSet().toList();
+          return tNameTitle.contains(text);
+        })
+        .toSet()
+        .toList();
     update();
   }
 
-  searchFunctionCom(String text){
-    _chatcommunity = chatcommunityBackUp.where((tName) {
+  searchFunctionCom(String text) {
+    _chatcommunity = chatcommunityBackUp
+        .where((tName) {
+          var tNameTitle = tName.name.toLowerCase();
+          // var tNameTitle = _chatPrivate.
 
-      var tNameTitle = tName.name.toLowerCase();
-      // var tNameTitle = _chatPrivate.
-
-      return tNameTitle.contains(text);
-    }).toSet().toList();
+          return tNameTitle.contains(text);
+        })
+        .toSet()
+        .toList();
     update();
   }
-
 }

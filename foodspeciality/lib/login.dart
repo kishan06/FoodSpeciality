@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final _formKey = GlobalKey<FormState>();
   bool v1 = false;
   bool v2 = false;
@@ -91,7 +90,6 @@ class _LoginState extends State<Login> {
                           fit: BoxFit.cover,
                           // height: 20.h,
                           // width: 20.w,
-                          
                         ),
                       ),
                     ),
@@ -162,7 +160,7 @@ class _LoginState extends State<Login> {
                     //     obscureText: true,
                     //   ),
                     // ),
-              
+
                     SizedBox(
                       height: 14.h,
                     ),
@@ -196,26 +194,27 @@ class _LoginState extends State<Login> {
                         child: ElevatedButton(
                           onPressed: () {
                             // if (_formKey.currentState!.validate()) {
-                              Get.toNamed('/signUpProfile');
+                            Get.toNamed('/signUpProfile');
                             // }
-                            
+
                             // if (value) {
-                              
+
                             // }
                             //Get.toNamed('/signUpProfile');
                             // v1 && v2
-                                // ? Get.to(SignupProfile(),
-                                //     duration: const Duration(milliseconds: 500),
-                                //     transition: Transition.rightToLeft)
-                                // : ScaffoldMessenger.of(context).showSnackBar(
-                                //     const SnackBar(
-                                //         backgroundColor: Colors.grey,
-                                //         content: Center(
-                                //             child: Text(
-                                //                 'Email or Password Wrong'))));
+                            // ? Get.to(SignupProfile(),
+                            //     duration: const Duration(milliseconds: 500),
+                            //     transition: Transition.rightToLeft)
+                            // : ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //         backgroundColor: Colors.grey,
+                            //         content: Center(
+                            //             child: Text(
+                            //                 'Email or Password Wrong'))));
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            backgroundColor:
+                                const Color.fromRGBO(84, 89, 95, 1),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.r),
                               // side: BorderSide(color: Colors.white, width: 1.w),
@@ -230,7 +229,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-              
+
                     SizedBox(
                       height: 30.h,
                     ),
@@ -242,8 +241,8 @@ class _LoginState extends State<Login> {
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            side:
-                                BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                            side: BorderSide(
+                                color: Color(0xFF3B3F43), width: 1.w),
                           ),
                           elevation: 0,
                         ),
@@ -281,8 +280,8 @@ class _LoginState extends State<Login> {
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            side:
-                                BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                            side: BorderSide(
+                                color: const Color(0xFF3B3F43), width: 1.w),
                           ),
                           elevation: 0,
                         ),
@@ -301,7 +300,8 @@ class _LoginState extends State<Login> {
                             Text(
                               "Continue with Apple",
                               style: TextStyle(
-                                  fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                                  fontSize: 18.sp,
+                                  color: const Color(0xFF3B3F43)),
                             ),
                           ],
                         ),

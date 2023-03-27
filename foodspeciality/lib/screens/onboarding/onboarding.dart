@@ -34,7 +34,6 @@ class _OnBoardingState extends State<OnBoarding> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
@@ -101,7 +100,7 @@ class _OnBoardingState extends State<OnBoarding> {
                             width: 93.h,
                           ),
                           currentIndex == 2
-                              ? SizedBox()
+                              ? const SizedBox()
                               : Padding(
                                   padding: EdgeInsets.only(right: 21.w),
                                   child: Align(
@@ -135,8 +134,8 @@ class _OnBoardingState extends State<OnBoarding> {
                     // pref.setBool("onBoarding_done", true);
                     // Get.off(LoginScreen());
                     //Navigator.push(context, _createRoute());
-                    Get.to(() => Login(),
-                        duration: Duration(milliseconds: 500),
+                    Get.to(() => const Login(),
+                        duration: const Duration(milliseconds: 500),
                         transition: Transition.rightToLeft);
                   }
                   _controller.nextPage(
