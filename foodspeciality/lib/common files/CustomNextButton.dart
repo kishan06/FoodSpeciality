@@ -21,30 +21,30 @@ class CustomNextButton extends StatelessWidget {
       height: 50.h,
       width: double.infinity,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          // ignore: deprecated_member_use
-          primary: colorchange ? Colors.white : const Color(0xFF3B3F43),
-          shape: RoundedRectangleBorder(
-            side: colorchange
-                ? const BorderSide(color: Color(0xFF707070))
-                : BorderSide.none,
-            borderRadius: BorderRadius.circular(8.h),
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            // ignore: deprecated_member_use
+            primary: colorchange ? Colors.white : const Color(0xFF3B3F43),
+            shape: RoundedRectangleBorder(
+              side: colorchange
+                  ? const BorderSide(color: Color(0xFF707070))
+                  : BorderSide.none,
+              borderRadius: BorderRadius.circular(8.h),
+            ),
           ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: colorchange ? const Color(0xFF303030) : Colors.white,
-            fontSize: 16.sm,
-            fontFamily: 'Productsans',
+          onPressed: ontap,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: colorchange ? const Color(0xFF303030) : Colors.white,
+              fontSize: 16.sp,
+              fontFamily: 'Productsans',
+            ),
+          )
+          // () {
+          //   // ontap!();
+          // },
           ),
-        ),
-        onPressed: ontap
-        // () {
-        //   // ontap!();
-        // },
-      ),
     );
   }
 }

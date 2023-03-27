@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/ConversationList.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
@@ -77,22 +78,24 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: GestureDetector(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   // CustomAppBarWithNotification(titleTxt: "Chats"),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                  Container(
+                    // height: 50.h,
+                    padding:
+                        EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
                     child: TextField(
+                      style: TextStyle(fontSize: 16.sp),
                       controller: textcontroller,
-                      onChanged: (text){
-
+                      onChanged: (text) {
                         text = text.toLowerCase();
                         controllerChat.searchFunction(text);
                         // marketTickerList = marketTickerListStore.where((tName) {
@@ -100,55 +103,61 @@ class _ChatPageState extends State<ChatPage> {
                         //     return tNameTitle.contains(text);
                         //   }).toSet().toList();
                         // setState(() {
-                          
-                        // }); 
+
+                        // });
                       },
                       decoration: InputDecoration(
-                        hintText: "Search...",
-                        hintStyle: TextStyle(color: Colors.grey.shade600),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey.shade600,
-                          size: 20,
+                        hintText: "search",
+                        hintStyle: TextStyle(
+                            fontSize: 15.sp, color: Colors.grey.shade600),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 14.h),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.grey.shade600,
+                            size: 20.sp,
+                          ),
                         ),
                         filled: true,
                         fillColor: Colors.white,
-                        contentPadding: EdgeInsets.all(8),
+                        contentPadding: EdgeInsets.all(16.sp),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: const BorderSide(
                             color: Color(0xFF707070),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: const BorderSide(
                             color: Color(0xFF707070),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  GetBuilder<ChatController>(builder: (_){
+                  GetBuilder<ChatController>(builder: (_) {
                     return ListView.builder(
                       itemCount: controllerChat.chatPrivate.length,
                       shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 16),
-                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(top: 16.h),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return ConversationList(
                           name: controllerChat.chatPrivate[index].name,
-                          messageText: controllerChat.chatPrivate[index].messageText,
+                          messageText:
+                              controllerChat.chatPrivate[index].messageText,
                           imageUrl: controllerChat.chatPrivate[index].imageURL,
                           time: controllerChat.chatPrivate[index].time,
-                          isMessageRead: (index == 0 || index == 3 || index == 2)
-                              ? true
-                              : false,
+                          isMessageRead:
+                              (index == 0 || index == 3 || index == 2)
+                                  ? true
+                                  : false,
                         );
                       },
                     );
                   })
-                  
                 ],
               ),
             ],

@@ -50,7 +50,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     style: TextStyle(
                       fontFamily: "Studio Pro",
                       fontWeight: FontWeight.w500,
-                      fontSize: 18.spMin,
+                      fontSize: 18.sp,
                       color: const Color(0xFF3E3D3D),
                     ),
                   ),
@@ -62,7 +62,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                 decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(color: Color(0xff707070)),
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8.r)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,14 +82,18 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          "How long does it take \nto make this recipe?",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              color: const Color(0xff979797),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold),
+                        Wrap(
+                          children: [
+                            Text(
+                              "How long does it take \nto make this recipe?",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  color: const Color(0xff979797),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -103,7 +107,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                             shape: RoundedRectangleBorder(
                                 side:
                                     const BorderSide(color: Color(0xff707070)),
-                                borderRadius: BorderRadius.circular(8)),
+                                borderRadius: BorderRadius.circular(8.r)),
                           ),
                           height: 45.h,
                           width: 116.w,
@@ -112,10 +116,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                             children: [
                               Text(
                                 "$_selectedHour Hr $_selectedMinute Min",
-                                style: const TextStyle(
-                                    fontFamily: "Roboto", fontSize: 20),
+                                style: TextStyle(
+                                    fontFamily: "Roboto", fontSize: 20.sp),
                               ),
-                              sizedBoxWidth(1),
+                              sizedBoxWidth(1.w),
                             ],
                           )),
                     ),

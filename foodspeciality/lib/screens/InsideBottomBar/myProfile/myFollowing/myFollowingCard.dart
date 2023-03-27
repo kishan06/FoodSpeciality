@@ -29,7 +29,7 @@ class _myFollowingState extends State<myFollowingCard> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
             ListView.builder(
@@ -59,137 +59,140 @@ class _myFollowingState extends State<myFollowingCard> {
       int index, int isFollowedByMe) {
     // bool like = false;
 
-    return Container(
-        child: Column(
+    return Column(
       children: [
-        Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 16.w,
-              ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 50.w,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Colors.grey,
-                      child: Image.asset(
-                        recipeimage,
-                        height: 50.h,
-                      ),
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 16.w,
+            ),
+            Stack(
+              children: [
+                SizedBox(
+                  width: 50.w,
+                  child: CircleAvatar(
+                    radius: 25.r,
+                    backgroundColor: Colors.grey,
+                    child: Image.asset(
+                      recipeimage,
+                      height: 50.h,
+
                     ),
                   ),
-                  Positioned(
-                    bottom: 0.h,
-                    left: 35.w,
-                    child: SvgPicture.asset(
-                      "assets/rating-svgrepo-com.svg",
-                      height: 22.h,
-                    ),
+                ),
+                Positioned(
+                  bottom: 0.h,
+                  left: 35.w,
+                  child: SvgPicture.asset(
+                    "assets/rating-svgrepo-com.svg",
+                    height: 22.h,
                   ),
-                ],
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    // "Priyanka Joshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF54595F)),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    name,
-                    //    "@priyujoshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromRGBO(59, 63, 67, 0.49)),
-                  ),
-                ],
-              ),
-              Spacer(),
-              InkWell(
-                  onTap: () {
-                    setState(() {
-                      followingData[index]["isFollowedByMe"] =
-                          isFollowedByMe == 0 ? 1 : 0;
-                    });
-                  },
-                  child: isFollowedByMe == 0
-                      ? Container(
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(
-                              color: Color(0xFF3B3F43),
-                            ),
+
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  // "Priyanka Joshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF54595F)),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  name,
+                  //    "@priyujoshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                ),
+              ],
+            ),
+            const Spacer(),
+            InkWell(
+                onTap: () {
+                  setState(() {
+                    followingData[index]["isFollowedByMe"] =
+                        isFollowedByMe == 0 ? 1 : 0;
+                  });
+                },
+                child: isFollowedByMe == 0
+                    ? Container(
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(
+                            color: const Color(0xFF3B3F43),
+
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Center(
-                              child: Text(
-                                "Following",
-                                style: TextStyle(
-                                  fontFamily: "StudioProR",
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF3B3F43),
-                                ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Center(
+                            child: Text(
+                              "Following",
+                              style: TextStyle(
+                                fontFamily: "StudioProR",
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF3B3F43),
                               ),
                             ),
                           ),
-                        )
-                      : Container(
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3B3F43),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Center(
-                              child: Text(
-                                "Follow",
-                                style: TextStyle(
-                                  fontFamily: "StudioProR",
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFFFFFF),
-                                ),
+
+                        ),
+                      )
+                    : Container(
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF3B3F43),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Center(
+                            child: Text(
+                              "Follow",
+                              style: TextStyle(
+                                fontFamily: "StudioProR",
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFFFFFFFF),
+
                               ),
                             ),
                           ),
-                        )),
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
+                        ),
+                      )),
+            SizedBox(
+              width: 16.w,
+            )
+          ],
         ),
         Divider(
-          endIndent: 20,
-          indent: 20,
+          endIndent: 20.w,
+          indent: 20.w,
         ),
         SizedBox(
           height: 15.h,
         ),
       ],
-    ));
+    );
   }
 }

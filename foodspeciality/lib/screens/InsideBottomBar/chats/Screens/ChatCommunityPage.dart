@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/CommunityConversationList.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -84,7 +83,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
   //   ),
   // ];
   final controllerChat = Get.put(ChatController());
-  
 
   @override
   void initState() {
@@ -96,40 +94,44 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
                 child: TextField(
-                  onChanged: (text){
-      
+                  style: TextStyle(fontSize: 16.sp),
+                  onChanged: (text) {
                     text = text.toLowerCase();
                     controllerChat.searchFunctionCom(text);
                   },
                   decoration: InputDecoration(
-                    hintText: "Search...",
-                    hintStyle: TextStyle(color: Colors.grey.shade600),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.grey.shade600,
-                      size: 20,
+                    hintText: "Search",
+                    hintStyle:
+                        TextStyle(fontSize: 15.sp, color: Colors.grey.shade600),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.grey.shade600,
+                        size: 20.sp,
+                      ),
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(8),
+                    contentPadding: EdgeInsets.all(8.sp),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
+                      borderRadius: BorderRadius.circular(8.r),
+                      borderSide: const BorderSide(
                         color: Color(0xFF707070),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
+                      borderRadius: BorderRadius.circular(8.r),
+                      borderSide: const BorderSide(
                         color: Color(0xFF707070),
                       ),
                     ),
@@ -141,39 +143,37 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                   // height: 620.h,
                   // color: AppColors.red,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 10.h,
-                      bottom: 5.h
-                    ),
+                    padding: EdgeInsets.only(top: 10.h, bottom: 5.h),
                     child: SingleChildScrollView(
-                      child: 
-                      GetBuilder<ChatController>(builder: (_){
-                        return ListView.builder(
-                          itemCount: controllerChat.chatcommunity.length,
-                          shrinkWrap: true,
-                          // padding: EdgeInsets.only(top: 16),
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return CommunityConversationList(
-                              name: controllerChat.chatcommunity[index].name,
-                              member: controllerChat.chatcommunity[index].members,
-                              messageText: controllerChat.chatcommunity[index].messageText,
-                              imageUrl: controllerChat.chatcommunity[index].imageURL,
-                              isMessageRead: (index == 0 || index == 3 || index == 2)
-                                  ? true
-                                  : false,
-                            );
-                          },
-                        );
-                      })
-                      
-                    ),
+                        child: GetBuilder<ChatController>(builder: (_) {
+                      return ListView.builder(
+                        itemCount: controllerChat.chatcommunity.length,
+                        shrinkWrap: true,
+                        // padding: EdgeInsets.only(top: 16),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return CommunityConversationList(
+                            name: controllerChat.chatcommunity[index].name,
+                            member: controllerChat.chatcommunity[index].members,
+                            messageText:
+                                controllerChat.chatcommunity[index].messageText,
+                            imageUrl:
+                                controllerChat.chatcommunity[index].imageURL,
+                            isMessageRead:
+                                (index == 0 || index == 3 || index == 2)
+                                    ? true
+                                    : false,
+                          );
+                        },
+                      );
+                    })),
                   ),
                 ),
               ),
               // Container(height: 20.h,
               // color: AppColors.black,),
               // sizedBoxHeight(10.h),
-      
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: SizedBox(
@@ -192,7 +192,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.add_circle_outlined,
                           color: Colors.white,
                         ),
@@ -203,7 +203,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                           "New Community",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.sm,
+                            fontSize: 18.sp,
                             fontFamily: 'StudioProR',
                           ),
                         ),
@@ -217,11 +217,11 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                   ),
                 ),
               ),
-           
+
               sizedBoxHeight(60.h)
             ],
           ),
-        
+
           // Positioned(
           //   bottom: 0,
           //   child: Padding(
@@ -268,7 +268,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
           //     ),
           //   ),
           // ),
-        
         ],
       ),
     );
@@ -338,38 +337,36 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                     cursorColor: const Color(0xFFFFB600),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(14),
+                      contentPadding: EdgeInsets.all(14.sp),
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Color(0xFF979797), width: 0.5),
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1),
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.w),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1),
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.w),
                       ),
                       hintStyle: TextStyle(
                           fontFamily: "StudioProR",
-                          color: Color(0x80000000),
-                          fontSize: 17.sm),
+                          color: const Color(0x80000000),
+                          fontSize: 17.sp),
                       hintText: "Community Description",
                     ),
                     minLines: 4,
@@ -393,7 +390,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                         "Next",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.sm,
+                          fontSize: 18.sp,
                           fontFamily: 'StudioProR',
                         ),
                       ),

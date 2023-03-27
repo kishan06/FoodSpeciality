@@ -19,7 +19,7 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
       backgroundColor: Colors.white,
       appBar: const CustomAppBar(titleTxt: 'About Food Speciality'),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding:  EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
             // RichText(text: 'text'),

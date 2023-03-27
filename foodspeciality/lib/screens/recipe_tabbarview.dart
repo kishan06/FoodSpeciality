@@ -33,7 +33,6 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
   File? _image;
   bool isVideo = false;
 
-
   File? galleryFile;
   final ImagePicker _picker = ImagePicker();
 
@@ -87,16 +86,16 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
       ),
       builder: (context) {
         return Container(
-          height: 100,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          height: 100.h,
+          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           child: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -114,7 +113,6 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         if (uploadVideo) {
                           _onImageButtonPressed(ImageSource.camera);
                           Get.back();
-
                         } else {
                           getImage(ImageSource.camera);
                           Get.back();
@@ -123,17 +121,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         // Get.back();
                       },
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.camera,
-                            size: 30,
+                            size: 30.sp,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 10.h,
                           ),
                           Text(
                             'Camera',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           )
                         ],
                       ),
@@ -143,7 +141,6 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         if (uploadVideo) {
                           _onImageButtonPressed(ImageSource.gallery);
                           Get.back();
-
                         } else {
                           getImage(ImageSource.gallery);
                           Get.back();
@@ -152,17 +149,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         // Get.back();
                       },
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.image,
-                            size: 30,
+                            size: 30.sp,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 10.h,
                           ),
                           Text(
                             'Gallery',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           )
                         ],
                       ),
@@ -236,132 +233,128 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                           // isVideo = true;
                           // _onImageButtonPressed(ImageSource.gallery);
                           builduploadprofile(true);
-              
+
                           // _showPicker(context: context);
                         },
                       ),
                     )
                   : Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              // ignore: deprecated_member_use
-                              primary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                side: const BorderSide(color: Color(0xff707070)),
-                                borderRadius: BorderRadius.circular(8.r),
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 50.h,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                // ignore: deprecated_member_use
+                                primary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                      color: Color(0xff707070)),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.play_arrow,
-                                  size: 25.h,
-                                  color: const Color(0xFF3E3D3D),
-                      
-                                ),
-                                // SvgPicture.asset(
-                                //     "assets/svg/add-media-svgrepo-com.svg"),
-                                SizedBox(
-                                  width: 7.42.w,
-                                ),
-                                Text(
-                                  "Preview",
-                                  style: TextStyle(
-                                    fontFamily: "Studio Pro",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18.spMin,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.play_arrow,
+                                    size: 25.h,
                                     color: const Color(0xFF3E3D3D),
                                   ),
-                                ),
-                              ],
+                                  // SvgPicture.asset(
+                                  //     "assets/svg/add-media-svgrepo-com.svg"),
+                                  SizedBox(
+                                    width: 7.42.w,
+                                  ),
+                                  Text(
+                                    "Preview",
+                                    style: TextStyle(
+                                      fontFamily: "Studio Pro",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.spMin,
+                                      color: const Color(0xFF3E3D3D),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () {
+                                //Get.to(FilePlayerWidget(file: file));
+                                Get.toNamed("/FilePlayerWidget",
+                                    arguments: file);
+                                // Get.to))
+                                // isVideo = true;
+                                // _onImageButtonPressed(ImageSource.gallery);
+                                // builduploadprofile(true);
+
+                                // _showPicker(context: context);
+                              },
                             ),
-                            onPressed: () {
-                              //Get.to(FilePlayerWidget(file: file));
-                              Get.toNamed("/FilePlayerWidget",
-                                arguments: file
-                              );
-                              // Get.to))
-                              // isVideo = true;
-                              // _onImageButtonPressed(ImageSource.gallery);
-                              // builduploadprofile(true);
-                                  
-                              // _showPicker(context: context);
-                            },
                           ),
                         ),
-                      ),
-
-                      sizedBoxWidth(10.w),
-
-                      Expanded(
-                        child: SizedBox(
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              // ignore: deprecated_member_use
-                              primary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                side: const BorderSide(color: Color(0xff707070)),
-                                borderRadius: BorderRadius.circular(8.r),
+                        sizedBoxWidth(10.w),
+                        Expanded(
+                          child: SizedBox(
+                            height: 50.h,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                // ignore: deprecated_member_use
+                                primary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                      color: Color(0xff707070)),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.delete,
-                                  size: 22.h,
-                                  color: const Color(0xFF3E3D3D),
-                      
-                                ),
-                                // SvgPicture.asset(
-                                //     "assets/svg/add-media-svgrepo-com.svg"),
-                                SizedBox(
-                                  width: 7.42.w,
-                                ),
-                                Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                    fontFamily: "Studio Pro",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18.spMin,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.delete,
+                                    size: 22.h,
                                     color: const Color(0xFF3E3D3D),
                                   ),
-                                ),
-                              ],
+                                  // SvgPicture.asset(
+                                  //     "assets/svg/add-media-svgrepo-com.svg"),
+                                  SizedBox(
+                                    width: 7.42.w,
+                                  ),
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(
+                                      fontFamily: "Studio Pro",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.spMin,
+                                      color: const Color(0xFF3E3D3D),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () {
+                                file = null;
+                                setState(() {});
+                                // isVideo = true;
+                                // _onImageButtonPressed(ImageSource.gallery);
+                                // builduploadprofile(true);
+
+                                // _showPicker(context: context);
+                              },
                             ),
-                            onPressed: () {
-                              file = null;
-                              setState(() {
-                                
-                              });
-                              // isVideo = true;
-                              // _onImageButtonPressed(ImageSource.gallery);
-                              // builduploadprofile(true);
-                                  
-                              // _showPicker(context: context);
-                            },
                           ),
                         ),
-                      ),
-                    
-                    ],
-                  ),
-                  // Column(
-                  //     children: [
-                  //       Center(child: Text(galleryFile!.path)),
-                  //       SizedBox(
-                  //         height: 200,
-                  //         child: VideoPlayer(_videoPlayerController),
-                  //       ),
-                  //       // video should display here
-                  //     ],
-                  //   ),
+                      ],
+                    ),
+              // Column(
+              //     children: [
+              //       Center(child: Text(galleryFile!.path)),
+              //       SizedBox(
+              //         height: 200,
+              //         child: VideoPlayer(_videoPlayerController),
+              //       ),
+              //       // video should display here
+              //     ],
+              //   ),
               sizedBoxHeight(20.h),
               Container(
                 height: 200.h,
@@ -438,17 +431,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xff70707054)),
+                      borderSide: const BorderSide(color: Color(0xff707070)),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFF70707054)),
+                      borderSide: const BorderSide(color: Color(0xFF707070)),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     hintText: "Recipe's name",
                     hintStyle: TextStyle(
                         fontFamily: "Roboto",
-                        color: const Color(0xff54595f63),
+                        color: const Color(0xff54595f),
                         fontSize: 17.h),
                   ),
                 ),
@@ -475,17 +468,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                   maxLines: 5,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xff70707054)),
+                      borderSide: const BorderSide(color: Color(0xff707070)),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFF70707054)),
+                      borderSide: const BorderSide(color: Color(0xFF707070)),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     hintText: "Describe your recipe!",
                     hintStyle: TextStyle(
                         fontFamily: "Roboto",
-                        color: const Color(0xff54595f63),
+                        color: const Color(0xff54595f),
                         fontSize: 17.h),
                   ),
                 ),
@@ -682,7 +675,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                     style: TextStyle(
                       fontFamily: "Studio Pro",
                       fontWeight: FontWeight.w500,
-                      fontSize: 18.spMin,
+                      fontSize: 18.sp,
                       color: const Color(0xFF3E3D3D),
                     ),
                   ),
@@ -699,7 +692,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       tabController!.animateTo(1);
                     },
                     child: Text(
@@ -708,14 +701,14 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         fontFamily: "Studio Pro",
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.w500,
-                        fontSize: 18.spMin,
+                        fontSize: 18.sp,
                         color: const Color(0xFF3E3D3D),
                       ),
                     ),
                   ),
                 ],
               ),
-              sizedBoxHeight(10)
+              sizedBoxHeight(10.h)
             ],
           ),
         ),
@@ -729,15 +722,13 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
     //   await _controller!.setVolume(0.0);
     // }
     // if (isVideo) {
-      file = await _picker.pickVideo(
-          source: source, maxDuration: const Duration(seconds: 10));
-      setState(() {
-        
-      });
-      // await _playVideo(file);
-      // Get.to(()=> FilePlayerWidget(file: file));
-      // FilePlayerWidget(file: file);
-    // } 
+    file = await _picker.pickVideo(
+        source: source, maxDuration: const Duration(seconds: 10));
+    setState(() {});
+    // await _playVideo(file);
+    // Get.to(()=> FilePlayerWidget(file: file));
+    // FilePlayerWidget(file: file);
+    // }
   }
 
   // Future<void> _disposeVideoController() async {
@@ -772,23 +763,22 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
   //   }
   // }
 
-
   void _showPicker({
     required BuildContext context,
   }) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
       ),
       builder: (BuildContext context) {
         return Container(
-          height: 100,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          height: 100.h,
+          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           child: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -807,17 +797,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         Get.back();
                       },
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.camera,
-                            size: 30,
+                            size: 30.sp,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 10.h,
                           ),
                           Text(
                             'Camera',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           )
                         ],
                       ),
@@ -828,17 +818,17 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         Get.back();
                       },
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.image,
-                            size: 30,
+                            size: 30.sp,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 10.h,
                           ),
                           Text(
                             'Gallery',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           )
                         ],
                       ),
@@ -867,7 +857,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
           galleryFile = File(pickedFile!.path);
           _videoPlayerController = VideoPlayerController.file(galleryFile!);
           _videoPlayerController.initialize();
-        } else { 
+        } else {
           ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
               const SnackBar(content: Text('Nothing is selected')));
         }

@@ -31,7 +31,7 @@ class _myFollowerCardState extends State<myFollowerCard> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
             ListView.builder(
@@ -75,13 +75,13 @@ class _myFollowerCardState extends State<myFollowerCard> {
               Stack(
                 children: [
                   SizedBox(
-                    width: 50,
+                    width: 50.w,
                     child: CircleAvatar(
                       radius: 25.r,
                       backgroundColor: Colors.grey,
                       child: Image.asset(
                         recipeimage,
-                        height: 50,
+                        height: 50.h,
                       ),
                     ),
                   ),
@@ -90,7 +90,7 @@ class _myFollowerCardState extends State<myFollowerCard> {
                     left: 35.w,
                     child: SvgPicture.asset(
                       "assets/rating-svgrepo-com.svg",
-                      height: 22,
+                      height: 22.h,
                     ),
                   ),
                 ],
@@ -108,7 +108,7 @@ class _myFollowerCardState extends State<myFollowerCard> {
                         fontFamily: "StudioProR",
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF54595F)),
+                        color: const Color(0xFF54595F)),
                   ),
                   SizedBox(
                     height: 5.h,
@@ -120,11 +120,11 @@ class _myFollowerCardState extends State<myFollowerCard> {
                         fontFamily: "StudioProR",
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
-                        color: Color.fromRGBO(59, 63, 67, 0.49)),
+                        color: const Color.fromRGBO(59, 63, 67, 0.49)),
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               InkWell(
                   onTap: () {
                     // Get.snackbar(
@@ -159,13 +159,13 @@ class _myFollowerCardState extends State<myFollowerCard> {
                       //     ),
                       //   )
                       Container(
-                    height: 30,
+                    height: 30.h,
                     decoration: BoxDecoration(
-                      color: Color(0xFF3B3F43),
+                      color: const Color(0xFF3B3F43),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Center(
                         child: Text(
                           "Remove",
@@ -173,7 +173,7 @@ class _myFollowerCardState extends State<myFollowerCard> {
                             fontFamily: "StudioProR",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF),
+                            color: const Color(0xFFFFFFFF),
                           ),
                         ),
                       ),
@@ -186,11 +186,11 @@ class _myFollowerCardState extends State<myFollowerCard> {
           ),
         ),
         Divider(
-          endIndent: 20,
-          indent: 20,
+          endIndent: 20.w,
+          indent: 20.w,
         ),
         SizedBox(
-          height: 15,
+          height: 15.h,
         ),
       ],
     ));
