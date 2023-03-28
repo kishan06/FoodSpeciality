@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/new_profile.dart';
@@ -189,15 +191,81 @@ class _followUserState extends State<followUser> {
                     color: Color(0xFF3B3F43),
                   ),
                   onSelected: (value) {
-                    if (value == '/logout') {
-                    } else if (value == "/myProfile") {
-                      Get.toNamed('/myprofile');
+                    if (value == 'share') {
+                      share();
+                    } else if (value == "Report") {
+                      Get.toNamed('/Report');
+                    } else if (value == "block") {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.all(15.w),
+                          child: AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r)),
+                            insetPadding:
+                                const EdgeInsets.symmetric(vertical: 10),
+                            title: Text(
+                              "Block User",
+                              style: TextStyle(
+                                  fontFamily: 'Studio Pro',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                  color: const Color(0xff3B3F43)),
+                            ),
+                            content: SizedBox(
+                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "Are you sure you want to Block @priyujoshi?",
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16.sp,
+                                    color: const Color(0xff54595F)),
+                              ),
+                            ),
+                            actions: [
+                              InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                      color: const Color(0xff000000)),
+                                ),
+                              ),
+                              sizedBoxWidth(15.sp),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed("/blocklistfull");
+                                  // Get.back();
+
+                                  // _canPop = true;
+                                },
+                                child: Text(
+                                  "Block User",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                      color: const Color(0xffB90101)),
+                                ),
+                              ),
+                              sizedBoxWidth(15.sp),
+                            ],
+                          ),
+                        ),
+                      );
                     }
                   },
                   itemBuilder: (BuildContext bc) {
                     return [
                       PopupMenuItem(
-                        value: '',
+                        value: 'share',
                         child: Column(
                           children: [
                             Row(
@@ -219,55 +287,53 @@ class _followUserState extends State<followUser> {
                                 ),
                               ],
                             ),
-                            Divider()
                           ],
                         ),
                       ),
                       PopupMenuItem(
-                        value: '',
+                        value: 'Report',
                         child: Column(
                           children: [
                             Row(
                               children: [
                                 SvgPicture.asset(
                                   "assets/question-circle-svgrepo-com.svg",
-                                  height: 20,
-                                  width: 20,
+                                  height: 20.h,
+                                  width: 20.w,
                                 ),
                                 SizedBox(
-                                  width: 15,
+                                  width: 15.w,
                                 ),
                                 Text(
                                   "Report",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Roboto",
-                                      fontSize: 16),
+                                      fontSize: 16.sp),
                                 ),
                               ],
                             ),
-                            Divider()
                           ],
                         ),
                       ),
                       PopupMenuItem(
-                        value: '',
+                        value: 'block',
                         child: Row(
                           children: [
                             SvgPicture.asset(
                               "assets/block-svgrepo-com.svg",
-                              height: 20,
-                              width: 20,
+                              height: 20.h,
+                              width: 20.w,
                             ),
                             SizedBox(
-                              width: 15,
+                              width: 15.w,
                             ),
                             Text(
                               "Block",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Roboto",
-                                  fontSize: 16),
+                                  fontSize: 16.sp),
                             ),
                           ],
                         ),
