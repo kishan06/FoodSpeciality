@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class BlockedList extends StatelessWidget {
@@ -36,13 +37,18 @@ class BlockedList extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Block List Empty",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff000000)),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed("/blocklistfull");
+                  },
+                  child: Text(
+                    "Block List Empty",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff000000)),
+                  ),
                 ),
               ],
             )

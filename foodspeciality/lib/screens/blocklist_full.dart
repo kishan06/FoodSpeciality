@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:get/get.dart';
 
 class BlockListFull extends StatefulWidget {
   const BlockListFull({super.key});
@@ -88,7 +89,10 @@ class _BlockListFullState extends State<BlockListFull> {
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.sp))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.snackbar(
+                          "Successfull", "Unblocked @priyujoshi successfully");
+                    },
                     child: Text(
                       "Unblock",
                       style: TextStyle(
@@ -180,7 +184,10 @@ class _BlockListFullState extends State<BlockListFull> {
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.snackbar(
+                            "Successfull", "Unblocked @sandy0001 successfully");
+                      },
                       child: Text(
                         "Unblock",
                         style: TextStyle(
@@ -272,7 +279,10 @@ class _BlockListFullState extends State<BlockListFull> {
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.snackbar("Successfull",
+                              "Unblocked @sandy0001 successfully");
+                        },
                         child: Text(
                           "Unblock",
                           style: TextStyle(
@@ -362,7 +372,10 @@ class _BlockListFullState extends State<BlockListFull> {
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.snackbar("Successfull",
+                              "Unblocked @sandy0001 successfully");
+                        },
                         child: Text(
                           "Unblock",
                           style: TextStyle(
@@ -452,7 +465,10 @@ class _BlockListFullState extends State<BlockListFull> {
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.snackbar("Successfull",
+                              "Unblocked @priyujoshi successfully");
+                        },
                         child: Text(
                           "Unblock",
                           style: TextStyle(

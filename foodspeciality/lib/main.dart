@@ -4,6 +4,7 @@ import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
+import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:foodspeciality/screens/create_account.dart';
@@ -92,6 +93,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/EditProfile", page: () => EditProfile()),
             GetPage(name: "/Report", page: () => Report()),
             GetPage(name: "/ReportSuccess", page: () => ReportSuccess()),
+            GetPage(name: "/blocklistfull", page: () => BlockListFull()),
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => InspirationRecipeComment()),

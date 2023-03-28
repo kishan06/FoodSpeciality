@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
@@ -42,7 +43,14 @@ class _HomeState extends State<Home> {
   final tecComment = TextEditingController();
   int selectedVideoIndex = 0;
 
-  List tags = ["Limpopo","Simple greens","Flavour explosions","Limpopo","Simple greens","Flavour explosions"];
+  List tags = [
+    "Limpopo",
+    "Simple greens",
+    "Flavour explosions",
+    "Limpopo",
+    "Simple greens",
+    "Flavour explosions"
+  ];
 
   HomeController controllerHome = Get.put(HomeController());
 
@@ -219,44 +227,46 @@ class _HomeState extends State<Home> {
                       ],
                     ),
 
-                    GestureDetector(
-                        onTap: () {
-                          print("pressed");
-                          setState(() {
-                            listCardData[index]["isFollowedByMe"] =
-                                isFollowedByMe == 0 ? 1 : 0;
-                          });
-                        },
-                        child: isFollowedByMe == 0
-                            ? Container(
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  color: AppColors.greyD3B3F43,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border:
-                                      Border.all(color: Colors.grey.shade700),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(5.h),
-                                  child: Center(
-                                    child: textWhite14Robo("Follow"),
-                                  ),
-                                ),
-                              )
-                            : Container(
-                                width: 80.w,
-                                // height: 30,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border: Border.all(
-                                    color: Color(0xFF3B3F43),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(5.h),
-                                  child:
-                                      Center(child: textgreyD14Robo("Following")
+                    Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              print("pressed");
+                              setState(() {
+                                listCardData[index]["isFollowedByMe"] =
+                                    isFollowedByMe == 0 ? 1 : 0;
+                              });
+                            },
+                            child: isFollowedByMe == 0
+                                ? Container(
+                                    width: 80.w,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.greyD3B3F43,
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      border: Border.all(
+                                          color: Colors.grey.shade700),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.h),
+                                      child: Center(
+                                        child: textWhite14Robo("Follow"),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 80.w,
+                                    // height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      border: Border.all(
+                                        color: Color(0xFF3B3F43),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.h),
+                                      child: Center(
+                                          child: textgreyD14Robo("Following")
                                           // Text(
                                           //   "Following",
                                           //   style: TextStyle(
@@ -267,8 +277,186 @@ class _HomeState extends State<Home> {
                                           //   ),
                                           // ),
                                           ),
+                                    ),
+                                  )),
+                        Container(
+                          child: isFollowedByMe == 0
+                              ? SizedBox()
+                              : PopupMenuButton(
+                                  offset: const Offset(0, 50),
+                                  color: const Color(0xFFFFFFFF),
+                                  tooltip: '',
+                                  child: Icon(
+                                    Icons.more_vert,
+                                    color: Color(0xFF3B3F43),
+                                  ),
+                                  onSelected: (value) {
+                                    if (value == 'unfollow') {
+                                      setState(() {
+                                        listCardData[index]["isFollowedByMe"] =
+                                            isFollowedByMe == 0 ? 1 : 0;
+                                      });
+                                    } else if (value == "Report") {
+                                      Get.toNamed('/Report');
+                                    } else if (value == "block") {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Padding(
+                                          padding: EdgeInsets.all(15.w),
+                                          child: AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.r)),
+                                            insetPadding:
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 10),
+                                            title: Text(
+                                              "Block User",
+                                              style: TextStyle(
+                                                  fontFamily: 'Studio Pro',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.sp,
+                                                  color:
+                                                      const Color(0xff3B3F43)),
+                                            ),
+                                            content: SizedBox(
+                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Text(
+                                                "Are you sure you want to Block @priyujoshi?",
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 16.sp,
+                                                    color: const Color(
+                                                        0xff54595F)),
+                                              ),
+                                            ),
+                                            actions: [
+                                              InkWell(
+                                                onTap: () {
+                                                  Get.back();
+                                                },
+                                                child: Text(
+                                                  "Cancel",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16.sp,
+                                                      color: const Color(
+                                                          0xff000000)),
+                                                ),
+                                              ),
+                                              sizedBoxWidth(15.sp),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed("/blocklistfull");
+                                                  // Get.back();
+
+                                                  // _canPop = true;
+                                                },
+                                                child: Text(
+                                                  "Block User",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16.sp,
+                                                      color: const Color(
+                                                          0xffB90101)),
+                                                ),
+                                              ),
+                                              sizedBoxWidth(15.sp),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  itemBuilder: (BuildContext bc) {
+                                    return [
+                                      PopupMenuItem(
+                                        value: 'unfollow',
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.link_off,
+                                                  size: 20.sp,
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                ),
+                                                Text(
+                                                  "Unfollow",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "Roboto",
+                                                      fontSize: 16.sp),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'Report',
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/question-circle-svgrepo-com.svg",
+                                                  height: 20.h,
+                                                  width: 20.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                ),
+                                                Text(
+                                                  "Report",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "Roboto",
+                                                      fontSize: 16.sp),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'block',
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              "assets/block-svgrepo-com.svg",
+                                              height: 20.h,
+                                              width: 20.w,
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Text(
+                                              "Block",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: "Roboto",
+                                                  fontSize: 16.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ];
+                                  },
                                 ),
-                              )),
+                        )
+                      ],
+                    ),
 
                     // customButtonWithBorder(
                     //   "text",
