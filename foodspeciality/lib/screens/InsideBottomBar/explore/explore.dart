@@ -27,9 +27,8 @@ class _ExploreState extends State<Explore> {
   ExploreController controllerExplore = Get.put(ExploreController());
   HomeController controllerHome = Get.put(HomeController());
   final tecComment = TextEditingController();
-  
-  // ExploreController controllerExplore = Get.put(ExploreController());
 
+  // ExploreController controllerExplore = Get.put(ExploreController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,6 @@ class _ExploreState extends State<Explore> {
       body: Column(
         children: [
           searchNotification(),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -63,22 +61,20 @@ class _ExploreState extends State<Explore> {
                               // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
                             },
                             options: CarouselOptions(
-                      
                               height: 260.h,
                               // initialPage: sliderPage.value,
                               // aspectRatio: 3 / 1,
                               autoPlay: true,
-                              autoPlayAnimationDuration: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(seconds: 3),
                               // enlargeCenterPage: true,
                               viewportFraction: 1,
                               onPageChanged: (index, reason) {
                                 setState(() {
-                                // sliderPage.value = index;
-                          
+                                  // sliderPage.value = index;
                                 });
                               },
-                            )
-                          ),
+                            )),
 
                         // GetBuilder<ExploreController>(builder: (_){
                         //   return CarouselSlider.builder(
@@ -92,7 +88,7 @@ class _ExploreState extends State<Explore> {
                         //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
                         //     },
                         //     options: CarouselOptions(
-                      
+
                         //       height: 260.h,
                         //       initialPage: sliderPage.value,
                         //       // aspectRatio: 3 / 1,
@@ -103,48 +99,47 @@ class _ExploreState extends State<Explore> {
                         //       onPageChanged: (index, reason) {
                         //         // setState(() {
                         //         sliderPage.value = index;
-                          
+
                         //         // });
                         //       },
                         //     )
                         //   );
                         // }),
-                        
-                      //   Obx(() => CarouselSlider.builder(
-                      //     itemCount: 3,
-                      //     itemBuilder: (context, index, realIndex) {
-                      //       return Padding(
-                      //         padding: EdgeInsets.all(5.w),
-                      //         child: mainChallengesCard(),
-                      //       );
-                      //       // final sliderInfo = sliderData[index];
-                      //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                      //     },
-                      //     options: CarouselOptions(
-                    
-                      //       height: 260.h,
-                      //       initialPage: 0,
-                      //       // aspectRatio: 3 / 1,
-                      //       autoPlay: true,
-                      //       autoPlayAnimationDuration: const Duration(seconds: 3),
-                      //       // enlargeCenterPage: true,
-                      //       viewportFraction: 1,
-                      //       onPageChanged: (index, reason) {
-                      //         // setState(() {
-                      //         sliderPage.value = index;
-                        
-                      //         // });
-                      //       },
-                      //     )
-                      //   ),
-                      //  ),
-                         // mainChallengesCard(),
+
+                        //   Obx(() => CarouselSlider.builder(
+                        //     itemCount: 3,
+                        //     itemBuilder: (context, index, realIndex) {
+                        //       return Padding(
+                        //         padding: EdgeInsets.all(5.w),
+                        //         child: mainChallengesCard(),
+                        //       );
+                        //       // final sliderInfo = sliderData[index];
+                        //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
+                        //     },
+                        //     options: CarouselOptions(
+
+                        //       height: 260.h,
+                        //       initialPage: 0,
+                        //       // aspectRatio: 3 / 1,
+                        //       autoPlay: true,
+                        //       autoPlayAnimationDuration: const Duration(seconds: 3),
+                        //       // enlargeCenterPage: true,
+                        //       viewportFraction: 1,
+                        //       onPageChanged: (index, reason) {
+                        //         // setState(() {
+                        //         sliderPage.value = index;
+
+                        //         // });
+                        //       },
+                        //     )
+                        //   ),
+                        //  ),
+                        // mainChallengesCard(),
                         sizedBoxHeight(25.h),
                         textgreyM20BoldSP("Trending Recipes")
                       ],
                     ),
                   ),
-              
                   sizedBoxHeight(11.h),
                   Padding(
                     padding: EdgeInsets.only(left: 16.w),
@@ -163,10 +158,10 @@ class _ExploreState extends State<Explore> {
                             itemCount: controllerExplore.likeSave.length,
                             itemBuilder: (context, index) {
                               // controllerExplore.likeSave[index]
-                              return trendingRecipeCard(controllerExplore.likeSave[index]["like"],
-                                controllerExplore.likeSave[index]["save"],
-                                index
-                              );
+                              return trendingRecipeCard(
+                                  controllerExplore.likeSave[index]["like"],
+                                  controllerExplore.likeSave[index]["save"],
+                                  index);
                             },
                           ),
                         ),
@@ -188,11 +183,10 @@ class _ExploreState extends State<Explore> {
                         mainAxisSpacing: 7.w,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-              
                         return InkWell(
-                        onTap: (){
-                          Get.toNamed("/InspirationRecipeComment");
-                        },
+                          onTap: () {
+                            Get.toNamed("/InspirationRecipeComment");
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -203,18 +197,14 @@ class _ExploreState extends State<Explore> {
                                     // Image.asset("name")
                                     )),
                           ),
-              
                         );
                       },
                     ),
                   )
-              
                 ],
-
               ),
             ),
           ),
-          
         ],
       ),
     );
@@ -286,13 +276,12 @@ class _ExploreState extends State<Explore> {
                     // ),
 
                     iconText(
-                      like == 0 ? "assets/icons/like.png" : "assets/icons/like_filled.png", 
-                      "55",
-                      onTap: (){
-                        controllerExplore.likeMethod(index, like);
-                      },
-                      color: like == 0 ? AppColors.greyM707070 : null 
-                    ),
+                        like == 0
+                            ? "assets/icons/like.png"
+                            : "assets/icons/like_filled.png",
+                        "55", onTap: () {
+                      controllerExplore.likeMethod(index, like);
+                    }, color: like == 0 ? AppColors.greyM707070 : null),
 
                     sizedBoxWidth(25.w),
 
@@ -306,13 +295,9 @@ class _ExploreState extends State<Explore> {
                     //   ),
                     // ),
 
-                    iconText("assets/icons/comment.png", "30",
-                      onTap: (){
-                        commentbottomSheet();
-                      },
-                      color: AppColors.greyM707070 
-
-                    ),
+                    iconText("assets/icons/comment.png", "30", onTap: () {
+                      commentbottomSheet();
+                    }, color: AppColors.greyM707070),
 
                     sizedBoxWidth(25.w),
 
@@ -329,13 +314,12 @@ class _ExploreState extends State<Explore> {
                     // ),
 
                     iconText(
-                      save == 0 ? "assets/icons/save.png" : "assets/icons/save_filled.png", 
-                      "55",
-                      onTap: (){
-                        controllerExplore.saveMethod(index, save);
-                      },
-                      color: AppColors.greyM707070 
-                    ),
+                        save == 0
+                            ? "assets/icons/save.png"
+                            : "assets/icons/save_filled.png",
+                        "55", onTap: () {
+                      controllerExplore.saveMethod(index, save);
+                    }, color: AppColors.greyM707070),
 
                     // iconText(
                     //   "assets/icons/save.png", "25"),
@@ -375,7 +359,8 @@ class _ExploreState extends State<Explore> {
     );
   }
 
-  Widget iconText(String imagePath, String text, {void Function()? onTap, Color? color}) {
+  Widget iconText(String imagePath, String text,
+      {void Function()? onTap, Color? color}) {
     return Row(
       children: [
         InkWell(
@@ -450,25 +435,27 @@ class _ExploreState extends State<Explore> {
                 sizedBoxHeight(15.h),
 
                 CustomSearchTextFormField(
-                  textEditingController: tecComment,
-                  autofocus: false,
-                  hintText: "Add a comment",
-                  validatorText: '',
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: SizedBox(
-                        height: 50.h,
-                        width: 40.w,
-                        child: Center(child: InkWell(
-                          onTap: (){
-                            if (tecComment.text.isNotEmpty) {
-                              // print(tecComment.text);
-                              controllerHome.commentMethod(tecComment.text);
-                              tecComment.clear();
-                            }
-                          },
-                          child: textgreyM14Sp("Send")))),
-                  ))
+                    textEditingController: tecComment,
+                    autofocus: false,
+                    hintText: "Add a comment",
+                    validatorText: '',
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: SizedBox(
+                          height: 50.h,
+                          width: 40.w,
+                          child: Center(
+                              child: InkWell(
+                                  onTap: () {
+                                    if (tecComment.text.isNotEmpty) {
+                                      // print(tecComment.text);
+                                      controllerHome
+                                          .commentMethod(tecComment.text);
+                                      tecComment.clear();
+                                    }
+                                  },
+                                  child: textgreyM14Sp("Send")))),
+                    ))
               ],
             ),
           )),
@@ -569,7 +556,6 @@ class _ExploreState extends State<Explore> {
     );
   }
 
-
   Widget mainChallengesCard() {
     return Container(
       // height: 200.h,
@@ -635,10 +621,11 @@ class _ExploreState extends State<Explore> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector( 
+                GestureDetector(
                     onTap: () {
                       //Get.toNamed("/joinchallenge");
-                      Get.to(JoinChallenge(),duration:Duration(milliseconds:500),
+                      Get.to(JoinChallenge(),
+                          duration: Duration(milliseconds: 500),
                           transition: Transition.fadeIn);
                     },
                     child: textBlack14SP_Med("Join Challenge")),

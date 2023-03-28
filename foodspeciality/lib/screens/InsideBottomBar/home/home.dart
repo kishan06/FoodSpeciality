@@ -56,31 +56,29 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            // extendBody: true,
-            backgroundColor: Colors.white,
-            body: Column(
-              children: [
-                Column(
-                  children: [
-                    searchNotification(),
-                    CommanTabbar("My Community", "Inspiration"),
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    color: AppColors.greyLtEBEBEB,
-                    // color: Colors.red,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          // extendBody: true,
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              Column(
+                children: [
+                  searchNotification(),
+                  CommanTabbar("My Community", "Inspiration"),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                  color: AppColors.greyLtEBEBEB,
+                  // color: Colors.red,
 
-                    child: TabBarView(children: [tabbarView1(), tabbarView2()]),
-                  ),
-                )
-              ],
-            )),
-      ),
+                  child: TabBarView(children: [tabbarView1(), tabbarView2()]),
+                ),
+              )
+            ],
+          )),
     );
   }
 
@@ -126,7 +124,7 @@ class _HomeState extends State<Home> {
                     }),
                   ),
 
-                  sizedBoxHeight(50.h),
+                  sizedBoxHeight(100.h),
                 ],
               )
             ],
