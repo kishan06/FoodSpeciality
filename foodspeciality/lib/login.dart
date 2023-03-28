@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:get/get.dart';
 
@@ -193,7 +194,7 @@ class _LoginState extends State<Login> {
 
                               // Do something with the user credentials, such as login to the backend
                               // server and navigate to the home screen.
-                              Get.toNamed("/signUpProfile");
+                              Get.to(BottomBar());
                             }
                             // if (_formKey.currentState!.validate()) {
                             // Get.toNamed('/signUpProfile');
