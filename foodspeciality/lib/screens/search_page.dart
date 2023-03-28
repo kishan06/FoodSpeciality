@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
-import 'package:foodspeciality/common%20files/customtextformfield.dart';
-import 'package:foodspeciality/common%20files/filter_bottom_sheet.dart';
-import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
-// import 'package:foodspeciality/screens/InsideBottomBar/SearchPage/common/list_card.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+
+import 'common_chip.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -22,6 +18,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  bool editChip = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final List<String> _textList = [];
+  final TextEditingController _textController = TextEditingController();
+  bool textFieldVisibile = false;
+  bool _colorchange = true;
   // Future<void> share() async {
   //   await FlutterShare.share(
   //     title: 'Example share',
@@ -79,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
                                 padding: EdgeInsets.only(right: 17.w),
                                 child: InkWell(
                                   onTap: () {
-                                    FilterBottomSheet();
+                                    filterBottomSheet();
                                   },
                                   child: SvgPicture.asset(
                                     "assets/icons/filter.svg",
@@ -425,8 +427,8 @@ class _SearchPageState extends State<SearchPage> {
               borderRadius: BorderRadius.circular(10.h),
               image: DecorationImage(
                   image: index.isEven
-                      ? AssetImage("assets/home/food.png")
-                      : AssetImage("assets/Chocolate 2.png"),
+                      ? const AssetImage("assets/home/food.png")
+                      : const AssetImage("assets/Chocolate 2.png"),
                   fit: BoxFit.fill)),
         ),
         Positioned(
@@ -475,5 +477,387 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+
+  Future<T?> filterBottomSheet<T>() {
+    return Get.bottomSheet(
+        Container(
+            // height: double.infinity - 50,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.r),
+                    topRight: Radius.circular(25.r))),
+            child: Padding(
+              padding: EdgeInsets.only(left: 16, top: 35.h),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 13.w, right: 29.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontFamily: 'StudioProB',
+                                  color: const Color(0xff3B3F43)),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.filter_list_sharp),
+                              Text(
+                                'Filters',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontFamily: 'StudioProM',
+                                    color: const Color(0xff6B6B6B)),
+                              )
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                              _textList.clear();
+                              filterBottomSheet();
+                            },
+                            child: Text(
+                              'Clear All',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontFamily: 'StudioProB',
+                                  color: const Color(0xff3B3F43)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    sizedBoxHeight(36.h),
+                    Text(
+                      'Add Tags',
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontFamily: 'StudioProM',
+                          color: const Color(0xff54595F)),
+                    ),
+                    Column(
+                      children: [
+                        sizedBoxHeight(6.h),
+                        Visibility(
+                          visible: !textFieldVisibile,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    textFieldVisibile = true;
+                                    Get.back();
+                                    filterBottomSheet();
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.sp),
+                                    color: AppColors.buttonGrey54595F,
+                                  ),
+                                  height: 27.h,
+                                  width: 70.w,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      sizedBoxWidth(6.w),
+                                      SvgPicture.asset(
+                                        "assets/svg/add-circle-svgrepo-com.svg",
+                                        // height: 15.h,
+                                        // width: 15.w,
+                                      ),
+                                      Text(
+                                        "  Custom",
+                                        style: TextStyle(
+                                            color: const Color(0xffffffff),
+                                            fontFamily: "Studio Pro",
+                                            fontSize: 10.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      editChip = !editChip;
+                                      Get.back();
+                                      filterBottomSheet();
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.only(right: 10.w),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: editChip
+                                          ? const Color(0xFFE1E1E1)
+                                          : const Color.fromRGBO(84, 89, 95, 1),
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: textFieldVisibile,
+                          child: Form(
+                            key: _formKey,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      10.w,
+                                  child: TextFormField(
+                                    maxLength: 20,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter Text';
+                                      } else if (value.length < 2) {
+                                        return 'Please enter atleast 2 characters';
+                                      }
+                                      return null;
+                                    },
+                                    autofocus: true,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    style: TextStyle(
+                                      fontSize: 10.sp,
+                                    ),
+                                    decoration: InputDecoration(
+                                      isCollapsed: true,
+                                      suffixIconConstraints:
+                                          const BoxConstraints(),
+                                      contentPadding: EdgeInsets.all(17.h),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(
+                                          color: const Color(0xff54595f),
+                                          fontSize: 10.sp,
+                                          fontFamily: "Roboto"),
+                                      hintText: 'Enter text here',
+                                    ),
+                                    cursorColor: const Color(0xFF3B3F43),
+                                    onFieldSubmitted: (String value) {
+                                      setState(() {
+                                        final FormState? form =
+                                            _formKey.currentState;
+
+                                        if (form != null && form.validate()) {
+                                          textFieldVisibile =
+                                              !textFieldVisibile;
+                                          _textController.clear();
+                                          _textList.add(value);
+                                          Get.back();
+                                          filterBottomSheet();
+                                        }
+                                      });
+                                    },
+                                    controller: _textController,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10.w),
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                const Color(0xff54595f)),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          textFieldVisibile =
+                                              !textFieldVisibile;
+                                          Get.back();
+                                          filterBottomSheet();
+                                        });
+                                      },
+                                      child: const Text('Cancel')),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        sizedBoxHeight(20.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Select Tags",
+                              style: TextStyle(
+                                fontFamily: "Studio Pro",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.spMin,
+                                color: const Color(0xFF3E3D3D),
+                              ),
+                            ),
+                          ],
+                        ),
+                        sizedBoxHeight(13.h),
+                        Wrap(
+                          spacing: 11.w,
+                          runSpacing: 7.h,
+                          children: [
+                            ..._textList
+                                .map((text) => Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CommonChip(text: text),
+                                        Visibility(
+                                          visible: editChip,
+                                          child: Row(
+                                            children: [
+                                              sizedBoxWidth(3.w),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _textList.remove(text);
+                                                    Get.back();
+                                                    filterBottomSheet();
+                                                  });
+                                                },
+                                                child: const Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ))
+                                .toList(),
+                            const CommonChip(text: "Savoury moments"),
+                            const CommonChip(text: "Quarter to quick"),
+                            const CommonChip(text: "Juicy Mondays"),
+                            const CommonChip(text: "The healthy way"),
+                            const CommonChip(text: "Fry-day!!"),
+                            const CommonChip(text: "Simple greens"),
+                            const CommonChip(text: "Flavour explosions"),
+                            const CommonChip(text: "The healthy way"),
+                            SizedBox(
+                              height: 18.h,
+                              width: double.infinity,
+                            ),
+                            Text(
+                              "South Africa Cuisine",
+                              style: TextStyle(
+                                fontFamily: "Studio Pro",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.spMin,
+                                color: const Color(0xFF3E3D3D),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                              width: double.infinity,
+                            ),
+                            const CommonChip(text: "Limpopo"),
+                            const CommonChip(text: "Easy"),
+                            const CommonChip(text: "Food"),
+                            const CommonChip(text: "Carrot"),
+                            const CommonChip(text: "Quick"),
+                            const CommonChip(text: "Yoghurt"),
+                            const CommonChip(text: "Breakfast"),
+                            const CommonChip(text: "Quick"),
+                            const CommonChip(text: "Yoghurt"),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 13.h,
+                            ),
+                            Text(
+                              "International Cuisine",
+                              style: TextStyle(
+                                fontFamily: "Studio Pro",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.spMin,
+                                color: const Color(0xFF3E3D3D),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                              width: double.infinity,
+                            ),
+                            const CommonChip(text: "Limpopo"),
+                            const CommonChip(text: "Easy"),
+                            const CommonChip(text: "Food"),
+                            const CommonChip(text: "Carrot"),
+                            const CommonChip(text: "Quick"),
+                            const CommonChip(text: "Yoghurt"),
+                            const CommonChip(text: "Breakfast"),
+                            const CommonChip(text: "Quick"),
+                            const CommonChip(text: "Yoghurt"),
+                            SizedBox(
+                              height: 13.h,
+                              width: double.infinity,
+                            ),
+                            Text(
+                              "Select Difficulty",
+                              style: TextStyle(
+                                fontFamily: "Studio Pro",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.spMin,
+                                color: const Color(0xFF3E3D3D),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                              width: double.infinity,
+                            ),
+                            const CommonChip(text: "Easy"),
+                            const CommonChip(text: "Medium"),
+                            const CommonChip(text: "Hard"),
+                          ],
+                        ),
+                        sizedBoxHeight(32.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 39.h,
+                              width: 113.w,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff54595F),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    side: BorderSide.none,
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: Text(
+                                  "Search",
+                                  style: TextStyle(
+                                    fontFamily: "StudioProR",
+                                    fontSize: 16.sp,
+                                    color: const Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        sizedBoxHeight(23.h)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )),
+        isScrollControlled: true);
   }
 }

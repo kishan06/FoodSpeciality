@@ -95,179 +95,123 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
     return Scaffold(
       key: _key,
       backgroundColor: const Color(0xFFFFFFFF),
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
-                child: TextField(
-                  style: TextStyle(fontSize: 16.sp),
-                  onChanged: (text) {
-                    text = text.toLowerCase();
-                    controllerChat.searchFunctionCom(text);
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
+            child: TextField(
+              style: TextStyle(fontSize: 16.sp),
+              onChanged: (text) {
+                text = text.toLowerCase();
+                controllerChat.searchFunctionCom(text);
+              },
+              decoration: InputDecoration(
+                hintText: "Search",
+                hintStyle:
+                    TextStyle(fontSize: 15.sp, color: Colors.grey.shade600),
+                prefixIcon: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                    size: 20.sp,
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: EdgeInsets.all(8.sp),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF707070),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF707070),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(top: 10.h, bottom: 0.h),
+              child: SingleChildScrollView(
+                  child: GetBuilder<ChatController>(builder: (_) {
+                return ListView.builder(
+                  itemCount: controllerChat.chatcommunity.length,
+                  shrinkWrap: true,
+                  // padding: EdgeInsets.only(top: 16),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return CommunityConversationList(
+                      name: controllerChat.chatcommunity[index].name,
+                      member: controllerChat.chatcommunity[index].members,
+                      messageText:
+                          controllerChat.chatcommunity[index].messageText,
+                      imageUrl: controllerChat.chatcommunity[index].imageURL,
+                      isMessageRead: (index == 0 || index == 3 || index == 2)
+                          ? true
+                          : false,
+                    );
                   },
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    hintStyle:
-                        TextStyle(fontSize: 15.sp, color: Colors.grey.shade600),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.grey.shade600,
-                        size: 20.sp,
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(8.sp),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xFF707070),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xFF707070),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  // height: 620.h,
-                  // color: AppColors.red,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10.h, bottom: 5.h),
-                    child: SingleChildScrollView(
-                        child: GetBuilder<ChatController>(builder: (_) {
-                      return ListView.builder(
-                        itemCount: controllerChat.chatcommunity.length,
-                        shrinkWrap: true,
-                        // padding: EdgeInsets.only(top: 16),
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return CommunityConversationList(
-                            name: controllerChat.chatcommunity[index].name,
-                            member: controllerChat.chatcommunity[index].members,
-                            messageText:
-                                controllerChat.chatcommunity[index].messageText,
-                            imageUrl:
-                                controllerChat.chatcommunity[index].imageURL,
-                            isMessageRead:
-                                (index == 0 || index == 3 || index == 2)
-                                    ? true
-                                    : false,
-                          );
-                        },
-                      );
-                    })),
-                  ),
-                ),
-              ),
-              // Container(height: 20.h,
-              // color: AppColors.black,),
-              // sizedBoxHeight(10.h),
+                );
+              })),
+            ),
+          ),
+          // Container(height: 20.h,
+          // color: AppColors.black,),
+          // sizedBoxHeight(10.h),
 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SizedBox(
-                  height: 50.h,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      // ignore: deprecated_member_use
-                      primary: const Color(0xFF3B3F43),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xFF707070)),
-                        borderRadius: BorderRadius.circular(8.h),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.add_circle_outlined,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.h,
-                        ),
-                        Text(
-                          "New Community",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontFamily: 'StudioProR',
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => addCommunityDailog());
-                    },
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: SizedBox(
+              height: 50.h,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  // ignore: deprecated_member_use
+                  primary: const Color(0xFF3B3F43),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Color(0xFF707070)),
+                    borderRadius: BorderRadius.circular(8.h),
                   ),
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.add_circle_outlined,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10.h,
+                    ),
+                    Text(
+                      "New Community",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontFamily: 'StudioProR',
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => addCommunityDailog());
+                },
               ),
-
-              sizedBoxHeight(60.h)
-            ],
+            ),
           ),
 
-          // Positioned(
-          //   bottom: 0,
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          //     child: SizedBox(
-          //       height: 50.h,
-          //       width: double.infinity,
-          //       child: ElevatedButton(
-          //         style: ElevatedButton.styleFrom(
-          //           elevation: 0,
-          //           // ignore: deprecated_member_use
-          //           primary: const Color(0xFF3B3F43),
-          //           shape: RoundedRectangleBorder(
-          //             side: const BorderSide(color: Color(0xFF707070)),
-          //             borderRadius: BorderRadius.circular(8.h),
-          //           ),
-          //         ),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             Icon(
-          //               Icons.add_circle_outlined,
-          //               color: Colors.white,
-          //             ),
-          //             SizedBox(
-          //               width: 10.h,
-          //             ),
-          //             Text(
-          //               "New Community",
-          //               style: TextStyle(
-          //                 color: Colors.white,
-          //                 fontSize: 18.sm,
-          //                 fontFamily: 'StudioProR',
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         onPressed: () {
-          //           showDialog(
-          //               context: context,
-          //               builder: (context) => addCommunityDailog());
-          //         },
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          // sizedBoxHeight(22.h)
         ],
       ),
     );
@@ -306,10 +250,10 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                       ),
                     ],
                   ),
-                  sizedBoxHeight(35.h),
+                  sizedBoxHeight(20.h),
                   SizedBox(
                     width: 200.w,
-                    height: 24.h,
+                    // height: 30.h,
                     child: TextFormField(
                       style: TextStyle(
                           color: Color(0xFF979797),
