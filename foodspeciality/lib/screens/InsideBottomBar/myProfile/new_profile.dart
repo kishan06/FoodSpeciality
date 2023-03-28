@@ -31,6 +31,7 @@ class _NewProfileState extends State<NewProfile> {
       length: 4,
       child: Scaffold(
         body: NestedScrollView(
+
             controller: _scrollviewcontroller,
             headerSliverBuilder: (BuildContext context, bool boxIsScrolled){
               return <Widget>[
@@ -323,6 +324,7 @@ class _NewProfileState extends State<NewProfile> {
             ),
           ],
         ),
+
         ),
       ),
     );
@@ -779,10 +781,12 @@ class _mySavedState extends State<mySaved> {
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: customButtonWithBorder("Explore Recipes",
                         onPressed: () {
+
                       Navigator.push(context,MaterialPageRoute(builder: (context) {
                         return BottomBar(selectedIndex:1);
                       }));
                         }),
+
                   ),
 
                   //sizedBoxHeight(10.h),
