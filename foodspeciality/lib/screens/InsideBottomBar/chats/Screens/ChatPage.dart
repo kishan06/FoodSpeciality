@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/ConversationList.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends StatefulWidget {
@@ -79,69 +80,68 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       key: _key,
       backgroundColor: const Color(0xFFFFFFFF),
-      body: GestureDetector(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // CustomAppBarWithNotification(titleTxt: "Chats"),
-                  Container(
-                    // height: 50.h,
-                    padding:
-                        EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
-                    child: TextField(
-                      style: TextStyle(fontSize: 16.sp),
-                      controller: textcontroller,
-                      onChanged: (text) {
-                        text = text.toLowerCase();
-                        controllerChat.searchFunction(text);
-                        // marketTickerList = marketTickerListStore.where((tName) {
-                        //     var tNameTitle = tName["pair"].toLowerCase();
-                        //     return tNameTitle.contains(text);
-                        //   }).toSet().toList();
-                        // setState(() {
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // CustomAppBarWithNotification(titleTxt: "Chats"),
+          Padding(
+            // height: 50.h,
+            padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
+            child: TextField(
+              style: TextStyle(fontSize: 16.sp),
+              controller: textcontroller,
+              onChanged: (text) {
+                text = text.toLowerCase();
+                controllerChat.searchFunction(text);
+                // marketTickerList = marketTickerListStore.where((tName) {
+                //     var tNameTitle = tName["pair"].toLowerCase();
+                //     return tNameTitle.contains(text);
+                //   }).toSet().toList();
+                // setState(() {
 
-                        // });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "search",
-                        hintStyle: TextStyle(
-                            fontSize: 15.sp, color: Colors.grey.shade600),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 14.h),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.grey.shade600,
-                            size: 20.sp,
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.all(16.sp),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF707070),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF707070),
-                          ),
-                        ),
-                      ),
-                    ),
+                // });
+              },
+              decoration: InputDecoration(
+                hintText: "search",
+                hintStyle:
+                    TextStyle(fontSize: 15.sp, color: Colors.grey.shade600),
+                prefixIcon: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                    size: 20.sp,
                   ),
-                  GetBuilder<ChatController>(builder: (_) {
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: EdgeInsets.all(8.sp),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF707070),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF707070),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(top: 10.h, bottom: 0.h),
+              child: SingleChildScrollView(
+                child: GetBuilder<ChatController>(
+                  builder: (_) {
                     return ListView.builder(
                       itemCount: controllerChat.chatPrivate.length,
                       shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 16.h),
+                      // padding: EdgeInsets.only(top: 16.h),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return ConversationList(
@@ -157,12 +157,12 @@ class _ChatPageState extends State<ChatPage> {
                         );
                       },
                     );
-                  })
-                ],
+                  },
+                ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

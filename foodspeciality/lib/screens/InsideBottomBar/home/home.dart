@@ -19,7 +19,6 @@ List listCardData = [
     "save": 0,
     "selectedVideoInde": 0,
     "isFollowedByMe": 0,
-    // "imagePath": ""
   },
   {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
   {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
@@ -42,27 +41,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final tecComment = TextEditingController();
   int selectedVideoIndex = 0;
+
+  List tags = ["Limpopo","Simple greens","Flavour explosions","Limpopo","Simple greens","Flavour explosions"];
+
   HomeController controllerHome = Get.put(HomeController());
-  // Future<void> share() async {
-  //   await FlutterShare.share(
-  //     title: 'Example share',
-  //     text: 'Example share text',
-  //     linkUrl: 'https://flutter.dev/',
-  //     chooserTitle: 'Example Chooser Title'
-  //   );
-  // }listl
-  // List listCardData = [
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  //   {"like": 0, "save":0},
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -356,7 +338,7 @@ class _HomeState extends State<Home> {
                               scrollDirection: Axis.horizontal,
                               physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: 8,
+                              itemCount: tags.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
@@ -377,8 +359,8 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 7.w, vertical: 5.h),
                                       child: selectedVideoIndex == index
-                                          ? textgreyD12Robo("Video")
-                                          : textWhite12Robo("video"),
+                                          ? textgreyD12Robo(tags[index])
+                                          : textWhite12Robo(tags[index]),
                                     ),
                                   ),
                                 );
