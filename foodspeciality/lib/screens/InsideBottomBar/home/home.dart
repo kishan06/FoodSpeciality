@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
@@ -110,7 +111,11 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: customButtonWithBorder("Build Your Community",
-                        onPressed: () {}),
+                        onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => addCommunityDailog());
+                    }),
                   ),
 
                   sizedBoxHeight(50.h),
@@ -215,55 +220,55 @@ class _HomeState extends State<Home> {
                     ),
 
                     GestureDetector(
-                      onTap: () {
-                        print("pressed");
-                        setState(() {
-                          listCardData[index]["isFollowedByMe"] =
-                              isFollowedByMe == 0 ? 1 : 0;
-                        });
-                      },
-                      child: isFollowedByMe == 0
-                          ? Container(
-                            width: 80.w,
-                              decoration: BoxDecoration(
-                                color: AppColors.greyD3B3F43,
-                                borderRadius: BorderRadius.circular(8.r),
-                                border: Border.all(color: Colors.grey.shade700),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(5.h),
-                                child: Center(
-                                  child: textWhite14Robo("Follow"),
+                        onTap: () {
+                          print("pressed");
+                          setState(() {
+                            listCardData[index]["isFollowedByMe"] =
+                                isFollowedByMe == 0 ? 1 : 0;
+                          });
+                        },
+                        child: isFollowedByMe == 0
+                            ? Container(
+                                width: 80.w,
+                                decoration: BoxDecoration(
+                                  color: AppColors.greyD3B3F43,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border:
+                                      Border.all(color: Colors.grey.shade700),
                                 ),
-                              ),
-                            )
-                          : Container(
-                            width: 80.w,
-                            // height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.r),
-                              border: Border.all(
-                                color: Color(0xFF3B3F43),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(5.h),
-                              child: Center(
-                                child: textgreyD14Robo("Following")
-                                // Text(
-                                //   "Following",
-                                //   style: TextStyle(
-                                //     fontFamily: "StudioProR",
-                                //     fontSize: 14.sp,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: Color(0xFF3B3F43),
-                                //   ),
-                                // ),
-                              ),
-                            ),
-                          )
-                    ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5.h),
+                                  child: Center(
+                                    child: textWhite14Robo("Follow"),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: 80.w,
+                                // height: 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: Color(0xFF3B3F43),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5.h),
+                                  child:
+                                      Center(child: textgreyD14Robo("Following")
+                                          // Text(
+                                          //   "Following",
+                                          //   style: TextStyle(
+                                          //     fontFamily: "StudioProR",
+                                          //     fontSize: 14.sp,
+                                          //     fontWeight: FontWeight.w500,
+                                          //     color: Color(0xFF3B3F43),
+                                          //   ),
+                                          // ),
+                                          ),
+                                ),
+                              )),
 
                     // customButtonWithBorder(
                     //   "text",
@@ -709,5 +714,162 @@ class _HomeState extends State<Home> {
       // isDismissible: false,
     );
   }
+}
 
+Widget addCommunityDailog() {
+  return Dialog(
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    insetPadding: EdgeInsets.all(16.w),
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.h),
+            color: AppColors.white,
+          ),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 25.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        size: 30.h,
+                        color: AppColors.greyM707070,
+                      ),
+                    ),
+                  ],
+                ),
+                sizedBoxHeight(35.h),
+                SizedBox(
+                  width: 200.w,
+                  height: 24.h,
+                  child: TextFormField(
+                    style: TextStyle(
+                        color: Color(0xFF979797),
+                        fontSize: 20.sp,
+                        fontFamily: "StudioProR"),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintStyle: TextStyle(
+                          color: Color(0xFF979797),
+                          fontSize: 20.sp,
+                          fontFamily: "StudioProR"),
+                      hintText: "Community Name",
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                sizedBoxHeight(15.h),
+                TextFormField(
+                  style: TextStyle(
+                      color: Color(0xFF979797),
+                      fontSize: 20.sp,
+                      fontFamily: "StudioProR"),
+                  cursorColor: const Color(0xFFFFB600),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(14.sp),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color: const Color(0xFF979797), width: 0.5.w),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color: const Color(0xFF979797), width: 0.5.w),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color: const Color(0xFF979797), width: 0.5.w),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: BorderSide(color: Colors.red, width: 1.w),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.r),
+                      borderSide: BorderSide(color: Colors.red, width: 1.w),
+                    ),
+                    hintStyle: TextStyle(
+                        fontFamily: "StudioProR",
+                        color: const Color(0x80000000),
+                        fontSize: 17.sp),
+                    hintText: "Community Description",
+                  ),
+                  minLines: 4,
+                  maxLines: null,
+                ),
+                sizedBoxHeight(15.h),
+                SizedBox(
+                  height: 50.h,
+                  width: 170.w,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      // ignore: deprecated_member_use
+                      primary: const Color(0xFF3B3F43),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xFF707070)),
+                        borderRadius: BorderRadius.circular(8.h),
+                      ),
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontFamily: 'StudioProR',
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.toNamed("communityaddparticipants");
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned.fill(
+          top: -50.h,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 5.w,
+                      color: AppColors.greyL979797,
+                      spreadRadius: 2.w)
+                ],
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 50.h,
+                child: SvgPicture.asset("assets/community.svg"),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

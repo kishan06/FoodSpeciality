@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingContent.dart';
+import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/utils/texts.dart';
 
 class myFollowingCard extends StatefulWidget {
   const myFollowingCard({
@@ -61,7 +63,6 @@ class _myFollowingState extends State<myFollowingCard> {
 
     return Column(
       children: [
-
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +80,6 @@ class _myFollowingState extends State<myFollowingCard> {
                     child: Image.asset(
                       recipeimage,
                       height: 50.h,
-
                     ),
                   ),
                 ),
@@ -90,7 +90,6 @@ class _myFollowingState extends State<myFollowingCard> {
                     "assets/rating-svgrepo-com.svg",
                     height: 22.h,
                   ),
-
                 ),
               ],
             ),
@@ -133,50 +132,41 @@ class _myFollowingState extends State<myFollowingCard> {
                 },
                 child: isFollowedByMe == 0
                     ? Container(
-                        height: 30.h,
+                        width: 80.w,
+                        // height: 30,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8.r),
                           border: Border.all(
-                            color: const Color(0xFF3B3F43),
-
+                            color: Color(0xFF3B3F43),
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Center(
-                            child: Text(
-                              "Following",
-                              style: TextStyle(
-                                fontFamily: "StudioProR",
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xFF3B3F43),
+                          padding: EdgeInsets.all(5.h),
+                          child: Center(child: textgreyD14Robo("Following")
+                              // Text(
+                              //   "Following",
+                              //   style: TextStyle(
+                              //     fontFamily: "StudioProR",
+                              //     fontSize: 14.sp,
+                              //     fontWeight: FontWeight.w500,
+                              //     color: Color(0xFF3B3F43),
+                              //   ),
+                              // ),
                               ),
-                            ),
-                          ),
-
                         ),
                       )
                     : Container(
-                        height: 30.h,
+                        width: 80.w,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF3B3F43),
+                          color: AppColors.greyD3B3F43,
                           borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: Colors.grey.shade700),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          padding: EdgeInsets.all(5.h),
                           child: Center(
-                            child: Text(
-                              "Follow",
-                              style: TextStyle(
-                                fontFamily: "StudioProR",
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xFFFFFFFF),
-
-                              ),
-                            ),
+                            child: textWhite14Robo("Follow"),
                           ),
                         ),
                       )),

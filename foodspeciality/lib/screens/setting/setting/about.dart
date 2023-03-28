@@ -19,7 +19,7 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
       backgroundColor: Colors.white,
       appBar: const CustomAppBar(titleTxt: 'About Food Speciality'),
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
             // RichText(text: 'text'),
@@ -27,6 +27,7 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
             Text(
               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a",
               maxLines: more ? null : 2,
+              style: TextStyle(fontFamily: "Roboto", fontSize: 16.sp),
               // overflow: TextOverflow.fade,
             ),
             GestureDetector(
@@ -37,7 +38,9 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
               },
               child: Text(
                 more ? 'Less' : 'More',
-                style: const TextStyle(
+                style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontSize: 16.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),

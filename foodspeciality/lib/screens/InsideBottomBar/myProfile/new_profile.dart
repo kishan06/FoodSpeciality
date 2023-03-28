@@ -37,7 +37,7 @@ class _NewProfileState extends State<NewProfile> {
               "Complete Your Profile",
               style: TextStyle(
                   fontFamily: "StudioProR",
-                  fontSize: 16.spMin,
+                  fontSize: 16.sp,
                   color: Colors.black),
             ),
             actions: [
