@@ -39,11 +39,11 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
   final ImagePicker _picker = ImagePicker();
 
   final picker = ImagePicker();
-  late VideoPlayerController _videoPlayerController;
+  // late VideoPlayerController _videoPlayerController;
   @override
   void dispose() {
     super.dispose();
-    _videoPlayerController.dispose();
+    // _videoPlayerController.dispose();
   }
 
   // late VideoPlayerController _controller;
@@ -868,7 +868,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        getVideo(ImageSource.camera);
+                        // getVideo(ImageSource.camera);
                         Get.back();
                       },
                       child: Column(
@@ -889,7 +889,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        getVideo(ImageSource.gallery);
+                        // getVideo(ImageSource.gallery);
                         Get.back();
                       },
                       child: Column(
@@ -918,25 +918,26 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
     );
   }
 
-  Future getVideo(
-    ImageSource vid,
-  ) async {
-    final pickedFile = await picker.pickVideo(
-        source: vid,
-        preferredCameraDevice: CameraDevice.front,
-        maxDuration: const Duration(minutes: 20));
-    XFile? xfilePick = pickedFile;
-    setState(
-      () {
-        if (xfilePick != null) {
-          galleryFile = File(pickedFile!.path);
-          _videoPlayerController = VideoPlayerController.file(galleryFile!);
-          _videoPlayerController.initialize();
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
-              const SnackBar(content: Text('Nothing is selected')));
-        }
-      },
-    );
-  }
+  // Future getVideo(
+  //   ImageSource vid,
+  // ) async {
+  //   final pickedFile = await picker.pickVideo(
+  //       source: vid,
+  //       preferredCameraDevice: CameraDevice.front,
+  //       maxDuration: const Duration(minutes: 20));
+  //   XFile? xfilePick = pickedFile;
+  //   setState(
+  //     () {
+  //       if (xfilePick != null) {
+  //         galleryFile = File(pickedFile!.path);
+  //         _videoPlayerController = VideoPlayerController.file(galleryFile!);
+  //         _videoPlayerController.initialize();
+  //       } else {
+  //         ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
+  //             const SnackBar(content: Text('Nothing is selected')));
+  //       }
+  //     },
+  //   );
+  // }
+
 }
