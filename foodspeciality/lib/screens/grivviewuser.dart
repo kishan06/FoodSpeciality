@@ -36,7 +36,7 @@ class _GridviewState extends State<Gridview> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: (0.4 / 0.5),
+                    childAspectRatio: (0.45 / 0.5),
                     crossAxisCount: 2,
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 10),
@@ -63,7 +63,7 @@ class _GridviewState extends State<Gridview> {
 
     // print(griddata);
     return Container(
-        height: 200.h,
+        height: 180.h,
         width: 190.w,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
@@ -75,14 +75,22 @@ class _GridviewState extends State<Gridview> {
               3.0, // Move to bottom 5 Vertically
             ),
           ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        ], color: Colors.white, borderRadius: BorderRadius.circular(10.h)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              recipeimage,
+            Container(
               height: 140.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.h),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      recipeimage,
+                    ),
+                  )),
             ),
             SizedBox(
               height: 8.h,
@@ -93,14 +101,14 @@ class _GridviewState extends State<Gridview> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    name,
                     style: TextStyle(fontFamily: "Roboto", fontSize: 14.sp),
                   ),
                   SizedBox(
                     height: 2.h,
                   ),
                   Text(
-                    name,
+                    title,
                     style: TextStyle(
                         color: Color(0xFF6B6B6B),
                         fontFamily: "Roboto",

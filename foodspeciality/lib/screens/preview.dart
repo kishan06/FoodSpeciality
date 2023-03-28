@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/publish_popup.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class Preview extends StatefulWidget {
@@ -87,27 +88,28 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
           title: Padding(
             padding: EdgeInsets.only(top: 0.h),
             child: InkWell(
-              onTap: (){
-                Get.back();
-              },
-              child: Image.asset("assets/icons/back_arrow.png",
-                height: 20.h,
-                width: 30.w,
-                color: AppColors.greyD3B3F43,
-              
-                // color: ,
-              )
-              // const Icon(
-              //   Icons.arrow_back,
-              // ),
-            ),
+                onTap: () {
+                  Get.back();
+                },
+                child: Image.asset(
+                  "assets/icons/back_arrow.png",
+                  height: 20.h,
+                  width: 30.w,
+                  color: AppColors.greyD3B3F43,
+
+                  // color: ,
+                )
+                // const Icon(
+                //   Icons.arrow_back,
+                // ),
+                ),
           ),
           actions: [
             Center(
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   showDialog(
-                  context: context, builder: (context) => PublishPopup());
+                      context: context, builder: (context) => PublishPopup());
                 },
                 child: Text(
                   "Publish",
@@ -175,191 +177,306 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                 ),
               ),
               sizedBoxHeight(8.h),
-              Container(
-                width: double.infinity,
-                height: 258,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/home/food.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SvgPicture.asset(
-                          "assets/svg/media-play-circle-svgrepo-com.svg"),
-                      sizedBoxHeight(50.h),
-                      Container(
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.9),
-                            blurRadius: 25.0, // soften the shadow
-                            spreadRadius: 15.0, //extend the shadow
-                            offset: const Offset(
-                              5.0, // Move to right 5  horizontally
-                              5.0, // Move to bottom 5 Vertically
-                            ),
-                          )
-                        ]),
-                        height: 35.h,
-                        width: double.infinity,
-                        child: Text(
-                          "Chomolia Recipe",
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20.sp),
-                        ),
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 258.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Mask Group 14.png"),
+                        fit: BoxFit.cover,
                       ),
-                      SizedBox(
-                          height: 27,
-                          width: double.infinity,
-                          child: TabBar(
-                              controller: _tabController,
-                              onTap: (int index) {
-                                setState(() {
-                                  _selectedIndex = index;
-                                });
-                              },
-                              indicatorColor: Colors.transparent,
-                              unselectedLabelColor: Colors.amberAccent,
-                              labelPadding: EdgeInsets.only(right: 9),
-                              isScrollable: true,
-                              indicator: null,
-                              // indicatorWeight: 0,
-                              tabs: [
-                                Container(
-                                  height: 27,
-                                  decoration: BoxDecoration(
-                                      color: _getTabColor(0),
-                                      //  Color(0xffE1E1E1),
-                                      borderRadius: BorderRadius.circular(14)),
-                                  child: Center(
-                                    widthFactor: 1.3,
-                                    child: Text(
-                                      "Limpopo",
-                                      style: TextStyle(
-                                          color: _getTextColor(0),
-                                          fontFamily: "Studio Pro",
-                                          fontSize: 10),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              sizedBoxHeight(26.h),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(
+                                "assets/svg/media-play-circle-svgrepo-com.svg",
+                                height: 63.h,
+                                width: 63.h,
+                              ),
+                              sizedBoxHeight(30.h),
+                              sizedBoxHeight(5.h),
+                              Container(
+                                decoration: BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.9),
+                                    blurRadius: 25.0, // soften the shadow
+                                    spreadRadius: 20.0, //extend the shadow
+                                    offset: const Offset(
+                                      5.0, // Move to right 5  horizontally
+                                      5.0, // Move to bottom 5 Vertically
                                     ),
-                                  ),
+                                  )
+                                ]),
+                                height: 35.h,
+                                width: double.infinity,
+                                child: Text(
+                                  "Chomolia Recipe",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20.sp),
                                 ),
-                                Container(
-                                    height: 27,
-                                    decoration: BoxDecoration(
-                                        color: _getTabColor(1),
-                                        //  Color(0xffE1E1E1),
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    child: Center(
-                                      widthFactor: 1.3,
-                                      child: Text(
-                                        "Simple greens",
-                                        style: TextStyle(
-                                            color: _getTextColor(1),
-                                            fontFamily: "Studio Pro",
-                                            fontSize: 10),
+                              ),
+                              SizedBox(
+                                height: 27.h,
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) {
+                                    return SizedBox(width: 5.w);
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _selectedIndex = index;
+                                          // listCardData[index]["selectedVideoInde"] = index;
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.h),
+                                            color: index == _selectedIndex
+                                                ? AppColors.white
+                                                    .withOpacity(0.7)
+                                                : AppColors.greyD3B3F43
+                                                    .withOpacity(0.7)),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 7.w, vertical: 5.h),
+                                          child: _selectedIndex == index
+                                              ? textgreyD12Robo("Video")
+                                              : textWhite12Robo("Video"),
+                                        ),
                                       ),
-                                    )),
-                                Container(
-                                    height: 27,
-                                    decoration: BoxDecoration(
-                                        color: _getTabColor(2),
-                                        //  Color(0xffE1E1E1),
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    child: Center(
-                                      widthFactor: 1.3,
-                                      child: Text(
-                                        "Flavour explosions",
-                                        style: TextStyle(
-                                            color: _getTextColor(2),
-                                            fontFamily: "Studio Pro",
-                                            fontSize: 10),
-                                      ),
-                                    )),
-                                Container(
-                                    height: 27,
-                                    decoration: BoxDecoration(
-                                        color: _getTabColor(3),
-                                        //  Color(0xffE1E1E1),
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    child: Center(
-                                      widthFactor: 1.3,
-                                      child: Text(
-                                        "The healthy way",
-                                        style: TextStyle(
-                                            color: _getTextColor(3),
-                                            fontFamily: "Studio Pro",
-                                            fontSize: 10),
-                                      ),
-                                    )),
-                                // ListView.separated(
-                                //     scrollDirection: Axis.horizontal,
-                                //     itemBuilder: (context, index) {
-                                //       return GestureDetector(
-                                //         onTap: () {
-                                //           setState(() {
-                                //             _selectedItem = index;
-                                //           });
-                                //         },
-                                //         child: Container(
-                                //           decoration: BoxDecoration(
-                                //               borderRadius:
-                                //                   BorderRadius.circular(14.r),
-                                //               color: index == _selectedItem
-                                //                   ? const Color(0xffE1E1E1)
-                                //                       .withOpacity(0.8)
-                                //                   : const Color.fromRGBO(
-                                //                           84, 95, 90, 0.71)
-                                //                       .withOpacity(0.8)),
-                                //           child: Padding(
-                                //             padding: EdgeInsets.symmetric(
-                                //                 horizontal: 7.w, vertical: 5.h),
-                                //             child: index == 0
-                                //                 ? Text(
-                                //                     "Limpopo",
-                                //                     style: TextStyle(
-                                //                         fontSize: 10.sp,
-                                //                         color: const Color(
-                                //                             0xff000000)),
-                                //                   )
-                                //                 : Text(
-                                //                     "Flavour explodions",
-                                //                     style: TextStyle(
-                                //                         fontSize: 10.sp,
-                                //                         color: const Color(
-                                //                             0xffFFFFFF)),
-                                //                   ),
-                                //           ),
-                                //         ),
-                                //       );
-                                //     },
-                                //     separatorBuilder: (context, index) {
-                                //       return SizedBox(width: 5.w);
-                                //     },
-                                //     itemCount: 5),
-                              ])),
-                      sizedBoxHeight(8.h),
-                    ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              sizedBoxHeight(8.h),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 80.h,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            size: 14.sp,
+                            color: Colors.white,
+                          ),
+                          sizedBoxWidth(3.w),
+                          Text(
+                            "30 Min",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontFamily: 'StudioProM',
+                                fontSize: 12.sp,
+                                color: const Color(0xffFFFFFF)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 500,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    DataTabBarView(),
-                    DataTabBarView(),
-                    DataTabBarView(),
-                    DataTabBarView()
-                  ],
-                ),
-              ),
+              // Container(
+              //   width: double.infinity,
+              //   height: 258.h,
+              //   decoration: const BoxDecoration(
+              //     image: DecorationImage(
+              //       image: AssetImage("assets/home/food.png"),
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: EdgeInsets.only(left: 16.w),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.end,
+              //       children: [
+              //         SvgPicture.asset(
+              //             "assets/svg/media-play-circle-svgrepo-com.svg"),
+              //         sizedBoxHeight(50.h),
+              //         Container(
+              //           decoration: BoxDecoration(boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.black.withOpacity(0.9),
+              //               blurRadius: 25.0, // soften the shadow
+              //               spreadRadius: 15.0, //extend the shadow
+              //               offset: const Offset(
+              //                 5.0, // Move to right 5  horizontally
+              //                 5.0, // Move to bottom 5 Vertically
+              //               ),
+              //             )
+              //           ]),
+              //           height: 35.h,
+              //           width: double.infinity,
+              //           child: Text(
+              //             "Chomolia Recipe",
+              //             style:
+              //                 TextStyle(color: Colors.white, fontSize: 20.sp),
+              //           ),
+              //         ),
+              //         SizedBox(
+              //             height: 27,
+              //             width: double.infinity,
+              //             child: TabBar(
+              //                 controller: _tabController,
+              //                 onTap: (int index) {
+              //                   setState(() {
+              //                     _selectedIndex = index;
+              //                   });
+              //                 },
+              //                 indicatorColor: Colors.transparent,
+              //                 unselectedLabelColor: Colors.amberAccent,
+              //                 labelPadding: EdgeInsets.only(right: 9),
+              //                 isScrollable: true,
+              //                 indicator: null,
+              //                 // indicatorWeight: 0,
+              //                 tabs: [
+              //                   Container(
+              //                     height: 27,
+              //                     decoration: BoxDecoration(
+              //                         color: _getTabColor(0),
+              //                         //  Color(0xffE1E1E1),
+              //                         borderRadius: BorderRadius.circular(14)),
+              //                     child: Center(
+              //                       widthFactor: 1.3,
+              //                       child: Text(
+              //                         "Limpopo",
+              //                         style: TextStyle(
+              //                             color: _getTextColor(0),
+              //                             fontFamily: "Studio Pro",
+              //                             fontSize: 10),
+              //                       ),
+              //                     ),
+              //                   ),
+              //                   Container(
+              //                       height: 27,
+              //                       decoration: BoxDecoration(
+              //                           color: _getTabColor(1),
+              //                           //  Color(0xffE1E1E1),
+              //                           borderRadius:
+              //                               BorderRadius.circular(14)),
+              //                       child: Center(
+              //                         widthFactor: 1.3,
+              //                         child: Text(
+              //                           "Simple greens",
+              //                           style: TextStyle(
+              //                               color: _getTextColor(1),
+              //                               fontFamily: "Studio Pro",
+              //                               fontSize: 10),
+              //                         ),
+              //                       )),
+              //                   Container(
+              //                       height: 27,
+              //                       decoration: BoxDecoration(
+              //                           color: _getTabColor(2),
+              //                           //  Color(0xffE1E1E1),
+              //                           borderRadius:
+              //                               BorderRadius.circular(14)),
+              //                       child: Center(
+              //                         widthFactor: 1.3,
+              //                         child: Text(
+              //                           "Flavour explosions",
+              //                           style: TextStyle(
+              //                               color: _getTextColor(2),
+              //                               fontFamily: "Studio Pro",
+              //                               fontSize: 10),
+              //                         ),
+              //                       )),
+              //                   Container(
+              //                       height: 27,
+              //                       decoration: BoxDecoration(
+              //                           color: _getTabColor(3),
+              //                           //  Color(0xffE1E1E1),
+              //                           borderRadius:
+              //                               BorderRadius.circular(14)),
+              //                       child: Center(
+              //                         widthFactor: 1.3,
+              //                         child: Text(
+              //                           "The healthy way",
+              //                           style: TextStyle(
+              //                               color: _getTextColor(3),
+              //                               fontFamily: "Studio Pro",
+              //                               fontSize: 10),
+              //                         ),
+              //                       )),
+              //                   // ListView.separated(
+              //                   //     scrollDirection: Axis.horizontal,
+              //                   //     itemBuilder: (context, index) {
+              //                   //       return GestureDetector(
+              //                   //         onTap: () {
+              //                   //           setState(() {
+              //                   //             _selectedItem = index;
+              //                   //           });
+              //                   //         },
+              //                   //         child: Container(
+              //                   //           decoration: BoxDecoration(
+              //                   //               borderRadius:
+              //                   //                   BorderRadius.circular(14.r),
+              //                   //               color: index == _selectedItem
+              //                   //                   ? const Color(0xffE1E1E1)
+              //                   //                       .withOpacity(0.8)
+              //                   //                   : const Color.fromRGBO(
+              //                   //                           84, 95, 90, 0.71)
+              //                   //                       .withOpacity(0.8)),
+              //                   //           child: Padding(
+              //                   //             padding: EdgeInsets.symmetric(
+              //                   //                 horizontal: 7.w, vertical: 5.h),
+              //                   //             child: index == 0
+              //                   //                 ? Text(
+              //                   //                     "Limpopo",
+              //                   //                     style: TextStyle(
+              //                   //                         fontSize: 10.sp,
+              //                   //                         color: const Color(
+              //                   //                             0xff000000)),
+              //                   //                   )
+              //                   //                 : Text(
+              //                   //                     "Flavour explodions",
+              //                   //                     style: TextStyle(
+              //                   //                         fontSize: 10.sp,
+              //                   //                         color: const Color(
+              //                   //                             0xffFFFFFF)),
+              //                   //                   ),
+              //                   //           ),
+              //                   //         ),
+              //                   //       );
+              //                   //     },
+              //                   //     separatorBuilder: (context, index) {
+              //                   //       return SizedBox(width: 5.w);
+              //                   //     },
+              //                   //     itemCount: 5),
+              //                 ])),
+              //         sizedBoxHeight(8.h),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+
+              DataTabBarView(),
             ],
           ),
         ),
@@ -597,7 +714,7 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                 ),
                 sizedBoxHeight(14.h),
                 Container(
-                  height: 285.h,
+                  // height: 80.h,
                   decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Color(0xff7070705E)),
@@ -627,19 +744,33 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 color: const Color(0xff707070),
-                                fontSize: 15.spMin,
+                                fontSize: 15.sp,
                               ),
                             ),
                           ],
                         ),
-                        const Image(image: AssetImage("assets/ladoo.png"))
+                        sizedBoxHeight(6.h),
+                        Image.asset(
+                          "assets/Mask Group 24.png",
+                          height: 173.h,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        )
+                        // Image(
+                        //   height: 173.h,
+                        //   // fit:
+                        //   // ,
+                        //   width: double.infinity,
+                        //   image: AssetImage("assets/Mask Group 24.png",
+                        //     // heigh
+                        //   ))
                       ],
                     ),
                   ),
                 ),
                 sizedBoxHeight(14.h),
                 Container(
-                  height: 285.h,
+                  // height: 285.h,
                   decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Color(0xff7070705E)),
@@ -669,12 +800,21 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 color: const Color(0xff707070),
-                                fontSize: 15.spMin,
+                                fontSize: 15.sp,
                               ),
                             ),
                           ],
                         ),
-                        const Image(image: AssetImage("assets/greenveg.png"))
+
+                        sizedBoxHeight(6.h),
+                        Image.asset(
+                          "assets/Mask Group 25.png",
+                          height: 173.h,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        )
+                        // const Image(
+                        //     image: AssetImage("assets/Mask Group 25.png")),
                       ],
                     ),
                   ),

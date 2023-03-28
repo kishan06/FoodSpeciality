@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
@@ -78,7 +79,9 @@ class _MyAppState extends State<MyApp> {
                 name: "/communityaddparticipants",
                 page: () => communityAddParticipants()),
             GetPage(
-                name: "/chatcommunitydetail", page: () => ChatCommunityDetail()),
+                name: "/chatcommunitydetail",
+                page: () => ChatCommunityDetail()),
+            GetPage(name: "/chatdetail", page: () => ChatPrivateDetail()),
             // GetPage(name: "/myProfile", page: () => myProfile()),
             GetPage(
                 name: "/networkplayerwidget",
@@ -96,8 +99,6 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/SearchPage", page: () => SearchPage()),
             GetPage(name: "/RecipeIng", page: () => RecipeIng()),
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
-            
-
           ],
         ),
       ),

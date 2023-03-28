@@ -176,7 +176,15 @@ class _BlogsNewsArticlesState extends State<BlogsNewsArticles> {
             sizedBoxHeight(31.h),
             Stack(
               children: [
-                Image.asset("assets/Chocolate-Chip-Cookies.png"),
+                Container(
+                  height: 154.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image:
+                              AssetImage("assets/Chocolate-Chip-Cookies.png"))),
+                ),
                 Container(
                   margin: EdgeInsets.only(top: 8.h, left: 4.w),
                   decoration: BoxDecoration(
@@ -261,7 +269,14 @@ class _BlogsNewsArticlesState extends State<BlogsNewsArticles> {
             sizedBoxHeight(19.h),
             Stack(
               children: [
-                Image.asset("assets/tiramisu.png"),
+                Container(
+                  height: 154.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage("assets/tiramisu.png"))),
+                ),
                 Container(
                   margin: EdgeInsets.only(top: 8.h, left: 4.w),
                   decoration: BoxDecoration(

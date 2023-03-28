@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class IngredientsTabbatview extends StatefulWidget {
   const IngredientsTabbatview({super.key});
@@ -16,6 +21,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   List<Widget> widgetsInColumn = [];
   List<Widget> stepsInColumn = [];
   final List<TextEditingController> _controllers = [];
+  final List<TextEditingController> _controllers2 = [];
+
   int number = 2;
   int textControllerNumber = 0;
   final TextEditingController _tec = TextEditingController();
@@ -25,9 +32,126 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   final TextEditingController _tbsController = TextEditingController(text: '1');
   int _tbsInitialValue = 1;
 
+  bool isSwitched = false;
+  File? _image;
+
+  Future getImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      // final imagePermanent = await saveFilePermanently(image.path);
+
+      setState(() {
+        this._image = imageTemporary;
+
+        // Get.snackbar("vng", "ggh");
+      });
+      if (_image != null) {
+        //  ScaffoldMessenger(child: SnackBar(content: Text("data")));
+        Get.snackbar("Successful", "Image Added",
+            snackPosition: SnackPosition.BOTTOM);
+        print("object");
+      }
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveFilePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File(imagePath).copy(imagePath);
+  }
+
+  builduploadprofile() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.camera);
+                        Get.back();
+                        print("dsf");
+                        if (_image != null) {
+                          Get.snackbar("title", "message");
+                        }
+                        // Get.snackbar(title, message)
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Camera',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.gallery);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.image,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Gallery',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     _controllers.add(TextEditingController());
+    _controllers2.add(TextEditingController());
+
     super.initState();
     _selectedHour = 0;
     _selectedMinute = 0;
@@ -237,6 +361,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     if (textControllerNumber < 5) {
                       textControllerNumber++;
                       _controllers.add(TextEditingController());
+                      _controllers2.add(TextEditingController());
+
                       // if (_tec.text.isEmpty) {
                       //   return;
                       // } else {
@@ -374,7 +500,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-                controller: _tbsController,
+                controller: _controllers2[textControllerNumber],
                 // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,
                 maxLength: 2,
@@ -403,7 +529,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               onTap: () {
                 setState(() {
                   _tbsInitialValue == 99 ? null : _tbsInitialValue++;
-                  _tbsController.text = '$_tbsInitialValue';
+                  _controllers2[textControllerNumber].text =
+                      '$_tbsInitialValue';
                 });
               },
               child: CircleAvatar(
@@ -462,7 +589,18 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                   fontFamily: "Roboto",
                   color: const Color(0xff6B6B6B),
                   fontSize: 14.h),
-              suffixIcon: Image.asset("assets/camera.png"),
+              suffixIcon: Container(
+                height: 50.h,
+                width: 40.w,
+                child: _image != null
+                    ? Image.asset("assets/camera.png")
+                    : GestureDetector(
+                        onTap: () {
+                          builduploadprofile();
+                        },
+                        child: Image.asset("assets/camera.png"),
+                      ),
+              ),
             ),
           ),
         ),

@@ -187,8 +187,16 @@ class _LoginState extends State<Login> {
                       child: Form(
                         child: ElevatedButton(
                           onPressed: () {
+                            final FormState? form = _formKey.currentState;
+                            if (form != null && form.validate()) {
+                              form.save();
+
+                              // Do something with the user credentials, such as login to the backend
+                              // server and navigate to the home screen.
+                              Get.toNamed("/signUpProfile");
+                            }
                             // if (_formKey.currentState!.validate()) {
-                            Get.toNamed('/signUpProfile');
+                            // Get.toNamed('/signUpProfile');
                             // }
 
                             // if (value) {
