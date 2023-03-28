@@ -590,7 +590,7 @@ class _followUserState extends State<followUser> {
                         )
                       ],
                     )),
-                const mySaved(),
+                 mySaved(),
                 const myFollowingCard(),
                 const myFollowerCard()
               ]),
