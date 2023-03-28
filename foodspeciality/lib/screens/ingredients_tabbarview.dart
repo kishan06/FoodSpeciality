@@ -16,6 +16,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   List<Widget> widgetsInColumn = [];
   List<Widget> stepsInColumn = [];
   final List<TextEditingController> _controllers = [];
+  final List<TextEditingController> _controllersTbs = [];
+  
   int number = 2;
   int textControllerNumber = 0;
   final TextEditingController _tec = TextEditingController();
@@ -207,7 +209,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                 ],
               ),
               sizedBoxHeight(15.h),
-              _recipeDetails(_tec),
+              _recipeDetails(_tec,_tbsController),
               Column(
                 children: widgetsInColumn,
               ),
@@ -233,10 +235,15 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                       fontSize: 16.sp,
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    print(textControllerNumber);
                     if (textControllerNumber < 5) {
-                      textControllerNumber++;
+                      // await textControllerNumber++;
                       _controllers.add(TextEditingController());
+                      _controllersTbs.add(TextEditingController());
+                      textControllerNumber++;
+
+                      print("bvg");
                       // if (_tec.text.isEmpty) {
                       //   return;
                       // } else {
@@ -245,7 +252,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                       //   });
                       // }
                       setState(() {
-                        widgetsInColumn.add(_recipeDetails(null));
+                        widgetsInColumn.add(_recipeDetails(null,null));
                       });
                     }
                   },
@@ -311,7 +318,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
     );
   }
 
-  Widget _recipeDetails(TextEditingController? controller) {
+  Widget _recipeDetails(TextEditingController? controller,TextEditingController? controllerTbs) {
+    if (controllerTbs == null) {
+      _controllersTbs[(textControllerNumber - 1)].text = "1";
+    }
     return Column(
       children: [
         Row(
@@ -351,10 +361,11 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(33.w),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  _tbsInitialValue == 1 ? null : _tbsInitialValue--;
-                  _tbsController.text = '$_tbsInitialValue';
-                });
+                // setState(() {
+
+                //   _tbsInitialValue == 1 ? null : _tbsInitialValue--;
+                //   _tbsController.text = '$_tbsInitialValue';
+                // });
               },
               child: CircleAvatar(
                 radius: 16.r,
@@ -374,7 +385,9 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-                controller: _tbsController,
+                controller: controllerTbs == null
+                    ? _controllersTbs[(textControllerNumber - 1)]
+                    : _tbsController,
                 // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,
                 maxLength: 2,
@@ -401,10 +414,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(10.w),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  _tbsInitialValue == 99 ? null : _tbsInitialValue++;
-                  _tbsController.text = '$_tbsInitialValue';
-                });
+                // setState(() {
+                //   _tbsInitialValue == 99 ? null : _tbsInitialValue++;
+                //   _tbsController.text = '$_tbsInitialValue';
+                // });
               },
               child: CircleAvatar(
                 radius: 16.r,
