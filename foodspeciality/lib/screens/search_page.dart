@@ -696,7 +696,7 @@ class _SearchPageState extends State<SearchPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Select Tags",
+                              "Custom Tags",
                               style: TextStyle(
                                 fontFamily: "Studio Pro",
                                 fontWeight: FontWeight.w500,

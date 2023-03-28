@@ -5,6 +5,7 @@ import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
 import 'package:foodspeciality/screens/setting/setting/setting.dart';
@@ -455,7 +456,9 @@ class myfollowers extends StatelessWidget {
               // ),
               Spacer(),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  //  selectedIndex == 1;
+                },
                 child: Container(
                   height: 30.h,
                   decoration: BoxDecoration(
@@ -752,7 +755,9 @@ class mySaved extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: customButtonWithBorder("Explore Recipes",
-                        onPressed: () {}),
+                        onPressed: () {
+                      Get.to(BottomBar());
+                    }),
                   ),
 
                   sizedBoxHeight(50.h),

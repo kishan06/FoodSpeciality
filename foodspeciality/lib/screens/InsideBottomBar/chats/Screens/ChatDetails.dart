@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatMessageModel.dart';
 import 'package:get/get.dart';
 
@@ -126,10 +127,6 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                     ),
                   ),
                   // ignore: prefer_const_constructors
-                  Icon(
-                    Icons.more_vert_rounded,
-                    color: Colors.black87,
-                  ),
                 ],
               ),
             ),

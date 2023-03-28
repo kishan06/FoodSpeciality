@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/gridviewuser_content.dart';
+import 'package:get/get.dart';
 
 class Gridview extends StatefulWidget {
   const Gridview({
@@ -42,13 +44,18 @@ class _GridviewState extends State<Gridview> {
                     crossAxisSpacing: 10),
                 itemCount: gridCardData.length,
                 itemBuilder: (_, index) {
-                  return gridCard(
-                      gridCardData[index]["like"],
-                      gridCardData[index]["save"],
-                      index,
-                      gridCardData[index]["recipeimage"],
-                      gridCardData[index]["title"],
-                      gridCardData[index]["name"]);
+                  return GestureDetector(
+                    onTap: () {
+                      Get.toNamed("/InspirationRecipeComment");
+                    },
+                    child: gridCard(
+                        gridCardData[index]["like"],
+                        gridCardData[index]["save"],
+                        index,
+                        gridCardData[index]["recipeimage"],
+                        gridCardData[index]["title"],
+                        gridCardData[index]["name"]),
+                  );
                   // listCardData[index]["isFollowedByMe"]);
                 }),
           ],

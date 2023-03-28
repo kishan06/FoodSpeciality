@@ -27,49 +27,47 @@ class _ChattabViewState extends State<ChattabView> {
       // appBar: CustomAppBar(titleTxt: ""),
       key: _key,
       backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            DefaultTabController(
-              length: 2,
-              child: Column(
-                children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Padding(
-                  //       padding: EdgeInsets.only(left: 10.w, top: 10.h),
-                  //       child: InkWell(
-                  //         onTap: () {
-                  //           Get.back();
-                  //         },
-                  //         child: Image.asset(
-                  //           "assets/icons/back_arrow.png",
-                  //           height: 20.h,
-                  //           width: 30.w,
-                  //           color: AppColors.greyD3B3F43,
+      body: Column(
+        children: [
+          DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.only(left: 10.w, top: 10.h),
+                //       child: InkWell(
+                //         onTap: () {
+                //           Get.back();
+                //         },
+                //         child: Image.asset(
+                //           "assets/icons/back_arrow.png",
+                //           height: 20.h,
+                //           width: 30.w,
+                //           color: AppColors.greyD3B3F43,
 
-                  //           // color: ,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  CommanTabbar("Private", "Community"),
-                  SizedBox(
-                    height: 750.h,
-                    child: const TabBarView(
-                      children: [
-                        ChatPage(),
-                        ChatCommunityPage(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                //           // color: ,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                CommanTabbar("Private", "Community"),
+                SizedBox(
+                  height: 750.h,
+                  child: const TabBarView(
+                    children: [
+                      ChatPage(),
+                      ChatCommunityPage(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

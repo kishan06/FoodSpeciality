@@ -127,9 +127,84 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.more_vert_rounded,
-                    color: Colors.black87,
+                  PopupMenuButton(
+                    padding: EdgeInsets.all(4),
+                    //  offset: const Offset(0, 50),
+                    color: const Color(0xFFFFFFFF),
+                    tooltip: '',
+                    child: Icon(
+                      Icons.more_vert,
+                      color: Color(0xFF3B3F43),
+                    ),
+                    onSelected: (value) {
+                      if (value == '/logout') {
+                      } else if (value == "/myProfile") {
+                        Get.toNamed('/myprofile');
+                      }
+                    },
+                    itemBuilder: (BuildContext bc) {
+                      return [
+                        PopupMenuItem(
+                          onTap: () => Get.back(),
+                          value: '',
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.delete_outline_rounded,
+                                    size: 24.sp,
+                                  ),
+                                  // SvgPicture.asset(
+                                  //   "assets/question-circle-svgrepo-com.svg",
+                                  //   height: 20,
+                                  //   width: 20,
+                                  // ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "Roboto",
+                                        fontSize: 16.sp),
+                                  ),
+                                ],
+                              ),
+                              //    Divider()
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem(
+                          onTap: () => Get.back(),
+                          value: '',
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.exit_to_app,
+                                    size: 24.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(
+                                    "Exit Community",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "Roboto",
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              //  Divider()
+                            ],
+                          ),
+                        ),
+                      ];
+                    },
                   ),
                 ],
               ),

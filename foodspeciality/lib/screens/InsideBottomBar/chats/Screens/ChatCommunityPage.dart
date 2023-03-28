@@ -211,7 +211,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
             ),
           ),
 
-          // sizedBoxHeight(22.h)
+          sizedBoxHeight(22.h)
         ],
       ),
     );

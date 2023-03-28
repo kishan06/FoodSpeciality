@@ -5,6 +5,7 @@ import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
 import 'package:foodspeciality/screens/grivviewuser.dart';
+import 'package:foodspeciality/screens/report.dart';
 import 'package:get/get.dart';
 
 class viewUser extends StatefulWidget {
@@ -171,9 +172,17 @@ class _viewUserState extends State<viewUser> {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.notifications_none_outlined,
-                  color: Color(0xFF3B3F43),
+                GestureDetector(
+                  onTap: () {
+                    Get.snackbar(
+                      "Notifications",
+                      "Notification turned on",
+                    );
+                  },
+                  child: Icon(
+                    Icons.notifications_none_outlined,
+                    color: Color(0xFF3B3F43),
+                  ),
                 ),
                 SizedBox(
                   width: 15.w,
@@ -187,9 +196,9 @@ class _viewUserState extends State<viewUser> {
                     color: Color(0xFF3B3F43),
                   ),
                   onSelected: (value) {
-                    if (value == '/logout') {
-                    } else if (value == "/myProfile") {
-                      Get.toNamed('/myprofile');
+                    if (value == '/Report') {
+                    } else if (value == "/Report") {
+                      Get.toNamed('/Report');
                     }
                   },
                   itemBuilder: (BuildContext bc) {
@@ -222,7 +231,11 @@ class _viewUserState extends State<viewUser> {
                         ),
                       ),
                       PopupMenuItem(
-                        value: '',
+                        onTap: () {
+                          // Get.to(() => Report());
+                          Get.toNamed("/Report");
+                        },
+                        value: '/Report',
                         child: Column(
                           children: [
                             Row(

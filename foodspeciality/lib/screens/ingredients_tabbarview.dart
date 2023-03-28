@@ -21,9 +21,8 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   List<Widget> widgetsInColumn = [];
   List<Widget> stepsInColumn = [];
   final List<TextEditingController> _controllers = [];
-
   final List<TextEditingController> _controllersTbs = [];
-  
+  final List<TextEditingController> _controllers2 = [];
 
   int number = 2;
   int textControllerNumber = 0;
@@ -32,8 +31,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   late int _selectedHour;
   late int _selectedMinute;
   final TextEditingController _tbsController = TextEditingController(text: '1');
-  int _tbsInitialValue = 1;
-
+  List<int> tbsint = [];
   bool isSwitched = false;
   File? _image;
 
@@ -52,8 +50,10 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
       });
       if (_image != null) {
         //  ScaffoldMessenger(child: SnackBar(content: Text("data")));
-        Get.snackbar("Successful", "Image Added",
-            snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar(
+          "Successful",
+          "Image Added",
+        );
         print("object");
       }
     } on PlatformException catch (e) {
@@ -152,7 +152,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
   @override
   void initState() {
     _controllers.add(TextEditingController());
-    _controllers2.add(TextEditingController());
+    //  _controllers2.add(TextEditingController());
 
     super.initState();
     _selectedHour = 0;
@@ -333,10 +333,14 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                 ],
               ),
               sizedBoxHeight(15.h),
-              _recipeDetails(_tec,_tbsController),
-              Column(
-                children: widgetsInColumn,
-              ),
+
+              //_recipeDetails(_tec, _tbsController),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widgetsInColumn.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _recipeDetails(_tec, _tbsController, index);
+                  }),
               sizedBoxHeight(13.h),
               SizedBox(
                 height: 40.h,
@@ -364,8 +368,9 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                     if (textControllerNumber < 5) {
                       // await textControllerNumber++;
                       _controllers.add(TextEditingController());
-
                       _controllersTbs.add(TextEditingController());
+                      _controllers2.add(TextEditingController());
+                      _controllers2[textControllerNumber].text = "1";
                       textControllerNumber++;
 
                       print("bvg");
@@ -378,7 +383,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                       //   });
                       // }
                       setState(() {
-                        widgetsInColumn.add(_recipeDetails(null,null));
+                        widgetsInColumn.add(_recipeDetails(null, null, 0));
                       });
                     }
                   },
@@ -444,10 +449,12 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
     );
   }
 
-  Widget _recipeDetails(TextEditingController? controller,TextEditingController? controllerTbs) {
+  Widget _recipeDetails(TextEditingController? controller,
+      TextEditingController? controllerTbs, int? index) {
     if (controllerTbs == null) {
       _controllersTbs[(textControllerNumber - 1)].text = "1";
     }
+    int _tbsInitialValue = 0;
     return Column(
       children: [
         Row(
@@ -462,9 +469,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                   }
                   return null;
                 },
-                controller: controller == null
-                    ? _controllers[textControllerNumber]
-                    : _tec,
+                controller: _controllers[index!],
                 decoration: InputDecoration(
                   isCollapsed: true,
                   contentPadding: EdgeInsets.all(15.h),
@@ -487,11 +492,14 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(33.w),
             GestureDetector(
               onTap: () {
-                // setState(() {
+                setState(() {
+                  // _tbsInitialValue == 1 ? null : _tbsInitialValue--;
+                  // _tbsController.text = '$_tbsInitialValue';
 
-                //   _tbsInitialValue == 1 ? null : _tbsInitialValue--;
-                //   _tbsController.text = '$_tbsInitialValue';
-                // });
+                  tbsint[index] = int.parse(_controllers2[index].text);
+                  tbsint[index]--;
+                  _controllers2[index].text = '${tbsint[index]}';
+                });
               },
               child: CircleAvatar(
                 radius: 16.r,
@@ -511,10 +519,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-
-                controller: controllerTbs == null
-                    ? _controllersTbs[(textControllerNumber - 1)]
-                    : _tbsController,
+                controller: _controllers2[index!],
 
                 // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,
@@ -542,12 +547,20 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             sizedBoxWidth(10.w),
             GestureDetector(
               onTap: () {
+                setState(() {
+                  int increment = 0;
 
-                // setState(() {
-                //   _tbsInitialValue == 99 ? null : _tbsInitialValue++;
-                //   _tbsController.text = '$_tbsInitialValue';
-                // });
+                  for (var i = 0; i < widgetsInColumn.length; i++) {
+                    tbsint.add(increment);
+                  }
+                  tbsint[index] = int.parse(_controllers2[index].text);
+                  tbsint[index]++;
 
+                  // _tbsInitialValue == 99 ? null : _tbsInitialValue++;
+
+                  // _tbsController.text = '$_tbsInitialValue';
+                  _controllers2[index].text = '${tbsint[index]}';
+                });
               },
               child: CircleAvatar(
                 radius: 16.r,
