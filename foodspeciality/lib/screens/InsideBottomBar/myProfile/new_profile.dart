@@ -85,8 +85,7 @@ class _NewProfileState extends State<NewProfile> {
                 center: CircleAvatar(
                   backgroundColor: Colors.blue,
                   radius: 40.r,
-
-                  backgroundImage: const AssetImage
+                  backgroundImage: const AssetImage(
                     'assets/profile.png',
                   ),
                 ),
@@ -142,7 +141,6 @@ class _NewProfileState extends State<NewProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SvgPicture.asset("assets/bookmark (2).svg"),
-
                       Text(
                         "Level : Silver",
                         style: TextStyle(
@@ -150,7 +148,6 @@ class _NewProfileState extends State<NewProfile> {
                             fontFamily: "StudioProR",
                             fontWeight: FontWeight.w500),
                       )
-
                     ],
                   ),
                 ),
@@ -176,7 +173,6 @@ class _NewProfileState extends State<NewProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SvgPicture.asset("assets/coin.svg"),
-
                       Text(
                         "Total Coins : 500",
                         style: TextStyle(
@@ -184,7 +180,6 @@ class _NewProfileState extends State<NewProfile> {
                             fontFamily: "StudioProR",
                             fontWeight: FontWeight.w500),
                       )
-
                     ],
                   ),
                 ),
@@ -214,9 +209,7 @@ class _NewProfileState extends State<NewProfile> {
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
-
                               color: const Color(0xff54595F),
-
                               fontSize: 16.sp),
                         ),
                       ],
@@ -239,7 +232,6 @@ class _NewProfileState extends State<NewProfile> {
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
-
                               color: const Color(0xff54595F),
                               fontSize: 16.sp),
                         ),
@@ -263,9 +255,7 @@ class _NewProfileState extends State<NewProfile> {
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
-
                               color: const Color(0xff54595F),
-
                               fontSize: 16.sp),
                         ),
                       ],
@@ -288,9 +278,7 @@ class _NewProfileState extends State<NewProfile> {
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
-
                               color: const Color(0xff54595F),
-
                               fontSize: 16.sp),
                         ),
                       ],
@@ -328,381 +316,364 @@ class myfollowers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 15.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 16.w,
-              ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 50.w,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Colors.grey,
-                      child: Image.asset(
-                        "assets/Mask Group 86.png",
-                        height: 50.h,
-                      ),
+      child: Column(children: [
+        SizedBox(
+          height: 15.h,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 16.w,
+            ),
+            Stack(
+              children: [
+                SizedBox(
+                  width: 50.w,
+                  child: CircleAvatar(
+                    radius: 25.r,
+                    backgroundColor: Colors.grey,
+                    child: Image.asset(
+                      "assets/Mask Group 86.png",
+                      height: 50.h,
                     ),
                   ),
-                  Positioned(
-                      bottom: 0.h,
-                      left: 35.w,
-                      child: SvgPicture.asset(
-                        "assets/rating-svgrepo-com.svg",
-                        height: 22.h,
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Priyanka Joshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF54595F)),
-
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    "@priyujoshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromRGBO(59, 63, 67, 0.49)),
-                  ),
-
-                  Spacer(),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF3B3F43),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Center(
-                          child: Text(
-                            "Remove",
-                            style: TextStyle(
-                              fontFamily: "StudioProR",
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFFFFFFFF),
-                            ),
+                ),
+                Positioned(
+                    bottom: 0.h,
+                    left: 35.w,
+                    child: SvgPicture.asset(
+                      "assets/rating-svgrepo-com.svg",
+                      height: 22.h,
+                    )),
+              ],
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Priyanka Joshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF54595F)),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  "@priyujoshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF3B3F43),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Center(
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFFFFFFFF),
                           ),
-
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-
+                Divider(
+                  endIndent: 20,
+                  indent: 20,
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 16.w,
+                      ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            width: 50.w,
+                            child: CircleAvatar(
+                              radius: 25.r,
+                              backgroundColor: Colors.grey,
+                              child: Image.asset(
+                                "assets/Mask Group 86.png",
+                                height: 50.h,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              bottom: 0,
+                              left: 35,
+                              child: SvgPicture.asset(
+                                "assets/rating-svgrepo-com.svg",
+                                height: 22,
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        "@priyujoshi",
+                        style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                      ),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3B3F43),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Center(
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFFFFFFFF),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 16.w,
+                )
+              ],
             ),
             Divider(
-              endIndent: 20,
-              indent: 20,
+              endIndent: 20.w,
+              indent: 20.w,
             ),
             SizedBox(
               height: 15.h,
             ),
-            Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  Stack(
-                    children: [
-                      SizedBox(
-                        width: 50.w,
-                        child: CircleAvatar(
-                          radius: 25.r,
-                          backgroundColor: Colors.grey,
-                          child: Image.asset(
-                            "assets/Mask Group 86.png",
-                            height: 50.h,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 16.w,
+                ),
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: 50.w,
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        backgroundColor: Colors.grey,
+                        child: Image.asset(
+                          "assets/Mask Group 86.png",
+                          height: 50.h,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 0.h,
+                        left: 35.w,
+                        child: SvgPicture.asset(
+                          "assets/rating-svgrepo-com.svg",
+                          height: 22.h,
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Priyanka Joshi",
+                      style: TextStyle(
+                          fontFamily: "StudioProR",
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF54595F)),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      "@priyujoshi",
+                      style: TextStyle(
+                          fontFamily: "StudioProR",
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3B3F43),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Center(
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFFFFFFFF),
                           ),
                         ),
                       ),
-                      Positioned(
-                          bottom: 0,
-                          left: 35,
-                          child: SvgPicture.asset(
-                            "assets/rating-svgrepo-com.svg",
-                            height: 22,
-                          )),
-                    ],
-
+                    ),
                   ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    "@priyujoshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromRGBO(59, 63, 67, 0.49)),
-                  ),
-
-                ],
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF3B3F43),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Center(
-                      child: Text(
-                        "Remove",
-                        style: TextStyle(
+                ),
+                SizedBox(
+                  width: 16.w,
+                )
+              ],
+            ),
+            Divider(
+              endIndent: 20.w,
+              indent: 20.w,
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 16.w,
+                ),
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: 50.w,
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        backgroundColor: Colors.grey,
+                        child: Image.asset(
+                          "assets/Mask Group 86.png",
+                          height: 50.h,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 0.h,
+                        left: 35.w,
+                        child: SvgPicture.asset(
+                          "assets/rating-svgrepo-com.svg",
+                          height: 22.h,
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Priyanka Joshi",
+                      style: TextStyle(
+                          fontFamily: "StudioProR",
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF54595F)),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      "@priyujoshi",
+                      style: TextStyle(
                           fontFamily: "StudioProR",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xFFFFFFFF),
-
+                          color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3B3F43),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Center(
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(
+                            fontFamily: "StudioProR",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFFFFFFFF),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
-          Divider(
-            endIndent: 20.w,
-            indent: 20.w,
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 16.w,
-              ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 50.w,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Colors.grey,
-                      child: Image.asset(
-                        "assets/Mask Group 86.png",
-                        height: 50.h,
-
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      bottom: 0.h,
-                      left: 35.w,
-                      child: SvgPicture.asset(
-                        "assets/rating-svgrepo-com.svg",
-                        height: 22.h,
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Priyanka Joshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF54595F)),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    "@priyujoshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromRGBO(59, 63, 67, 0.49)),
-                  ),
-
-                ],
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF3B3F43),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Center(
-                      child: Text(
-                        "Remove",
-                        style: TextStyle(
-                          fontFamily: "StudioProR",
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFFFFFFFF),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
-          Divider(
-            endIndent: 20.w,
-            indent: 20.w,
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 16.w,
-              ),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 50.w,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Colors.grey,
-                      child: Image.asset(
-                        "assets/Mask Group 86.png",
-                        height: 50.h,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      bottom: 0.h,
-                      left: 35.w,
-                      child: SvgPicture.asset(
-                        "assets/rating-svgrepo-com.svg",
-                        height: 22.h,
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Priyanka Joshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF54595F)),
-
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    "@priyujoshi",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromRGBO(59, 63, 67, 0.49)),
-                  ),
-
-                ],
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF3B3F43),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Center(
-                      child: Text(
-                        "Remove",
-                        style: TextStyle(
-                          fontFamily: "StudioProR",
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFFFFFFFF),
-
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
-          Divider(
-            endIndent: 20.w,
-            indent: 20.w,
-          ),
-        ],
-      ),
+                SizedBox(
+                  width: 16.w,
+                )
+              ],
+            ),
+            Divider(
+              endIndent: 20.w,
+              indent: 20.w,
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }

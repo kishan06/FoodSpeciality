@@ -70,9 +70,7 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
         controller: widget.textEditingController,
         onTap: widget.onTap,
         decoration: InputDecoration(
-          errorStyle: TextStyle(
-            fontSize: 14.sp
-          ),
+          errorStyle: TextStyle(fontSize: 14.sp),
           isCollapsed: true,
           suffixIconConstraints: const BoxConstraints(),
           contentPadding: EdgeInsets.all(17.h),
@@ -120,17 +118,17 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 10.w),
+                          padding: EdgeInsets.only(left: 8.w),
                           child: Icon(
                             Icons.lock_outline,
                             color: Colors.black54,
-                            size: 25.w,
+                            size: 24.sp,
                           ),
                         ),
                       ],
                     )
                   : Padding(
-                      padding: EdgeInsets.only(left: 15.w),
+                      padding: EdgeInsets.only(left: 8.w),
                       child: widget.suffixIcon,
                     ),
               sizedBoxWidth(2),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
@@ -32,11 +33,12 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                sizedBoxHeight(25.h),
                 Text(
                   "Enter New Password and Confirm.",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: Color.fromRGBO(112, 112, 112, 1),
+                      color: const Color.fromRGBO(112, 112, 112, 1),
                       fontSize: 16.sp,
                       fontFamily: "Roboto"),
                 ),
