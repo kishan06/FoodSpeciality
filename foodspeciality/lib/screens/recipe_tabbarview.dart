@@ -23,6 +23,8 @@ class RecipeTabbarView extends StatefulWidget {
 }
 
 class _RecipeTabbarViewState extends State<RecipeTabbarView> {
+  bool editChip = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<String> _textList = [];
   final TextEditingController _textController = TextEditingController();
 
@@ -512,7 +514,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
               Visibility(
                 visible: !textFieldVisibile,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () {
@@ -547,39 +549,86 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                         ),
                       ),
                     ),
+                    InkWell(
+                        onTap: () {
+                          setState(() {
+                            editChip = !editChip;
+                          });
+                        },
+                        child: Icon(
+                          Icons.edit,
+                          color: editChip
+                              ? const Color(0xFFE1E1E1)
+                              : const Color.fromRGBO(84, 89, 95, 1),
+                        ))
                   ],
                 ),
               ),
               Visibility(
                 visible: textFieldVisibile,
-                child: TextField(
-                  autofocus: true,
-                  textAlignVertical: TextAlignVertical.center,
-                  style: TextStyle(
-                    fontSize: 10.sp,
+                child: Form(
+                  key: _formKey,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2 - 10.w,
+                        child: TextFormField(
+                          maxLength: 20,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Text';
+                            } else if (value.length < 2) {
+                              return 'Please enter atleast 2 characters';
+                            }
+                            return null;
+                          },
+                          autofocus: true,
+                          textAlignVertical: TextAlignVertical.center,
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                          ),
+                          decoration: InputDecoration(
+                            isCollapsed: true,
+                            suffixIconConstraints: const BoxConstraints(),
+                            contentPadding: EdgeInsets.all(17.h),
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                                color: const Color(0xff54595f),
+                                fontSize: 10.sp,
+                                fontFamily: "Roboto"),
+                            hintText: 'Enter text here',
+                          ),
+                          cursorColor: const Color(0xFF3B3F43),
+                          onFieldSubmitted: (String value) {
+                            setState(() {
+                              final FormState? form = _formKey.currentState;
+                              if (form != null && form.validate()) {
+                                // form.save();
+                                textFieldVisibile = !textFieldVisibile;
+                                _textController.clear();
+                                _textList.add(value);
+                              }
+                            });
+                          },
+                          controller: _textController,
+                        ),
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0xff54595f)),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              textFieldVisibile = !textFieldVisibile;
+                            });
+                          },
+                          child: const Text('Cancel'))
+                    ],
                   ),
-                  decoration: InputDecoration(
-                    isCollapsed: true,
-                    suffixIconConstraints: const BoxConstraints(),
-                    contentPadding: EdgeInsets.all(17.h),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                        color: const Color(0xff54595f),
-                        fontSize: 10.sp,
-                        fontFamily: "Roboto"),
-                    hintText: 'Enter text here',
-                  ),
-                  cursorColor: const Color(0xFF3B3F43),
-                  onSubmitted: (String value) {
-                    setState(() {
-                      textFieldVisibile = !textFieldVisibile;
-                      _textController.clear();
-                      _textList.add(value);
-                    });
-                  },
-                  controller: _textController,
                 ),
               ),
               sizedBoxHeight(20.h),
@@ -602,7 +651,33 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 spacing: 11.w,
                 runSpacing: 7.h,
                 children: [
-                  ..._textList.map((text) => CommonChip(text: text)).toList(),
+                  ..._textList
+                      .map((text) => Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CommonChip(text: text),
+                              Visibility(
+                                visible: editChip,
+                                child: Row(
+                                  children: [
+                                    sizedBoxWidth(3.w),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _textList.remove(text);
+                                        });
+                                      },
+                                      child: const Icon(
+                                        Icons.cancel,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ))
+                      .toList(),
                   const CommonChip(text: "Savoury moments"),
                   const CommonChip(text: "Quarter to quick"),
                   const CommonChip(text: "Juicy Mondays"),

@@ -12,11 +12,10 @@ Widget commanAppBar(String text) {
       color: AppColors.white,
       boxShadow: [
         BoxShadow(
-          color: AppColors.greyLtEBEBEB,
-          blurRadius: 2.h,
-          spreadRadius: 1.h,
-          offset: Offset(0, 2.h)
-        ),
+            color: AppColors.greyLtEBEBEB,
+            blurRadius: 2.h,
+            spreadRadius: 1.h,
+            offset: Offset(0, 2.h)),
       ],
     ),
     child: Padding(
@@ -24,20 +23,17 @@ Widget commanAppBar(String text) {
       child: Row(
         children: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Get.back();
             },
-            child: 
-            SvgPicture.asset(
+            child: SvgPicture.asset(
               "assets/icons/back_arrow.svg",
               height: 18.h,
               width: 27.w,
               color: AppColors.greyD3B3F43,
             ),
           ),
-      
           sizedBoxWidth(20.w),
-      
           textgreyM18SpM(text)
         ],
       ),

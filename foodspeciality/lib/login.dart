@@ -15,8 +15,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  bool v1 = false;
-  bool v2 = false;
+  // bool v1 = false;
+  // bool v2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,19 +46,19 @@ class _LoginState extends State<Login> {
                         fontSize: 30.sp,
                         fontFamily: "StudoProR",
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF3B3F43),
+                        color: const Color(0xFF3B3F43),
                       ),
                     ),
                     SizedBox(
                       height: 22.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: Text(
                         "Food Specialities is committed to bringing you versatile and exciting choices for your daily food and cooking experience!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Color(0xFF54595F),
+                            color: const Color(0xFF54595F),
                             fontSize: 15.sp,
                             fontFamily: "Roboto"),
                       ),
@@ -77,20 +77,14 @@ class _LoginState extends State<Login> {
                             .hasMatch(value)) {
                           return 'Please enter a valid email address';
                         }
-                        v1 = true;
+                        // v1 = true;
                         return null;
                       },
-                      suffixIcon: Container(
-                        height: 20.h,
-                        width: 20.w,
-                        child: Image.asset(
-                          "assets/style=linear.png",
-                          // height: 15.h,
-                          // width: 17.w,
-                          fit: BoxFit.cover,
-                          // height: 20.h,
-                          // width: 20.w,
-                        ),
+                      suffixIcon: Image.asset(
+                        "assets/style=linear.png",
+                        height: 24.h,
+                        width: 24.w,
+                        fit: BoxFit.contain,
                       ),
                     ),
                     // SizedBox(
@@ -128,7 +122,7 @@ class _LoginState extends State<Login> {
                         if (value.length < 8) {
                           return 'Password must be at least 8 characters';
                         }
-                        v2 = true;
+                        // v2 = true;
                         return null;
                       },
                       validatorText: "", isInputPassword: true,
@@ -176,7 +170,7 @@ class _LoginState extends State<Login> {
                             'Forgot Password?',
                             style: TextStyle(
                               fontFamily: "Roboto",
-                              color: Color(0xFF3B3F43),
+                              color: const Color(0xFF3B3F43),
                               fontSize: 16.sp,
                               decoration: TextDecoration.underline,
                             ),

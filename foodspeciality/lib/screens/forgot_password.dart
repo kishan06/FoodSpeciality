@@ -14,7 +14,8 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  bool v1 = false;
+  // bool v1 = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,103 +25,116 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         bottomtext: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Please enter your email address.You will \nreceive a link to create a new password via \nemail",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: const Color.fromRGBO(112, 112, 112, 1),
-                    fontSize: 17.sp,
-                    fontFamily: "Roboto"),
-              ),
-              SizedBox(
-                height: 31.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  // Text(
-                  //   "Enter Your Email",
-                  //   style: textformstyle(""),
-                  // ),
-                  Text(
-                    "Enter Your Email",
-                    style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              CustomTextFormField(
-                hintText: "Email Address",
-                validator: (value) {
-                  if (value == value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                      .hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  v1 = true;
-                  return null;
-                },
-                validatorText: "",
-                suffixIcon: Image.asset(
-                  "assets/style=linear.png",
-                  height: 20.h,
-                  width: 17.w,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Please enter your email address.You will \nreceive a link to create a new password via \nemail",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: const Color.fromRGBO(112, 112, 112, 1),
+                      fontSize: 17.sp,
+                      fontFamily: "Roboto"),
                 ),
-              ),
-              SizedBox(
-                height: 198.h,
-              ),
-
-              SizedBox(
-                height: 50.h,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    v1
-                        ? Get.toNamed("/otpverification")
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                backgroundColor: Colors.grey,
-                                content:
-                                    Center(child: Text('Enter Valid Email'))));
-                    // Get.toNamed('/signUpProfile');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(84, 89, 95, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      // side: BorderSide(color: Colors.white, width: 1.w),
+                SizedBox(
+                  height: 31.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Text(
+                    //   "Enter Your Email",
+                    //   style: textformstyle(""),
+                    // ),
+                    Text(
+                      "Enter Your Email",
+                      style: TextStyle(
+                        color: const Color.fromRGBO(112, 112, 112, 1),
+                        fontSize: 14.sp,
+                      ),
                     ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    'Next',
-                    style: TextStyle(fontSize: 18.sp, fontFamily: "StudioProR"),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                CustomTextFormField(
+                  hintText: "Email Address",
+                  validator: (value) {
+                    if (value == value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                        .hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    // v1 = true;
+                    return null;
+                  },
+                  validatorText: "",
+                  suffixIcon: Image.asset(
+                    "assets/style=linear.png",
+                    height: 20.h,
+                    width: 17.w,
+                    fit: BoxFit.contain,
                   ),
                 ),
-              ),
+                SizedBox(
+                  height: 198.h,
+                ),
 
-              // CustomNextButton(
-              //   ontap: () {
-              //     Get.toNamed("/otpverification");
-              //     // Navigator.push(
-              //     //     context,
-              //     //     MaterialPageRoute(
-              //     //       builder: (context) => ResetPasswordScreen(),
-              //     //     ));
-              //   },
-              //   text: 'Next',
-              // )
-            ],
+                SizedBox(
+                  height: 50.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // v1
+                      //     ? Get.toNamed("/otpverification")
+                      //     : ScaffoldMessenger.of(context).showSnackBar(
+                      //         const SnackBar(
+                      //             backgroundColor: Colors.grey,
+                      //             content:
+                      //                 Center(child: Text('Enter Valid Email'))));
+                      // // Get.toNamed('/signUpProfile');
+                      final FormState? form = _formKey.currentState;
+                      if (form != null && form.validate()) {
+                        form.save();
+                        Get.toNamed("/otpverification");
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        // side: BorderSide(color: Colors.white, width: 1.w),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Next',
+                      style:
+                          TextStyle(fontSize: 18.sp, fontFamily: "StudioProR"),
+                    ),
+                  ),
+                ),
+
+                // CustomNextButton(
+                //   ontap: () {
+                //     Get.toNamed("/otpverification");
+                //     // Navigator.push(
+                //     //     context,
+                //     //     MaterialPageRoute(
+                //     //       builder: (context) => ResetPasswordScreen(),
+                //     //     ));
+                //   },
+                //   text: 'Next',
+                // )
+              ],
+            ),
           ),
         ),
       ),

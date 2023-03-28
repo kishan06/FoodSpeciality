@@ -14,10 +14,10 @@ class _otpVerificationState extends State<otpVerification> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: OtpScreen(),
+        child: const OtpScreen(),
       ),
     );
   }
@@ -38,8 +38,8 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController pinFourController = TextEditingController();
 
   var outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: BorderSide(color: Color(0xFF707070), width: 1),
+    borderRadius: BorderRadius.circular(8.r),
+    borderSide: BorderSide(color: const Color(0xFF707070), width: 1.w),
   );
 
   int pinIndex = 0;
@@ -61,18 +61,18 @@ class _OtpScreenState extends State<OtpScreen> {
             height: 25.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               "A verification code has been send to your Email\nenter it below.",
               style: TextStyle(
                   fontFamily: "Roboto",
                   fontWeight: FontWeight.w400,
-                  fontSize: 16),
+                  fontSize: 16.sp),
             ),
           ),
           Container(
-            alignment: Alignment(0, 0.5),
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            alignment: const Alignment(0, 0.5),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -97,12 +97,12 @@ class _OtpScreenState extends State<OtpScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   Get.toNamed("/resetPass");
-          
+
                   // Get.toNamed("/otpverification");
                   // Get.toNamed('/signUpProfile');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(84, 89, 95, 1),
+                  backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.r),
                     // side: BorderSide(color: Colors.white, width: 1.w),
@@ -111,8 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 child: Text(
                   'Verify',
-                  style: TextStyle(
-                      fontSize: 18.sp, fontFamily: "StudioProR"),
+                  style: TextStyle(fontSize: 18.sp, fontFamily: "StudioProR"),
                 ),
               ),
             ),
@@ -141,24 +140,23 @@ class _OtpScreenState extends State<OtpScreen> {
           //     ),
           //   ),
           // ),
-        
-        
+
           SizedBox(
-            height: 15,
+            height: 15.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Didn't receive code?",
-                style: TextStyle(fontFamily: "Roboto", fontSize: 16),
+                style: TextStyle(fontFamily: "Roboto", fontSize: 16.sp),
               ),
               Text(
                 " Resend code",
                 style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: 16,
-                    color: Color(0xFFCB0A0A)),
+                    fontSize: 16.sp,
+                    color: const Color(0xFFCB0A0A)),
               )
             ],
           ),
@@ -174,15 +172,15 @@ class _OtpScreenState extends State<OtpScreen> {
   buildNumberPad() {
     return Expanded(
       child: Container(
-        color: Color(0xFFEBEBEB),
+        color: const Color(0xFFEBEBEB),
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: EdgeInsets.only(bottom: 32, right: 10, left: 10),
+          padding: EdgeInsets.only(bottom: 32.h, right: 10.w, left: 10.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -249,7 +247,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   Container(
                     width: 130.w,
-                    child: MaterialButton(
+                    child: const MaterialButton(
                       onPressed: null,
                       child: SizedBox(),
                     ),
@@ -259,14 +257,17 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         pinIndexSetup("0");
                       }),
-                  Container(
+                  SizedBox(
                     width: 130.w,
                     child: MaterialButton(
                       height: 65.h,
                       onPressed: () {
                         clearPin();
                       },
-                      child: Icon(Icons.backspace_outlined),
+                      child: Icon(
+                        Icons.backspace_outlined,
+                        size: 24.sp,
+                      ),
                     ),
                   ),
                 ],
@@ -279,9 +280,9 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   clearPin() {
-    if (pinIndex == 0)
+    if (pinIndex == 0) {
       pinIndex = 0;
-    else if (pinIndex == 4) {
+    } else if (pinIndex == 4) {
       setPin(pinIndex, "");
       currentPin[pinIndex - 1] = "";
       pinIndex--;
@@ -293,9 +294,11 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   pinIndexSetup(String text) {
-    if (pinIndex == 0)
+    if (pinIndex == 0) {
       pinIndex = 1;
-    else if (pinIndex < 4) pinIndex++;
+    } else if (pinIndex < 4) {
+      pinIndex++;
+    }
     setPin(pinIndex, text);
     currentPin[(pinIndex - 1)] = text;
     String strPin = "";
@@ -346,9 +349,9 @@ class _OtpScreenState extends State<OtpScreen> {
     return Text(
       "Enter 4 digit code",
       style: TextStyle(
-        color: Color(0xFF54595F),
+        color: const Color(0xFF54595F),
         fontFamily: "StudioProR",
-        fontSize: 20,
+        fontSize: 20.sp,
         fontWeight: FontWeight.w600,
       ),
     );
@@ -359,7 +362,7 @@ class _OtpScreenState extends State<OtpScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 16.0),
+          padding: EdgeInsets.only(left: 16.w),
           child: MaterialButton(
             onPressed: () {
               Get.back();
@@ -367,11 +370,12 @@ class _OtpScreenState extends State<OtpScreen> {
             height: 50.h,
             minWidth: 50.w,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             child: Icon(
               Icons.arrow_back,
-              color: Color(0xFF54595F),
+              size: 24.sp,
+              color: const Color(0xFF54595F),
             ),
           ),
         ),
@@ -387,7 +391,7 @@ class PINNumber extends StatelessWidget {
   final OutlineInputBorder outlineInputBorder;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 65.w,
       height: 65.h,
       child: TextField(
@@ -396,7 +400,7 @@ class PINNumber extends StatelessWidget {
         obscureText: false,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16.0),
+          contentPadding: EdgeInsets.all(16.sp),
           border: outlineInputBorder,
           filled: true,
           fillColor: Colors.white30,
@@ -404,7 +408,7 @@ class PINNumber extends StatelessWidget {
         style: TextStyle(
           fontFamily: "Roboto",
           fontWeight: FontWeight.w500,
-          fontSize: 21,
+          fontSize: 21.sp,
         ),
       ),
     );
@@ -425,13 +429,13 @@ class keyboardNumber extends StatelessWidget {
     return Container(
       width: 130.w,
       height: 65.h,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.rectangle,
         color: Colors.white,
       ),
       alignment: Alignment.center,
       child: MaterialButton(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.sp),
         onPressed: onPressed,
         // shape: RoundedRectangleBorder(
         //     // borderRadius: BorderRadius.circular(60.0),
@@ -441,7 +445,7 @@ class keyboardNumber extends StatelessWidget {
           "$n",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 24 * MediaQuery.of(context).textScaleFactor,
+              fontSize: 24.sp * MediaQuery.of(context).textScaleFactor,
               fontFamily: "Roboto",
               fontWeight: FontWeight.normal),
         ),
