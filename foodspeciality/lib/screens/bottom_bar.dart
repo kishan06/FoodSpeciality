@@ -26,8 +26,10 @@ import 'package:get/get.dart';
 // }
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
 
+  var selectedIndex;
+   //BottomBar({Key? key,selectedIndex}) : super(key: key);
+  BottomBar({this.selectedIndex=0});
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
@@ -35,8 +37,8 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
-    const Home(),
-    const Explore(),
+     Home(),
+     Explore(),
     Container(),
     ChattabView(),
     // myProfile()
@@ -46,7 +48,13 @@ class _BottomBarState extends State<BottomBar> {
   // DateTime timebackPressed = DateTime.now();
 
   @override
+  void initState(){
+    super.initState();
+    _selectedIndex.value = widget.selectedIndex;
+  }
+  @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: () async {
         await dialoBox();
