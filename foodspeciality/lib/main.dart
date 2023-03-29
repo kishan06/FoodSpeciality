@@ -24,6 +24,7 @@ import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
 import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/screens/viewUser.dart';
+import 'package:foodspeciality/sucessfully_blocked.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'common files/video_player_network.dart';
@@ -33,10 +34,11 @@ import 'screens/report_successfull.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) {
-      runApp(new MyApp());
-    });
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -99,6 +101,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/Report", page: () => Report()),
             GetPage(name: "/ReportSuccess", page: () => ReportSuccess()),
             GetPage(name: "/blocklistfull", page: () => BlockListFull()),
+            GetPage(
+                name: "/sucessfullyblocked", page: () => SucessfullyBlocked()),
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => InspirationRecipeComment()),

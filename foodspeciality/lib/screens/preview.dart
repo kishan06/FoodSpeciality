@@ -664,12 +664,18 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         sizedBoxWidth(7.w),
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: const Color(0xff707070),
-                            fontSize: 15.spMin,
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Text(
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: const Color(0xff707070),
+                                fontSize: 15.sp,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -700,12 +706,18 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         sizedBoxWidth(7.w),
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: const Color(0xff707070),
-                            fontSize: 15.spMin,
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Text(
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: const Color(0xff707070),
+                                fontSize: 15.sp,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -739,12 +751,18 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             sizedBoxWidth(7.w),
-                            Text(
-                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: const Color(0xff707070),
-                                fontSize: 15.sp,
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Text(
+                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: const Color(0xff707070),
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -795,12 +813,18 @@ class _PreviewState extends State<Preview> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             sizedBoxWidth(7.w),
-                            Text(
-                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: const Color(0xff707070),
-                                fontSize: 15.sp,
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Text(
+                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: const Color(0xff707070),
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
                               ),
                             ),
                           ],

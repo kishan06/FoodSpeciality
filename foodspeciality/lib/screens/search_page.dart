@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
+import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -136,7 +138,11 @@ class _SearchPageState extends State<SearchPage> {
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      return commanCard(index);
+                      return GestureDetector(
+                          onTap: () {
+                            Get.to(InspirationRecipeComment());
+                          },
+                          child: commanCard(index));
                     },
                   ),
                 ),
@@ -158,7 +164,11 @@ class _SearchPageState extends State<SearchPage> {
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      return commanCard(index + 1);
+                      return GestureDetector(
+                          onTap: () {
+                            Get.to(InspirationRecipeComment());
+                          },
+                          child: commanCard(index + 1));
                     },
                   ),
                 ),
@@ -230,23 +240,29 @@ class _SearchPageState extends State<SearchPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Stack(
                   children: [
-                    Container(
-                      // height: 120.h,
-                      // width: 232.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.h),
-                          image: DecorationImage(
-                              image: index.isEven
-                                  ? AssetImage("assets/home/food.png")
-                                  : AssetImage("assets/Chocolate 2.png"),
-                              fit: BoxFit.fill)),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(InspirationRecipeComment());
+                      },
+                      child: Container(
+                        // height: 120.h,
+                        // width: 232.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.h),
+                            image: DecorationImage(
+                                image: index.isEven
+                                    ? AssetImage("assets/home/food.png")
+                                    : AssetImage("assets/Chocolate 2.png"),
+                                fit: BoxFit.fill)),
 
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: EdgeInsets.all(10.w),
-                          child: textWhite18Robo(
-                              index.isEven ? "Bobotie" : "Ethiopian Doro Wat"),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.w),
+                            child: textWhite18Robo(index.isEven
+                                ? "Bobotie"
+                                : "Ethiopian Doro Wat"),
+                          ),
                         ),
                       ),
                     ),
@@ -292,29 +308,7 @@ class _SearchPageState extends State<SearchPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 9.h, 16.w, 0),
-            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 9.h),
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    communityTile(),
-                    Divider(
-                      color: Color(0xff979797),
-                      thickness: 0.2.h,
-                    )
-                  ],
-                );
-                // Column(
-                //   children: [listCard(), sizedBoxHeight(13.h)],
-                // );
-              },
-            ),
-          ),
+          myFollowingCard(),
         ],
       ),
     );
