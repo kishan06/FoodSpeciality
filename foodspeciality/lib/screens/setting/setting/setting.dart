@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/setting/setting/about.dart';
 import 'package:foodspeciality/screens/setting/setting/blocked_list.dart';
@@ -166,7 +167,7 @@ class _SettingState extends State<Setting> {
         ),
         actions: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Get.back();
             },
             child: Text(
@@ -181,7 +182,7 @@ class _SettingState extends State<Setting> {
           sizedBoxWidth(15.sp),
           InkWell(
             onTap: () {
-              Get.toNamed("/login");
+              Get.offAll(Login());
             },
             child: Text(
               "Sign out",

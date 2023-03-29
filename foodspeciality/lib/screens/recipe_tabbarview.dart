@@ -511,6 +511,45 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 ],
               ),
               sizedBoxHeight(18.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Wrap(
+                    spacing: 11.w,
+                    runSpacing: 7.h,
+                    children: [
+                      ..._textList
+                          .map((text) => Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CommonChip(text: text),
+                                  Visibility(
+                                    visible: editChip,
+                                    child: Row(
+                                      children: [
+                                        sizedBoxWidth(3.w),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _textList.remove(text);
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.cancel,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ))
+                          .toList(),
+                    ],
+                  ),
+                ],
+              ),
+              sizedBoxHeight(18.h),
               Visibility(
                 visible: !textFieldVisibile,
                 child: Row(
@@ -636,7 +675,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Custom Tags",
+                    "Select Tags",
                     style: TextStyle(
                       fontFamily: "Studio Pro",
                       fontWeight: FontWeight.w500,
@@ -651,33 +690,6 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 spacing: 11.w,
                 runSpacing: 7.h,
                 children: [
-                  ..._textList
-                      .map((text) => Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CommonChip(text: text),
-                              Visibility(
-                                visible: editChip,
-                                child: Row(
-                                  children: [
-                                    sizedBoxWidth(3.w),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _textList.remove(text);
-                                        });
-                                      },
-                                      child: const Icon(
-                                        Icons.cancel,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ))
-                      .toList(),
                   const CommonChip(text: "Savoury moments"),
                   const CommonChip(text: "Quarter to quick"),
                   const CommonChip(text: "Juicy Mondays"),
