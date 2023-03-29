@@ -170,22 +170,25 @@ class _ExploreState extends State<Explore> {
                       children: [
                         SizedBox(
                           height: 98.h,
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return SizedBox(width: 9.w);
-                            },
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: controllerExplore.likeSave.length,
-                            itemBuilder: (context, index) {
-                              // controllerExplore.likeSave[index]
-                              return trendingRecipeCard(
-                                  controllerExplore.likeSave[index]["like"],
-                                  controllerExplore.likeSave[index]["save"],
-                                  index);
-                            },
-                          ),
+                          child: GetBuilder<ExploreController>(builder: (_){
+                            return ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return SizedBox(width: 9.w);
+                              },
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controllerExplore.likeSave.length,
+                              itemBuilder: (context, index) {
+                                // controllerExplore.likeSave[index]
+                                return trendingRecipeCard(
+                                    controllerExplore.likeSave[index]["like"],
+                                    controllerExplore.likeSave[index]["save"],
+                                    index);
+                              },
+                            );
+                          })
+                          
                         ),
                         sizedBoxHeight(20.h),
                         textgreyM20BoldSP("Explore"),

@@ -500,12 +500,17 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
             GestureDetector(
               onTap: () {
                 setState(() {
+                  if (tbsint[index] > 1) {
+                    tbsint[index] = int.parse(_controllers2[index].text);
+                    tbsint[index]--;
+                    _controllers2[index].text = '${tbsint[index]}';
+                  }
                   // _tbsInitialValue == 1 ? null : _tbsInitialValue--;
                   // _tbsController.text = '$_tbsInitialValue';
 
-                  tbsint[index] = int.parse(_controllers2[index].text);
-                  tbsint[index]--;
-                  _controllers2[index].text = '${tbsint[index]}';
+                  // tbsint[index] = int.parse(_controllers2[index].text);
+                  // tbsint[index]--;
+                  // _controllers2[index].text = '${tbsint[index]}';
                 });
               },
               child: CircleAvatar(
