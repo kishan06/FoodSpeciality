@@ -108,7 +108,7 @@ Future<T?> FilterBottomSheet<T>() {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Custom Tags",
+                            "Select Tags",
                             style: TextStyle(
                               fontFamily: "Studio Pro",
                               fontWeight: FontWeight.w500,
