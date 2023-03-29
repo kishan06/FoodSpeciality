@@ -60,9 +60,10 @@ class _NewProfileState extends State<NewProfile> {
                                               const Duration(milliseconds: 500),
                                           transition: Transition.downToUp);
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.edit,
                                       color: Colors.black,
+                                      size: 23.h,
                                     ),
                                   ),
                                   sizedBoxWidth(20.w),
@@ -74,9 +75,10 @@ class _NewProfileState extends State<NewProfile> {
                                               const Duration(milliseconds: 500),
                                           transition: Transition.downToUp);
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.settings_outlined,
                                       color: Colors.black,
+                                      size: 23.h,
                                     ),
                                   ),
                                   sizedBoxWidth(18.w)
@@ -234,7 +236,7 @@ class _NewProfileState extends State<NewProfile> {
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xff54595F),
-                                fontSize: 16.sp),
+                                fontSize: 15.sp),
                           ),
                         ],
                       ),
@@ -257,7 +259,7 @@ class _NewProfileState extends State<NewProfile> {
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xff54595F),
-                                fontSize: 16.sp),
+                                fontSize: 15.sp),
                           ),
                         ],
                       ),
@@ -277,10 +279,11 @@ class _NewProfileState extends State<NewProfile> {
                           Text(
                             'Following',
                             style: TextStyle(
+                                // overflow: TextOverflow.ellipsis,
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xff54595F),
-                                fontSize: 16.sp),
+                                fontSize: 15.sp),
                           ),
                         ],
                       ),
@@ -303,7 +306,7 @@ class _NewProfileState extends State<NewProfile> {
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xff54595F),
-                                fontSize: 16.sp),
+                                fontSize: 15.sp),
                           ),
                         ],
                       ),

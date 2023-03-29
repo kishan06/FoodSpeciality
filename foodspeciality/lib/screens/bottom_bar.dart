@@ -3,34 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
-// import 'package:foodspeciality/common%20files/publish_popup.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/new_chat_tab.dart';
-// import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/new_profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
-// class NewStateless extends StatelessWidget {
-//   const NewStateless({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: BottomBar(),
-//     );
-//   }
-// }
-
 class BottomBar extends StatefulWidget {
 
-
   var selectedIndex;
-   //BottomBar({Key? key,selectedIndex}) : super(key: key);
   BottomBar({this.selectedIndex=0});
 
   @override
@@ -41,16 +24,13 @@ class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
 
-     Home(),
-     Explore(),
-
+    Home(),
+    Explore(),
     Container(),
     ChatTab(),
-    // myProfile()
     NewProfile()
   ];
   bool _canPop = false;
-  // DateTime timebackPressed = DateTime.now();
 
   @override
 
@@ -66,22 +46,9 @@ class _BottomBarState extends State<BottomBar> {
       onWillPop: () async {
         await dialoBox();
         return _canPop;
-        // if (_canPop) {
-        //   return true;
-        // } else {
-        //   await showDialog(
-        //     context: context,
-        // builder: (context) => exitDialog()
-        //   );
-        //   print("infalse");
-        //   print(_canPop);
-        //   return _canPop;
-        // }
       },
       child: Scaffold(
-          //backgroundColor: Colors.transparent,
           extendBody: true,
-          //    backgroundColor: AppColors.white,
           body: SafeArea(
               bottom: false,
               child: Obx(() => _widgetOptions.elementAt(_selectedIndex.value))),
@@ -93,7 +60,6 @@ class _BottomBarState extends State<BottomBar> {
                   children: [
                     bottomBarCont(),
 
-                    // sizedBoxWidth(20.w),
                     Container(
                       height: 80.h,
                       width: 20.w,
@@ -104,38 +70,11 @@ class _BottomBarState extends State<BottomBar> {
                   ],
                 ),
 
-                // Align(
-                //   alignment: Alignment.bottomCenter,
-                //   child: Padding(
-                //     padding: EdgeInsets.only(bottom: 45.h),
-                //     child: SizedBox(
-                //       height: 65.h,
-                //       width: 65.h,
-                //       child: FloatingActionButton(
-                //         backgroundColor: AppColors.greyD3B3F43,
-                //         onPressed: () {
-                //           // Get.to(()=> AddNfts());
-                //         },
-                //         // onPressed: () =>
-                //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
-                //         child: Icon(Icons.add,
-                //           size: 35.h,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
                 SizedBox(
-                    // height: 90.h,
-                    child: Padding(
-                  // padding: EdgeInsets.only(top: 0.h),
+                  child: Padding(
                   padding: EdgeInsets.only(top: 20.h),
 
                   child: BottomNavigationBar(
-                    // fixedColor: AppColors.transparent,
-                    // fixedColor: Colors.transparent,
-
                     selectedLabelStyle: TextStyle(fontSize: 0),
                     unselectedLabelStyle: TextStyle(fontSize: 0),
                     iconSize: 30.h,
@@ -148,11 +87,9 @@ class _BottomBarState extends State<BottomBar> {
                       BottomNavigationBarItem(
                         activeIcon: activeIcon("assets/bottomBar/home.svg"),
                         icon: inactiveIcon("assets/bottomBar/home.svg"),
-                        // icon: Icon(Icons.home),
                         label: "",
                       ),
                       BottomNavigationBarItem(
-                        // icon: Icon(Icons.explore),
                         activeIcon: activeIcon("assets/bottomBar/explore.svg"),
                         icon: inactiveIcon("assets/bottomBar/explore.svg"),
                         label: "",
@@ -192,42 +129,15 @@ class _BottomBarState extends State<BottomBar> {
                       onPressed: () {
                         Get.toNamed("/RecipeIng");
                       },
-                      // onPressed: () =>
-                      //     Navigator.pushNamed(context, AppNavigator.createItemPage),
                       child: SvgPicture.asset(
                         "assets/bottomBar/food.svg",
                         height: 25.h,
                         width: 25.h,
-                        // color: AppColors.white,
                       ),
-                      // Icon(Icons.add,
-                      //   size: 35.h,
-                      // ),
                     ),
                   ),
                 ),
 
-                // Align(
-                //   alignment: Alignment.bottomCenter,
-                //   child: Padding(
-                //     padding: EdgeInsets.only(bottom: 45.h),
-                //     child: SizedBox(
-                //       height: 65.h,
-                //       width: 65.h,
-                //       child: FloatingActionButton(
-                //         backgroundColor: AppColors.greyD3B3F43,
-                //         onPressed: () {
-                //           // Get.to(()=> AddNfts());
-                //         },
-                //         // onPressed: () =>
-                //         //     Navigator.pushNamed(context, AppNavigator.createItemPage),
-                //         child: Icon(Icons.add,
-                //           size: 35.h,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           )),
@@ -252,7 +162,6 @@ class _BottomBarState extends State<BottomBar> {
                 color: const Color(0xff3B3F43)),
           ),
           content: SizedBox(
-            // margin: EdgeInsets.symmetric(horizontal: 10.w),
             width: MediaQuery.of(context).size.width,
             child: Text(
               "Are you sure you want to Exit App?",
@@ -280,9 +189,6 @@ class _BottomBarState extends State<BottomBar> {
             InkWell(
               onTap: () {
                 SystemNavigator.pop();
-                // Get.toNamed("/login");
-                // Get.back();
-                // _canPop = true;
               },
               child: Text(
                 "Yes",
@@ -317,10 +223,8 @@ class _BottomBarState extends State<BottomBar> {
                       ),
                       child: Image.asset(
                         "assets/hooray.png",
-                        // height: 364.h/
                       )),
                   Positioned(
-                    // top: 0,
                     bottom: 0,
                     left: 0,
                     right: 0, height: 247.h,
@@ -334,7 +238,6 @@ class _BottomBarState extends State<BottomBar> {
                           bottomRight: Radius.circular(20),
                         ),
                       ),
-                      // height: 247.h,
                       child: Column(
                         children: [
                           sizedBoxHeight(83.h),
@@ -354,7 +257,6 @@ class _BottomBarState extends State<BottomBar> {
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18.sp),
                           ),
-                          // sizedBoxHeight(10.h),
                           Spacer(),
 
                           Row(
@@ -371,7 +273,6 @@ class _BottomBarState extends State<BottomBar> {
                                 child: followButton("Yes", onPressed: () {
                                   _canPop = true;
                                   Get.back();
-                                  // return
                                 }),
                               ),
                             ],
@@ -404,9 +305,7 @@ class _BottomBarState extends State<BottomBar> {
 
   Widget bottomBarCont() {
     return Expanded(
-        child: Container(
-      // width: 230,
-      // height: 90.h,
+      child: Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(),
       child: Container(
@@ -426,52 +325,6 @@ class _BottomBarState extends State<BottomBar> {
         ),
       ),
     )
-
-        // Container(
-        //   // width: 80.w,
-        //   // width: double.infinity,
-        //   height: 80.h,
-        //   // decoration: BoxDecoration(
-        //   //   boxShadow: [
-        //   //     BoxShadow(
-        //   //       color: AppColors.greyL979797,
-        //   //       blurRadius: 10.h,
-        //   //       spreadRadius: 2.h,
-        //   //       offset: Offset(0, -5)
-
-        //   //     )
-        //   //   ],
-        //   //   // borderRadius: BorderRadius.circular(5.h),
-        //   //   borderRadius: BorderRadius.only(
-        //   //     topLeft: Radius.circular(35.h),
-        //   //     topRight: Radius.circular(35.h)
-        //   //   ),
-
-        //   //   color: AppColors.black
-        //   // ),
-        //   child: Container(
-        //     margin: EdgeInsets.only(top: 5.h),
-        //    // decoration: BoxDecoration(
-        //   //   boxShadow: [
-        //   //     BoxShadow(
-        //   //       color: AppColors.greyL979797,
-        //   //       blurRadius: 10.h,
-        //   //       spreadRadius: 2.h,
-        //   //       offset: Offset(0, -5)
-
-        //   //     )
-        //   //   ],
-        //   //   // borderRadius: BorderRadius.circular(5.h),
-        //   //   borderRadius: BorderRadius.only(
-        //   //     topLeft: Radius.circular(35.h),
-        //   //     topRight: Radius.circular(35.h)
-        //   //   ),
-
-        //   //   color: AppColors.black
-        //   // ),,
-        //   ),
-
-        // ),
 
         );
   }
