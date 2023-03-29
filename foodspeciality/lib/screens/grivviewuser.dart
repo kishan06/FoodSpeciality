@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/common%20files/comman_comment.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/gridviewuser_content.dart';
 import 'package:get/get.dart';
+
+import 'InsideBottomBar/home/controller/home_controller.dart';
 
 class Gridview extends StatefulWidget {
   const Gridview({
@@ -16,6 +19,8 @@ class Gridview extends StatefulWidget {
 
 class _GridviewState extends State<Gridview> {
   int currentIndex = 0;
+  HomeController controllerHome = Get.put(HomeController());
+
 
   // int index = 0;
 
@@ -159,11 +164,21 @@ class _GridviewState extends State<Gridview> {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            "assets/comment.svg",
-                            height: 16.h,
-                            width: 19.w,
+                          InkWell(
+                            onTap: (){
+                              commentbottomSheet(controllerHome);
+                            },
+                            child: Image.asset(
+                              "assets/icons/comment.png",
+                              width: 20.w,
+                              height: 18.h,
+                            ),
                           ),
+                          // SvgPicture.asset(
+                          //   "assets/comment.svg",
+                          //   height: 16.h,
+                          //   width: 19.w,
+                          // ),
                           SizedBox(
                             width: 4.w,
                           ),
