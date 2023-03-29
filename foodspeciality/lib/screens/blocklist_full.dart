@@ -91,7 +91,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             borderRadius: BorderRadius.circular(8.sp))),
                     onPressed: () {
                       Get.snackbar(
-                          "Successfull", "Unblocked @priyujoshi successfully");
+                          "Successful", "Unblocked @priyujoshi successfully");
                     },
                     child: Text(
                       "Unblock",
@@ -186,7 +186,7 @@ class _BlockListFullState extends State<BlockListFull> {
                               borderRadius: BorderRadius.circular(8.sp))),
                       onPressed: () {
                         Get.snackbar(
-                            "Successfull", "Unblocked @sandy0001 successfully");
+                            "Successful", "Unblocked @sandy0001 successfully");
                       },
                       child: Text(
                         "Unblock",
@@ -280,7 +280,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
                         onPressed: () {
-                          Get.snackbar("Successfull",
+                          Get.snackbar("Successful",
                               "Unblocked @sandy0001 successfully");
                         },
                         child: Text(
@@ -373,7 +373,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
                         onPressed: () {
-                          Get.snackbar("Successfull",
+                          Get.snackbar("Successful",
                               "Unblocked @sandy0001 successfully");
                         },
                         child: Text(
@@ -466,7 +466,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.sp))),
                         onPressed: () {
-                          Get.snackbar("Successfull",
+                          Get.snackbar("Successful",
                               "Unblocked @priyujoshi successfully");
                         },
                         child: Text(

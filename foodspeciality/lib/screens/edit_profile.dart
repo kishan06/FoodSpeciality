@@ -162,6 +162,8 @@ class _EditProfileState extends State<EditProfile> {
                     InkWell(
                         onTap: () {
                           Get.back();
+                          Get.snackbar(
+                              "Successful", "Changes saved successfully");
                         },
                         child: textgreyD16BoldSP("Save"))
                   ],
