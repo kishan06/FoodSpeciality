@@ -6,6 +6,7 @@ import 'package:foodspeciality/common%20files/buttons.dart';
 // import 'package:foodspeciality/common%20files/publish_popup.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatTabview.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/new_chat_tab.dart';
 // import 'package:foodspeciality/screens/InsideBottomBar/chat.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
@@ -44,7 +45,7 @@ class _BottomBarState extends State<BottomBar> {
      Explore(),
 
     Container(),
-    ChattabView(),
+    ChatTab(),
     // myProfile()
     NewProfile()
   ];

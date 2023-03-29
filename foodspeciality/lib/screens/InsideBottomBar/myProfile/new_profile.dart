@@ -743,58 +743,70 @@ class _mySavedState extends State<mySaved> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        sizedBoxHeight(10.h),
+
         Container(
-          height: 10.h,
-          color: AppColors.white,
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              Image.asset(
-                "assets/mySavedEmpty1.png",
-                width: double.infinity,
-                //  fit: BoxFit.cover,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  // sizedBoxHeight(500.h),
-                  Text(
-                    "Let's Explore Recipes",
-                    style: TextStyle(
-                        fontFamily: "StudioProR",
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-
-                  sizedBoxHeight(7.h),
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 38.w),
-                    child: textL_grey14Robo(
-                        "Connect with your friends, family, chefs and other aspiring cooks."),
-                  ),
-
-                  sizedBoxHeight(50.h),
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22.w),
-                    child: customButtonWithBorder("Explore Recipes",
-                        onPressed: () {
-
-                      Navigator.push(context,MaterialPageRoute(builder: (context) {
-                        return BottomBar(selectedIndex:1);
-                      }));
-                        }),
-
-                  ),
-
-                  //sizedBoxHeight(10.h),
-                ],
-              )
-            ],
+          height: 135.h,
+          width: double.infinity,
+          child: Image.asset(
+            "assets/mySavedEmpty1.png",
+            // width: double.infinity,
+            // height: 135.h,
+            //  fit: BoxFit.cover,
           ),
         ),
+        // Container(
+        //   height: 10.h,
+        //   color: AppColors.white,
+        // ),
+        // Expanded(
+        //   child: Stack(
+        //     children: [
+        //       Image.asset(
+        //         "assets/mySavedEmpty1.png",
+        //         width: double.infinity,
+        //         //  fit: BoxFit.cover,
+        //       ),
+        //       Column(
+        //         mainAxisAlignment: MainAxisAlignment.end,
+        //         children: [
+        //           // sizedBoxHeight(500.h),
+        //           Text(
+        //             "Let's Explore Recipes",
+        //             style: TextStyle(
+        //                 fontFamily: "StudioProR",
+        //                 fontSize: 20.sp,
+        //                 fontWeight: FontWeight.w500),
+        //           ),
+
+        //           sizedBoxHeight(7.h),
+
+        //           Padding(
+        //             padding: EdgeInsets.symmetric(horizontal: 38.w),
+        //             child: textL_grey14Robo(
+        //                 "Connect with your friends, family, chefs and other aspiring cooks."),
+        //           ),
+
+        //           sizedBoxHeight(50.h),
+
+        //           Padding(
+        //             padding: EdgeInsets.symmetric(horizontal: 22.w),
+        //             child: customButtonWithBorder("Explore Recipes",
+        //                 onPressed: () {
+
+        //               Navigator.push(context,MaterialPageRoute(builder: (context) {
+        //                 return BottomBar(selectedIndex:1);
+        //               }));
+        //                 }),
+
+        //           ),
+
+        //           //sizedBoxHeight(10.h),
+        //         ],
+        //       )
+        //     ],
+        //   ),
+        // ),
 
       ],
     );
