@@ -519,7 +519,7 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
               height: 45.h,
               width: 124.w,
               child: TextFormField(
-                controller: _controllers2[index!],
+                controller: _controllers2[index],
 
                 // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,

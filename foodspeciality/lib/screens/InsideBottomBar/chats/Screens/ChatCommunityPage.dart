@@ -17,71 +17,6 @@ class ChatCommunityPage extends StatefulWidget {
 
 class _ChatCommunityPageState extends State<ChatCommunityPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  // List<ChatCommunity> chatcommunity = [
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "Food Specialities",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "Food Specialities",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "Food Specialities",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  //   ChatCommunity(
-  //     name: "WDIPL",
-  //     messageText:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-  //     imageURL: "assets/community.png",
-  //     members: '4 Members',
-  //   ),
-  // ];
   final controllerChat = Get.put(ChatController());
 
   @override
@@ -163,9 +98,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
               })),
             ),
           ),
-          // Container(height: 20.h,
-          // color: AppColors.black,),
-          // sizedBoxHeight(10.h),
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -211,7 +143,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
             ),
           ),
 
-          sizedBoxHeight(22.h)
+          sizedBoxHeight(100.h)
         ],
       ),
     );
