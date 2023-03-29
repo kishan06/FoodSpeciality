@@ -351,8 +351,8 @@ class _HomeState extends State<Home> {
                                               sizedBoxWidth(15.sp),
                                               GestureDetector(
                                                 onTap: () {
+                                                  Get.back();
                                                   Get.toNamed("/blocklistfull");
-                                                  // Get.back();
 
                                                   // _canPop = true;
                                                 },

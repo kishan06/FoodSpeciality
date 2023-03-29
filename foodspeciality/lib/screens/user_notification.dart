@@ -490,7 +490,7 @@ class _UserNotificationsState extends State<UserNotifications> {
                                         borderRadius:
                                             BorderRadius.circular(8.sp))),
                                 onPressed: () {
-                                  // Get.back();
+                                  Get.back();
                                   Get.toNamed("/chatcommunitydetail");
                                 },
                                 child: Text(
