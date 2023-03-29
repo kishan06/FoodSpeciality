@@ -190,66 +190,69 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                       side: const BorderSide(color: Color(0xff707070)),
                       borderRadius: BorderRadius.circular(8.r)),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    sizedBoxWidth(14.w),
-                    SvgPicture.asset("assets/svg/Group 58248.svg"),
-                    sizedBoxWidth(15.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Cooking Time",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Wrap(
-                          children: [
-                            Text(
-                              "How long does it take \nto make this recipe?",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontFamily: "Roboto",
-                                  color: const Color(0xff979797),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    sizedBoxWidth(55.w),
-                    GestureDetector(
-                      onTap: () {
-                        Get.bottomSheet(_timeForServing());
-                      },
-                      child: Container(
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                                side:
-                                    const BorderSide(color: Color(0xff707070)),
-                                borderRadius: BorderRadius.circular(8.r)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // sizedBoxWidth(14.w),
+                      SvgPicture.asset("assets/svg/Group 58248.svg"),
+                      sizedBoxWidth(15.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Cooking Time",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w500),
                           ),
-                          height: 45.h,
-                          width: 116.w,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Wrap(
                             children: [
                               Text(
-                                "$_selectedHour Hr $_selectedMinute Min",
+                                "How long does it take \nto make this recipe?",
+                                textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontFamily: "Roboto", fontSize: 20.sp),
+                                    fontFamily: "Roboto",
+                                    color: const Color(0xff979797),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              sizedBoxWidth(1.w),
                             ],
-                          )),
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Get.bottomSheet(_timeForServing());
+                        },
+                        child: Container(
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                      color: Color(0xff707070)),
+                                  borderRadius: BorderRadius.circular(8.r)),
+                            ),
+                            height: 45.h,
+                            width: 116.w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "$_selectedHour Hr $_selectedMinute Min",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto", fontSize: 20.sp),
+                                ),
+                                sizedBoxWidth(1.w),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               sizedBoxHeight(15.h),
@@ -260,61 +263,65 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                       side: const BorderSide(color: Color(0xff707070)),
                       borderRadius: BorderRadius.circular(8)),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    sizedBoxWidth(14.w),
-                    SvgPicture.asset("assets/svg/Group 58247.svg"),
-                    sizedBoxWidth(15.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Servings",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "How many people does \nthis recipe serve?",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              color: const Color(0xff979797),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    sizedBoxWidth(45.w),
-                    GestureDetector(
-                      onTap: () {
-                        Get.bottomSheet(_servings());
-                      },
-                      child: Container(
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                              side: const BorderSide(color: Color(0xff707070)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        height: 45.h,
-                        width: 116.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              " $servigCount Serving",
-                              style: const TextStyle(
-                                  fontSize: 20, fontFamily: "Roboto"),
-                            ),
-                            sizedBoxWidth(1),
-                          ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //  sizedBoxWidth(14.w),
+                      SvgPicture.asset("assets/svg/Group 58247.svg"),
+                      sizedBoxWidth(15.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Servings",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "How many people does \nthis recipe serve?",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: const Color(0xff979797),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Get.bottomSheet(_servings());
+                        },
+                        child: Container(
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                side:
+                                    const BorderSide(color: Color(0xff707070)),
+                                borderRadius: BorderRadius.circular(8)),
+                          ),
+                          height: 45.h,
+                          width: 116.w,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                " $servigCount Serving",
+                                style: const TextStyle(
+                                    fontSize: 20, fontFamily: "Roboto"),
+                              ),
+                              sizedBoxWidth(1),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               sizedBoxHeight(20.h),
@@ -618,17 +625,20 @@ class _IngredientsTabbatviewState extends State<IngredientsTabbatview> {
                   fontFamily: "Roboto",
                   color: const Color(0xff6B6B6B),
                   fontSize: 14.h),
-              suffixIcon: Container(
-                height: 50.h,
-                width: 40.w,
-                child: _image != null
-                    ? Image.asset("assets/camera.png")
-                    : GestureDetector(
-                        onTap: () {
-                          builduploadprofile();
-                        },
-                        child: Image.asset("assets/camera.png"),
-                      ),
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: Container(
+                  height: 50.h,
+                  width: 40.w,
+                  child: _image != null
+                      ? Image.asset("assets/camera.png")
+                      : GestureDetector(
+                          onTap: () {
+                            builduploadprofile();
+                          },
+                          child: Image.asset("assets/camera.png"),
+                        ),
+                ),
               ),
             ),
           ),

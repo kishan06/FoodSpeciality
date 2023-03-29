@@ -237,7 +237,7 @@ class _HomeState extends State<Home> {
                             },
                             child: isFollowedByMe == 0
                                 ? Container(
-                                    width: 80.w,
+                                    //  width: 80.w,
                                     decoration: BoxDecoration(
                                       color: AppColors.greyD3B3F43,
                                       borderRadius: BorderRadius.circular(8.r),
@@ -252,7 +252,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   )
                                 : Container(
-                                    width: 80.w,
+                                    //     width: 60.w,
                                     // height: 30,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -352,7 +352,8 @@ class _HomeState extends State<Home> {
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.back();
-                                                  Get.toNamed("/blocklistfull");
+                                                  Get.toNamed(
+                                                      "/sucessfullyblocked");
 
                                                   // _canPop = true;
                                                 },
