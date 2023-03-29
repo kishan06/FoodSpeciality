@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:get/get.dart';
 
 class PublishPopup extends StatefulWidget {
@@ -116,7 +117,7 @@ class _PublishPopupState extends State<PublishPopup> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.back();
+                    Get.offAll(BottomBar());
                   },
                   child: Icon(
                     Icons.close,

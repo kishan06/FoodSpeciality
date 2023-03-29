@@ -26,6 +26,7 @@ class _ExploreState extends State<Explore> {
   var sliderPage = 0.obs;
   ExploreController controllerExplore = Get.put(ExploreController());
   HomeController controllerHome = Get.put(HomeController());
+  final CarouselController carouselController = CarouselController();
   final tecComment = TextEditingController();
 
   // ExploreController controllerExplore = Get.put(ExploreController());
@@ -51,6 +52,7 @@ class _ExploreState extends State<Explore> {
                         sizedBoxHeight(7.h),
 
                         CarouselSlider.builder(
+                            carouselController: CarouselController(),
                             itemCount: 3,
                             itemBuilder: (context, index, realIndex) {
                               return Padding(
@@ -71,11 +73,31 @@ class _ExploreState extends State<Explore> {
                               viewportFraction: 1,
                               onPageChanged: (index, reason) {
                                 setState(() {
-                                  // sliderPage.value = index;
+                                  sliderPage.value = index;
                                 });
                               },
                             )),
-
+                        sizedBoxHeight(12.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            3,
+                            (index) => GestureDetector(
+                              onTap: () =>
+                                  carouselController.animateToPage(index),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(25.r)),
+                                width: 12.w,
+                                height: sliderPage.value == index ? 3.h : 2.h,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 3.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         // GetBuilder<ExploreController>(builder: (_){
                         //   return CarouselSlider.builder(
                         //     itemCount: 3,
