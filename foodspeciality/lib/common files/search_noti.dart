@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/search_page.dart';
@@ -7,6 +8,7 @@ import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../screens/InsideBottomBar/home/Rewards/challenges_rewards.dart';
 import 'customSearchTextfield.dart';
 
 Widget searchNotification() {
@@ -53,7 +55,17 @@ Widget searchNotification() {
             width: 28.w,
             height: 28.w,
           ),
-        )
+        ),
+        sizedBoxWidth(5.w),
+        InkWell(
+            onTap: () {
+              Get.to(const ChallengesAndRewards());
+            },
+            child: SvgPicture.asset(
+              'assets/svg/gift.svg',
+              height: 22.h,
+              color: Colors.black,
+            ))
       ],
     ),
   );

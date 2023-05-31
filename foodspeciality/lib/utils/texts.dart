@@ -371,3 +371,21 @@ Widget textgreyM14Robo(String title) {
         color: AppColors.greyM707070, fontSize: 14.sp, fontFamily: "Roboto"),
   );
 }
+
+Widget textBlack16w400(String text) {
+  return Text(
+    text,
+    style: TextStyle(
+        color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w400),
+  );
+}
+
+Widget text20w500grey54595F(String txt) {
+  return Text(
+    txt,
+    style: TextStyle(
+        color: AppColors.grey54595F,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w500),
+  );
+}
