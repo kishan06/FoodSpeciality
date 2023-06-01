@@ -117,11 +117,13 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                             Image.asset('assets/svg/Coin.png'),
                             Column(
                               children: [
-                                Text(
-                                  '2000',
-                                  style: TextStyle(
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.w600),
+                                Obx(
+                                  () => Text(
+                                    totalCoins.string,
+                                    style: TextStyle(
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                                 sizedBoxHeight(5.h)
                               ],

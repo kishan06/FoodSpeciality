@@ -5,6 +5,8 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import 'challenges.dart';
+
 class Levels extends StatelessWidget {
   const Levels({super.key});
 
@@ -93,12 +95,14 @@ class Levels extends StatelessWidget {
                                     Image.asset('assets/svg/Coin.png'),
                                     Column(
                                       children: [
-                                        Text(
-                                          '2000',
-                                          style: TextStyle(
-                                              fontSize: 17.sp,
-                                              fontWeight: FontWeight.w600),
-                                        ),
+                                        Obx(
+                                            () => Text(
+                                              totalCoins.string,
+                                              style: TextStyle(
+                                                  fontSize: 17.sp,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ),
                                         sizedBoxHeight(5.h)
                                       ],
                                     ),
