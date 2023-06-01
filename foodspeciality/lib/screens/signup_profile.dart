@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,9 @@ import 'package:path_provider/path_provider.dart';
 import 'discovery_recipe.dart';
 
 class SignupProfile extends StatefulWidget {
-  SignupProfile({super.key});
+ final int? nextDoneRoute;
+  final void Function()? onTapChallengeDone;
+  const SignupProfile({super.key, this.nextDoneRoute, this.onTapChallengeDone});
 
   @override
   State<SignupProfile> createState() => _SignupProfileState();
@@ -147,7 +149,7 @@ class _SignupProfileState extends State<SignupProfile> {
                 ),
                 Center(
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       builduploadprofile();
                     },
                     child: Stack(
@@ -164,17 +166,19 @@ class _SignupProfileState extends State<SignupProfile> {
                                         height: 150.h,
                                         fit: BoxFit.cover,
                                       )
-                                    : Image.asset('assets/Mask Group 40.png',
-                                      width: 150.h,
-                                      height: 150.h,
-                                      fit: BoxFit.cover,
-                                    )),
+                                    : Image.asset(
+                                        'assets/Mask Group 40.png',
+                                        width: 150.h,
+                                        height: 150.h,
+                                        fit: BoxFit.cover,
+                                      )),
                           ),
                           Positioned(
                             // bottom: .h,
                             top: 10.h,
                             right: 0.w,
-                            child: Image.asset("assets/Group 57623.png",
+                            child: Image.asset(
+                              "assets/Group 57623.png",
                               height: 24.h,
                               width: 24.h,
                             ),
@@ -204,16 +208,11 @@ class _SignupProfileState extends State<SignupProfile> {
                   height: 20.h,
                 ),
                 TextFormField(
-                  style: TextStyle(
-                    fontSize: 14.sp
-                  ),
-                  
+                  style: TextStyle(fontSize: 14.sp),
                   maxLength: 100,
                   maxLines: 5,
                   decoration: InputDecoration(
-                    counterStyle: TextStyle(
-                      fontSize: 14.sp
-                    ),
+                    counterStyle: TextStyle(fontSize: 14.sp),
                     hintText: 'Bio',
                     hintStyle: TextStyle(
                         color: Color(0xFF707070),
@@ -565,69 +564,97 @@ class _SignupProfileState extends State<SignupProfile> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 50.h,
-                      width: MediaQuery.of(context).size.width / 2 - 30.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.to(DiscoveryRecipesScreen(),
-                              duration: Duration(milliseconds: 500),
-                              transition: Transition.rightToLeft);
-                          //Get.toNamed("/discoveryRecipes");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            side: BorderSide(
-                                color: Color(0xFF54595F), width: 1.w),
+                widget.nextDoneRoute == 1
+                    ? SizedBox(
+                        height: 50.h,
+                        width: MediaQuery.of(context).size.width / 2 - 30.w,
+                        child: ElevatedButton(
+                          onPressed:widget.onTapChallengeDone,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                              side: BorderSide(
+                                  color: const Color(0xFF54595F), width: 1.w),
+                            ),
+                            elevation: 0,
+                            primary: const Color(0xFF54595F),
+                            onPrimary: Colors.grey,
                           ),
-                          elevation: 0,
-                          primary: Color(0xFF54595F),
-                          onPrimary: Colors.grey,
-                        ),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18.h,
-                              fontFamily: "StudioProR"),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                      width: MediaQuery.of(context).size.width / 2 - 30.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          //Get.toNamed("/discoveryRecipes");
-                          Get.to(BottomBar(),
-                              duration: Duration(milliseconds: 500),
-                              transition: Transition.rightToLeft);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            side: BorderSide(color: Colors.grey, width: 1.w),
+                          child: Text(
+                            'Done',
+                            style: TextStyle(
+                                color: const Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.h,
+                                fontFamily: "StudioProR"),
                           ),
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary: Colors.grey,
                         ),
-                        child: Text(
-                          'Skip',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18.h,
-                              fontFamily: "StudioProR"),
-                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: 50.h,
+                            width: MediaQuery.of(context).size.width / 2 - 30.w,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Get.to(DiscoveryRecipesScreen(),
+                                    duration: Duration(milliseconds: 500),
+                                    transition: Transition.rightToLeft);
+                                //Get.toNamed("/discoveryRecipes");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  side: BorderSide(
+                                      color: Color(0xFF54595F), width: 1.w),
+                                ),
+                                elevation: 0,
+                                primary: Color(0xFF54595F),
+                                onPrimary: Colors.grey,
+                              ),
+                              child: Text(
+                                'Next',
+                                style: TextStyle(
+                                    color: Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.h,
+                                    fontFamily: "StudioProR"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                            width: MediaQuery.of(context).size.width / 2 - 30.w,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                //Get.toNamed("/discoveryRecipes");
+                                Get.to(BottomBar(),
+                                    duration: Duration(milliseconds: 500),
+                                    transition: Transition.rightToLeft);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 1.w),
+                                ),
+                                elevation: 0,
+                                primary: Colors.transparent,
+                                onPrimary: Colors.grey,
+                              ),
+                              child: Text(
+                                'Skip',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.h,
+                                    fontFamily: "StudioProR"),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                )
+                sizedBoxHeight(20.h)
               ],
             ),
           ),

@@ -5,6 +5,9 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/Rewards/levels.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/Rewards/redeem.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/Rewards/spin_the_wheel.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
+import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -152,7 +155,7 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                       sizedBoxWidth(25),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => Challenges());
+                          Get.to(() => const Challenges());
                         },
                         child: catContainer(
                             AppColors.white, 'Challenges', 'Challenges'),
@@ -195,8 +198,15 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      keyContainer('Upload\na recipe', 'Upload'),
-                      keyContainer('Create a\ncommunity', 'CreateCommunity'),
+                      keyContainer('Upload\na recipe', 'Upload', () {
+                        Get.to(() => const RecipeIng());
+                      }),
+                      keyContainer('Create a\ncommunity', 'CreateCommunity',
+                          () {
+                        Get.to(() => BottomBar(
+                              selectedIndex: 3,
+                            ));
+                      }),
                     ],
                   ),
                   sizedBoxHeight(30.h),
@@ -242,17 +252,22 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                         Column(
                           children: [
                             sizedBoxHeight(50.h),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15.w, vertical: 4.h),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8.r)),
-                              child: Text(
-                                'Invite',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
+                            GestureDetector(
+                              onTap: () {
+                                share();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15.w, vertical: 4.h),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8.r)),
+                                child: Text(
+                                  'Invite',
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
                             ),
                           ],
@@ -269,22 +284,23 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
     );
   }
 
-  Widget keyContainer(String txt, String svg) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(15.w, 16.h, 30.w, 16.h),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 10,
-              spreadRadius: 2,
-            ),
-          ],
-          borderRadius: BorderRadius.circular(8.r)),
-      width: MediaQuery.of(context).size.width / 2 - 36.w,
-      height: 135.h,
-      child: InkWell(
+  Widget keyContainer(String txt, String svg, void Function()? onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(15.w, 16.h, 30.w, 16.h),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.06),
+                blurRadius: 10,
+                spreadRadius: 2,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(8.r)),
+        width: MediaQuery.of(context).size.width / 2 - 36.w,
+        height: 135.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,7 +328,6 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
             ),
           ],
         ),
-        onTap: () {},
       ),
     );
   }
