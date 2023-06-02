@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/screens/recipe_ingredients.dart';
+import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -182,10 +184,29 @@ class _ChallengesState extends State<Challenges> {
         children: [
           sizedBoxHeight(15.h),
           challengeContainer(
-              'Upload your profile picture', 'profileCircle', 5, 'Start'),
+              'Upload your profile picture', 'profileCircle', 5, 'Start', () {
+            Get.to(() => SignupProfile(
+                  nextDoneRoute: 1,
+                  onTapChallengeDone: () {
+                    Get.back();
+                    Get.back();
+                    Get.to(() => const Challenges(
+                          challengeTabIndex: 2,
+                        ));
+                    totalCoins += 5;
+                    showDialog(
+                        context: context,
+                        builder: (context) => const PPopup(
+                              coins: 5,
+                            ));
+                  },
+                ));
+          }),
           sizedBoxHeight(25.h),
           challengeContainer('''Upload a recipe (Max 10 recipes a day)''',
-              'UploadRecipe', 20, 'Start'),
+              'UploadRecipe', 20, 'Start', () {
+            Get.to(() => const RecipeIng());
+          }),
         ],
       ),
     );
@@ -198,19 +219,30 @@ class _ChallengesState extends State<Challenges> {
       child: Column(
         children: [
           sizedBoxHeight(15.h),
-          challengeContainer('Add bio', 'AddBio', 5, 'Get'),
+          challengeContainer('Add bio', 'AddBio', 5, 'Get', () {
+            Get.back();
+            Get.to(() => const Challenges(
+                  challengeTabIndex: 2,
+                ));
+            totalCoins += 10;
+            showDialog(
+                context: context,
+                builder: (context) => const PPopup(
+                      coins: 10,
+                    ));
+          }),
           sizedBoxHeight(25.h),
-          challengeContainer(
-              'Connect your social accounts', 'ConnectAccount', 5, 'Get'),
+          challengeContainer('Connect your social accounts', 'ConnectAccount',
+              5, 'Get', () {}),
           sizedBoxHeight(25.h),
           challengeContainer('''Upload a recipe (Max 10 recipes a day)''',
-              'UploadRecipe', 20, 'Get'),
+              'UploadRecipe', 20, 'Get', () {}),
+          sizedBoxHeight(25.h),
+          challengeContainer('Create a community', 'CreateCommunityChallenges',
+              5, 'Get', () {}),
           sizedBoxHeight(25.h),
           challengeContainer(
-              'Create a community', 'CreateCommunityChallenges', 5, 'Get'),
-          sizedBoxHeight(25.h),
-          challengeContainer(
-              'Prompt Friends to download app', 'PromptApp', 15, 'Get'),
+              'Prompt Friends to download app', 'PromptApp', 15, 'Get', () {}),
           sizedBoxHeight(25.h),
         ],
       ),
@@ -232,7 +264,7 @@ class _ChallengesState extends State<Challenges> {
   }
 
   Widget challengeContainer(
-      String txt, String svg, int coins, String buttonTxt) {
+      String txt, String svg, int coins, String buttonTxt, onTap) {
     return Container(
       padding:
           EdgeInsetsDirectional.symmetric(horizontal: 12.w, vertical: 12.h),
@@ -272,15 +304,7 @@ class _ChallengesState extends State<Challenges> {
           ),
           sizedBoxWidth(15.w),
           InkWell(
-            onTap: () {
-              Get.back();
-              Get.to(() => const Challenges(
-                    challengeTabIndex: 2,
-                  ));
-              totalCoins += 10;
-              showDialog(
-                  context: context, builder: (context) => const PPopup());
-            },
+            onTap: onTap,
             child: Column(
               children: [
                 Row(
@@ -377,7 +401,8 @@ class _ChallengesState extends State<Challenges> {
 }
 
 class PPopup extends StatefulWidget {
-  const PPopup({super.key});
+  final int coins;
+  const PPopup({super.key, required this.coins});
 
   @override
   State<PPopup> createState() => _PPopupState();
@@ -399,7 +424,7 @@ class _PPopupState extends State<PPopup> {
             children: [
               sizedBoxHeight(50.h),
               Text(
-                "You Won\n10 Coins !",
+                "You Won\n${widget.coins} Coins !",
                 style: TextStyle(
                     color: const Color(0xffFFBD00),
                     fontSize: 30.sp,
