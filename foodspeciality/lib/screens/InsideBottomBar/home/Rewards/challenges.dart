@@ -195,7 +195,10 @@ class _ChallengesState extends State<Challenges> {
                         ));
                     totalCoins += 5;
                     showDialog(
-                        context: context, builder: (context) => const PPopup());
+                        context: context,
+                        builder: (context) => const PPopup(
+                              coins: 5,
+                            ));
                   },
                 ));
           }),
@@ -222,7 +225,11 @@ class _ChallengesState extends State<Challenges> {
                   challengeTabIndex: 2,
                 ));
             totalCoins += 10;
-            showDialog(context: context, builder: (context) => const PPopup());
+            showDialog(
+                context: context,
+                builder: (context) => const PPopup(
+                      coins: 10,
+                    ));
           }),
           sizedBoxHeight(25.h),
           challengeContainer('Connect your social accounts', 'ConnectAccount',
@@ -394,7 +401,8 @@ class _ChallengesState extends State<Challenges> {
 }
 
 class PPopup extends StatefulWidget {
-  const PPopup({super.key});
+  final int coins;
+  const PPopup({super.key, required this.coins});
 
   @override
   State<PPopup> createState() => _PPopupState();
@@ -416,7 +424,7 @@ class _PPopupState extends State<PPopup> {
             children: [
               sizedBoxHeight(50.h),
               Text(
-                "You Won\n10 Coins !",
+                "You Won\n${widget.coins} Coins !",
                 style: TextStyle(
                     color: const Color(0xffFFBD00),
                     fontSize: 30.sp,
