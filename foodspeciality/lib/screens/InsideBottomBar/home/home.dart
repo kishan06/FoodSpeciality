@@ -279,7 +279,7 @@ class _HomeState extends State<Home> {
                                   )),
                         Container(
                           child: isFollowedByMe == 0
-                              ? SizedBox()
+                              ? SizedBox() 
                               : PopupMenuButton(
                                   offset: const Offset(0, 50),
                                   color: const Color(0xFFFFFFFF),
@@ -319,7 +319,7 @@ class _HomeState extends State<Home> {
                                                       const Color(0xff3B3F43)),
                                             ),
                                             content: SizedBox(
-                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),  
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
