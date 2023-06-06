@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +22,7 @@ class SpinTheWheel extends StatefulWidget {
 class _SpinTheWheelState extends State<SpinTheWheel>
     with TickerProviderStateMixin {
   // List sectors = [0, 0, 0, 0, 0, 0];
-  List sectors = [0, 10, 1, 0, 25, 25];
+  List sectors = [0, 10, 1, 0, 15, 25];
   int randomSectorIndex = -1;
   List sectorRadians = [];
   double angle = 0;
@@ -43,12 +45,15 @@ class _SpinTheWheelState extends State<SpinTheWheel>
     controller.addListener(() {
       if (controller.isCompleted) {
         setState(() {
-          recordStats();
           spinning = false;
+          Timer(const Duration(seconds: 1), () {
+            recordStats();
+          });
         });
+
       }
     });
-  }
+  } 
 
   @override
   void dispose() {
@@ -274,7 +279,7 @@ class _SpinTheWheelState extends State<SpinTheWheel>
                                         borderColor: Colors.white,
                                         color: const Color(0xffE0DAD2))),
                                 FortuneItem(
-                                    child: textBlack16w400('25 coins'),
+                                    child: textBlack16w400('15 coins'),
                                     style: FortuneItemStyle(
                                         borderWidth: 4.w,
                                         borderColor: Colors.white,
@@ -306,7 +311,6 @@ class _SpinTheWheelState extends State<SpinTheWheel>
               onPressed: () {
                 // Get.back();
                 // Get.to(() => const SpinTheWheel());
-                // Get.to(() => const Delete());
                 setState(() {
                   if (!spinning) {
                     spin();

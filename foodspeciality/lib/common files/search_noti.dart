@@ -42,7 +42,7 @@ Widget searchNotification() {
             // pref
           ),
         ),
-        sizedBoxWidth(5.w),
+        sizedBoxWidth(10.w),
         GestureDetector(
           onTap: () {
             //Get.toNamed("/notification");
@@ -56,7 +56,7 @@ Widget searchNotification() {
             height: 28.w,
           ),
         ),
-        sizedBoxWidth(5.w),
+        sizedBoxWidth(15.w),
         InkWell(
             onTap: () {
               Get.to(const ChallengesAndRewards());
