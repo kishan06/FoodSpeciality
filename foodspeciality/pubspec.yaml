@@ -82,6 +82,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/svg/
     # - foodspeciality/assets/
     # - assets/splashScreen2/
   #   - images/a_dot_ham.jpeg
