@@ -275,6 +275,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                       },
                     ),
                   ),
+               
                 ],
               ),
             ),

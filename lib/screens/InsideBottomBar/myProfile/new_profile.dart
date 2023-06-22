@@ -63,7 +63,7 @@ class _NewProfileState extends State<NewProfile> {
                                     child: Icon(
                                       Icons.edit,
                                       color: Colors.black,
-                                      size: 23.h,
+                                      size: 30.h,
                                     ),
                                   ),
                                   sizedBoxWidth(20.w),
@@ -78,7 +78,7 @@ class _NewProfileState extends State<NewProfile> {
                                     child: Icon(
                                       Icons.settings_outlined,
                                       color: Colors.black,
-                                      size: 23.h,
+                                      size: 30.h,
                                     ),
                                   ),
                                   sizedBoxWidth(18.w)
