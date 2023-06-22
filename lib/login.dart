@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,7 +7,9 @@ import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
+import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,6 +20,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController tecEmail = TextEditingController();
+  TextEditingController tecPassword = TextEditingController();
+  
   // bool v1 = false;
   // bool v2 = false;
   @override
@@ -68,6 +75,7 @@ class _LoginState extends State<Login> {
                       height: 35.h,
                     ),
                     CustomTextFormField(
+                      textEditingController: tecEmail,
                       hintText: "Email Address",
                       validatorText: "",
                       validator: (value) {
@@ -110,6 +118,7 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 30.h),
                     CustomTextFormField(
                       eyeIcon: true,
+                      textEditingController: tecPassword,
                       // leadingIcon: IconButton(
                       //     onPressed: () {}, icon: Icon(Icons.visibility)),
                       // suffixIcon: IconButton(
@@ -190,11 +199,17 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             final FormState? form = _formKey.currentState;
                             if (form != null && form.validate()) {
-                              form.save();
+                              // apiForLogin();
+                              AuthService authService = AuthService();
+                              authService.signInUser(
+                                email: tecEmail.text,
+                                password: tecPassword.text
+                              );
+                              // form.save();
 
-                              // Do something with the user credentials, such as login to the backend
-                              // server and navigate to the home screen.
-                              Get.to(BottomBar());
+                              // // Do something with the user credentials, such as login to the backend
+                              // // server and navigate to the home screen.
+                              // Get.to(BottomBar());
                             }
                             // if (_formKey.currentState!.validate()) {
                             // Get.toNamed('/signUpProfile');
@@ -376,5 +391,31 @@ class _LoginState extends State<Login> {
             ),
           ),
         ));
+  }
+
+  void signInUser(){
+    
+  }
+
+  apiForLogin() async {
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('http://192.168.1.51:5000/auth/login'));
+    request.body = json.encode({
+      "email": "shams@email.com",
+      "password": "Shams1234"
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
   }
 }

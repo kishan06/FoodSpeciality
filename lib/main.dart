@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
@@ -27,20 +28,46 @@ import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/sucessfully_blocked.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // GlobalVariables globalVariables = GlobalVariables();
+  accessToken = await prefs.getString('accessToken');
+  print("acs to ${accessToken}");
+  
   SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // GlobalVariables globalVariables = GlobalVariables();
+    // globalVariables.accessToken = await prefs.getString('accessToken');
+    // print("acs to ${globalVariables.accessToken}");
+    // print("token " + jsonResp["data"]["accessToken"]);
+    // await prefs.setString('accessToken', jsonResp["data"]["accessToken"]);
+    // await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
+
     runApp(new MyApp());
   });
 }
+
+// checkToken(){
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//     GlobalVariables globalVariables = GlobalVariables();
+//     globalVariables.accessToken = prefs.getString('accessToken');
+//     print("acs to ${globalVariables.accessToken}");
+//     // print("token " + jsonResp["data"]["accessToken"]);
+//     // await prefs.setString('accessToken', jsonResp["data"]["accessToken"]);
+//     // await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
+
+//     runApp(new MyApp());
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -50,6 +77,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // GlobalVariables globalVariables = GlobalVariables();
+
   @override
   void initState() {
     super.initState();
@@ -67,7 +96,8 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(scaffoldBackgroundColor: AppColors.white),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
-          initialRoute: '/',
+          initialRoute: accessToken == null ? '/' : '/bottomBar',
+          // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()
             GetPage(name: '/', page: () => SplashScreen2()),
@@ -113,7 +143,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
           ],
         ),
-      ),
+      ), 
     );
   }
 }

@@ -283,7 +283,8 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                               onPressed: () {
                                 //Get.to(FilePlayerWidget(file: file));
                                 Get.toNamed("/FilePlayerWidget",
-                                    arguments: file);
+                                  arguments: file
+                                );
                                 // Get.to))
                                 // isVideo = true;
                                 // _onImageButtonPressed(ImageSource.gallery);
