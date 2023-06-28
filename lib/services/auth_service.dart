@@ -12,9 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/base_manager.dart';
 import '../constants/error_handling.dart';
 import '../constants/network_api.dart';
+import '../controllers/recipe_ingre_controller.dart';
 
 class AuthService {
-
+  // RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
   AuthController authController = Get.put(AuthController());
 
   Future<void> signInUser({
