@@ -17,7 +17,7 @@ class RecipeService {
       var headers = {
         'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ0Y2Y4ZWY0LTA2NzItNDY0MC1hZjU3LTgzM2RhYzFjNjQyZSIsImlhdCI6MTY4NzMzNTI0NiwiZXhwIjoxNjg3MzM1ODQ2fQ.oVaE23jFdF4pmQZQs1ydoRk60i0TOcOZAhUnkjC5V5U'
       };
-      var request = http.MultipartRequest('POST', Uri.parse('localhost:5000/recipe/create'));
+      var request = http.MultipartRequest('POST', Uri.parse(ApiUrls.addRecipe));
       request.fields.addAll({
         'name': 'biryani',
         'description': 'chicken rice',
@@ -30,6 +30,10 @@ class RecipeService {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+
+      var resp = await response.stream.bytesToString();
+      print(resp);
+      var jsonResp = jsonDecode(resp);
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
@@ -50,9 +54,9 @@ class RecipeService {
 
       // http.StreamedResponse response = await request.send();
 
-      var resp = await response.stream.bytesToString();
-      print(resp);
-      var jsonResp = jsonDecode(resp);
+      // var resp = await response.stream.bytesToString();
+      // print(resp);
+      // var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
         return ResponseData<dynamic>(
           "success",
