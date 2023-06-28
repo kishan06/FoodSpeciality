@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/publish_popup.dart';
+import 'package:foodspeciality/controllers/recipe_ingre_controller.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/ingredients_tabbarview.dart';
 import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/recipe_tabbarview.dart';
+import 'package:foodspeciality/services/recipe_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +27,7 @@ class _RecipeIngState extends State<RecipeIng>
 
   HomeController controllerHome = HomeController();
   // int currentIndex = 0;
+  RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
 
   @override
   void initState() {
@@ -125,9 +128,18 @@ class _RecipeIngState extends State<RecipeIng>
                         Center(
                           child: InkWell(
                             onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => PublishPopup());
+                              RecipeService recipeService = RecipeService();
+                              recipeService.addRecipe(
+                                videoPath: recipeIngreController.file!.path, 
+                                imagePath: recipeIngreController.image!.path
+                              );
+                              // RecipeService().addRecipe(
+                              //   videoPath: videoPath, 
+                              //   imagePath: imagePath
+                              // );
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (context) => PublishPopup());
                             },
                             child: Text(
                               "Publish",

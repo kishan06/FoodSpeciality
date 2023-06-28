@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/common%20files/video_player_widget.dart';
+import 'package:foodspeciality/controllers/recipe_ingre_controller.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 // import 'package:foodspeciality/screens/videowalapage.dart';
 import 'package:foodspeciality/utils/colors.dart';
@@ -23,16 +24,18 @@ class RecipeTabbarView extends StatefulWidget {
 }
 
 class _RecipeTabbarViewState extends State<RecipeTabbarView> {
+  
+  RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
   bool editChip = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<String> _textList = [];
   final TextEditingController _textController = TextEditingController();
 
   bool textFieldVisibile = false;
-  XFile? file;
+  // XFile? file;
 
   bool isSwitched = false;
-  File? _image;
+  // File? _image;
   bool isVideo = false;
 
   File? galleryFile;
@@ -71,9 +74,11 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
       final imageTemporary = File(image.path);
       // final imagePermanent = await saveFilePermanently(image.path);
 
-      setState(() {
-        this._image = imageTemporary;
-      });
+      // setState(() {
+      //   // this._image
+      //   recipeIngreController.image = imageTemporary;
+      // });
+      recipeIngreController.changeImageFile(imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -199,7 +204,8 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                 ],
               ),
               sizedBoxHeight(20.h),
-              file == null
+              GetBuilder<RecipeIngreController>(builder: (context){
+                return recipeIngreController.file == null
                   ? SizedBox(
                       height: 50.h,
                       child: ElevatedButton(
@@ -283,7 +289,7 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                               onPressed: () {
                                 //Get.to(FilePlayerWidget(file: file));
                                 Get.toNamed("/FilePlayerWidget",
-                                  arguments: file
+                                  arguments: recipeIngreController.file
                                 );
                                 // Get.to))
                                 // isVideo = true;
@@ -335,8 +341,9 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                                 ],
                               ),
                               onPressed: () {
-                                file = null;
-                                setState(() {});
+                                recipeIngreController.changeVideoFile(null);
+                                // recipeIngreController.file = null;
+                                // setState(() {});
                                 // isVideo = true;
                                 // _onImageButtonPressed(ImageSource.gallery);
                                 // builduploadprofile(true);
@@ -347,7 +354,11 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                           ),
                         ),
                       ],
-                    ),
+                    );
+              
+                // return SizedBox();
+              }),
+              
               // Column(
               //     children: [
               //       Center(child: Text(galleryFile!.path)),
@@ -374,43 +385,82 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
                   onTap: () {
                     builduploadprofile(false);
                   },
-                  child: Container(
-                    child: _image != null
-                        ? Image.file(
-                            _image!,
-                            width: 150.w,
-                            height: 150.h,
-                            fit: BoxFit.cover,
-                          )
-                        : Column(
-                            children: [
-                              sizedBoxHeight(30.h),
-                              SvgPicture.asset(
-                                "assets/svg/upload-filled-svgrepo-com.svg",
-                                height: 47.h,
-                              ),
-                              sizedBoxHeight(11.h),
-                              Text(
-                                "Add Cover Image",
-                                style: TextStyle(
-                                  fontFamily: "Studio Pro",
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.spMin,
-                                  color: const Color(0xFF3E3D3D),
+                  child: GetBuilder<RecipeIngreController>(builder: (context){
+                    return Container(
+                      child: recipeIngreController.image != null
+                          ? Image.file(
+                              recipeIngreController.image!,
+                              width: 150.w,
+                              height: 150.h,
+                              fit: BoxFit.cover,
+                            )
+                          : Column(
+                              children: [
+                                sizedBoxHeight(30.h),
+                                SvgPicture.asset(
+                                  "assets/svg/upload-filled-svgrepo-com.svg",
+                                  height: 47.h,
                                 ),
-                              ),
-                              sizedBoxHeight(7.h),
-                              Text(
-                                "Add a high quality and perfect image of \nyour food to inspire others.",
-                                style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 12.spMin,
-                                    color: const Color(0xFF979797)),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                  ),
+                                sizedBoxHeight(11.h),
+                                Text(
+                                  "Add Cover Image",
+                                  style: TextStyle(
+                                    fontFamily: "Studio Pro",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.spMin,
+                                    color: const Color(0xFF3E3D3D),
+                                  ),
+                                ),
+                                sizedBoxHeight(7.h),
+                                Text(
+                                  "Add a high quality and perfect image of \nyour food to inspire others.",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontSize: 12.spMin,
+                                      color: const Color(0xFF979797)),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                    );
+                  }),
+                  // Container(
+                  //   child: recipeIngreController.image != null
+                  //       ? Image.file(
+                  //           recipeIngreController.image!,
+                  //           width: 150.w,
+                  //           height: 150.h,
+                  //           fit: BoxFit.cover,
+                  //         )
+                  //       : Column(
+                  //           children: [
+                  //             sizedBoxHeight(30.h),
+                  //             SvgPicture.asset(
+                  //               "assets/svg/upload-filled-svgrepo-com.svg",
+                  //               height: 47.h,
+                  //             ),
+                  //             sizedBoxHeight(11.h),
+                  //             Text(
+                  //               "Add Cover Image",
+                  //               style: TextStyle(
+                  //                 fontFamily: "Studio Pro",
+                  //                 fontWeight: FontWeight.w500,
+                  //                 fontSize: 18.spMin,
+                  //                 color: const Color(0xFF3E3D3D),
+                  //               ),
+                  //             ),
+                  //             sizedBoxHeight(7.h),
+                  //             Text(
+                  //               "Add a high quality and perfect image of \nyour food to inspire others.",
+                  //               style: TextStyle(
+                  //                   fontFamily: "Roboto",
+                  //                   fontSize: 12.spMin,
+                  //                   color: const Color(0xFF979797)),
+                  //               textAlign: TextAlign.center,
+                  //             )
+                  //           ],
+                  //         ),
+                  // ),
                 ),
               ),
               sizedBoxHeight(20.h),
@@ -810,9 +860,11 @@ class _RecipeTabbarViewState extends State<RecipeTabbarView> {
     //   await _controller!.setVolume(0.0);
     // }
     // if (isVideo) {
-    file = await _picker.pickVideo(
+    XFile? file = await _picker.pickVideo(
         source: source, maxDuration: const Duration(seconds: 10));
-    setState(() {});
+    recipeIngreController.changeVideoFile(file);
+    // setState(() {});
+
     // await _playVideo(file);
     // Get.to(()=> FilePlayerWidget(file: file));
     // FilePlayerWidget(file: file);
