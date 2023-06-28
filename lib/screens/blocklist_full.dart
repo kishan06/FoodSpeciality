@@ -92,6 +92,7 @@ class _BlockListFullState extends State<BlockListFull> {
                     onPressed: () {
                       Get.snackbar(
                           "Successful", "Unblocked @priyujoshi successfully");
+                    
                     },
                     child: Text(
                       "Unblock",

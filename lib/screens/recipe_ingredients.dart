@@ -129,9 +129,21 @@ class _RecipeIngState extends State<RecipeIng>
                           child: InkWell(
                             onTap: () {
                               RecipeService recipeService = RecipeService();
+                              // recipeService.addRecipe(
+                              //   videoPath: recipeIngreController.file!.path, 
+                              //   imagePath: recipeIngreController.image!.path
+                              // );
+
                               recipeService.addRecipe(
                                 videoPath: recipeIngreController.file!.path, 
                                 imagePath: recipeIngreController.image!.path
+                                name: name, 
+                                description: description, 
+                                difficulty: difficulty, 
+                                cookingTime: cookingTime, 
+                                serving: serving, 
+                                tags: tags, 
+                                ingredients: ingredients
                               );
                               // RecipeService().addRecipe(
                               //   videoPath: videoPath, 
