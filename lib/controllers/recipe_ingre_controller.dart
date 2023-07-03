@@ -10,6 +10,19 @@ class RecipeIngreController extends GetxController{
 
   File? _image;
   File? get image => _image;
+
+  List<String> _tags = [];
+  List<String> get tags => _tags;
+
+  addTags(String text){
+    _tags.add(text);
+    update();
+  }
+
+  removeTags(String text){
+    _tags.remove(text);
+    update();
+  }
   
   changeVideoFile(XFile? receivedFile){
     _file = receivedFile;

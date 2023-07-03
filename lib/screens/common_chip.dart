@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../controllers/recipe_ingre_controller.dart';
 
 class CommonChip extends StatefulWidget {
   const CommonChip({super.key, required this.text});
@@ -12,6 +15,8 @@ class CommonChip extends StatefulWidget {
 
 class _CommonChipState extends State<CommonChip> {
   late bool _colorchange = true;
+
+  RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +66,12 @@ class _CommonChipState extends State<CommonChip> {
             onPressed: () {
               setState(() {
                 _colorchange = !_colorchange;
+                if (_colorchange) {
+                  recipeIngreController.removeTags(widget.text);
+                } else {
+                  recipeIngreController.addTags(widget.text);
+                }
+                print(recipeIngreController.tags);
                 // _colorchange = _colorchange ? _colorchange = false : true;
               });
             },
@@ -68,5 +79,6 @@ class _CommonChipState extends State<CommonChip> {
         ),
       ],
     );
+  
   }
 }
