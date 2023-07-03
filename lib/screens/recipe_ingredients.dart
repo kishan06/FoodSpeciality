@@ -54,7 +54,7 @@ class _RecipeIngState extends State<RecipeIng>
   int textControllerNumber = 0;
   final TextEditingController _tec = TextEditingController();
   final List<TextEditingController> _controllers = [];
-  List<int> tbsint = [];
+  List<double> tbsint = [];
   final List<TextEditingController> _controllers2 = [];
   int number = 2;
   File? _image;
@@ -62,6 +62,11 @@ class _RecipeIngState extends State<RecipeIng>
   List<Widget> stepsInColumn = [];
   final TextEditingController tecRecipeName = TextEditingController();
   final TextEditingController tecDescription = TextEditingController();
+  var difficultyIndex = 4.obs;
+  String? selectedDifficultyText;
+
+  List difficultyList = ["Easy","Medium","Hard"];
+  // List<String> tags = [];
 
   @override
   void initState() {
@@ -173,18 +178,20 @@ class _RecipeIngState extends State<RecipeIng>
                               //   videoPath: recipeIngreController.file!.path, 
                               //   imagePath: recipeIngreController.image!.path
                               // );
-
-                              recipeService.addRecipe(
-                                videoPath: recipeIngreController.file!.path, 
-                                imagePath: recipeIngreController.image!.path,
-                                name: tecRecipeName.text, 
-                                description: tecDescription.text, 
-                                difficulty: difficulty, 
-                                cookingTime: cookingTime, 
-                                serving: serving, 
-                                tags: tags, 
-                                ingredients: ingredients
-                              );
+                              int cookingTime = _selectedHour * 60 + _selectedMinute;
+                              
+                              // recipeService.addRecipe(
+                              //   // int cookingTime = _selectedHour * 60 + _selectedMinute,
+                              //   videoPath: recipeIngreController.file!.path, 
+                              //   imagePath: recipeIngreController.image!.path,
+                              //   name: tecRecipeName.text, 
+                              //   description: tecDescription.text, 
+                              //   difficulty: selectedDifficultyText!, 
+                              //   cookingTime: cookingTime.toString(), 
+                              //   serving: servigCount.toString(), 
+                              //   tags: recipeIngreController.tags.toString(), 
+                              //   ingredients: ingredients
+                              // );
 
                               // RecipeService().addRecipe(
                               //   videoPath: videoPath, 
@@ -672,6 +679,8 @@ class _RecipeIngState extends State<RecipeIng>
                                         onTap: () {
                                           setState(() {
                                             _textList.remove(text);
+                                            recipeIngreController.removeTags(text);
+                                            print(recipeIngreController.tags);
                                           });
                                         },
                                         child: const Icon(
@@ -910,9 +919,21 @@ class _RecipeIngState extends State<RecipeIng>
                   height: 6.h,
                   width: double.infinity,
                 ),
-                const CommonChip(text: "Easy"),
-                const CommonChip(text: "Medium"),
-                const CommonChip(text: "Hard"),
+                Obx(() => Wrap(
+                  spacing: 11.w,
+                  runSpacing: 7.h,
+                  children: List.generate(difficultyList.length, (index) => commomChipToggle(index, difficultyList[index])),
+                ))
+                // Wrap(
+                //   spacing: 11.w,
+                //   runSpacing: 7.h,
+                //   children: List.generate(difficultyList.length, (index) => commomChipToggle(index, difficultyList[index])),
+                // )
+                // List.generate(difficultyList.length, (index) => commomChipToggle(index, "hg"))
+                // const CommonChip(text: "Easy"),
+                // const CommonChip(text: "Medium"),
+                // const CommonChip(text: "Hard"),
+
               ],
             ),
             Row(
@@ -1161,7 +1182,6 @@ class _RecipeIngState extends State<RecipeIng>
                       _controllers2.add(TextEditingController());
                       _controllers2[textControllerNumber].text = "1";
                       textControllerNumber++;
-
                       print("bvg");
 
                       // if (_tec.text.isEmpty) {
@@ -1254,7 +1274,10 @@ class _RecipeIngState extends State<RecipeIng>
               child: TextFormField(
                 validator: (value) {
                   if (_tec.text.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter Ingredient Name';
+                  }
+                  if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value!)) {
+                    return 'Please enter a valid Ingredient Name';
                   }
                   return null;
                 },
@@ -1282,11 +1305,26 @@ class _RecipeIngState extends State<RecipeIng>
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (tbsint[index] > 1) {
-                    tbsint[index] = int.parse(_controllers2[index].text);
-                    tbsint[index]--;
-                    _controllers2[index].text = '${tbsint[index]}';
-                  }
+
+                  //   print(tbsint);
+
+
+                  // print(_controllers2[index].text);
+                  // if (_controllers2[index].text.isEmpty) {
+                  //   print(tbsint[index]);
+                  //   tbsint[index] = 1.0;
+                  //   _controllers2[index].text = '${tbsint[index]}';
+                  // }
+                  
+                  // if (tbsint[index] > 1.0) {
+                  //   tbsint[index] = double.parse(_controllers2[index].text);
+                  //   tbsint[index] = tbsint[index] - 0.1;
+                  //   _controllers2[index].text = '${tbsint[index]}';
+                  // }
+                  // if (_controllers2[index].text.isEmpty) {
+                  //   tbsint[index] = 1;
+                  //   _controllers2[index].text = '${tbsint[index]}';
+                  // }
                   // _tbsInitialValue == 1 ? null : _tbsInitialValue--;
                   // _tbsController.text = '$_tbsInitialValue';
 
@@ -1308,6 +1346,7 @@ class _RecipeIngState extends State<RecipeIng>
                 ),
               ),
             ),
+          
             sizedBoxWidth(10.w),
             SizedBox(
               height: 45.h,
@@ -1317,8 +1356,14 @@ class _RecipeIngState extends State<RecipeIng>
 
                 // initialValue: '$_tbsInitialValue',
                 keyboardType: TextInputType.number,
-                maxLength: 2,
+                // maxLength: 2,
                 textAlign: TextAlign.center,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                  // WhitelistingTextInputFormatter(RegExp(r'^(\d+)?\.?\d{0,2}')),
+                ],
+                
                 decoration: InputDecoration(
                     isCollapsed: true,
                     contentPadding: EdgeInsets.all(15.h),
@@ -1344,10 +1389,10 @@ class _RecipeIngState extends State<RecipeIng>
                 setState(() {
                   int increment = 0;
 
-                  for (var i = 0; i < widgetsInColumn.length; i++) {
-                    tbsint.add(increment);
-                  }
-                  tbsint[index] = int.parse(_controllers2[index].text);
+                  // for (var i = 0; i < widgetsInColumn.length; i++) {
+                  //   tbsint.add(increment);
+                  // }
+                  tbsint[index] = double.parse(_controllers2[index].text);
                   tbsint[index]++;
 
                   // _tbsInitialValue == 99 ? null : _tbsInitialValue++;
@@ -1369,6 +1414,7 @@ class _RecipeIngState extends State<RecipeIng>
                 ),
               ),
             )
+      
           ],
         ),
         sizedBoxHeight(13.h),
@@ -1757,5 +1803,64 @@ class _RecipeIngState extends State<RecipeIng>
   Future<File> saveFilePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
     return File(imagePath).copy(imagePath);
+  }
+
+  commomChipToggle(int index, String text){
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 27.h,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              // ignore: deprecated_member_use
+              primary: difficultyIndex == index
+                  ? const Color.fromRGBO(84, 89, 95, 1)
+                  : const Color(0xFFE1E1E1),
+              shape: RoundedRectangleBorder(
+                side: difficultyIndex == index
+                    ? BorderSide.none
+                    : const BorderSide(
+                        color: Color.fromARGB(255, 223, 216, 216)),
+                borderRadius: BorderRadius.circular(11.r),
+              ),
+            ),
+            child: Row(
+              children: [
+                Visibility(
+                    visible: difficultyIndex == index,
+                    child: Row(
+                      children: [
+                        const Image(image: AssetImage("assets/style=bulk.png")),
+                        SizedBox(
+                          width: 7.42.w,
+                        )
+                      ],
+                    )),
+                Text(
+                  text,
+                  style: TextStyle(
+                    color:
+                        difficultyIndex == index ? Colors.white : const Color(0xFF303030),
+                    fontSize: 11.sp,
+                    fontFamily: 'StudioProR',
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              difficultyIndex.value = index;
+              selectedDifficultyText = text;
+              // print(selectedDifficultyText);
+              // setState(() {
+              //   _colorchange = !_colorchange;
+              //   // _colorchange = _colorchange ? _colorchange = false : true;
+              // });
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
