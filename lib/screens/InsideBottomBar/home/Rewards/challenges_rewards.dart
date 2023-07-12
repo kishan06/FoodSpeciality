@@ -133,6 +133,7 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                         ),
                  
                       ),
+                    
                       sizedBoxHeight(25.h)
                     ],
                   ),

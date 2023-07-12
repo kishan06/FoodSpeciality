@@ -105,26 +105,32 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                   //   width: 12,
                   // ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "WDIPL",
-                          style: TextStyle(
-                              fontFamily: "StudioProR",
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
-                        Text(
-                          "4 Participants",
-                          style: TextStyle(
-                              color: const Color(0xFF3B3F43), fontSize: 13.sp),
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        Get.toNamed("/ViewCommunity");
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "WDIPL",
+                            style: TextStyle(
+                                fontFamily: "StudioProR",
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            height: 6.h,
+                          ),
+                          Text(
+                            "4 Participants",
+                            style: TextStyle(
+                                color: const Color(0xFF3B3F43), fontSize: 13.sp),
+                          ),
+                        ],
+                      ),
+                   
                     ),
                   ),
                   PopupMenuButton(
