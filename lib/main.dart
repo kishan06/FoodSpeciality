@@ -31,6 +31,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
+import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
+import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -141,6 +143,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/SearchPage", page: () => SearchPage()),
             GetPage(name: "/RecipeIng", page: () => RecipeIng()),
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
+            GetPage(name: "/ViewCommunity", page: () => ViewCommunity()),
+            GetPage(name: "/EditCommunity", page: () => EditCommunity()),
+
           ],
         ),
       ), 

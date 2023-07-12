@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/publish_popup.dart';
+import 'package:foodspeciality/constants/base_manager.dart';
 import 'package:foodspeciality/controllers/recipe_ingre_controller.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/ingredients_tabbarview.dart';
@@ -18,11 +19,16 @@ import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-
+// import 'package:dropdown_button2/dropdown_button2.dart';
 import '../common files/sized_box.dart';
 import 'common_chip.dart';
+// import 'dropdownList.dart';
+// import 'menuButton.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 // int currentIndex = 0;
+enum SampleItem { itemOne, itemTwo, itemThree }
+
 TabController? tabController;
 
 class RecipeIng extends StatefulWidget {
@@ -39,9 +45,12 @@ class _RecipeIngState extends State<RecipeIng>
 
   HomeController controllerHome = HomeController();
   // int currentIndex = 0;
+  SampleItem? selectedMenu;
+
   RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
   final ImagePicker _picker = ImagePicker();
   final List<String> _textList = [];
+  GlobalKey _popupMenuKey = GlobalKey();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool editChip = false;
   bool textFieldVisibile = false;
@@ -54,9 +63,13 @@ class _RecipeIngState extends State<RecipeIng>
   int textControllerNumber = 0;
   final TextEditingController _tec = TextEditingController();
   final List<TextEditingController> _controllers = [];
+  // final List<GlobalKey> popKeys = [];
   List<double> tbsint = [];
   final List<TextEditingController> _controllers2 = [];
-  int number = 2;
+  final List<TextEditingController> tecInstructionList = [];
+
+
+  // int number = 2;
   File? _image;
   final TextEditingController _tbsController = TextEditingController(text: '1');
   List<Widget> stepsInColumn = [];
@@ -64,9 +77,20 @@ class _RecipeIngState extends State<RecipeIng>
   final TextEditingController tecDescription = TextEditingController();
   var difficultyIndex = 4.obs;
   String? selectedDifficultyText;
+  final List<String> items = [
+    'cup',
+    'fl oz',
+    'oz',
+    'tsp',
+    'tbsp',
+  ];
+  String? selectedValue;
+  final List<String?> dropdownData = [];
+
 
   List difficultyList = ["Easy","Medium","Hard"];
-  // List<String> tags = [];
+  // List<String> units = [];
+  List ingredients = [];
 
   @override
   void initState() {
@@ -77,6 +101,19 @@ class _RecipeIngState extends State<RecipeIng>
     // super.initState();
     _selectedHour = 0;
     _selectedMinute = 0;
+    // tabController = TabController(length: 2, vsync: this);
+
+    // to add first ingredient
+    _controllers.add(TextEditingController());
+    _controllersTbs.add(TextEditingController());
+    _controllers2.add(TextEditingController());
+    _controllers2[textControllerNumber].text = "1";
+    dropdownData.add("cup"); 
+    textControllerNumber++;
+    // widgetsInColumn.add(_recipeDetails(null, null, 0));
+
+    // /
+
     tabController = TabController(length: 2, vsync: this);
     tabController!.addListener(() {
       setState(() {
@@ -104,6 +141,11 @@ class _RecipeIngState extends State<RecipeIng>
 
   @override
   Widget build(BuildContext context) {
+    if (widgetsInColumn.isEmpty) {
+      widgetsInColumn.add(_recipeDetails(null, null, 0));
+    }
+    // widgetsInColumn.add(_recipeDetails(null, null, 0));
+
     return DefaultTabController(
         length: 2,
         child: GetBuilder<HomeController>(builder: (_) {
@@ -172,26 +214,23 @@ class _RecipeIngState extends State<RecipeIng>
                         SizedBox(width: 20.w),
                         Center(
                           child: InkWell(
-                            onTap: () {
-                              RecipeService recipeService = RecipeService();
+                            onTap: () async {
+                              // RecipeService recipeService = RecipeService();
                               // recipeService.addRecipe(
                               //   videoPath: recipeIngreController.file!.path, 
                               //   imagePath: recipeIngreController.image!.path
                               // );
                               int cookingTime = _selectedHour * 60 + _selectedMinute;
+                              for (var i = 0; i < dropdownData.length; i++) {
+                                ingredients.add({"name": _controllers[i].text, "quantity": _controllers2[i].text + dropdownData[i]!});
+                              }
+
+                              callAddRecipeApi();
+
                               
-                              // recipeService.addRecipe(
-                              //   // int cookingTime = _selectedHour * 60 + _selectedMinute,
-                              //   videoPath: recipeIngreController.file!.path, 
-                              //   imagePath: recipeIngreController.image!.path,
-                              //   name: tecRecipeName.text, 
-                              //   description: tecDescription.text, 
-                              //   difficulty: selectedDifficultyText!, 
-                              //   cookingTime: cookingTime.toString(), 
-                              //   serving: servigCount.toString(), 
-                              //   tags: recipeIngreController.tags.toString(), 
-                              //   ingredients: ingredients
-                              // );
+                              // if (res) {
+                                
+                              // }
 
                               // RecipeService().addRecipe(
                               //   videoPath: videoPath, 
@@ -275,6 +314,28 @@ class _RecipeIngState extends State<RecipeIng>
                 children: [recipeTab(), ingredientTab()]),
           );
         }));
+  }
+
+  callAddRecipeApi() async {
+    RecipeService recipeService = RecipeService();
+    int cookingTime = _selectedHour * 60 + _selectedMinute;
+
+    var resp = await recipeService.addRecipe(
+      // int cookingTime = _selectedHour * 60 + _selectedMinute,
+      videoPath: recipeIngreController.file!.path, 
+      imagePath: recipeIngreController.image!.path,
+      name: tecRecipeName.text, 
+      description: tecDescription.text, 
+      difficulty: selectedDifficultyText!, 
+      cookingTime: cookingTime.toString(), 
+      serving: servigCount.toString(), 
+      tags: recipeIngreController.tags.toString(), 
+      ingredients: ingredients.toString()
+    );
+
+    if (resp.status == ResponseStatus.PRIVATE) {
+      callAddRecipeApi();
+    }
   }
 
   recipeTab(){
@@ -576,7 +637,7 @@ class _RecipeIngState extends State<RecipeIng>
             SizedBox(
               height: 50.h,
               child: TextFormField(
-                // controller: ,
+                controller: tecRecipeName,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Color(0xff707070)),
@@ -613,7 +674,7 @@ class _RecipeIngState extends State<RecipeIng>
             SizedBox(
               height: 112.h,
               child: TextFormField(
-                // controller: ,
+                controller: tecDescription,
                 maxLines: 5,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -1146,12 +1207,16 @@ class _RecipeIngState extends State<RecipeIng>
 
               //_recipeDetails(_tec, _tbsController),
               ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: widgetsInColumn.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _recipeDetails(_tec, _tbsController, index);
-                  }),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widgetsInColumn.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _recipeDetails(_tec, _tbsController, index);
+                }
+              ),
+
               sizedBoxHeight(13.h),
+
               SizedBox(
                 height: 40.h,
                 width: 150.w,
@@ -1175,12 +1240,15 @@ class _RecipeIngState extends State<RecipeIng>
                   ),
                   onPressed: () async {
                     print(textControllerNumber);
-                    if (textControllerNumber < 5) {
+                    // if (textControllerNumber < 5) {
                       // await textControllerNumber++;
                       _controllers.add(TextEditingController());
                       _controllersTbs.add(TextEditingController());
                       _controllers2.add(TextEditingController());
                       _controllers2[textControllerNumber].text = "1";
+                      dropdownData.add("cup"); 
+                      // popKeys.add(GlobalKey());
+                      // units.add("");
                       textControllerNumber++;
                       print("bvg");
 
@@ -1194,7 +1262,7 @@ class _RecipeIngState extends State<RecipeIng>
                       setState(() {
                         widgetsInColumn.add(_recipeDetails(null, null, 0));
                       });
-                    }
+                    // }
                   },
                 ),
               ),
@@ -1214,10 +1282,20 @@ class _RecipeIngState extends State<RecipeIng>
                 ],
               ),
               sizedBoxHeight(20.h),
-              _instructionSteps(1),
-              Column(
-                children: stepsInColumn,
+
+              // _instructionSteps(1),
+              // Column(
+              //   children: stepsInColumn,
+              // ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: stepsInColumn.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _instructionSteps(index);
+                }
               ),
+                
               sizedBoxHeight(14.h),
               SizedBox(
                 height: 40.h,
@@ -1241,15 +1319,21 @@ class _RecipeIngState extends State<RecipeIng>
                     ),
                   ),
                   onPressed: () {
-                    if (number < 5) {
+                    // if (number < 5) {
                       setState(() {
-                        stepsInColumn.add(_instructionSteps(null));
-                        number++;
+                        tecInstructionList.add(TextEditingController());
+
+                        stepsInColumn.add(_instructionSteps(0));
+                        // number++;
                       });
-                    }
+                    // }
                   },
                 ),
               ),
+
+              // ElevatedButton(onPressed: (){
+              //   Get.to(PopupMenuExample());
+              // }, child: Text("dropdown")),
               sizedBoxHeight(25)
             ],
           ),
@@ -1258,11 +1342,13 @@ class _RecipeIngState extends State<RecipeIng>
     
   }
 
+
   Widget _recipeDetails(TextEditingController? controller,
       TextEditingController? controllerTbs, int? index) {
     if (controllerTbs == null) {
       _controllersTbs[(textControllerNumber - 1)].text = "1";
     }
+    // print("_recipeDetails $index");
     int _tbsInitialValue = 0;
     return Column(
       children: [
@@ -1270,7 +1356,7 @@ class _RecipeIngState extends State<RecipeIng>
           children: [
             SizedBox(
               height: 45.h,
-              width: 155.w,
+              width: 120.w,
               child: TextFormField(
                 validator: (value) {
                   if (_tec.text.isEmpty) {
@@ -1301,36 +1387,18 @@ class _RecipeIngState extends State<RecipeIng>
                 ),
               ),
             ),
-            sizedBoxWidth(33.w),
+            // sizedBoxWidth(20.w),
+
+            Spacer(),
             GestureDetector(
               onTap: () {
                 setState(() {
+                  if (_controllers2[index].text.isNotEmpty) {
 
-                  //   print(tbsint);
-
-
-                  // print(_controllers2[index].text);
-                  // if (_controllers2[index].text.isEmpty) {
-                  //   print(tbsint[index]);
-                  //   tbsint[index] = 1.0;
-                  //   _controllers2[index].text = '${tbsint[index]}';
-                  // }
-                  
-                  // if (tbsint[index] > 1.0) {
-                  //   tbsint[index] = double.parse(_controllers2[index].text);
-                  //   tbsint[index] = tbsint[index] - 0.1;
-                  //   _controllers2[index].text = '${tbsint[index]}';
-                  // }
-                  // if (_controllers2[index].text.isEmpty) {
-                  //   tbsint[index] = 1;
-                  //   _controllers2[index].text = '${tbsint[index]}';
-                  // }
-                  // _tbsInitialValue == 1 ? null : _tbsInitialValue--;
-                  // _tbsController.text = '$_tbsInitialValue';
-
-                  // tbsint[index] = int.parse(_controllers2[index].text);
-                  // tbsint[index]--;
-                  // _controllers2[index].text = '${tbsint[index]}';
+                    if (double.tryParse(_controllers2[index].text)!  > 0.1) {
+                      _controllers2[index].text = ((double.tryParse(_controllers2[index].text) ?? 0.1) - 0.1).toStringAsFixed(2);
+                    }
+                  }
                 });
               },
               child: CircleAvatar(
@@ -1350,7 +1418,7 @@ class _RecipeIngState extends State<RecipeIng>
             sizedBoxWidth(10.w),
             SizedBox(
               height: 45.h,
-              width: 124.w,
+              width: 70.w,
               child: TextFormField(
                 controller: _controllers2[index],
 
@@ -1363,6 +1431,13 @@ class _RecipeIngState extends State<RecipeIng>
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                   // WhitelistingTextInputFormatter(RegExp(r'^(\d+)?\.?\d{0,2}')),
                 ],
+                // onChanged: (value) {
+                //   // _showPopupMenu();
+                //   // openPopupMenu(index);
+                //   if (units[index] == "") {
+                //     openPopupMenu(index);
+                //   }
+                // },
                 
                 decoration: InputDecoration(
                     isCollapsed: true,
@@ -1383,22 +1458,12 @@ class _RecipeIngState extends State<RecipeIng>
                     counterText: ''),
               ),
             ),
+            
             sizedBoxWidth(10.w),
             GestureDetector(
               onTap: () {
                 setState(() {
-                  int increment = 0;
-
-                  // for (var i = 0; i < widgetsInColumn.length; i++) {
-                  //   tbsint.add(increment);
-                  // }
-                  tbsint[index] = double.parse(_controllers2[index].text);
-                  tbsint[index]++;
-
-                  // _tbsInitialValue == 99 ? null : _tbsInitialValue++;
-
-                  // _tbsController.text = '$_tbsInitialValue';
-                  _controllers2[index].text = '${tbsint[index]}';
+                    _controllers2[index].text = ((double.tryParse(_controllers2[index].text) ?? 0.1) + 0.1).toStringAsFixed(2);
                 });
               },
               child: CircleAvatar(
@@ -1413,8 +1478,59 @@ class _RecipeIngState extends State<RecipeIng>
                       fontSize: 20),
                 ),
               ),
-            )
+            ),
       
+            Spacer(),
+            SizedBox(
+              width: 100.w,
+              height: 45.h,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  isExpanded: true,
+                  hint: Text(
+                    'Unit',
+                    style: TextStyle(
+                      // fontSize: 14,
+                      color: Theme.of(context).hintColor,
+                    ),
+                  ),
+                  items: items
+                      .map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  value: dropdownData[index],
+                  onChanged: (value) {
+                    setState(() {
+                      dropdownData[index] = value!;
+                    });
+                  },
+                  buttonStyleData: ButtonStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    height: 40,
+                    width: 140,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      // borderSide: const BorderSide(color: Color(0xff707070)),
+                      border: Border.all(
+                        color: Color(0xFF707070)
+                      )
+                    )
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                  ),
+                ),
+              ),
+            
+            ),
+                    
           ],
         ),
         sizedBoxHeight(13.h),
@@ -1422,6 +1538,40 @@ class _RecipeIngState extends State<RecipeIng>
     );
   }
 
+  // void openPopupMenu(int index) {
+  //   final dynamic popupMenuState = popKeys[index].currentState;
+  //   if (popupMenuState != null && popupMenuState.showButtonMenu != null) {
+  //     popupMenuState.showButtonMenu();
+  //   }
+  // }
+
+
+  // void _showPopupMenu() async {
+  //   await showMenu(
+  //     context: context,
+  //     // position: RelativeRect.fromLTRB(100, 100, 100, 100),
+  //     items: [
+  //       PopupMenuItem(
+  //         value: 1,
+  //         child: Text("View"),
+  //       ),
+  //       PopupMenuItem(
+  //           value: 2,
+  //         child: Text("Edit"),
+  //       ),
+  //       PopupMenuItem(
+  //         value: 3,
+  //         child: Text("Delete"),
+  //       ),
+  //     ],
+  //     elevation: 8.0,
+  //   ).then((value){
+
+  //   // NOTE: even you didnt select item this method will be called with null of value so you should call your call back with checking if value is not null , value is the value given in PopupMenuItem
+  //   if(value!=null)
+  //     print(value);
+  //     });
+  // }
 
   Widget _servings() {
     return BottomSheet(
@@ -1528,7 +1678,7 @@ class _RecipeIngState extends State<RecipeIng>
     );
   }
 
-  builduploadprofileImage() {
+  builduploadprofileImage(int? index) {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -1723,14 +1873,15 @@ class _RecipeIngState extends State<RecipeIng>
     // }
   }
 
-  Widget _instructionSteps(int? stepNum) {
+  Widget _instructionSteps(int? index) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              stepNum == null ? "Step $number" : 'Step 1',
+              // index == null ? "Step 1" : 
+              'Step ' + (index! + 1).toString(),
               style: TextStyle(
                   fontFamily: "Roboto",
                   fontSize: 17.sp,
@@ -1743,7 +1894,8 @@ class _RecipeIngState extends State<RecipeIng>
         SizedBox(
           height: 68.h,
           child: TextFormField(
-            maxLines: 2,
+            controller: tecInstructionList[index],
+            // maxLines: 2,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: 8, left: 12),
               focusedBorder: OutlineInputBorder(
@@ -1765,10 +1917,12 @@ class _RecipeIngState extends State<RecipeIng>
                   height: 50.h,
                   width: 40.w,
                   child: _image != null
-                      ? Image.asset("assets/camera.png")
+                      ?
+                      //  Image.asset("assets/camera.png")
+                      Icon(Icons.check)
                       : GestureDetector(
                           onTap: () {
-                            builduploadprofileImage();
+                            builduploadprofileImage(index);
                           },
                           child: Image.asset("assets/camera.png"),
                         ),
@@ -1783,7 +1937,7 @@ class _RecipeIngState extends State<RecipeIng>
   }
 
 
-  Future getImage(ImageSource source) async {
+  Future getImage(ImageSource source,) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;

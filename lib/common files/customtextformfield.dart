@@ -17,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.readonly = false,
     this.isInputPassword = false,
+    this.withOutPrefix = false,
     this.outlineColor = const Color(0xFFFFB600),
     // this.keyboardType,
     this.suffixIconConstraints,
@@ -31,6 +32,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool eyeIcon;
   final Widget? suffixIcon;
   final bool isInputPassword;
+  final bool withOutPrefix;
   void Function()? onTap;
   final bool readonly;
   final dynamic inputFormatters;
@@ -109,7 +111,9 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
           //         child: widget.leadingIcon!,
           //       ),
           prefixIconConstraints: const BoxConstraints(minWidth: 20),
-          prefixIcon: Row(
+          prefixIcon: widget.withOutPrefix 
+          ? SizedBox() 
+          : Row(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
