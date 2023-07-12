@@ -2,69 +2,153 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatMessageModel.dart';
+import 'package:foodspeciality/Model/MessageModel.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:get/get.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ChatPrivateDetail extends StatefulWidget {
-  const ChatPrivateDetail({Key? key}) : super(key: key);
+  const ChatPrivateDetail({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ChatPrivateDetailState createState() => _ChatPrivateDetailState();
 }
 
 class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
-  List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-        messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "receiver"),
-    ChatMessage(messageContent: "...........", messageType: "sender"),
-  ];
+  final TextEditingController _messageController = TextEditingController();
+
+  late IO.Socket socket;
+  // List<ChatMessage> messages = [
+  //   ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
+  //   ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+  //       messageType: "sender"),
+  //   ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(
+  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
+  //   ChatMessage(messageContent: "...........", messageType: "sender"),
+  // ];
   ScrollController myController = ScrollController();
+  List<MessageModel> messages = [];
 
   @override
   void initState() {
-    // _scrollDown();
+    connect();
     super.initState();
+  }
+
+  void connect() {
+    socket = IO.io("http://77.68.102.23:8000", {
+      "transports": ["websocket"],
+      'auth': {'x-auth-token': accessToken},
+    });
+    socket.connect();
+    socket.onConnect((data) => {
+          print("connected"),
+          // Handle received messages
+          socket.on('message', (data) {
+            print('Received message: $data');
+          }),
+
+          // Handle join room event
+          socket.on('join-personal', (data) {
+            print('Join room event: $data');
+          }),
+        });
+
+    socket.onConnectError((err) => print(err));
+    // sendMessage();
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Connect to the Socket.IO server
+  //   socket = IO.io('http://77.68.102.23:8000', <String, dynamic>{
+  //     'transports': ['websocket'],
+  //     'autoConnect': false,
+  //     'extraHeaders': {
+  //       'x-auth-token':
+  //           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0M2VhYWE4LTNkMmUtNDhlZi1hZmQ2LTZhNzdiZmJmZTUxNCIsImlhdCI6MTY4OTA1OTcyOCwiZXhwIjoxNjg5MDYwMzI4fQ.rlDeutCkDIg38Zx796xmUvRT6udLtrA7AbNWBCc7EE8'
+  //     },
+  //   });
+
+  //   // Handle received messages
+  //   socket!.on('message', (data) {
+  //     // Handle the received message
+  //     print('Received message: $data');
+  //   });
+
+  //   // Handle join room event
+  //   socket!.on('joinRoom', (data) {
+  //     print('Join room event: $data');
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   socket!.disconnect();
+  //   _messageController.dispose();
+  //   super.dispose();
+  // }
+
+  void setMessage(String type, String message) {
+    MessageModel messageModel = MessageModel(type: type, message: message);
+    setState(() {
+      messages.add(messageModel);
+    });
+  }
+
+  void sendMessage() {
+    final message = _messageController.text.trim();
+    // if (message.isNotEmpty) {
+    // Emit a message event to the server
+    Map messageMap = {
+      'UserId': 'ef77fce8-26d3-4779-aba8-f128eb858c6c',
+      'message': message,
+    };
+    setMessage("source", message);
+    socket.emit('message-personal', messageMap);
+    print('Sent message: $messageMap'); // Print the sent message
+    _messageController.clear();
+    // }
   }
 
   @override
@@ -140,74 +224,9 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
               padding: EdgeInsets.only(top: 10.h, bottom: 60.h),
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                return messages[index].messageType == "receiver"
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.w, vertical: 10.h),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 40.w,
-                                height: 40.h,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100.r),
-                                  child: Image.asset('assets/chef.png'),
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(25.r),
-                                      topLeft: Radius.circular(25.r),
-                                      bottomRight: Radius.circular(25.r),
-                                    ),
-                                    color: const Color(0xFFF2F2F2)),
-                                padding: EdgeInsets.all(16.sp),
-                                child: Text(
-                                  messages[index].messageContent,
-                                  style: TextStyle(
-                                      fontFamily: "Roboto", fontSize: 15.sp),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.w, vertical: 10.h),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.r),
-                                    bottomLeft: Radius.circular(25.r),
-                                    topRight: Radius.circular(25.r),
-                                  ),
-                                  color: const Color(0xFFE1E1E1),
-                                ),
-                                padding: EdgeInsets.all(16.sp),
-                                child: Text(
-                                  messages[index].messageContent,
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontSize: 15.sp,
-                                      color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                return messages[index].type == "source"
+                    ? Sender(message: messages[index].message)
+                    : Receiver(message: messages[index].message);
               },
             ),
             Align(
@@ -221,17 +240,21 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                         padding:
                             EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
                         child: TextFormField(
+                          controller: _messageController,
                           decoration: InputDecoration(
                             hintText: "Send Message",
                             hintStyle: TextStyle(color: Colors.grey.shade600),
                             suffixIcon: Padding(
                               padding: EdgeInsets.only(top: 14.h),
-                              child: Text(
-                                "Send",
-                                style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500),
+                              child: InkWell(
+                                onTap: sendMessage,
+                                child: Text(
+                                  "Send",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ),
                             filled: true,
@@ -255,6 +278,90 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Sender extends StatelessWidget {
+  const Sender({
+    super.key,
+    this.message,
+  });
+  final String? message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.r),
+                  bottomLeft: Radius.circular(25.r),
+                  topRight: Radius.circular(25.r),
+                ),
+                color: const Color(0xFFE1E1E1),
+              ),
+              padding: EdgeInsets.all(16.sp),
+              child: Text(
+                message!,
+                style: TextStyle(
+                    fontFamily: "Roboto", fontSize: 15.sp, color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Receiver extends StatelessWidget {
+  const Receiver({super.key, this.message});
+
+  final String? message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 40.w,
+              height: 40.h,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100.r),
+                child: Image.asset('assets/chef.png'),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25.r),
+                    topLeft: Radius.circular(25.r),
+                    bottomRight: Radius.circular(25.r),
+                  ),
+                  color: const Color(0xFFF2F2F2)),
+              padding: EdgeInsets.all(16.sp),
+              child: Text(
+                message!,
+                style: TextStyle(fontFamily: "Roboto", fontSize: 15.sp),
               ),
             ),
           ],
