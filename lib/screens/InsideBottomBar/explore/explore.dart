@@ -226,6 +226,7 @@ class _ExploreState extends State<Explore> {
                       },
                     ),
                   )
+             
                 ],
               ),
             ),
@@ -704,4 +705,5 @@ class _ExploreState extends State<Explore> {
       ),
     );
   }
+
 }
