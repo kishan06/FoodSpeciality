@@ -11,6 +11,8 @@ import 'package:foodspeciality/screens/InsideBottomBar/myProfile/new_profile.dar
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import 'InsideBottomBar/myProfile/new_changed_profile.dart';
+
 class BottomBar extends StatefulWidget {
 
   var selectedIndex;
@@ -28,7 +30,8 @@ class _BottomBarState extends State<BottomBar> {
     Explore(),
     Container(),
     ChatTab(),
-    NewProfile()
+    // NewProfile(),
+    NewChangedProfile()
   ];
   bool _canPop = false;
 

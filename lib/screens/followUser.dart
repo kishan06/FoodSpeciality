@@ -634,6 +634,7 @@ class _followUserState extends State<followUser> {
             ],
           ),
         ),
+   
       ),
 
       //  Scaffold(
