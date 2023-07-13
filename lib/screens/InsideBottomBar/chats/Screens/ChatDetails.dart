@@ -40,18 +40,20 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
     //   'UserId': "9eefcbc3-b03e-4cfa-b6b6-791a1c24d888",
     //   'message': "hello world",
     // });
-    socket.onConnect((data) => {
-          print("connected $data"),
-          // Handle received messages
-          socket.on('message', (data) {
-            print('Received message: $data');
+    socket.onConnect((_) {
+      print('Connected: ${socket.id}');
 
-            // Handle the received message and add it to the messages list
-            setMessage("receiver", data['message']);
-          }),
-          // Join the personal room
-          socket.emit('join-personal', 'roomName'),
-        });
+      // Join the room
+      socket.emit('join',
+          {'room': '8c77d84f-4752-4841-9db2-6758b3a089f3', 'type': 'personal'});
+      // socket.emit('join', {'room': 'YOUR_ROOM_NAME', 'type': 'community'});
+    });
+
+    socket.on('message', (data) {
+      // Handle received message
+      print('Received Message: $data');
+      setMessage("receiver", data['message']);
+    });
 
     socket.onConnectError((err) => print(err));
 
@@ -80,12 +82,12 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
     if (message.isNotEmpty) {
       // Emit a message event to the server
       Map<String, dynamic> messageMap = {
-        'UserId': "9eefcbc3-b03e-4cfa-b6b6-791a1c24d888",
+        'room': "c2dbd846-5eeb-49f6-bc45-b58d54fa4fc4",
         'message': message,
       };
       setMessage("source", message);
-      socket.emit('message-personal', messageMap);
-      socket.emit('message-community', messageMap);
+      socket.emit('message', messageMap);
+      //   socket.emit('message', messageMap);
       print('Sent message: $messageMap'); // Print the sent message
       _messageController.clear();
     }

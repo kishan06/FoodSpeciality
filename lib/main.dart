@@ -5,6 +5,8 @@ import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Follower.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Following.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
@@ -31,6 +33,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
+import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
+import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -141,6 +145,10 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/SearchPage", page: () => SearchPage()),
             GetPage(name: "/RecipeIng", page: () => RecipeIng()),
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
+            GetPage(name: "/ViewCommunity", page: () => ViewCommunity()),
+            GetPage(name: "/EditCommunity", page: () => EditCommunity()),
+            GetPage(name: "/following", page: () => Following()),
+            GetPage(name: "/follower", page: () => Follower()),
           ],
         ),
       ),

@@ -143,7 +143,7 @@ class _myFollowingState extends State<myFollowingCard> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(5.h),
-                          child: Center(child: textgreyD14Robo("Following")
+                          child: Center(child: textgreyD14Robo("Follow")
                               // Text(
                               //   "Following",
                               //   style: TextStyle(
@@ -166,7 +166,7 @@ class _myFollowingState extends State<myFollowingCard> {
                         child: Padding(
                           padding: EdgeInsets.all(5.h),
                           child: Center(
-                            child: textWhite14Robo("Follow"),
+                            child: textWhite14Robo("Remove"),
                           ),
                         ),
                       )),

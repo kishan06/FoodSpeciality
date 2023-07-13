@@ -14,6 +14,14 @@ Widget textBlack30BoldSp(String title) {
   );
 }
 
+Widget textBlack18bold(String text) {
+  return Text(
+    text,
+    style: TextStyle(
+        color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.bold),
+  );
+}
+
 Widget textgrey22BoldRobo(String title) {
   return Text(
     title,
