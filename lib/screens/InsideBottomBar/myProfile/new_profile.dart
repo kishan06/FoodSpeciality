@@ -223,9 +223,9 @@ class _NewProfileState extends State<NewProfile> {
                               SizedBox(height: 30.h),
 
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  
                                   Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -248,53 +248,58 @@ class _NewProfileState extends State<NewProfile> {
                                       // )
                                     ],
                                   ),
-
                                   SizedBox(
-                                    height: 60.h,
-                                    child: VerticalDivider(
-                                      thickness: 3.w,
-                                    )
-                                  ),
+                                      height: 60.h,
+                                      child: VerticalDivider(
+                                        thickness: 3.w,
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed("/following");
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        textBlack18bold("20"),
+                                        textBlack18bold("Following")
 
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      textBlack18bold("20"),
-                                      textBlack18bold("Following")
-                                      
-                                      // Text(
-                                      //   "Level : Bronze",
-                                      //   style: TextStyle(
-                                      //       fontSize: 16.sp,
-                                      //       // fontFamily: "StudioProR",
-                                      //       fontWeight: FontWeight.w500),
-                                      // )
-                                    ],
+                                        // Text(
+                                        //   "Level : Bronze",
+                                        //   style: TextStyle(
+                                        //       fontSize: 16.sp,
+                                        //       // fontFamily: "StudioProR",
+                                        //       fontWeight: FontWeight.w500),
+                                        // )
+                                      ],
+                                    ),
                                   ),
-                             
                                   SizedBox(
-                                    height: 60.h,
-                                    child: VerticalDivider(
-                                      thickness: 3.w,
-                                    )
-                                  ),
+                                      height: 60.h,
+                                      child: VerticalDivider(
+                                        thickness: 3.w,
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed("/follower");
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        textBlack18bold("30"),
+                                        textBlack18bold("Followers")
 
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      textBlack18bold("30"),
-                                      textBlack18bold("Followers")
-                                      
-                                      // Text(
-                                      //   "Level : Bronze",
-                                      //   style: TextStyle(
-                                      //       fontSize: 16.sp,
-                                      //       // fontFamily: "StudioProR",
-                                      //       fontWeight: FontWeight.w500),
-                                      // )
-                                    ],
+                                        // Text(
+                                        //   "Level : Bronze",
+                                        //   style: TextStyle(
+                                        //       fontSize: 16.sp,
+                                        //       // fontFamily: "StudioProR",
+                                        //       fontWeight: FontWeight.w500),
+                                        // )
+                                      ],
+                                    ),
                                   ),
-                             
                                 ],
                               ),
 
@@ -390,7 +395,6 @@ class _NewProfileState extends State<NewProfile> {
                               //     ),
                               //   ],
                               // ),
-                         
                             ],
                           ))),
             ];
@@ -399,21 +403,20 @@ class _NewProfileState extends State<NewProfile> {
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Column(
               children: [
-          
                 TabBar(
                     // indicatorSize: i,
                     indicatorSize: TabBarIndicatorSize.label,
-
                     indicatorColor: const Color(0xFF3B3F43),
                     // unselectedLabelStyle: const TextStyle(color: AppColors.grey),
                     labelColor: AppColors.black,
-                    unselectedLabelStyle:
-                        const TextStyle(color: Color(0xFF6B6B6B,)),
+                    unselectedLabelStyle: const TextStyle(
+                        color: Color(
+                      0xFF6B6B6B,
+                    )),
                     // labelStyle: TextStyle(color: Color(0xFF6B6B6B),fontSize: 12),
                     tabs: [
                       Tab(
                         child: Text(
-                          
                           'MY CHALLENGES',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -422,37 +425,29 @@ class _NewProfileState extends State<NewProfile> {
                               // color: const Color(0xff000000),
                               fontSize: 14.sp),
                         ),
-                      
                       ),
-
                       Tab(
                         child: Text(
                           'JOINED',
                           textAlign: TextAlign.center,
-
                           style: TextStyle(
                               fontFamily: "StudioProR",
                               fontWeight: FontWeight.w700,
                               // color: const Color(0xff000000),
                               fontSize: 14.sp),
                         ),
-                      
                       ),
-
                       Tab(
                         child: Text(
                           'COMPLETED',
                           textAlign: TextAlign.center,
-
                           style: TextStyle(
                               fontFamily: "StudioProR",
                               fontWeight: FontWeight.w700,
                               // color: const Color(0xff000000),
                               fontSize: 14.sp),
                         ),
-                      
                       ),
-
                     ]),
                 Expanded(
                   child: TabBarView(children: [
@@ -468,7 +463,6 @@ class _NewProfileState extends State<NewProfile> {
                         )),
                     const mySaved(),
                     const myFollowingCard(),
-                    const myFollowerCard()
                   ]),
                 ),
               ],

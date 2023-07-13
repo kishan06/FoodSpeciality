@@ -5,6 +5,8 @@ import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Follower.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Following.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
@@ -42,11 +44,11 @@ Future<void> main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
-  accessToken = await prefs.getString('accessToken');
+  accessToken = prefs.getString('accessToken');
   print("acs to ${accessToken}");
-  
+
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // GlobalVariables globalVariables = GlobalVariables();
     // globalVariables.accessToken = await prefs.getString('accessToken');
@@ -145,10 +147,11 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
             GetPage(name: "/ViewCommunity", page: () => ViewCommunity()),
             GetPage(name: "/EditCommunity", page: () => EditCommunity()),
-
+            GetPage(name: "/following", page: () => Following()),
+            GetPage(name: "/follower", page: () => Follower()),
           ],
         ),
-      ), 
+      ),
     );
   }
 }
