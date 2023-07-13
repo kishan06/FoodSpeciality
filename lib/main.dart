@@ -40,11 +40,11 @@ Future<void> main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
-  accessToken = await prefs.getString('accessToken');
+  accessToken = prefs.getString('accessToken');
   print("acs to ${accessToken}");
-  
+
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // GlobalVariables globalVariables = GlobalVariables();
     // globalVariables.accessToken = await prefs.getString('accessToken');
@@ -143,7 +143,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
           ],
         ),
-      ), 
+      ),
     );
   }
 }

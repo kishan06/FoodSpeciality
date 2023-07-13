@@ -20,52 +20,8 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
   final TextEditingController _messageController = TextEditingController();
 
   late IO.Socket socket;
-  // List<ChatMessage> messages = [
-  //   ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-  //   ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-  //       messageType: "sender"),
-  //   ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "sender"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Is there any thing wrong?", messageType: "receiver"),
-  //   ChatMessage(messageContent: "...........", messageType: "sender"),
-  // ];
   ScrollController myController = ScrollController();
+
   List<MessageModel> messages = [];
 
   @override
@@ -80,54 +36,37 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
       'auth': {'x-auth-token': accessToken},
     });
     socket.connect();
+    // socket.emit('message-personal', {
+    //   'UserId': "9eefcbc3-b03e-4cfa-b6b6-791a1c24d888",
+    //   'message': "hello world",
+    // });
     socket.onConnect((data) => {
-          print("connected"),
+          print("connected $data"),
           // Handle received messages
           socket.on('message', (data) {
             print('Received message: $data');
-          }),
 
-          // Handle join room event
-          socket.on('join-personal', (data) {
-            print('Join room event: $data');
+            // Handle the received message and add it to the messages list
+            setMessage("receiver", data['message']);
           }),
+          // Join the personal room
+          socket.emit('join-personal', 'roomName'),
         });
 
     socket.onConnectError((err) => print(err));
-    // sendMessage();
+
+    // // Handle join room event
+    // socket.on('join-personal', (data) {
+    //   print('Join room event: $data');
+    // });
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Connect to the Socket.IO server
-  //   socket = IO.io('http://77.68.102.23:8000', <String, dynamic>{
-  //     'transports': ['websocket'],
-  //     'autoConnect': false,
-  //     'extraHeaders': {
-  //       'x-auth-token':
-  //           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0M2VhYWE4LTNkMmUtNDhlZi1hZmQ2LTZhNzdiZmJmZTUxNCIsImlhdCI6MTY4OTA1OTcyOCwiZXhwIjoxNjg5MDYwMzI4fQ.rlDeutCkDIg38Zx796xmUvRT6udLtrA7AbNWBCc7EE8'
-  //     },
-  //   });
-
-  //   // Handle received messages
-  //   socket!.on('message', (data) {
-  //     // Handle the received message
-  //     print('Received message: $data');
-  //   });
-
-  //   // Handle join room event
-  //   socket!.on('joinRoom', (data) {
-  //     print('Join room event: $data');
-  //   });
-  // }
-
-  // @override
-  // void dispose() {
-  //   socket!.disconnect();
-  //   _messageController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    socket.disconnect();
+    _messageController.dispose();
+    super.dispose();
+  }
 
   void setMessage(String type, String message) {
     MessageModel messageModel = MessageModel(type: type, message: message);
@@ -138,17 +77,18 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
 
   void sendMessage() {
     final message = _messageController.text.trim();
-    // if (message.isNotEmpty) {
-    // Emit a message event to the server
-    Map messageMap = {
-      'UserId': 'ef77fce8-26d3-4779-aba8-f128eb858c6c',
-      'message': message,
-    };
-    setMessage("source", message);
-    socket.emit('message-personal', messageMap);
-    print('Sent message: $messageMap'); // Print the sent message
-    _messageController.clear();
-    // }
+    if (message.isNotEmpty) {
+      // Emit a message event to the server
+      Map<String, dynamic> messageMap = {
+        'UserId': "9eefcbc3-b03e-4cfa-b6b6-791a1c24d888",
+        'message': message,
+      };
+      setMessage("source", message);
+      socket.emit('message-personal', messageMap);
+      socket.emit('message-community', messageMap);
+      print('Sent message: $messageMap'); // Print the sent message
+      _messageController.clear();
+    }
   }
 
   @override
