@@ -29,30 +29,28 @@ class _myFollowerCardState extends State<myFollowerCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: Column(
-          children: [
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: followerData.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      followerlistCard(
-                        followerData[index]["recipeimage"],
-                        followerData[index]["title"],
-                        followerData[index]["name"],
-                        index,
-                        followerData[index]["isFollowedByMe"],
-                      )
-                    ],
-                  );
-                })
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      child: Column(
+        children: [
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: followerData.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    followerlistCard(
+                      followerData[index]["recipeimage"],
+                      followerData[index]["title"],
+                      followerData[index]["name"],
+                      index,
+                      followerData[index]["isFollowedByMe"],
+                    )
+                  ],
+                );
+              })
+        ],
       ),
     );
   }
