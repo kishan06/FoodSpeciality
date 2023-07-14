@@ -11,6 +11,7 @@ import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
+import 'package:foodspeciality/screens/completed_challenge.dart';
 import 'package:foodspeciality/screens/create_account.dart';
 import 'package:foodspeciality/screens/discovery_recipe.dart';
 import 'package:foodspeciality/screens/edit_profile.dart';
@@ -149,6 +150,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/EditCommunity", page: () => EditCommunity()),
             GetPage(name: "/following", page: () => Following()),
             GetPage(name: "/follower", page: () => Follower()),
+            GetPage(
+                name: "/completedchallenge", page: () => CompletedChallenge()),
           ],
         ),
       ),
