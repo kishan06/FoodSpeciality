@@ -11,6 +11,9 @@ import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../common files/common_view_rules.dart';
 
 class Explore extends StatefulWidget {
   const Explore({super.key});
@@ -169,27 +172,25 @@ class _ExploreState extends State<Explore> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 98.h,
-                          child: GetBuilder<ExploreController>(builder: (_){
-                            return ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return SizedBox(width: 9.w);
-                              },
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: controllerExplore.likeSave.length,
-                              itemBuilder: (context, index) {
-                                // controllerExplore.likeSave[index]
-                                return trendingRecipeCard(
-                                    controllerExplore.likeSave[index]["like"],
-                                    controllerExplore.likeSave[index]["save"],
-                                    index);
-                              },
-                            );
-                          })
-                          
-                        ),
+                            height: 98.h,
+                            child: GetBuilder<ExploreController>(builder: (_) {
+                              return ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(width: 9.w);
+                                },
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: controllerExplore.likeSave.length,
+                                itemBuilder: (context, index) {
+                                  // controllerExplore.likeSave[index]
+                                  return trendingRecipeCard(
+                                      controllerExplore.likeSave[index]["like"],
+                                      controllerExplore.likeSave[index]["save"],
+                                      index);
+                                },
+                              );
+                            })),
                         sizedBoxHeight(20.h),
                         textgreyM20BoldSP("Explore"),
                         sizedBoxHeight(15.h),
@@ -226,7 +227,6 @@ class _ExploreState extends State<Explore> {
                       },
                     ),
                   )
-             
                 ],
               ),
             ),
@@ -654,25 +654,21 @@ class _ExploreState extends State<Explore> {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.fadeIn);
                     },
-                    child: textBlack14SP_Med("Join Challenge")
-                ),
+                    child: textBlack14SP_Med("Join Challenge")),
                 Icon(
                   Icons.arrow_forward_ios,
                   color: AppColors.black,
                   size: 15.h,
                 ),
-
                 sizedBoxWidth(15.w),
-
                 GestureDetector(
                     onTap: () {
-                      
+                      getViewRulesDailog();
                     },
-                    child: textBlack14SP_Med("View Rules")
-                ),
-
+                    child: textBlack14SP_Med("View Rules")),
               ],
             ),
+         
           ],
         ),
       ),
@@ -716,5 +712,4 @@ class _ExploreState extends State<Explore> {
       ),
     );
   }
-
 }
