@@ -654,12 +654,23 @@ class _ExploreState extends State<Explore> {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.fadeIn);
                     },
-                    child: textBlack14SP_Med("Join Challenge")),
+                    child: textBlack14SP_Med("Join Challenge")
+                ),
                 Icon(
                   Icons.arrow_forward_ios,
                   color: AppColors.black,
                   size: 15.h,
-                )
+                ),
+
+                sizedBoxWidth(15.w),
+
+                GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: textBlack14SP_Med("View Rules")
+                ),
+
               ],
             ),
           ],
