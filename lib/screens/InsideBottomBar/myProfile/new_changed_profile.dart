@@ -81,12 +81,12 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                       childCount: 1,
                       (context, index) => DefaultTabController(
             length: 3,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
                     children: [
                       // SizedBox(
                       //   // height: 200.w,
@@ -100,9 +100,9 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                       //     valueColor: AlwaysStoppedAnimation(Colors.red),
                       //   ),
                       // ),
-                
+                  
                       sizedBoxWidth(10.w),
-                
+                  
                       Stack(
                         alignment: Alignment.center,
                         children: [
@@ -147,13 +147,13 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                         ],
                       ),
                       sizedBoxWidth(5.w),
-                
+                  
                       textgreyM14Robo((profileCompleted! * 100)
                               .toStringAsFixed(0) +
                           " %"),
-                
+                  
                       sizedBoxWidth(10.w),
-                
+                  
                       Column(
                         crossAxisAlignment:
                             CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                           //       color: const Color(0xFF54595F)),
                           // ),
                           textBlack18bold("Namrata Burondkar"),
-                
+                  
                           SizedBox(
                             height: 5.h,
                           ),
@@ -182,9 +182,9 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                           ),
                         ],
                       ),
-                
+                  
                       Spacer(),
-                
+                  
                       Container(
                         padding: EdgeInsets.fromLTRB(
                             20.w, 7.h, 20.w, 0),
@@ -216,240 +216,257 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                       ),
                     ],
                   ),
-                ),
-                
-                SizedBox(height: 30.h),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    
-                    Column(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: 30.h,
-                          width: 20.h,
-                          child: Image.asset(
-                            "assets/svg/rankTag.png",
-                            fit: BoxFit.fill,
+                  
+                  SizedBox(height: 30.h),
+                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      
+                      Column(
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 30.h,
+                            width: 20.h,
+                            child: Image.asset(
+                              "assets/svg/rankTag.png",
+                              fit: BoxFit.fill,
+                            ),
                           ),
+                          textBlack18bold("Level : Bronze")
+                          // Text(
+                          //   "Level : Bronze",
+                          //   style: TextStyle(
+                          //       fontSize: 16.sp,
+                          //       // fontFamily: "StudioProR",
+                          //       fontWeight: FontWeight.w500),
+                          // )
+                        ],
+                      ),
+                  
+                      SizedBox(
+                        height: 60.h,
+                        child: VerticalDivider(
+                          thickness: 3.w,
+                        )
+                      ),
+                  
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed("/following");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            textBlack18bold("20"),
+                            textBlack18bold("Following")
+                            
+                            // Text(
+                            //   "Level : Bronze",
+                            //   style: TextStyle(
+                            //       fontSize: 16.sp,
+                            //       // fontFamily: "StudioProR",
+                            //       fontWeight: FontWeight.w500),
+                            // )
+                          ],
                         ),
-                        textBlack18bold("Level : Bronze")
-                        // Text(
-                        //   "Level : Bronze",
-                        //   style: TextStyle(
-                        //       fontSize: 16.sp,
-                        //       // fontFamily: "StudioProR",
-                        //       fontWeight: FontWeight.w500),
-                        // )
-                      ],
-                    ),
-                
-                    SizedBox(
-                      height: 60.h,
-                      child: VerticalDivider(
-                        thickness: 3.w,
-                      )
-                    ),
-                
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        textBlack18bold("20"),
-                        textBlack18bold("Following")
-                        
-                        // Text(
-                        //   "Level : Bronze",
-                        //   style: TextStyle(
-                        //       fontSize: 16.sp,
-                        //       // fontFamily: "StudioProR",
-                        //       fontWeight: FontWeight.w500),
-                        // )
-                      ],
-                    ),
-                
-                    SizedBox(
-                      height: 60.h,
-                      child: VerticalDivider(
-                        thickness: 3.w,
-                      )
-                    ),
-                
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        textBlack18bold("30"),
-                        textBlack18bold("Followers")
-                        
-                        // Text(
-                        //   "Level : Bronze",
-                        //   style: TextStyle(
-                        //       fontSize: 16.sp,
-                        //       // fontFamily: "StudioProR",
-                        //       fontWeight: FontWeight.w500),
-                        // )
-                      ],
-                    ),
-                
-                  ],
-                ),
-                
-                sizedBoxHeight(15.h),
-          
-                Row(
-                  children: [
-                    SvgPicture.asset("assets/svg/dart.svg",
-                      height: 40.h,
-                      width: 40.h,
-                    ),
-          
-                    Expanded(
-                      // height: 20.h,
-                      child: TabBar(
-                          // indicatorSize: i,
-                          indicatorSize: TabBarIndicatorSize.label,
-                    
-                          indicatorColor: const Color(0xFF3B3F43),
-                          // unselectedLabelStyle: const TextStyle(color: AppColors.grey),
-                          labelColor: AppColors.black,
-                          unselectedLabelStyle:
-                              const TextStyle(color: Color(0xFF6B6B6B,)),
-                          // labelStyle: TextStyle(color: Color(0xFF6B6B6B),fontSize: 12),
-                          tabs: [
-                            Tab(
-                              child: Text(
-                                
-                                'MY CHALLENGES',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: "StudioProR",
-                                    fontWeight: FontWeight.bold,
-                                    // color: const Color(0xff000000),
-                                    fontSize: 12.sp),
-                              ),
+                      ),
+                  
+                      SizedBox(
+                        height: 60.h,
+                        child: VerticalDivider(
+                          thickness: 3.w,
+                        )
+                      ),
+                  
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed("/follower");
+            
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            textBlack18bold("30"),
+                            textBlack18bold("Followers")
                             
-                            ),
-                    
-                            Tab(
-                              child: Text(
-                                'JOINED',
-                                textAlign: TextAlign.center,
-                    
-                                style: TextStyle(
-                                    fontFamily: "StudioProR",
-                                    fontWeight: FontWeight.bold,
-                                    // color: const Color(0xff000000),
-                                    fontSize: 12.sp),
+                            // Text(
+                            //   "Level : Bronze",
+                            //   style: TextStyle(
+                            //       fontSize: 16.sp,
+                            //       // fontFamily: "StudioProR",
+                            //       fontWeight: FontWeight.w500),
+                            // )
+                          ],
+                        ),
+                      ),
+                  
+                    ],
+                  ),
+                  
+                  sizedBoxHeight(15.h),
+                      
+
+                  Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/dart.svg",
+                        height: 40.h,
+                        width: 40.h,
+                      ),
+                      
+                      Expanded(
+                        // height: 20.h,
+                        child: TabBar(
+                            // indicatorSize: i,
+                            indicatorSize: TabBarIndicatorSize.label,
+                      
+                            indicatorColor: const Color(0xFF3B3F43),
+                            // unselectedLabelStyle: const TextStyle(color: AppColors.grey),
+                            labelColor: AppColors.black,
+                            unselectedLabelStyle:
+                                const TextStyle(color: Color(0xFF6B6B6B,)),
+                            // labelStyle: TextStyle(color: Color(0xFF6B6B6B),fontSize: 12),
+                            tabs: [
+                              Tab(
+                                child: Text(
+                                  
+                                  'MY CHALLENGES',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: "StudioProR",
+                                      fontWeight: FontWeight.bold,
+                                      // color: const Color(0xff000000),
+                                      fontSize: 12.sp),
+                                ),
+                              
                               ),
-                            
-                            ),
-                    
-                            Tab(
-                              child: Text(
-                                'COMPLETED',
-                                textAlign: TextAlign.center,
-                    
-                                style: TextStyle(
-                                    fontFamily: "StudioProR",
-                                    fontWeight: FontWeight.bold,
-                                    // color: const Color(0xff000000),
-                                    fontSize: 12.sp),
+                      
+                              Tab(
+                                child: Text(
+                                  'JOINED',
+                                  textAlign: TextAlign.center,
+                      
+                                  style: TextStyle(
+                                      fontFamily: "StudioProR",
+                                      fontWeight: FontWeight.bold,
+                                      // color: const Color(0xff000000),
+                                      fontSize: 12.sp),
+                                ),
+                              
                               ),
-                            
-                            ),
-                    
-                          ]),
-                    ),
-                  ],
-                ),
-                
-                SizedBox(
-                  height: 280.h,
-                  child: TabBarView(children: [
-                    mainChallengesCard(1),
-                    mainChallengesCard(2),
-                    mainChallengesCard(3),
-                
-                  ]),
-                ),
-          
-              ],
+                      
+                              Tab(
+                                child: Text(
+                                  'COMPLETED',
+                                  textAlign: TextAlign.center,
+                      
+                                  style: TextStyle(
+                                      fontFamily: "StudioProR",
+                                      fontWeight: FontWeight.bold,
+                                      // color: const Color(0xff000000),
+                                      fontSize: 12.sp),
+                                ),
+                              
+                              ),
+                      
+                            ]),
+                      ),
+                    ],
+                  ),
+                  
+                  sizedBoxHeight(5.h),
+
+                  SizedBox(
+                    height: 250.h,
+                    child: TabBarView(children: [
+                      mainChallengesCard(1),
+                      mainChallengesCard(2),
+                      mainChallengesCard(3),
+                  
+                    ]),
+                  ),
+                      
+                ],
+              ),
             ),
           ),
                   ))          
       ];
           },
-          body: Expanded(
-                  child: DefaultTabController(
-                    initialIndex: 0,
-                    length: 2,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10.h,
+          body: DefaultTabController(
+            initialIndex: 0,
+            length: 2,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10.h,
+                ),
+                SizedBox(
+                  height: 35.h,
+                  // width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.h),
+                        border:
+                            Border.all(color: AppColors.grey54595F, width: 1)),
+                    child: ButtonsTabBar(
+                      
+                      buttonMargin: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.only(left: 70.w, right: 70.w),
+                      radius: 20.h,
+                      backgroundColor: AppColors.grey54595F,
+                      unselectedBorderColor: Colors.white,
+                      //borderWidth: 1,
+                      //borderColor: Color(0XFf0E5F02),
+                      unselectedBackgroundColor: Color(0xFFFFFFFF),
+                      unselectedLabelStyle:
+                          TextStyle(color: AppColors.grey54595F),
+                      labelStyle: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                      ),
+                      tabs: [
+                        Tab(
+                          text: "Recipes",
+                          // child: textBlack10Robo("sd"),
                         ),
-                        SizedBox(
-                          height: 35.h,
-                          // width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.h),
-                                border:
-                                    Border.all(color: AppColors.grey54595F, width: 1)),
-                            child: ButtonsTabBar(
-                              
-                              buttonMargin: EdgeInsets.zero,
-                              contentPadding: EdgeInsets.only(left: 70.w, right: 70.w),
-                              radius: 20.h,
-                              backgroundColor: AppColors.grey54595F,
-                              unselectedBorderColor: Colors.white,
-                              //borderWidth: 1,
-                              //borderColor: Color(0XFf0E5F02),
-                              unselectedBackgroundColor: Color(0xFFFFFFFF),
-                              unselectedLabelStyle:
-                                  TextStyle(color: AppColors.grey54595F),
-                              labelStyle: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.sp,
-                              ),
-                              tabs: [
-                                Tab(
-                                  text: "Recipes",
-                                  // child: textBlack10Robo("sd"),
-                                ),
-                                Tab(
-                                  text: "Saved ",
-                                  // child: textBlack10Robo("sdf"),
-                            
-                                ),
-                                // Tab(
-                                //   text: "Repairmen",
-                                // ),
-                              ],
-                            ),
-                          ),
+                        Tab(
+                          text: "Saved ",
+                          // child: textBlack10Robo("sdf"),
+                    
                         ),
-                        sizedBoxHeight(10.h),
-                        Expanded(
-                          child: TabBarView(
-                            children: [
-                              tab1(),
-                              tab1(),
-                              
-
-                              // FirstTab(),
-                              // SecondTab(),
-                              // ThirdTab(),
-                            ],
-                          ),
-                        ),
+                        // Tab(
+                        //   text: "Repairmen",
+                        // ),
                       ],
                     ),
                   ),
                 ),
+
+                sizedBoxHeight(10.h),
+
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: TabBarView(
+                      children: [
+                        tab1(),
+                        tab1(),
+                        
+                  
+                        // FirstTab(),
+                        // SecondTab(),
+                        // ThirdTab(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         
     
         ),
@@ -491,7 +508,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
 
   Widget mainChallengesCard(int? tabNum) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(5.w),
       child: InkWell(
         onTap: (){
           Get.toNamed("/joinchallenge");
@@ -542,39 +559,58 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                 ),
       
                 sizedBoxHeight(15.h),
-      
-                tabNum == 3 ?SizedBox() : Center(
-                  child: SizedBox(
-                    height: 40.h,
-                    width: 100.w,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Get.to(DiscoveryRecipesScreen(),
-                        //     duration: Duration(milliseconds: 500),
-                        //     transition: Transition.rightToLeft);
-                        // //Get.toNamed("/discoveryRecipes");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          side: BorderSide(
-                              color: Color(0xFF54595F), width: 1.w),
-                        ),
-                        elevation: 0,
-                        primary: Color(0xFF54595F),
-                        onPrimary: Colors.grey,
-                      ),
-                      child: Text(
-                        tabNum == 1 ? 'Join': "Joined",
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18.h,
-                            fontFamily: "StudioProR"),
-                      ),
-                    ),
-                  ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          //Get.toNamed("/joinchallenge");
+                          // Get.to(JoinChallenge(),
+                          //     duration: Duration(milliseconds: 500),
+                          //     transition: Transition.fadeIn);
+                        },
+                        child: textBlack14SP_Med("Join Challenge")),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.black,
+                      size: 15.h,
+                    )
+                  ],
                 ),
+      
+                // tabNum == 3 ?SizedBox() : Center(
+                //   child: SizedBox(
+                //     height: 40.h,
+                //     width: 100.w,
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         // Get.to(DiscoveryRecipesScreen(),
+                //         //     duration: Duration(milliseconds: 500),
+                //         //     transition: Transition.rightToLeft);
+                //         // //Get.toNamed("/discoveryRecipes");
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(8.r),
+                //           side: BorderSide(
+                //               color: Color(0xFF54595F), width: 1.w),
+                //         ),
+                //         elevation: 0,
+                //         primary: Color(0xFF54595F),
+                //         onPrimary: Colors.grey,
+                //       ),
+                //       child: Text(
+                //         tabNum == 1 ? 'Join': "Joined",
+                //         style: TextStyle(
+                //             color: Color(0xFFFFFFFF),
+                //             fontWeight: FontWeight.w500,
+                //             fontSize: 18.h,
+                //             fontFamily: "StudioProR"),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                             
           
                 // SizedBox(
