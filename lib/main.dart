@@ -35,6 +35,7 @@ import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
+import 'screens/completed_challenge.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -149,6 +150,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/EditCommunity", page: () => EditCommunity()),
             GetPage(name: "/following", page: () => Following()),
             GetPage(name: "/follower", page: () => Follower()),
+            GetPage(name: "/CompletedChallenge", page: () => CompletedChallenge()),
+         
           ],
         ),
       ),
