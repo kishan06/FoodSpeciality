@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../common files/common_view_rules.dart';
 import '../../../common files/sized_box.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/texts.dart';
@@ -460,7 +461,14 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       padding: EdgeInsets.all(5.w),
       child: InkWell(
         onTap: () {
-          Get.toNamed("/completedchallenge");
+
+          if (tabNum == 3) {
+            Get.toNamed("/CompletedChallenge");
+          } else {
+            Get.toNamed("/joinchallenge");
+          }
+          // Get.toNamed("/joinchallenge");
+
         },
         child: Container(
           // height: 200.h,
@@ -512,19 +520,26 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    tabNum == 3
+                        ? SizedBox()
+                        : Row(
+                            children: [
+                              textBlack14SP_Med(tabNum == 1
+                                  ? "Join Challenge"
+                                  : "Joined Challenge"),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: AppColors.black,
+                                size: 15.h,
+                              ),
+                              sizedBoxWidth(15.w),
+                            ],
+                          ),
                     GestureDetector(
                         onTap: () {
-                          //Get.toNamed("/joinchallenge");
-                          // Get.to(JoinChallenge(),
-                          //     duration: Duration(milliseconds: 500),
-                          //     transition: Transition.fadeIn);
+                          getViewRulesDailog();
                         },
-                        child: textBlack14SP_Med("Join Challenge")),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.black,
-                      size: 15.h,
-                    )
+                        child: textBlack14SP_Med("View Rules")),
                   ],
                 ),
 
