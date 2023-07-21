@@ -1,16 +1,14 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonInviteButton extends StatefulWidget {
-  var text;
+  final String text;
+  final Function(String, bool) onPressed;
 
   CommonInviteButton({
     Key? key,
-    GlobalKey<FormState>? form,
     required this.text,
-    // this.colorchange = false,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -18,7 +16,7 @@ class CommonInviteButton extends StatefulWidget {
 }
 
 class _CommonInviteButtonState extends State<CommonInviteButton> {
-  late bool _colorchange = true;
+  bool _colorchange = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,6 @@ class _CommonInviteButtonState extends State<CommonInviteButton> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          // ignore: deprecated_member_use
           primary: _colorchange ? Color.fromRGBO(84, 89, 95, 1) : Colors.white,
           shape: RoundedRectangleBorder(
             side: _colorchange
@@ -36,40 +33,19 @@ class _CommonInviteButtonState extends State<CommonInviteButton> {
             borderRadius: BorderRadius.circular(8.r),
           ),
         ),
-        child: Row(
-          children: [
-            // Visibility(
-            //     visible: !_colorchange,
-            //     child: Row(
-            //       children: [
-            //         Text("Invited"),
-            //         SizedBox(
-            //           width: 7.42.w,
-            //         )
-            //       ],
-            //     )),
-            _colorchange
-                ? Text(
-                    widget.text,
-                    style: TextStyle(
-                      color: _colorchange ? Colors.white : Color(0xFF303030),
-                      fontSize: 14.sm,
-                      fontFamily: 'StudioProR',
-                    ),
-                  )
-                : Row(
-                    children: [
-                      Text("Invited",
-                          style: TextStyle(color: Color(0xFF303030))),
-                    ],
-                  ),
-          ],
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            color: _colorchange ? Colors.white : Color(0xFF303030),
+            fontSize: 14.sm,
+            fontFamily: 'StudioProR',
+          ),
         ),
         onPressed: () {
           setState(() {
             _colorchange = !_colorchange;
-            // _colorchange = _colorchange ? _colorchange = false : true;
           });
+          widget.onPressed(widget.text, _colorchange);
         },
       ),
     );

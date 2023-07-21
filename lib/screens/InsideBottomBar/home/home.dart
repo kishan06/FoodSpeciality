@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
@@ -201,14 +200,16 @@ class _HomeState extends State<Home> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25.h),
                                   image: const DecorationImage(
-                                      image: AssetImage("assets/home/profile.png"),
+                                      image:
+                                          AssetImage("assets/home/profile.png"),
                                       fit: BoxFit.fill)),
                             ),
 
                             Positioned(
                               bottom: -10.h,
                               right: 2.h,
-                              child: Image.asset("assets/svg/rankTag.png",
+                              child: Image.asset(
+                                "assets/svg/rankTag.png",
                                 height: 45.h,
                                 width: 25.h,
                               ),
@@ -307,7 +308,7 @@ class _HomeState extends State<Home> {
                                   )),
                         Container(
                           child: isFollowedByMe == 0
-                              ? SizedBox() 
+                              ? SizedBox()
                               : PopupMenuButton(
                                   offset: const Offset(0, 50),
                                   color: const Color(0xFFFFFFFF),
@@ -347,7 +348,7 @@ class _HomeState extends State<Home> {
                                                       const Color(0xff3B3F43)),
                                             ),
                                             content: SizedBox(
-                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),  
+                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
@@ -932,6 +933,10 @@ class _HomeState extends State<Home> {
 }
 
 Widget addCommunityDailog() {
+  final _createcommunitykey = GlobalKey<FormState>();
+  TextEditingController communityName = TextEditingController();
+  TextEditingController description = TextEditingController();
+
   return Dialog(
     elevation: 0,
     backgroundColor: Colors.transparent,
@@ -946,118 +951,158 @@ Widget addCommunityDailog() {
           ),
           child: Padding(
             padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 25.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.close,
-                        size: 30.h,
-                        color: AppColors.greyM707070,
+            child: Form(
+              key: _createcommunitykey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          size: 30.h,
+                          color: AppColors.greyM707070,
+                        ),
                       ),
+                    ],
+                  ),
+                  sizedBoxHeight(45.h),
+                  SizedBox(
+                    width: 200.w,
+                    height: 27.h,
+                    child: TextFormField(
+                      controller: communityName,
+                      style: TextStyle(
+                          color: Color(0xFF979797),
+                          fontSize: 20.sp,
+                          fontFamily: "StudioProR"),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintStyle: TextStyle(
+                            color: Color(0xFF979797),
+                            fontSize: 20.sp,
+                            fontFamily: "StudioProR"),
+                        hintText: "Community Name",
+                      ),
+                      textAlign: TextAlign.center,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a community name';
+                        }
+                        return null;
+                      },
                     ),
-                  ],
-                ),
-                sizedBoxHeight(35.h),
-                SizedBox(
-                  width: 200.w,
-                  height: 24.h,
-                  child: TextFormField(
+                  ),
+                  sizedBoxHeight(15.h),
+                  TextFormField(
+                    controller: description,
                     style: TextStyle(
                         color: Color(0xFF979797),
                         fontSize: 20.sp,
                         fontFamily: "StudioProR"),
+                    cursorColor: const Color(0xFFFFB600),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(14.sp),
                       filled: true,
                       fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                            color: const Color(0xFF979797), width: 0.5.w),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.w),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.w),
+                      ),
                       hintStyle: TextStyle(
-                          color: Color(0xFF979797),
-                          fontSize: 20.sp,
-                          fontFamily: "StudioProR"),
-                      hintText: "Community Name",
+                          fontFamily: "StudioProR",
+                          color: const Color(0x80000000),
+                          fontSize: 17.sp),
+                      hintText: "Community Description",
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                sizedBoxHeight(15.h),
-                TextFormField(
-                  style: TextStyle(
-                      color: Color(0xFF979797),
-                      fontSize: 20.sp,
-                      fontFamily: "StudioProR"),
-                  cursorColor: const Color(0xFFFFB600),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(14.sp),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                      borderSide: BorderSide(
-                          color: const Color(0xFF979797), width: 0.5.w),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                      borderSide: BorderSide(
-                          color: const Color(0xFF979797), width: 0.5.w),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                      borderSide: BorderSide(
-                          color: const Color(0xFF979797), width: 0.5.w),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.r),
-                      borderSide: BorderSide(color: Colors.red, width: 1.w),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.r),
-                      borderSide: BorderSide(color: Colors.red, width: 1.w),
-                    ),
-                    hintStyle: TextStyle(
-                        fontFamily: "StudioProR",
-                        color: const Color(0x80000000),
-                        fontSize: 17.sp),
-                    hintText: "Community Description",
-                  ),
-                  minLines: 4,
-                  maxLines: null,
-                ),
-                sizedBoxHeight(15.h),
-                SizedBox(
-                  height: 50.h,
-                  width: 170.w,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      // ignore: deprecated_member_use
-                      primary: const Color(0xFF3B3F43),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xFF707070)),
-                        borderRadius: BorderRadius.circular(8.h),
-                      ),
-                    ),
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontFamily: 'StudioProR',
-                      ),
-                    ),
-                    onPressed: () {
-                      Get.toNamed("communityaddparticipants");
+                    minLines: 4,
+                    maxLines: null,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a community description';
+                      }
+                      return null;
                     },
                   ),
-                ),
-              ],
+                  sizedBoxHeight(15.h),
+                  SizedBox(
+                    height: 50.h,
+                    width: 170.w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        // ignore: deprecated_member_use
+                        primary: const Color(0xFF3B3F43),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(color: Color(0xFF707070)),
+                          borderRadius: BorderRadius.circular(8.h),
+                        ),
+                      ),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontFamily: 'StudioProR',
+                        ),
+                      ),
+                      // onPressed: () {
+                      //   final FormState? form =
+                      //       _createcommunitykey.currentState;
+                      //   if (form != null && form.validate()) {
+                      //     // apiForLogin();
+
+                      //     Get.toNamed("/communityaddparticipants", arguments: {
+                      //       "name": communityName.text,
+                      //       "description": description.text
+                      //     });
+                      //   }
+                      // },
+                      onPressed: () {
+                        final FormState? form =
+                            _createcommunitykey.currentState;
+                        if (form != null && form.validate()) {
+                          // Validated successfully
+                          Get.toNamed(
+                            "/communityaddparticipants",
+                            arguments: {
+                              "name": communityName.text,
+                              "description": description.text,
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
