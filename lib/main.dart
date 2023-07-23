@@ -51,13 +51,6 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // GlobalVariables globalVariables = GlobalVariables();
-    // globalVariables.accessToken = await prefs.getString('accessToken');
-    // print("acs to ${globalVariables.accessToken}");
-    // print("token " + jsonResp["data"]["accessToken"]);
-    // await prefs.setString('accessToken', jsonResp["data"]["accessToken"]);
-    // await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
 
     runApp(new MyApp());
   });

@@ -1,5 +1,6 @@
 // import 'dart:html';
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -15,12 +16,13 @@ import 'package:foodspeciality/services/recipe_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import '../common files/sized_box.dart';
-import 'common_chip.dart';
+// import 'common_chip.dart';
 // import 'dropdownList.dart';
-// import 'menuButton.dart';
+// import 'menuButton.dart';se
 
 // int currentIndex = 0;
 enum SampleItem { itemOne, itemTwo, itemThree }
@@ -46,7 +48,7 @@ class _RecipeIngState extends State<RecipeIng>
   RecipeIngreController recipeIngreController =
       Get.put(RecipeIngreController());
   final ImagePicker _picker = ImagePicker();
-  final List<String> _textList = [];
+  final List _textList = [];
   GlobalKey _popupMenuKey = GlobalKey();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool editChip = false;
@@ -64,6 +66,8 @@ class _RecipeIngState extends State<RecipeIng>
   List<double> tbsint = [];
   final List<TextEditingController> _controllers2 = [];
   final List<TextEditingController> tecInstructionList = [];
+  // File? _image;
+  final List<File?> imageInstructionList = [];
 
   // int number = 2;
   File? _image;
@@ -86,6 +90,44 @@ class _RecipeIngState extends State<RecipeIng>
   List difficultyList = ["Easy", "Medium", "Hard"];
   // List<String> units = [];
   List ingredients = [];
+  List instructions = [];
+  List instructionsImages = [];
+  String? publish_status_value;
+  List selectTags = [
+    {"text": "Quarter to quick", "colorBool": true},
+    {"text": "Juicy Mondays", "colorBool": true},
+    {"text": "The healthy way", "colorBool": true},
+    {"text": "Fry-day!!", "colorBool": true},
+    {"text": "Simple greens", "colorBool": true},
+    {"text": "Flavour explosions", "colorBool": true},
+    {"text": "The healthy way", "colorBool": true},
+  ];
+
+  List southAfricaCuisine = [
+    {"text": "Limpopo", "colorBool": true},
+    {"text": "Easy", "colorBool": true},
+    {"text": "Food", "colorBool": true},
+    {"text": "Carrot", "colorBool": true},
+    {"text": "Quick", "colorBool": true},
+    {"text": "Yoghurt", "colorBool": true},
+    {"text": "Breakfast", "colorBool": true},
+    {"text": "Quick", "colorBool": true},
+    {"text": "Yoghurt", "colorBool": true},
+  ];
+
+  List internationalCuisine = [
+    {"text": "Limpopo", "colorBool": true},
+    {"text": "Easy", "colorBool": true},
+    {"text": "Food", "colorBool": true},
+    {"text": "Carrot", "colorBool": true},
+    {"text": "Quick", "colorBool": true},
+    {"text": "Yoghurt", "colorBool": true},
+    {"text": "Breakfast", "colorBool": true},
+    {"text": "Quick", "colorBool": true},
+    {"text": "Yoghurt", "colorBool": true},
+  ];
+
+  var _newFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -131,6 +173,7 @@ class _RecipeIngState extends State<RecipeIng>
   @override
   void dispose() {
     tabController!.dispose();
+    // recipeIngreController.dispose();
     super.dispose();
   }
 
@@ -138,6 +181,11 @@ class _RecipeIngState extends State<RecipeIng>
   Widget build(BuildContext context) {
     if (widgetsInColumn.isEmpty) {
       widgetsInColumn.add(_recipeDetails(null, null, 0));
+    }
+    if (stepsInColumn.isEmpty) {
+      tecInstructionList.add(TextEditingController());
+      imageInstructionList.add(null);
+      stepsInColumn.add(_instructionSteps(0));
     }
     // widgetsInColumn.add(_recipeDetails(null, null, 0));
 
@@ -210,34 +258,38 @@ class _RecipeIngState extends State<RecipeIng>
                         Center(
                           child: InkWell(
                             onTap: () async {
-                              // RecipeService recipeService = RecipeService();
-                              // recipeService.addRecipe(
-                              //   videoPath: recipeIngreController.file!.path,
-                              //   imagePath: recipeIngreController.image!.path
-                              // );
-                              int cookingTime =
-                                  _selectedHour * 60 + _selectedMinute;
-                              for (var i = 0; i < dropdownData.length; i++) {
-                                ingredients.add({
-                                  "name": _controllers[i].text,
-                                  "quantity":
-                                      _controllers2[i].text + dropdownData[i]!
-                                });
-                              }
-
-                              callAddRecipeApi();
-
-                              // if (res) {
-
+                              // final isValid = _newFormKey.currentState!.validate();
+                              // if (!isValid) {
+                              //   return ;
                               // }
 
-                              // RecipeService().addRecipe(
-                              //   videoPath: videoPath,
-                              //   imagePath: imagePath
-                              // );
-                              // showDialog(
-                              //     context: context,
-                              //     builder: (context) => PublishPopup());
+                              publish_status_value = "published";
+                              if (recipeIngreController.file == null) {
+                                Get.snackbar("Error", "Select a video");
+                              } else if(recipeIngreController.image == null){
+                                Get.snackbar("Error", "Select a Cover Image");
+                              } else if (tecRecipeName.text.isEmpty || tecDescription.text.isEmpty){
+                                Get.snackbar("Error", "Enter recipe name and description");
+                              } else if (selectedDifficultyText == null){
+                                Get.snackbar("Error", "Select difficulty");
+                              }
+                              else {
+                                final isValid = _newFormKey.currentState!.validate();
+                                print("isValid $isValid");
+                                if (isValid) {
+                                  return callAddRecipeApi();
+                                }
+                              }
+
+                              // final isValid = _newFormKey.currentState!.validate();
+                              // if (!isValid) {
+                                
+                              //   // return callAddRecipeApi();
+                              // }
+
+
+                              // callAddRecipeApi();
+
                             },
                             child: Text(
                               "Publish",
@@ -315,8 +367,26 @@ class _RecipeIngState extends State<RecipeIng>
   }
 
   callAddRecipeApi() async {
+    print("callAddRecipeApi");
     RecipeService recipeService = RecipeService();
     int cookingTime = _selectedHour * 60 + _selectedMinute;
+    ingredients = [];
+    for (var i = 0; i < dropdownData.length; i++) {
+      ingredients.add({
+        '"name"': '"${_controllers[i].text}"',
+        '"quantity"':
+            '"${_controllers2[i].text + " " + dropdownData[i]!}"'
+      });
+    }
+    instructions = [];
+    for (var i = 0; i < stepsInColumn.length; i++) {
+      // instructions.add('"${tecInstructionList[i].text}"');
+      instructions.add("${tecInstructionList[i].text}");
+
+      // instructionsImages.add()
+    }
+
+
 
     var resp = await recipeService.addRecipe(
         // int cookingTime = _selectedHour * 60 + _selectedMinute,
@@ -324,16 +394,144 @@ class _RecipeIngState extends State<RecipeIng>
         imagePath: recipeIngreController.image!.path,
         name: tecRecipeName.text,
         description: tecDescription.text,
-        difficulty: selectedDifficultyText!,
+        difficulty: selectedDifficultyText!.toLowerCase(),
         cookingTime: cookingTime.toString(),
         serving: servigCount.toString(),
         tags: recipeIngreController.tags.toString(),
-        ingredients: ingredients.toString());
+        ingredients: ingredients.toString(),
+        // instructions: instructions.toString(),
+        instructions: jsonEncode(instructions),
+        
+        publish_status: publish_status_value!,
+        instructionsImages: imageInstructionList
+        );
+        
 
     if (resp.status == ResponseStatus.PRIVATE) {
       callAddRecipeApi();
+    } else if(resp.status == ResponseStatus.SUCCESS){
+      getRecipePublishSuccess();
     }
   }
+
+  getRecipePublishSuccess(){
+    Get.defaultDialog(
+      titleStyle: TextStyle(
+        fontSize: 0
+      ),
+      titlePadding: EdgeInsets.all(0),
+      contentPadding: EdgeInsets.all(10.h),
+      title: "",
+      barrierDismissible: false,
+      content: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: GestureDetector(
+                  //     onTap: (){
+                  //       Get.back();
+                  //     },
+                  //     child: Icon(Icons.close,
+                  //       color: AppColors.grey54595F,
+                  //       // ColorConstants.kPrimaryColor,
+                  //       size: 25.h,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 30),
+
+                  LottieBuilder.network("https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
+                    // height: ,
+                    height: 200.h,
+                    width: 250.w,
+                  ),
+
+                  Text("Congratulations",
+                    style: TextStyle(
+                      fontSize: 25.sp,
+                      color: AppColors.greyD3B3F43,
+                      // ColorConstants.kPrimaryColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  SizedBox(height: 10,),
+
+                  Text(
+                    "Recipe added successfully",
+                    // HomeApiController().setMoodResponse,
+                    // homeApiController.setMoodResponse.progressBar!,
+                    style: TextStyle(
+                      fontSize: 17.sp,
+                      color: AppColors.greyD3B3F43,
+                    ),
+                  ),
+
+                  sizedBoxHeight(30.h),
+
+                  SizedBox(
+                    height: 50.h,
+                    width: 170.w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        // ignore: deprecated_member_use
+                        primary: const Color(0xFF3B3F43),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(color: Color(0xFF707070)),
+                          borderRadius: BorderRadius.circular(8.h),
+                        ),
+                      ),
+                      child: Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontFamily: 'StudioProR',
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.offAllNamed("/bottomBar");
+
+                        // Get.toNamed("communityaddparticipants");
+                      },
+                    ),
+                  ),
+               
+
+                  // custom
+
+                  // TextSpan(
+                  //         text: appDataController.name.value,
+                  //         style: TextStyle(
+                  //           fontSize: 17,
+                  //           color: ColorConstants.kPrimaryColor,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       )
+
+                  // custom
+
+
+                  // const SizedBox(height: 34),
+
+
+                ],
+              ),
+            ],
+          ),
+        )
+
+    );
+  }
+
 
   recipeTab() {
     return Padding(
@@ -630,10 +828,21 @@ class _RecipeIngState extends State<RecipeIng>
             ),
             sizedBoxHeight(13.h),
             SizedBox(
-              height: 50.h,
+              // height: 50.h,
               child: TextFormField(
                 controller: tecRecipeName,
+                // autovalidateMode: AutovalidateMode.always,
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter Recipe Name';
+                //   }
+                  
+                //   // v2 = true;
+                //   return null;
+                // },
                 decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.h),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Color(0xff707070)),
                     borderRadius: BorderRadius.circular(8.r),
@@ -642,6 +851,7 @@ class _RecipeIngState extends State<RecipeIng>
                     borderSide: const BorderSide(color: Color(0xFF707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
+                  
                   hintText: "Recipe's name",
                   hintStyle: TextStyle(
                       fontFamily: "Roboto",
@@ -670,6 +880,14 @@ class _RecipeIngState extends State<RecipeIng>
               height: 112.h,
               child: TextFormField(
                 controller: tecDescription,
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter Description';
+                //   }
+                  
+                //   // v2 = true;
+                //   return null;
+                // },
                 maxLines: 5,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -689,6 +907,8 @@ class _RecipeIngState extends State<RecipeIng>
               ),
             ),
             sizedBoxHeight(20.h),
+
+
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -714,18 +934,73 @@ class _RecipeIngState extends State<RecipeIng>
               ],
             ),
             sizedBoxHeight(18.h),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Wrap(
+            //       spacing: 11.w,
+            //       runSpacing: 7.h,
+            //       children: 
+            //       [
+            //         ..._textList
+            //             .map((text) => Row(
+            //                   mainAxisSize: MainAxisSize.min,
+            //                   children: [
+            //                     CommonChip(text: text),
+            //                     // CommonChip(
+            //                     //   text: _textList[index]["text"],
+            //                     //   colorchange: _textList[index]["colorBool"],
+            //                     //   index: index,
+            //                     //   listName: "_textList"
+            //                     // ),
+            //                     Visibility(
+            //                       visible: editChip,
+            //                       child: Row(
+            //                         children: [
+            //                           sizedBoxWidth(3.w),
+            //                           InkWell(
+            //                             onTap: () {
+            //                               setState(() {
+            //                                 _textList.remove(text);
+            //                                 recipeIngreController
+            //                                     .removeTags(text);
+            //                                 print(recipeIngreController.tags);
+            //                               });
+            //                             },
+            //                             child: const Icon(
+            //                               Icons.cancel,
+            //                               color: Colors.grey,
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     )
+            //                   ],
+            //                 ))
+            //             .toList(),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+          
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Wrap(
                   spacing: 11.w,
                   runSpacing: 7.h,
-                  children: [
-                    ..._textList
-                        .map((text) => Row(
+                  children: List.generate(
+                    _textList.length, 
+                    (index) => Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                CommonChip(text: text),
+                                // CommonChip(text: text),
+                                CommonChip(
+                                  text: _textList[index]["text"],
+                                  colorchange: _textList[index]["colorBool"],
+                                  index: index,
+                                  listName: "_textList"
+                                ),
                                 Visibility(
                                   visible: editChip,
                                   child: Row(
@@ -734,10 +1009,12 @@ class _RecipeIngState extends State<RecipeIng>
                                       InkWell(
                                         onTap: () {
                                           setState(() {
-                                            _textList.remove(text);
+                                            // _textList.remove(_textList[index]["text"]);
                                             recipeIngreController
-                                                .removeTags(text);
+                                                .removeTags(_textList[index]["text"]);
+                                            _textList.removeWhere((element) => element["text"] == _textList[index]["text"]);
                                             print(recipeIngreController.tags);
+                                            print(_textList);
                                           });
                                         },
                                         child: const Icon(
@@ -749,12 +1026,13 @@ class _RecipeIngState extends State<RecipeIng>
                                   ),
                                 )
                               ],
-                            ))
-                        .toList(),
-                  ],
+                            )
+                  )
+                  
                 ),
               ],
             ),
+          
             sizedBoxHeight(18.h),
             Visibility(
               visible: !textFieldVisibile,
@@ -831,7 +1109,7 @@ class _RecipeIngState extends State<RecipeIng>
                         autofocus: true,
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(
-                          fontSize: 10.sp,
+                          fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
                           isCollapsed: true,
@@ -842,7 +1120,7 @@ class _RecipeIngState extends State<RecipeIng>
                           border: InputBorder.none,
                           hintStyle: TextStyle(
                               color: const Color(0xff54595f),
-                              fontSize: 10.sp,
+                              fontSize: 12.sp,
                               fontFamily: "Roboto"),
                           hintText: 'Enter text here',
                         ),
@@ -854,7 +1132,9 @@ class _RecipeIngState extends State<RecipeIng>
                               // form.save();
                               textFieldVisibile = !textFieldVisibile;
                               _textController.clear();
-                              _textList.add(value);
+                              _textList.add({"text": value, "colorBool": true});
+
+                              // /
                             }
                           });
                         },
@@ -896,14 +1176,33 @@ class _RecipeIngState extends State<RecipeIng>
               spacing: 11.w,
               runSpacing: 7.h,
               children: [
-                const CommonChip(text: "Savoury moments"),
-                const CommonChip(text: "Quarter to quick"),
-                const CommonChip(text: "Juicy Mondays"),
-                const CommonChip(text: "The healthy way"),
-                const CommonChip(text: "Fry-day!!"),
-                const CommonChip(text: "Simple greens"),
-                const CommonChip(text: "Flavour explosions"),
-                const CommonChip(text: "The healthy way"),
+                // CommonChip(text: "Savoury moments"),
+                // CommonChip(text: "Quarter to quick"),
+                // CommonChip(text: "Juicy Mondays"),
+                // CommonChip(text: "The healthy way"),
+                // CommonChip(text: "Fry-day!!"),
+                // CommonChip(text: "Simple greens"),
+                // CommonChip(text: "Flavour explosions"),
+                // CommonChip(text: "The healthy way"),
+                // List.generate(
+                //   selectTags.length, 
+                //   (index) => null
+                // ),
+                // List.
+                Wrap(
+                  spacing: 11.w,
+                  runSpacing: 7.h,
+                  children: List.generate(
+                    selectTags.length, 
+                    (index) => CommonChip(
+                      text: selectTags[index]["text"],
+                      colorchange: selectTags[index]["colorBool"],
+                      index: index,
+                      listName: "selectTags"
+                    )
+                  ),
+                ),
+                
                 SizedBox(
                   height: 18.h,
                   width: double.infinity,
@@ -921,15 +1220,29 @@ class _RecipeIngState extends State<RecipeIng>
                   height: 5.h,
                   width: double.infinity,
                 ),
-                const CommonChip(text: "Limpopo"),
-                const CommonChip(text: "Easy"),
-                const CommonChip(text: "Food"),
-                const CommonChip(text: "Carrot"),
-                const CommonChip(text: "Quick"),
-                const CommonChip(text: "Yoghurt"),
-                const CommonChip(text: "Breakfast"),
-                const CommonChip(text: "Quick"),
-                const CommonChip(text: "Yoghurt"),
+                // CommonChip(text: "Limpopo"),
+                // CommonChip(text: "Easy"),
+                // CommonChip(text: "Food"),
+                // CommonChip(text: "Carrot"),
+                // CommonChip(text: "Quick"),
+                // CommonChip(text: "Yoghurt"),
+                // CommonChip(text: "Breakfast"),
+                // CommonChip(text: "Quick"),
+                // CommonChip(text: "Yoghurt"),
+                Wrap(
+                  spacing: 11.w,
+                  runSpacing: 7.h,
+                  children: List.generate(
+                    southAfricaCuisine.length, 
+                    (index) => CommonChip(
+                      text: southAfricaCuisine[index]["text"],
+                      colorchange: southAfricaCuisine[index]["colorBool"],
+                      index: index,
+                      listName: "southAfricaCuisine"
+                    )
+                  ),
+                ),
+
                 SizedBox(
                   height: 13.h,
                   width: double.infinity,
@@ -947,18 +1260,31 @@ class _RecipeIngState extends State<RecipeIng>
                   height: 5.h,
                   width: double.infinity,
                 ),
-                const CommonChip(text: "Limpopo"),
-                const CommonChip(text: "Easy"),
-                const CommonChip(text: "Food"),
-                const CommonChip(text: "Carrot"),
-                const CommonChip(text: "Quick"),
-                SizedBox(
-                  height: 6.h,
+                Wrap(
+                  spacing: 11.w,
+                  runSpacing: 7.h,
+                  children: List.generate(
+                    internationalCuisine.length, 
+                    (index) => CommonChip(
+                      text: internationalCuisine[index]["text"],
+                      colorchange: internationalCuisine[index]["colorBool"],
+                      index: index,
+                      listName: "internationalCuisine"
+                    )
+                  ),
                 ),
-                const CommonChip(text: "Yoghurt"),
-                const CommonChip(text: "Breakfast"),
-                const CommonChip(text: "Quick"),
-                const CommonChip(text: "Yoghurt"),
+                // CommonChip(text: "Limpopo"),
+                // CommonChip(text: "Easy"),
+                // CommonChip(text: "Food"),
+                // CommonChip(text: "Carrot"),
+                // CommonChip(text: "Quick"),
+                // SizedBox(
+                //   height: 6.h,
+                // ),
+                // CommonChip(text: "Yoghurt"),
+                // CommonChip(text: "Breakfast"),
+                // CommonChip(text: "Quick"),
+                // CommonChip(text: "Yoghurt"),
                 SizedBox(
                   height: 13.h,
                   width: double.infinity,
@@ -1023,80 +1349,149 @@ class _RecipeIngState extends State<RecipeIng>
   }
 
   ingredientTab() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            sizedBoxHeight(22.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Recipe Details",
-                  style: TextStyle(
-                    fontFamily: "Studio Pro",
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.sp,
-                    color: const Color(0xFF3E3D3D),
+    return Form(
+      key: _newFormKey,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              sizedBoxHeight(22.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Recipe Details",
+                    style: TextStyle(
+                      fontFamily: "Studio Pro",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                      color: const Color(0xFF3E3D3D),
+                    ),
+                  ),
+                ],
+              ),
+              sizedBoxHeight(15.h),
+              Container(
+                height: 101.h,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Color(0xff707070)),
+                      borderRadius: BorderRadius.circular(8.r)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // sizedBoxWidth(14.w),
+                      SvgPicture.asset("assets/svg/Group 58248.svg"),
+                      sizedBoxWidth(15.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Cooking Time",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Wrap(
+                            children: [
+                              Text(
+                                "How long does it take \nto make this recipe?",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    color: const Color(0xff979797),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Get.bottomSheet(_timeForServing());
+                        },
+                        child: Container(
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                  side:
+                                      const BorderSide(color: Color(0xff707070)),
+                                  borderRadius: BorderRadius.circular(8.r)),
+                            ),
+                            height: 45.h,
+                            width: 116.w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "$_selectedHour Hr $_selectedMinute Min",
+                                  style: TextStyle(
+                                      fontFamily: "Roboto", fontSize: 20.sp),
+                                ),
+                                sizedBoxWidth(1.w),
+                              ],
+                            )),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            sizedBoxHeight(15.h),
-            Container(
-              height: 101.h,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xff707070)),
-                    borderRadius: BorderRadius.circular(8.r)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // sizedBoxWidth(14.w),
-                    SvgPicture.asset("assets/svg/Group 58248.svg"),
-                    sizedBoxWidth(15.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Cooking Time",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Wrap(
-                          children: [
-                            Text(
-                              "How long does it take \nto make this recipe?",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontFamily: "Roboto",
-                                  color: const Color(0xff979797),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Get.bottomSheet(_timeForServing());
-                      },
-                      child: Container(
+              sizedBoxHeight(15.h),
+              Container(
+                height: 101.h,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Color(0xff707070)),
+                      borderRadius: BorderRadius.circular(8)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //  sizedBoxWidth(14.w),
+                      SvgPicture.asset("assets/svg/Group 58247.svg"),
+                      sizedBoxWidth(15.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Servings",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "How many people does \nthis recipe serve?",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: const Color(0xff979797),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Get.bottomSheet(_servings());
+                        },
+                        child: Container(
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
-                                side:
-                                    const BorderSide(color: Color(0xff707070)),
-                                borderRadius: BorderRadius.circular(8.r)),
+                                side: const BorderSide(color: Color(0xff707070)),
+                                borderRadius: BorderRadius.circular(8)),
                           ),
                           height: 45.h,
                           width: 116.w,
@@ -1104,232 +1499,167 @@ class _RecipeIngState extends State<RecipeIng>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "$_selectedHour Hr $_selectedMinute Min",
-                                style: TextStyle(
-                                    fontFamily: "Roboto", fontSize: 20.sp),
+                                " $servigCount Serving",
+                                style: const TextStyle(
+                                    fontSize: 20, fontFamily: "Roboto"),
                               ),
-                              sizedBoxWidth(1.w),
+                              sizedBoxWidth(1),
                             ],
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            sizedBoxHeight(15.h),
-            Container(
-              height: 101.h,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xff707070)),
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //  sizedBoxWidth(14.w),
-                    SvgPicture.asset("assets/svg/Group 58247.svg"),
-                    sizedBoxWidth(15.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Servings",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "How many people does \nthis recipe serve?",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              color: const Color(0xff979797),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Get.bottomSheet(_servings());
-                      },
-                      child: Container(
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                              side: const BorderSide(color: Color(0xff707070)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        height: 45.h,
-                        width: 116.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              " $servigCount Serving",
-                              style: const TextStyle(
-                                  fontSize: 20, fontFamily: "Roboto"),
-                            ),
-                            sizedBoxWidth(1),
-                          ],
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              sizedBoxHeight(20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Recipe Details",
+                    style: TextStyle(
+                      fontFamily: "Studio Pro",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.spMin,
+                      color: const Color(0xFF3E3D3D),
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              sizedBoxHeight(15.h),
+    
+              //_recipeDetails(_tec, _tbsController),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: widgetsInColumn.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _recipeDetails(_tec, _tbsController, index);
+                  }),
+    
+              sizedBoxHeight(13.h),
+    
+              SizedBox(
+                height: 40.h,
+                width: 150.w,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    // ignore: deprecated_member_use
+                    primary: const Color.fromRGBO(84, 89, 95, 1),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.h),
+                    ),
+                  ),
+                  child: Text(
+                    "+ Ingredient",
+                    style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  onPressed: () async {
+                    print(textControllerNumber);
+                    // if (textControllerNumber < 5) {
+                    // await textControllerNumber++;
+                    _controllers.add(TextEditingController());
+                    _controllersTbs.add(TextEditingController());
+                    _controllers2.add(TextEditingController());
+                    _controllers2[textControllerNumber].text = "1";
+                    dropdownData.add("cup");
+                    // popKeys.add(GlobalKey());
+                    // units.add("");
+                    textControllerNumber++;
+                    print("bvg");
+    
+                    // if (_tec.text.isEmpty) {
+                    //   return;
+                    // } else {
+                    //   setState(() {
+                    //     widgetsInColumn.add(_recipeDetails(null));
+                    //   });
+                    // }
+                    setState(() {
+                      widgetsInColumn.add(_recipeDetails(null, null, 0));
+                    });
+                    // }
+                  },
                 ),
               ),
-            ),
-            sizedBoxHeight(20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Recipe Details",
-                  style: TextStyle(
-                    fontFamily: "Studio Pro",
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.spMin,
-                    color: const Color(0xFF3E3D3D),
+              sizedBoxHeight(20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Instructions",
+                    style: TextStyle(
+                      fontFamily: "Studio Pro",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.spMin,
+                      color: const Color(0xFF3E3D3D),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            sizedBoxHeight(15.h),
-
-            //_recipeDetails(_tec, _tbsController),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: widgetsInColumn.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _recipeDetails(_tec, _tbsController, index);
-                }),
-
-            sizedBoxHeight(13.h),
-
-            SizedBox(
-              height: 40.h,
-              width: 150.w,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  // ignore: deprecated_member_use
-                  primary: const Color.fromRGBO(84, 89, 95, 1),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.h),
-                  ),
-                ),
-                child: Text(
-                  "+ Ingredient",
-                  style: TextStyle(
-                    fontFamily: "Roboto",
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                onPressed: () async {
-                  print(textControllerNumber);
-                  // if (textControllerNumber < 5) {
-                  // await textControllerNumber++;
-                  _controllers.add(TextEditingController());
-                  _controllersTbs.add(TextEditingController());
-                  _controllers2.add(TextEditingController());
-                  _controllers2[textControllerNumber].text = "1";
-                  dropdownData.add("cup");
-                  // popKeys.add(GlobalKey());
-                  // units.add("");
-                  textControllerNumber++;
-                  print("bvg");
-
-                  // if (_tec.text.isEmpty) {
-                  //   return;
-                  // } else {
-                  //   setState(() {
-                  //     widgetsInColumn.add(_recipeDetails(null));
-                  //   });
-                  // }
-                  setState(() {
-                    widgetsInColumn.add(_recipeDetails(null, null, 0));
-                  });
-                  // }
-                },
+                ],
               ),
-            ),
-            sizedBoxHeight(20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Instructions",
-                  style: TextStyle(
-                    fontFamily: "Studio Pro",
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.spMin,
-                    color: const Color(0xFF3E3D3D),
+              sizedBoxHeight(20.h),
+    
+              // _instructionSteps(1),
+              // Column(
+              //   children: stepsInColumn,
+              // ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: stepsInColumn.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _instructionSteps(index);
+                  }),
+    
+              sizedBoxHeight(14.h),
+              SizedBox(
+                height: 40.h,
+                width: 150.w,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    // ignore: deprecated_member_use
+                    primary: const Color.fromRGBO(84, 89, 95, 1),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.h),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            sizedBoxHeight(20.h),
-
-            // _instructionSteps(1),
-            // Column(
-            //   children: stepsInColumn,
-            // ),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: stepsInColumn.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _instructionSteps(index);
-                }),
-
-            sizedBoxHeight(14.h),
-            SizedBox(
-              height: 40.h,
-              width: 150.w,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  // ignore: deprecated_member_use
-                  primary: const Color.fromRGBO(84, 89, 95, 1),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.h),
+                  child: Text(
+                    "+ Instructions",
+                    style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                    ),
                   ),
+                  onPressed: (){
+                    // if (number < 5) {
+                    setState(()  {
+                      tecInstructionList.add(TextEditingController());
+                      imageInstructionList.add(null);
+                      stepsInColumn.add(_instructionSteps(0));
+                      print(tecInstructionList.length);
+                      print(imageInstructionList.length);
+                    });
+                    // } 
+                  },
                 ),
-                child: Text(
-                  "+ Instructions",
-                  style: TextStyle(
-                    fontFamily: "Roboto",
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                onPressed: () {
-                  // if (number < 5) {
-                  setState(() {
-                    tecInstructionList.add(TextEditingController());
-
-                    stepsInColumn.add(_instructionSteps(0));
-                    // number++;
-                  });
-                  // }
-                },
               ),
-            ),
-
-            // ElevatedButton(onPressed: (){
-            //   Get.to(PopupMenuExample());
-            // }, child: Text("dropdown")),
-            sizedBoxHeight(25)
-          ],
+    
+              // ElevatedButton(onPressed: (){
+              //   Get.to(PopupMenuExample());
+              // }, child: Text("dropdown")),
+              sizedBoxHeight(25)
+            ],
+          ),
         ),
       ),
     );
@@ -1342,27 +1672,121 @@ class _RecipeIngState extends State<RecipeIng>
     }
     // print("_recipeDetails $index");
     int _tbsInitialValue = 0;
-    return Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              height: 45.h,
-              width: 120.w,
-              child: TextFormField(
-                validator: (value) {
-                  if (_tec.text.isEmpty) {
-                    return 'Please enter Ingredient Name';
+    return SizedBox(
+      height: 80.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            // height: 45.h,
+            width: 120.w,
+            child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Required';
+                }
+                // if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value!)) {
+                //   retuPlease enter a valid Ingredient Name';
+                // }
+                return null;
+              },
+              
+              // validatorText: ""
+              controller: _controllers[index!],
+              decoration: InputDecoration(
+                isDense: true,
+                
+                contentPadding: EdgeInsets.all(8.h),
+                isCollapsed: true,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xff707070)),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xFF707070)),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                hintText: "Ex. Salt",
+                hintStyle: TextStyle(
+                    fontFamily: "Roboto",
+                    color: const Color(0xff54595f),
+                    fontSize: 17.h),
+              ),
+            ),
+          ),
+          // sizedBoxWidth(20.w),
+    
+          Spacer(),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_controllers2[index].text.isNotEmpty) {
+                  if (double.tryParse(_controllers2[index].text)! > 0.1) {
+                    _controllers2[index].text =
+                        ((double.tryParse(_controllers2[index].text) ?? 0.1) -
+                                0.1)
+                            .toStringAsFixed(2);
                   }
-                  if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value!)) {
-                    return 'Please enter a valid Ingredient Name';
-                  }
-                  return null;
-                },
-                controller: _controllers[index!],
-                decoration: InputDecoration(
+                }
+              });
+            },
+            child: CircleAvatar(
+              radius: 16.r,
+              backgroundColor: const Color(0xffE1E1E1),
+              child: const Text(
+                "-",
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+              ),
+            ),
+          ),
+    
+          sizedBoxWidth(10.w),
+          SizedBox(
+            // height: 45.h,
+            width: 70.w,
+            child: TextFormField(
+              controller: _controllers2[index],
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Required';
+                }
+                // if(imageInstructionList[index] == null){
+                //   return "s"
+                // }
+                // if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value!)) {
+                //   retuPlease enter a valid Ingredient Name';
+                // }
+                return null;
+              },
+              // initialValue: '$_tbsInitialValue',
+              keyboardType: TextInputType.number,
+              // maxLength: 2,
+              textAlign: TextAlign.center,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                // WhitelistingTextInputFormatter(RegExp(r'^(\d+)?\.?\d{0,2}')),
+              ],
+              // onChanged: (value) {
+              //   // _showPopupMenu();
+              //   // openPopupMenu(index);
+              //   if (units[index] == "") {
+              //     openPopupMenu(index);
+              //   }
+              // },
+    
+              decoration: InputDecoration(
                   isCollapsed: true,
-                  contentPadding: EdgeInsets.all(15.h),
+                  isDense: true,
+                
+                  contentPadding: EdgeInsets.all(8.h),
+                  // content÷Padding: EdgeInsets.all(15.h),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Color(0xff707070)),
                     borderRadius: BorderRadius.circular(8.r),
@@ -1371,161 +1795,86 @@ class _RecipeIngState extends State<RecipeIng>
                     borderSide: const BorderSide(color: Color(0xFF707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
-                  hintText: "Ex. Salt",
+                  hintText: "Ex. 1 TBS",
                   hintStyle: TextStyle(
                       fontFamily: "Roboto",
                       color: const Color(0xff54595f),
                       fontSize: 17.h),
-                ),
+                  counterText: ''),
+            ),
+          ),
+    
+          sizedBoxWidth(10.w),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _controllers2[index].text =
+                    ((double.tryParse(_controllers2[index].text) ?? 0.1) +
+                            0.1)
+                        .toStringAsFixed(2);
+              });
+            },
+            child: CircleAvatar(
+              radius: 16.r,
+              backgroundColor: const Color(0xffE1E1E1),
+              child: const Text(
+                "+",
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
               ),
             ),
-            // sizedBoxWidth(20.w),
-
-            Spacer(),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (_controllers2[index].text.isNotEmpty) {
-                    if (double.tryParse(_controllers2[index].text)! > 0.1) {
-                      _controllers2[index].text =
-                          ((double.tryParse(_controllers2[index].text) ?? 0.1) -
-                                  0.1)
-                              .toStringAsFixed(2);
-                    }
-                  }
-                });
-              },
-              child: CircleAvatar(
-                radius: 16.r,
-                backgroundColor: const Color(0xffE1E1E1),
-                child: const Text(
-                  "-",
+          ),
+    
+          Spacer(),
+          SizedBox(
+            width: 100.w,
+            height: 45.h,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2<String>(
+                isExpanded: true,
+                hint: Text(
+                  'Unit',
                   style: TextStyle(
-                      fontFamily: "Roboto",
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                ),
-              ),
-            ),
-
-            sizedBoxWidth(10.w),
-            SizedBox(
-              height: 45.h,
-              width: 70.w,
-              child: TextFormField(
-                controller: _controllers2[index],
-
-                // initialValue: '$_tbsInitialValue',
-                keyboardType: TextInputType.number,
-                // maxLength: 2,
-                textAlign: TextAlign.center,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                  // WhitelistingTextInputFormatter(RegExp(r'^(\d+)?\.?\d{0,2}')),
-                ],
-                // onChanged: (value) {
-                //   // _showPopupMenu();
-                //   // openPopupMenu(index);
-                //   if (units[index] == "") {
-                //     openPopupMenu(index);
-                //   }
-                // },
-
-                decoration: InputDecoration(
-                    isCollapsed: true,
-                    contentPadding: EdgeInsets.all(15.h),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xff707070)),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFF707070)),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    hintText: "Ex. 1 TBS",
-                    hintStyle: TextStyle(
-                        fontFamily: "Roboto",
-                        color: const Color(0xff54595f),
-                        fontSize: 17.h),
-                    counterText: ''),
-              ),
-            ),
-
-            sizedBoxWidth(10.w),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _controllers2[index].text =
-                      ((double.tryParse(_controllers2[index].text) ?? 0.1) +
-                              0.1)
-                          .toStringAsFixed(2);
-                });
-              },
-              child: CircleAvatar(
-                radius: 16.r,
-                backgroundColor: const Color(0xffE1E1E1),
-                child: const Text(
-                  "+",
-                  style: TextStyle(
-                      fontFamily: "Roboto",
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                ),
-              ),
-            ),
-
-            Spacer(),
-            SizedBox(
-              width: 100.w,
-              height: 45.h,
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: Text(
-                    'Unit',
-                    style: TextStyle(
-                      // fontSize: 14,
-                      color: Theme.of(context).hintColor,
-                    ),
+                    // fontSize: 14,
+                    color: Theme.of(context).hintColor,
                   ),
-                  items: items
-                      .map((String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
+                ),
+                items: items
+                    .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
                             ),
-                          ))
-                      .toList(),
-                  value: dropdownData[index],
-                  onChanged: (value) {
-                    setState(() {
-                      dropdownData[index] = value!;
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      height: 40,
-                      width: 140,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          // borderSide: const BorderSide(color: Color(0xff707070)),
-                          border: Border.all(color: Color(0xFF707070)))),
-                  menuItemStyleData: const MenuItemStyleData(
+                          ),
+                        ))
+                    .toList(),
+                value: dropdownData[index],
+                onChanged: (value) {
+                  setState(() {
+                    dropdownData[index] = value!;
+                  });
+                },
+                buttonStyleData: ButtonStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     height: 40,
-                  ),
+                    width: 140,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        // borderSide: const BorderSide(color: Color(0xff707070)),
+                        border: Border.all(color: Color(0xFF707070)))),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
                 ),
               ),
             ),
-          ],
-        ),
-        sizedBoxHeight(13.h),
-      ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -1562,6 +1911,90 @@ class _RecipeIngState extends State<RecipeIng>
   //     print(value);
   //     });
   // }
+  // Widget 
+
+  Widget CommonChip({
+    required String text, 
+    bool colorchange = true,
+    int? index,
+    String? listName
+  }){
+  // late bool _colorchange = true;
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 27.h,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              // ignore: deprecated_member_use
+              primary: colorchange
+                  ? const Color(0xFFE1E1E1)
+                  : const Color.fromRGBO(84, 89, 95, 1),
+              shape: RoundedRectangleBorder(
+                side: colorchange
+                    ? const BorderSide(
+                        color: Color.fromARGB(255, 223, 216, 216))
+                    : BorderSide.none,
+                borderRadius: BorderRadius.circular(11.r),
+              ),
+            ),
+            child: Row(
+              children: [
+                Visibility(
+                    visible: !colorchange,
+                    child: Row(
+                      children: [
+                        const Image(image: AssetImage("assets/style=bulk.png")),
+                        SizedBox(
+                          width: 7.42.w,
+                        )
+                      ],
+                    )),
+                Text(
+                  text,
+                  style: TextStyle(
+                    color:
+                        colorchange ? const Color(0xFF303030) : Colors.white,
+                    fontSize: 11.sp,
+                    fontFamily: 'StudioProR',
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              setState(() {
+                print(colorchange);
+                colorchange = !colorchange;
+
+                print(colorchange);
+                if (listName == "selectTags") {
+                  selectTags[index!]["colorBool"] = !selectTags[index]["colorBool"];
+                } else if(listName == "southAfricaCuisine"){
+                  southAfricaCuisine[index!]["colorBool"] = !southAfricaCuisine[index]["colorBool"];
+                } else if (listName == "internationalCuisine"){
+                  internationalCuisine[index!]["colorBool"] = !internationalCuisine[index]["colorBool"];
+                } else {
+                  _textList[index!]["colorBool"] = !_textList[index]["colorBool"];
+                }
+                if (colorchange) {
+                  recipeIngreController.removeTags(text);
+                } else {
+                  recipeIngreController.addTags(text);
+                }
+                print(recipeIngreController.tags);
+                // /
+                // colorchange = _colorchange ? _colorchange = false : true;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  
+  }
 
   Widget _servings() {
     return BottomSheet(
@@ -1696,7 +2129,7 @@ class _RecipeIngState extends State<RecipeIng>
                   children: [
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.camera);
+                        getImage(ImageSource.camera,index: index);
                         Get.back();
                         print("dsf");
                         if (_image != null) {
@@ -1722,7 +2155,7 @@ class _RecipeIngState extends State<RecipeIng>
                     ),
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.gallery);
+                        getImage(ImageSource.gallery,index: index);
                         Get.back();
                       },
                       child: Column(
@@ -1879,12 +2312,28 @@ class _RecipeIngState extends State<RecipeIng>
         ),
         sizedBoxHeight(12.h),
         SizedBox(
-          height: 68.h,
+          // height: 68.h,
           child: TextFormField(
             controller: tecInstructionList[index],
             // maxLines: 2,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Step is can't be empty";
+              }
+              if (imageInstructionList[index] == null) {
+                return "Select a image";
+              }
+              // if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value!)) {
+              //   retuPlease enter a valid Ingredient Name';
+              // }
+              return null;
+            },
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(top: 8, left: 12),
+              isDense: true,
+
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              // contentPadding: const EdgeInsets.only(top: 8, left: 12),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Color(0xff707070)),
                 borderRadius: BorderRadius.circular(8.r),
@@ -1897,21 +2346,27 @@ class _RecipeIngState extends State<RecipeIng>
               hintStyle: TextStyle(
                   fontFamily: "Roboto",
                   color: const Color(0xff6B6B6B),
-                  fontSize: 14.h),
+                  fontSize: 14.sp),
               suffixIcon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(
                   height: 50.h,
                   width: 40.w,
-                  child: _image != null
+                  child: imageInstructionList[index] != null
                       ?
                       //  Image.asset("assets/camera.png")
-                      Icon(Icons.check)
+                      Icon(Icons.check,
+                        size: 40.h,
+                        color: AppColors.grey54595F,
+                      )
                       : GestureDetector(
                           onTap: () {
                             builduploadprofileImage(index);
                           },
-                          child: Image.asset("assets/camera.png"),
+                          child: Image.asset("assets/camera.png",
+                            // height: ,
+                            // fit: BoxFit.fill,
+                          ),
                         ),
                 ),
               ),
@@ -1925,6 +2380,7 @@ class _RecipeIngState extends State<RecipeIng>
 
   Future getImage(
     ImageSource source,
+    {int? index}
   ) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -1936,7 +2392,15 @@ class _RecipeIngState extends State<RecipeIng>
       //   // this._image
       //   recipeIngreController.image = imageTemporary;
       // });
-      recipeIngreController.changeImageFile(imageTemporary);
+      // recipeIngreController.changeImageFile(imageTemporary);
+      if (index == null) {
+        recipeIngreController.changeImageFile(imageTemporary);
+      } else {
+        setState(() {
+          imageInstructionList[index] = imageTemporary;
+          print(imageInstructionList);
+        });
+      }
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
