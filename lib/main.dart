@@ -23,6 +23,7 @@ import 'package:foodspeciality/screens/otpScreen.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
+import 'package:foodspeciality/screens/setting/setting/accordion.dart';
 // import 'packa+ge:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
@@ -115,7 +116,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/bottomBar", page: () => BottomBar()),
             GetPage(
                 name: "/communityaddparticipants",
-                page: () => communityAddParticipants()),
+                page: () => CommunityAddParticipants()),
             GetPage(
                 name: "/chatcommunitydetail",
                 page: () => ChatCommunityDetail()),
@@ -144,10 +145,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/EditCommunity", page: () => EditCommunity()),
             GetPage(name: "/following", page: () => Following()),
             GetPage(name: "/follower", page: () => Follower()),
-
-            GetPage(name: "/CompletedChallenge", page: () => CompletedChallenge()),
-         
-
+            GetPage(name: "/faq", page: () => Accordion()),
+            GetPage(
+                name: "/CompletedChallenge", page: () => CompletedChallenge()),
           ],
         ),
       ),

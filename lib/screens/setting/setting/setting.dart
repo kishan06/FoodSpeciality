@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/login.dart';
-import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/setting/setting/about.dart';
 import 'package:foodspeciality/screens/setting/setting/blocked_list.dart';
 import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
@@ -13,7 +12,6 @@ import 'package:get/get.dart';
 
 import 'CommunityGuidelines.dart';
 import 'Notificationscreen.dart';
-import 'accordion.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -67,7 +65,7 @@ class _SettingState extends State<Setting> {
                           Get.to(BlockedList());
                           break;
                         case 3:
-                          Get.to(Accordion());
+                          Get.toNamed("/faq");
                           break;
                         case 4:
                           Get.to(CommunityGuidelines());
