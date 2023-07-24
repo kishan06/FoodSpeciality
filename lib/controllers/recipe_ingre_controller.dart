@@ -11,16 +11,19 @@ class RecipeIngreController extends GetxController{
   File? _image;
   File? get image => _image;
 
+  
+
   List<String> _tags = [];
   List<String> get tags => _tags;
 
   addTags(String text){
-    _tags.add(text);
+    // _tags = [];
+    _tags.add('"$text"');
     update();
   }
 
   removeTags(String text){
-    _tags.remove(text);
+    _tags.remove('"$text"');
     update();
   }
   

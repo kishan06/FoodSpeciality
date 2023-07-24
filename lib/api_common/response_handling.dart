@@ -14,6 +14,8 @@ Future<ResponseData<dynamic>> responseHandling({
   var resp = await response.stream.bytesToString();
       // print(resp);
   var jsonResp = jsonDecode(resp);
+  print(response.statusCode);
+  print(jsonResp);
 
   switch (response.statusCode) {
     case 200:
@@ -21,7 +23,7 @@ Future<ResponseData<dynamic>> responseHandling({
       // return 
       return ResponseData<dynamic>(
         // "success",
-        jsonResp["data"]["message"],
+        jsonResp["message"],
         ResponseStatus.SUCCESS,
         
       );
@@ -38,7 +40,7 @@ Future<ResponseData<dynamic>> responseHandling({
     case 400:
       // Get.showSnackbar(snackbar)
       Get.snackbar(
-        "Error", jsonResp["data"]["message"]
+        "Error", jsonResp["message"]
       );
                     
       return ResponseData<dynamic>(

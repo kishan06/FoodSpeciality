@@ -3,19 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/controllers/auth_controller.dart';
+
 import 'package:foodspeciality/screens/create_account.dart';
+import 'package:foodspeciality/screens/forgot_password.dart';
+
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/base_manager.dart';
-import '../constants/error_handling.dart';
-import '../constants/network_api.dart';
-import '../controllers/recipe_ingre_controller.dart';
 
 class AuthService {
-  // RecipeIngreController recipeIngreController = Get.put(RecipeIngreController());
   AuthController authController = Get.put(AuthController());
 
   Future<void> signInUser({
@@ -24,14 +22,9 @@ class AuthService {
   }) async {
     try {
       print("calling signInUser");
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.login));
-      request.body = json.encode({
-        "email": email,
-        "password": password
-      });
+      request.body = json.encode({"email": email, "password": password});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -46,21 +39,22 @@ class AuthService {
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
 
         // print(await response.stream.bytesToString());
-        Get.toNamed("/bottomBar");
+
+        Get.offAndToNamed("/bottomBar");
 
       } else if(response.statusCode == 400) {
+
         Get.snackbar("Error", jsonResp["data"]["message"]);
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
 
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
   }
+
 
   Future<bool> signUpUser({
     required String username,
@@ -72,9 +66,7 @@ class AuthService {
     required String phone,
   }) async {
     try {
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.signUp));
       request.body = json.encode({
         "username": username,
@@ -95,21 +87,115 @@ class AuthService {
       if (response.statusCode == 200) {
         authController.changeDailogBool(true);
         return true;
-      } else if(response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         Get.snackbar("Error", jsonResp["message"]);
         return false;
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
         return false;
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
       return false;
     }
   }
+
+
+  Future<void> forgotPassword({
+    required String email,
+    // required String password,
+  }) async {
+    try {
+      print("calling signInUser");
+      var headers = {
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse(ApiUrls.forgotPassword));
+      request.body = json.encode({
+        "email_address": email
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      
+
+
+      var resp = await response.stream.bytesToString();
+      print(resp);
+      var jsonResp = jsonDecode(resp);
+      if (response.statusCode == 200) {
+        var id = jsonResp["id"];
+        Get.toNamed("/otpverification",
+          arguments: id
+        );
+        
+      } else if(response.statusCode == 404) {
+        Get.snackbar("Error", jsonResp["message"]);
+      }
+      else {
+        Get.snackbar("Error", response.reasonPhrase!);
+
+        // print(response.reasonPhrase);
+      }
+
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+  }
+
+  Future<void> verifyOtp({
+    required String otp,
+    required String id,
+  }) async {
+    try {
+      // print("calling signInUser");
+      var headers = {
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('http://77.68.102.23:8000/auth/verify-otp/8c77d84f-4752-4841-9db2-6758b3a089f3'));
+      request.body = json.encode({
+        "otp": "2106"
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+
+
+      
+
+
+      var resp = await response.stream.bytesToString();
+      print(resp);
+      var jsonResp = jsonDecode(resp);
+      if (response.statusCode == 200) {
+        var id = jsonResp["id"];
+        Get.toNamed("/otpverification",
+          arguments: id
+        );
+        
+      } else if(response.statusCode == 404) {
+        Get.snackbar("Error", jsonResp["message"]);
+      }
+      else {
+        Get.snackbar("Error", response.reasonPhrase!);
+
+        // print(response.reasonPhrase);
+      }
+
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+  }
+  
 
 }
 
@@ -121,7 +207,6 @@ class NewDailog extends StatefulWidget {
 }
 
 class _NewDailogState extends State<NewDailog> {
- 
   accountCreatedDialog() async {
     print("show dailog");
     // AppDataController appDataController = Get.find();
@@ -177,17 +262,17 @@ class _NewDailogState extends State<NewDailog> {
                       //     ),
                       //   ),
                       // ),
-                    
+
                       Column(
                         children: [
-
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 Get.back();
                               },
-                              child: Icon(Icons.close,
+                              child: Icon(
+                                Icons.close,
                                 color: AppColors.grey54595F,
                                 // ColorConstants.kPrimaryColor,
                                 size: 25,
@@ -196,13 +281,15 @@ class _NewDailogState extends State<NewDailog> {
                           ),
                           // const SizedBox(height: 30),
 
-                          LottieBuilder.network("https://assets6.lottiefiles.com/packages/lf20_touohxv0.json",
+                          LottieBuilder.network(
+                            "https://assets6.lottiefiles.com/packages/lf20_touohxv0.json",
                             // height: ,
                             height: 250,
                             width: 200,
                           ),
 
-                          Text("Congratulations",
+                          Text(
+                            "Congratulations",
                             style: TextStyle(
                               fontSize: 25,
                               color: AppColors.greyD3B3F43,
@@ -211,7 +298,9 @@ class _NewDailogState extends State<NewDailog> {
                             ),
                           ),
 
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
 
                           Text(
                             "bhb",
@@ -232,12 +321,7 @@ class _NewDailogState extends State<NewDailog> {
                           //         ),
                           //       )
 
-
-
-  
                           // const SizedBox(height: 34),
-
-
                         ],
                       ),
                     ],
@@ -250,7 +334,6 @@ class _NewDailogState extends State<NewDailog> {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

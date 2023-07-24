@@ -53,7 +53,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
           GestureDetector(
             onTap: () {
               // Get.toNamed("/setting");
-              Get.to(const Setting(),
+              Get.to(() => const Setting(),
                   duration: const Duration(milliseconds: 500),
                   transition: Transition.downToUp);
             },
@@ -461,14 +461,12 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       padding: EdgeInsets.all(5.w),
       child: InkWell(
         onTap: () {
-
           if (tabNum == 3) {
             Get.toNamed("/CompletedChallenge");
           } else {
             Get.toNamed("/joinchallenge");
           }
           // Get.toNamed("/joinchallenge");
-
         },
         child: Container(
           // height: 200.h,

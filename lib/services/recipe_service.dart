@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:foodspeciality/api_common/response_handling.dart';
 import 'package:get/get.dart';
@@ -25,32 +26,157 @@ class RecipeService {
     required String cookingTime,
     required String serving,
     required String tags,
-    required String ingredients
+    required String ingredients,
+    required String instructions,
+    required String publish_status,
+    required List<File?> instructionsImages
   }) async {
     print("addRecipe");
     try {
       var headers = {
         'x-auth-token': accessToken!
-        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBkYTBkMDRlLTRmYzUtNGQ0Mi05ZGVkLTBkMDM4NDhmMzhlNSIsImlhdCI6MTY4Nzk1MDYyMSwiZXhwIjoxNjg3OTUxMjIxfQ.4tNkxPbi8A6Eso39ObosnQLSVMJ_WRupY5URe9_CjEk'
+
+        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY4OTYwNzYwNSwiZXhwIjoxNjkwMjEyNDA1fQ.Y1yxVdWNoSMNv9Q-i2_p3LtUkwZWx4qkAeKTIvBWPwc'
       };
-      var request = http.MultipartRequest('POST', Uri.parse('http://foodspeciality.betadelivery.com:8000/recipe/create'));
-      request.fields.addAll({
+      var request = http.MultipartRequest('POST', Uri.parse(ApiUrls.addRecipe));
+      var other = {
         'name': name,
         'description': description,
         'difficulty': difficulty,
         'cooking_time': cookingTime,
         'servings': serving,
         'tags': tags,
-        'ingredients': ingredients
-        // '[{"name": "rice", "quantity": "1 cup"}, {"name": "chicken", "quantity": "100 gm"}]'
+        'ingredients': ingredients,
+        'instructions': instructions,
+
+        'publish_status': publish_status,
+      };
+      request.fields.addAll(other);
+      print({
+        'name': name,
+        'description': description,
+        'difficulty': difficulty,
+        'cooking_time': cookingTime,
+        'servings': serving,
+        'tags': tags,
+        'ingredients': ingredients,
+
+        // 'ingredients': '[{"name": "rice", "quantity": "1cup"}]',
+        'instructions': instructions,
+        'publish_status': 'draft'
       });
       request.files.add(await http.MultipartFile.fromPath('video', videoPath));
       request.files.add(await http.MultipartFile.fromPath('cover_image', imagePath));
+      request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
+      // return responseHandling(response: response);
+
+
+      // if (response.statusCode == 200) {
+      //   print(await response.stream.bytesToString());
+      // //   return ResponseData<dynamic>(
+      // //   // jsonResp["message"],
+      // //   // e.toString(),
+      // //   "fgh",
+      // //   ResponseStatus.FAILED,
+      // // );
+      // }
+      // else {
+      //   print(response.reasonPhrase);
+      //   // return ResponseData<dynamic>(
+      //   // // jsonResp["message"],
+      //   // // e.toString(),
+      //   // "fgh",
+      //   // ResponseStatus.FAILED,
+      //   // );
+      // }
+      
       return responseHandling(response: response);
+
+
+      
+      // old
+      // /
+
+      // var headers = {
+      //   'x-auth-token': 
+      //   // accessToken!
+      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY4OTYwNzYwNSwiZXhwIjoxNjkwMjEyNDA1fQ.Y1yxVdWNoSMNv9Q-i2_p3LtUkwZWx4qkAeKTIvBWPwc'
+      // };
+      // var request = http.MultipartRequest('POST', Uri.parse(ApiUrls.addRecipe));
+      // request.fields.addAll({
+      //   'name': name,
+      //   'description': description,
+      //   'difficulty': difficulty,
+      //   'cooking_time': cookingTime,
+      //   'servings': serving,
+      //   'tags': tags,
+      //   'ingredients': ingredients,
+      //   'instructions': instructions,
+
+      //   'publish_status': 'draft'
+      // });
+      // // print({
+      // //   'name': name,
+      // //   'description': description,
+      // //   'difficulty': "easy",
+      // //   'cooking_time': cookingTime,
+      // //   'servings': serving,
+      // //   'tags': tags,
+      // //   'ingredients': ingredients,
+      // //   'instructions': ["one","two"].toString(),
+      // //   'publish_status': 'draft',
+      // //   'instructions': ["fg"].toString(),
+      // //   'publish_status': publish_status
+
+      // //   // if(){
+      // //   //   'instruction_name': 'vbh',
+      // //   // }
+        
+        
+      // //   // '[{"name": "rice", "quantity": "1 cup"}, {"name": "chicken", "quantity": "100 gm"}]'
+      // // });
+      // // ["1", "2"].map((e) => {
+      // // request.fields.addAll({
+      // //   "ingredient_name": e
+      // // })
+      // // });
+      // // print({
+      // //   'name': name,
+      // //   'description': description,
+      // //   'difficulty': difficulty,
+      // //   'cooking_time': cookingTime,
+      // //   'servings': serving,
+      // //   'tags': tags,
+      // //   'ingredients': ingredients,
+      // //   'instructions': ["two"].toString(),
+      // //   'publish_status': 'draft'
+
+      // //   // if(){
+      // //   //   'instruction_name': 'vbh',
+      // //   // }
+        
+        
+      // //   // '[{"name": "rice", "quantity": "1 cup"}, {"name": "chicken", "quantity": "100 gm"}]'
+      // // });
+      // request.files.add(await http.MultipartFile.fromPath('video', videoPath));
+      // request.files.add(await http.MultipartFile.fromPath('cover_image', imagePath));
+      // // for (var i = 0; i < 2; i++) {
+      // request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
+        
+      // // }
+      // // if (condition) {
+        
+      // // }
+      // request.headers.addAll(headers);
+
+      // http.StreamedResponse response = await request.send();
+
+      // return responseHandling(response: response);
+
       // var resp = await response.stream.bytesToString();
       // print(resp);
       // var jsonResp = jsonDecode(resp);

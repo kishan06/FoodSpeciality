@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
+import 'package:foodspeciality/services/auth_service.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,7 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   // bool v1 = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final tecEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +65,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   height: 10.h,
                 ),
                 CustomTextFormField(
+                  textEditingController: tecEmail,
                   hintText: "Email Address",
                   validator: (value) {
                     if (value == value.isEmpty) {
@@ -103,7 +106,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       final FormState? form = _formKey.currentState;
                       if (form != null && form.validate()) {
                         form.save();
-                        Get.toNamed("/otpverification");
+                        AuthService authService = AuthService();
+                        authService.forgotPassword(email: tecEmail.text);
+                        // authService.forgotPassword(tecEmail.text);
+                        // Get.toNamed("/otpverification");
                       }
                     },
                     style: ElevatedButton.styleFrom(

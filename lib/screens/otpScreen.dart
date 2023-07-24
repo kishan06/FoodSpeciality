@@ -10,6 +10,17 @@ class otpVerification extends StatefulWidget {
 }
 
 class _otpVerificationState extends State<otpVerification> {
+
+  String? id;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    id = Get.arguments;
+    print(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
-              "A verification code has been send to your Email\nenter it below.",
+              "A verification code has been send to your Email. \nEnter it below.",
               style: TextStyle(
                   fontFamily: "Roboto",
                   fontWeight: FontWeight.w400,
@@ -96,7 +107,13 @@ class _OtpScreenState extends State<OtpScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed("/resetPass");
+                  if (pinFourController.text == null || pinFourController.text.isEmpty) {
+                    Get.snackbar("Error", "Please enter 4 digit pin");
+                  } else {
+                    
+                  }
+                  // print(currentPin);
+                  // Get.toNamed("/resetPass");
 
                   // Get.toNamed("/otpverification");
                   // Get.toNamed('/signUpProfile');
