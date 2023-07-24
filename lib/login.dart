@@ -9,6 +9,8 @@ import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import 'services/googleAuthService.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -262,7 +264,8 @@ class _LoginState extends State<Login> {
                           elevation: 0,
                         ),
                         onPressed: () {
-                          Get.toNamed("/bottomBar");
+                          // Get.toNamed("/bottomBar");
+                          googleAuthService().handleGoogleSignIn();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
