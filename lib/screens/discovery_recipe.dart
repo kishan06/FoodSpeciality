@@ -199,18 +199,16 @@ class _DiscoveryRecipesScreenState extends State<DiscoveryRecipesScreen> {
                 height: 64.h,
               ),
               Padding(
-
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                child: CustomNextButton(text: "Next",
-                  ontap: (){
-                  Get.to(BottomBar(),duration:Duration(milliseconds:500),
-                    transition: Transition.rightToLeft);
+                child: CustomNextButton(
+                  text: "Next",
+                  ontap: () {
+                    Get.to(BottomBar(),
+                        duration: const Duration(milliseconds: 500),
+                        transition: Transition.rightToLeft);
                     //Get.toNamed("/bottomBar");
                   },
                 ),
-
-
               ),
               SizedBox(
                 height: 50.h,

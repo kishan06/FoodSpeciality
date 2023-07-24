@@ -25,7 +25,6 @@ ScrollController? controller;
 ScrollController? _scrollviewcontroller;
 
 class _NewProfileState extends State<NewProfile> {
-
   double? profileCompleted = 0.7;
   @override
   Widget build(BuildContext context) {
@@ -126,7 +125,7 @@ class _NewProfileState extends State<NewProfile> {
                                     // ),
 
                                     sizedBoxWidth(10.w),
-                              
+
                                     Stack(
                                       alignment: Alignment.center,
                                       children: [
@@ -134,27 +133,26 @@ class _NewProfileState extends State<NewProfile> {
                                           width: 80.h,
                                           height: 80.h,
                                           decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.white,
-                                              width: 3.h,
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(0.5),
-                                                spreadRadius: 2,
-                                                blurRadius: 5,
-                                                // offset: Offset(0, 3), // changes the position of the shadow
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: AppColors.white,
+                                                width: 3.h,
                                               ),
-                                            ],
-                                            image: DecorationImage(
-                                              image: AssetImage("assets/profile.png"),
-                                              fit: BoxFit.cover
-                                            )
-                                          ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  // offset: Offset(0, 3), // changes the position of the shadow
+                                                ),
+                                              ],
+                                              image: const DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/profile.png"),
+                                                  fit: BoxFit.cover)),
                                           // child: YourChildWidget(),
                                         ),
-                              
                                         SizedBox(
                                           height: 75.h,
                                           width: 75.h,
@@ -163,56 +161,64 @@ class _NewProfileState extends State<NewProfile> {
                                             strokeWidth: 4.w,
                                             // semanticsValue: "df",
                                             // color: AppColors.redFA5658,
-                                            backgroundColor: AppColors.lightBlueF2F2F2,
-                                            valueColor: AlwaysStoppedAnimation(AppColors.grey54595F),
+                                            backgroundColor:
+                                                AppColors.lightBlueF2F2F2,
+                                            valueColor:
+                                                const AlwaysStoppedAnimation(
+                                                    AppColors.grey54595F),
                                           ),
                                         ),
                                       ],
                                     ),
                                     sizedBoxWidth(5.w),
-                              
-                                    textgreyM14Robo((profileCompleted! * 100).toStringAsFixed(0) +  " %"),
-                              
+
+                                    textgreyM14Robo((profileCompleted! * 100)
+                                            .toStringAsFixed(0) +
+                                        " %"),
+
                                     sizedBoxWidth(10.w),
-                              
+
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                      //   Text(
-                                      //   "Namrata Burondkar",
-                                      //   style: TextStyle(
-                                      //       fontFamily: "Roboto",
-                                      //       fontSize: 18.sp,
-                                      //       fontWeight: FontWeight.w500,
-                                      //       color: const Color(0xFF54595F)),
-                                      // ),
-                                      textBlack18bold("Namrata Burondkar"),
-                              
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Text(
-                                        "@Namrata07",
-                                        style: TextStyle(
-                                            fontFamily: "Roboto",
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color:
-                                                const Color.fromRGBO(59, 63, 67, 0.49)),
-                                      ),
-                                                        
+                                        //   Text(
+                                        //   "Namrata Burondkar",
+                                        //   style: TextStyle(
+                                        //       fontFamily: "Roboto",
+                                        //       fontSize: 18.sp,
+                                        //       fontWeight: FontWeight.w500,
+                                        //       color: const Color(0xFF54595F)),
+                                        // ),
+                                        textBlack18bold("Namrata Burondkar"),
+
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Text(
+                                          "@Namrata07",
+                                          style: TextStyle(
+                                              fontFamily: "Roboto",
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color.fromRGBO(
+                                                  59, 63, 67, 0.49)),
+                                        ),
                                       ],
                                     ),
-                              
-                                    Spacer(),
-                              
+
+                                    const Spacer(),
+
                                     Container(
-                                      padding: EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
+                                      padding: EdgeInsets.fromLTRB(
+                                          20.w, 7.h, 20.w, 0),
                                       decoration: BoxDecoration(
                                           color: AppColors.lightBlueF2F2F2,
-                                          borderRadius: BorderRadius.circular(8.r)),
+                                          borderRadius:
+                                              BorderRadius.circular(8.r)),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Image.asset('assets/svg/Coin.png'),
                                           Column(
@@ -231,19 +237,15 @@ class _NewProfileState extends State<NewProfile> {
                                           ),
                                         ],
                                       ),
-                                                          
                                     ),
-                                                  
-                                  
                                   ],
                                 ),
                               ),
 
-
                               SizedBox(
                                 height: 15.h,
                               ),
-                               SizedBox(
+                              SizedBox(
                                 height: 15.h,
                               ),
                               Row(
@@ -281,7 +283,8 @@ class _NewProfileState extends State<NewProfile> {
                                         Container(
                                           height: 50.h,
                                           width: 40.h,
-                                          child: Image.asset("assets/svg/rankTag.png",
+                                          child: Image.asset(
+                                            "assets/svg/rankTag.png",
                                             // height: 70.h,
                                             // width: 60.h,
                                             fit: BoxFit.fill,
@@ -319,7 +322,8 @@ class _NewProfileState extends State<NewProfile> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        SvgPicture.asset("assets/coin.svg",
+                                        SvgPicture.asset(
+                                          "assets/coin.svg",
                                           height: 50.h,
                                           width: 40.h,
                                         ),
@@ -533,17 +537,17 @@ class myfollowers extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: const Color.fromRGBO(59, 63, 67, 0.49)),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   onTap: () {},
                   child: Container(
                     height: 30.h,
                     decoration: BoxDecoration(
-                      color: Color(0xFF3B3F43),
+                      color: const Color(0xFF3B3F43),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Center(
                         child: Text(
                           "Remove",
@@ -551,7 +555,7 @@ class myfollowers extends StatelessWidget {
                             fontFamily: "StudioProR",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF),
+                            color: const Color(0xFFFFFFFF),
                           ),
                         ),
                       ),
@@ -562,7 +566,7 @@ class myfollowers extends StatelessWidget {
             ]),
         // ]
         //     ),
-        Divider(
+        const Divider(
           endIndent: 20,
           indent: 20,
         ),
@@ -613,7 +617,7 @@ class myfollowers extends StatelessWidget {
 
               //   ],
               // ),
-              Spacer(),
+              const Spacer(),
               InkWell(
                 onTap: () {},
                 child: Container(

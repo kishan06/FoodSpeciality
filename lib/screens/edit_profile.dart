@@ -11,8 +11,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'discovery_recipe.dart';
-
 class EditProfile extends StatefulWidget {
   EditProfile({super.key});
 
@@ -76,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
                         Get.back();
                       },
                       child: Column(
-                        children: [
+                        children: const [
                           Icon(
                             Icons.camera,
                             size: 30,
@@ -97,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
                         Get.back();
                       },
                       child: Column(
-                        children: [
+                        children: const [
                           Icon(
                             Icons.image,
                             size: 30,
@@ -157,7 +155,7 @@ class _EditProfileState extends State<EditProfile> {
                           fontFamily: "StudioProR",
                           fontWeight: FontWeight.bold,
                           fontSize: 22.h,
-                          color: Color(0xFF54595F)),
+                          color: const Color(0xFF54595F)),
                     ),
                     InkWell(
                         onTap: () {
@@ -178,7 +176,7 @@ class _EditProfileState extends State<EditProfile> {
                       children: [
                         ClipOval(
                           child: SizedBox.fromSize(
-                              size: Size.fromRadius(50),
+                              size: const Size.fromRadius(50),
                               child: _image != null
                                   ? Image.file(
                                       _image!,
@@ -268,7 +266,7 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 14.sp,
                         fontFamily: "Roboto"),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 12),
+                      contentPadding: const EdgeInsets.only(bottom: 12),
                       border: InputBorder.none,
                       filled: true,
                       fillColor: Colors.white,
@@ -303,7 +301,7 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 14.sp,
                         fontFamily: "Roboto"),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 12),
+                      contentPadding: const EdgeInsets.only(bottom: 12),
                       border: InputBorder.none,
                       filled: true,
                       fillColor: Colors.white,
@@ -337,7 +335,7 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 14.sp,
                         fontFamily: "Roboto"),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 12),
+                      contentPadding: const EdgeInsets.only(bottom: 12),
                       border: InputBorder.none,
                       filled: true,
                       fillColor: Colors.white,
@@ -367,7 +365,7 @@ class _EditProfileState extends State<EditProfile> {
                   decoration: InputDecoration(
                     hintText: 'Bio',
                     hintStyle: TextStyle(
-                        color: Color(0xFF707070),
+                        color: const Color(0xFF707070),
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
                         fontFamily: "Roboto"),
@@ -415,7 +413,7 @@ class _EditProfileState extends State<EditProfile> {
                     Text(
                       "Current Location",
                       style: TextStyle(
-                          color: Color(0xFF3B3F43),
+                          color: const Color(0xFF3B3F43),
                           fontSize: 18.h,
                           fontFamily: "StudioProR",
                           fontWeight: FontWeight.w500),
@@ -452,12 +450,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "South Africa,Western Cape",
@@ -476,7 +474,7 @@ class _EditProfileState extends State<EditProfile> {
                     Text(
                       "Social/Website Links",
                       style: TextStyle(
-                          color: Color(0xFF3B3F43),
+                          color: const Color(0xFF3B3F43),
                           fontSize: 18.h,
                           fontFamily: "StudioProR",
                           fontWeight: FontWeight.w500),
@@ -514,12 +512,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "https://foodspecialities.com",
@@ -560,12 +558,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "https://foodspecialities.com",
@@ -606,12 +604,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "https://food_specialities/twitter.com",
@@ -652,12 +650,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "https://foodspecialities/pinterest.com",
@@ -698,12 +696,12 @@ class _EditProfileState extends State<EditProfile> {
                             fontFamily: "Roboto",
                             fontSize: 16.sp),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 12),
+                          contentPadding: const EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                              color: Color.fromRGBO(151, 151, 151, 0.48),
+                              color: const Color.fromRGBO(151, 151, 151, 0.48),
                               fontFamily: "Roboto",
                               fontSize: 16.sp),
                           hintText: "https://foodspeciality/facebook.com",

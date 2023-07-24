@@ -26,8 +26,8 @@ Widget searchNotification() {
             autofocus: true,
             onTap: () {
               //Get.toNamed("/SearchPage");
-              Get.to(SearchPage(),
-                  duration: Duration(milliseconds: 500),
+              Get.to(const SearchPage(),
+                  duration: const Duration(milliseconds: 500),
                   transition: Transition.downToUp);
             },
             readonly: true,
@@ -45,8 +45,8 @@ Widget searchNotification() {
         GestureDetector(
           onTap: () {
             //Get.toNamed("/notification");
-            Get.to(UserNotifications(),
-                duration: Duration(milliseconds: 500),
+            Get.to(const UserNotifications(),
+                duration: const Duration(milliseconds: 500),
                 transition: Transition.downToUp);
           },
           child: Image.asset(

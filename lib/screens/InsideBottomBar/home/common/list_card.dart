@@ -1,16 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:foodspeciality/common%20files/buttons.dart';
-import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
-import 'package:foodspeciality/common%20files/customtextformfield.dart';
-import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/common%20files/video_player.dart';
-import 'package:foodspeciality/common%20files/video_player_network.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
-import 'package:foodspeciality/utils/colors.dart';
-import 'package:foodspeciality/utils/texts.dart';
-import 'package:get/get.dart';
 
 // var commentLike = [
 //   {

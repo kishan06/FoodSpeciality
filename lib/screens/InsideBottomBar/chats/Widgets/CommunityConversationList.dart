@@ -74,7 +74,7 @@ class _CommunityConversationListState extends State<CommunityConversationList> {
                             style: TextStyle(
                                 fontFamily: "Roboto",
                                 fontSize: 15.sp,
-                                color: Color(0xFF54595F),
+                                color: const Color(0xFF54595F),
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(

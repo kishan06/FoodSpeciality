@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController tecEmail = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
-  
+
   // bool v1 = false;
   // bool v2 = false;
   @override
@@ -200,9 +200,8 @@ class _LoginState extends State<Login> {
                               // apiForLogin();
                               AuthService authService = AuthService();
                               authService.signInUser(
-                                email: tecEmail.text,
-                                password: tecPassword.text
-                              );
+                                  email: tecEmail.text,
+                                  password: tecPassword.text);
                               // form.save();
 
                               // // Do something with the user credentials, such as login to the backend
@@ -258,7 +257,7 @@ class _LoginState extends State<Login> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.r),
                             side: BorderSide(
-                                color: Color(0xFF3B3F43), width: 1.w),
+                                color: const Color(0xFF3B3F43), width: 1.w),
                           ),
                           elevation: 0,
                         ),
@@ -279,7 +278,8 @@ class _LoginState extends State<Login> {
                             Text(
                               "Continue with Google",
                               style: TextStyle(
-                                  fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                                  fontSize: 18.sp,
+                                  color: const Color(0xFF3B3F43)),
                             ),
                           ],
                         ),
@@ -332,7 +332,7 @@ class _LoginState extends State<Login> {
                         Text(
                           "Don't have an account? ",
                           style: TextStyle(
-                              color: Color(0xFF3B3F43),
+                              color: const Color(0xFF3B3F43),
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               fontFamily: "Roboto"),
@@ -344,7 +344,7 @@ class _LoginState extends State<Login> {
                           child: Text(
                             "Create account",
                             style: TextStyle(
-                              color: Color(0xFF3B3F43),
+                              color: const Color(0xFF3B3F43),
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               fontFamily: "Roboto",
@@ -391,29 +391,22 @@ class _LoginState extends State<Login> {
         ));
   }
 
-  void signInUser(){
-    
-  }
+  void signInUser() {}
 
   apiForLogin() async {
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('POST', Uri.parse('http://192.168.1.51:5000/auth/login'));
-    request.body = json.encode({
-      "email": "shams@email.com",
-      "password": "Shams1234"
-    });
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse('http://192.168.1.51:5000/auth/login'));
+    request.body =
+        json.encode({"email": "shams@email.com", "password": "Shams1234"});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
-    }
-    else {
+    } else {
       print(response.reasonPhrase);
     }
-
   }
 }

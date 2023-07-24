@@ -1,8 +1,7 @@
-import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:get/get.dart';
 
 class ExploreController extends GetxController {
-  List _likeSave = [
+  final List _likeSave = [
     {"like": 0, "save": 0},
     {"like": 0, "save": 0},
     {"like": 0, "save": 0},
@@ -12,8 +11,6 @@ class ExploreController extends GetxController {
     {"like": 0, "save": 0},
   ];
   List get likeSave => _likeSave;
-
-  
 
   likeMethod(int index, int like) {
     _likeSave[index]["like"] = like == 0 ? 1 : 0;
@@ -35,5 +32,5 @@ class ExploreController extends GetxController {
   //   _commentLike.insert(0,data);
   //   print(_commentLike);
   //   update();
-  // }  
+  // }
 }

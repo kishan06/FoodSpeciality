@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Model/ChatUserModel.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/ConversationList.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
-import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class CustomSearchTextFormField extends StatefulWidget {
   CustomSearchTextFormField({
@@ -67,22 +66,21 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
         controller: widget.textEditingController,
         onTap: widget.onTap,
         decoration: InputDecoration(
-          
-          suffixIconConstraints: BoxConstraints(),
-          contentPadding: EdgeInsets.all(17),
+          suffixIconConstraints: const BoxConstraints(),
+          contentPadding: const EdgeInsets.all(17),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
+            borderSide: const BorderSide(color: Color(0xFF707070), width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
+            borderSide: const BorderSide(color: Color(0xFF707070), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: Color(0xFF707070), width: 1),
+            borderSide: const BorderSide(color: Color(0xFF707070), width: 1),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -93,7 +91,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
             borderSide: const BorderSide(color: Colors.red, width: 1),
           ),
           hintStyle: TextStyle(
-              color: Color(0xFF54595F63),
+              color: const Color(0xFF54595F63),
               fontSize: 15.sp,
               fontFamily: "Roboto"),
           hintText: widget.hintText,
@@ -110,7 +108,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(right: 8.0),
                               child: Icon(
                                 Icons.lock_outline,
@@ -122,7 +120,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(right: 8.0),
                               child: Icon(
                                 Icons.lock_open_outlined,

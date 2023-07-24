@@ -106,7 +106,7 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                   // ),
                   Expanded(
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         Get.toNamed("/ViewCommunity");
                       },
                       child: Column(
@@ -126,19 +126,19 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                           Text(
                             "4 Participants",
                             style: TextStyle(
-                                color: const Color(0xFF3B3F43), fontSize: 13.sp),
+                                color: const Color(0xFF3B3F43),
+                                fontSize: 13.sp),
                           ),
                         ],
                       ),
-                   
                     ),
                   ),
                   PopupMenuButton(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     //  offset: const Offset(0, 50),
                     color: const Color(0xFFFFFFFF),
                     tooltip: '',
-                    child: Icon(
+                    child: const Icon(
                       Icons.more_vert,
                       color: Color(0xFF3B3F43),
                     ),
@@ -166,7 +166,7 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                                   //   height: 20,
                                   //   width: 20,
                                   // ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Text(
@@ -193,10 +193,10 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                                     Icons.exit_to_app,
                                     size: 24.sp,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Exit Community",
                                     style: TextStyle(
                                         color: Colors.black,

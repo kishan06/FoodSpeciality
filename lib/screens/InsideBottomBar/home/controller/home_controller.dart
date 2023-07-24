@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -9,10 +7,7 @@ class HomeController extends GetxController {
 
   // TabController? _tabController;
   // TabController? get tabController => _tabController;
-  
 
-
-  
   List _commentLike = [
     {
       "like": 0,
@@ -48,7 +43,7 @@ class HomeController extends GetxController {
   ];
   List get commentLike => _commentLike;
 
-  changeTab(int index){
+  changeTab(int index) {
     _currentIndex = index;
     update();
   }
@@ -58,15 +53,12 @@ class HomeController extends GetxController {
     update();
   }
 
-  commentMethod(String comment){
+  commentMethod(String comment) {
     // print("comment " + comment);
-    var data = {
-      "like": 0,
-      "comment": comment
-    };
+    var data = {"like": 0, "comment": comment};
 
-    _commentLike.insert(0,data);
+    _commentLike.insert(0, data);
     print(_commentLike);
     update();
-  }  
+  }
 }

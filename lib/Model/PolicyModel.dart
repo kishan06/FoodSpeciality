@@ -1,15 +1,17 @@
-class FaqModel {
+class PolicyModel {
   bool? success;
+  String? message;
   List<Data>? data;
 
-  FaqModel({this.success, this.data});
+  PolicyModel({this.success, this.message, this.data});
 
-  FaqModel.fromJson(Map<String, dynamic> json) {
+  PolicyModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
+    message = json['message'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
@@ -17,6 +19,7 @@ class FaqModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -26,25 +29,19 @@ class FaqModel {
 
 class Data {
   String? id;
-  String? question;
-  String? answer;
-  String? categories;
+  String? description;
 
-  Data({this.id, this.question, this.answer, this.categories});
+  Data({this.id, this.description});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    question = json['question'];
-    answer = json['answer'];
-    categories = json['categories'];
+    description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['question'] = this.question;
-    data['answer'] = this.answer;
-    data['categories'] = this.categories;
+    data['description'] = this.description;
     return data;
   }
 }

@@ -9,15 +9,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
 class FilePlayerWidget extends StatefulWidget {
- 
-  FilePlayerWidget({super.key,});
+  FilePlayerWidget({
+    super.key,
+  });
 
   @override
   State<FilePlayerWidget> createState() => _FilePlayerWidgetState();
 }
 
 class _FilePlayerWidgetState extends State<FilePlayerWidget> {
-  final asset = 'https://vod-progressive.akamaized.net/exp=1677685352~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4182%2F15%2F395912198%2F1683236145.mp4~hmac=7993033cf8bb78ff9faafe5fcffae21d34a4ec4325ea4ebe181818c5786c614a/vimeo-prod-skyfire-std-us/01/4182/15/395912198/1683236145.mp4';
+  final asset =
+      'https://vod-progressive.akamaized.net/exp=1677685352~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4182%2F15%2F395912198%2F1683236145.mp4~hmac=7993033cf8bb78ff9faafe5fcffae21d34a4ec4325ea4ebe181818c5786c614a/vimeo-prod-skyfire-std-us/01/4182/15/395912198/1683236145.mp4';
   late VideoPlayerController videoController;
 
   XFile? file;
@@ -44,7 +46,7 @@ class _FilePlayerWidgetState extends State<FilePlayerWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.transparent,
-      appBar: CustomAppBar(titleTxt: ""),
+      appBar: const CustomAppBar(titleTxt: ""),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
