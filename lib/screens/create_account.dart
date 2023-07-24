@@ -24,7 +24,6 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
-
   // Authcon
   AuthController authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -44,14 +43,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     if (form != null && form.validate()) {
       // AuthService authService = AuthService();
       bool boolValue = await authService.signUpUser(
-        username: tecUserName.text,
-        first_name: tecFirstName.text,
-        last_name: tecLastName.text,
-        phone: tecMobileNo.text,
-        email: tecEmail.text,
-        password: tecPassword.text,
-        confirm_password: tecConfirmPass.text
-      );
+          username: tecUserName.text,
+          first_name: tecFirstName.text,
+          last_name: tecLastName.text,
+          phone: tecMobileNo.text,
+          email: tecEmail.text,
+          password: tecPassword.text,
+          confirm_password: tecConfirmPass.text);
       print(boolValue);
       if (boolValue) {
         getAccountCreatedDailog();
@@ -64,7 +62,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       // Get.toNamed("/signUpProfile");
     }
   }
-  
+
   // showDailog(){
   //   authService.accountCreatedDialog(context);
   // }
@@ -75,9 +73,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   // bool v5 = false;
   // bool v6 = false;
 
-
   String? _password;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +104,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       fontFamily: "StudioProR",
                       fontSize: 30.spMin,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF3B3F43),
+                      color: const Color(0xFF3B3F43),
                     ),
                   ),
                   sizedBoxHeight(22.h),
@@ -117,7 +114,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       "Join our community of cooks and discover versatile and Existing recipes.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(0xFF54595F),
+                          color: const Color(0xFF54595F),
                           fontFamily: "Roboto",
                           fontWeight: FontWeight.w400,
                           fontSize: 15.sp),
@@ -166,7 +163,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   //                 const AssetImage("assets/user-svgrepo-com.png"))),
                   //   ),
                   // ),
-      
+
                   SizedBox(height: 17.h),
                   CustomTextFormField(
                     textEditingController: tecFirstName,
@@ -189,7 +186,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       fit: BoxFit.contain,
                     ),
                   ),
-               
+
                   SizedBox(height: 17.h),
                   CustomTextFormField(
                     textEditingController: tecLastName,
@@ -212,7 +209,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       fit: BoxFit.contain,
                     ),
                   ),
-               
+
                   // SizedBox(
                   //   height: 50.h,
                   //   child: TextFormField(
@@ -232,7 +229,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   //                 const AssetImage("assets/user-svgrepo-com.png"))),
                   //   ),
                   // ),
-      
+
                   SizedBox(height: 17.h),
                   // SizedBox(
                   //   height: 50.h,
@@ -319,7 +316,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   //             image: const AssetImage("assets/style=linear.png"))),
                   //   ),
                   // ),
-      
+
                   SizedBox(height: 17.h),
                   // SizedBox(
                   //   height: 50.h,
@@ -359,7 +356,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     validatorText: "",
                     isInputPassword: true,
                   ),
-      
+
                   SizedBox(height: 17.h),
                   // SizedBox(
                   //   height: 50.h,
@@ -397,47 +394,47 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     validatorText: "",
                     isInputPassword: true,
                   ),
-      
+
                   SizedBox(height: 21.h),
                   SizedBox(
                     height: 50.h,
                     width: double.infinity,
-                    child: 
-                    // GetBuilder<AuthController>(builder: (context){
-                    //   if (authController.showDailog) {
-                    //     accountCreatedDialog();
-                    //   }
-                    //   return ElevatedButton(
-                    //     onPressed: () {
-                    //       // v1 && v2 && v3 && v4 && v5 && v6
-                    //       //     ? Get.toNamed("/signUpProfile")
-                    //       //     : ScaffoldMessenger.of(context).showSnackBar(
-                    //       //         const SnackBar(
-                    //       //             backgroundColor: Colors.grey,
-                    //       //             content:
-                    //       //                 Center(child: Text('Validation Error'))));
-                    //       _submit();
-                    //     },
-                    //     style: ElevatedButton.styleFrom(
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(8.r),
-                    //         side: BorderSide(color: Colors.white, width: 1.w),
-                    //       ),
-                    //       elevation: 0,
-                    //       primary: const Color.fromRGBO(84, 89, 95, 1),
-                    //       onPrimary: Colors.white,
-                    //     ),
-                    //     child: Text(
-                    //       'Sign Up',
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 18.spMin,
-                    //           fontFamily: "StudioProR"),
-                    //     ),
-                    //   );
-                  
-                    // }),
-                    ElevatedButton(
+                    child:
+                        // GetBuilder<AuthController>(builder: (context){
+                        //   if (authController.showDailog) {
+                        //     accountCreatedDialog();
+                        //   }
+                        //   return ElevatedButton(
+                        //     onPressed: () {
+                        //       // v1 && v2 && v3 && v4 && v5 && v6
+                        //       //     ? Get.toNamed("/signUpProfile")
+                        //       //     : ScaffoldMessenger.of(context).showSnackBar(
+                        //       //         const SnackBar(
+                        //       //             backgroundColor: Colors.grey,
+                        //       //             content:
+                        //       //                 Center(child: Text('Validation Error'))));
+                        //       _submit();
+                        //     },
+                        //     style: ElevatedButton.styleFrom(
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(8.r),
+                        //         side: BorderSide(color: Colors.white, width: 1.w),
+                        //       ),
+                        //       elevation: 0,
+                        //       primary: const Color.fromRGBO(84, 89, 95, 1),
+                        //       onPrimary: Colors.white,
+                        //     ),
+                        //     child: Text(
+                        //       'Sign Up',
+                        //       style: TextStyle(
+                        //           fontWeight: FontWeight.bold,
+                        //           fontSize: 18.spMin,
+                        //           fontFamily: "StudioProR"),
+                        //     ),
+                        //   );
+
+                        // }),
+                        ElevatedButton(
                       onPressed: () {
                         // v1 && v2 && v3 && v4 && v5 && v6
                         //     ? Get.toNamed("/signUpProfile")
@@ -448,7 +445,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         //                 Center(child: Text('Validation Error'))));
                         _submit();
                         // getAccountCreatedDailog();
-      
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -467,7 +463,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             fontFamily: "StudioProR"),
                       ),
                     ),
-                  
                   ),
                   SizedBox(
                     height: 20.h,
@@ -500,7 +495,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           Text(
                             "Continue with Google",
                             style: TextStyle(
-                                fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                                fontSize: 18.sp,
+                                color: const Color(0xFF3B3F43)),
                           ),
                         ],
                       ),
@@ -517,7 +513,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.r),
-                          side: BorderSide(color: Color(0xFF3B3F43), width: 1.w),
+                          side: BorderSide(
+                              color: const Color(0xFF3B3F43), width: 1.w),
                         ),
                         elevation: 0,
                       ),
@@ -536,7 +533,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           Text(
                             "Continue with Apple",
                             style: TextStyle(
-                                fontSize: 18.sp, color: Color(0xFF3B3F43)),
+                                fontSize: 18.sp,
+                                color: const Color(0xFF3B3F43)),
                           ),
                         ],
                       ),
@@ -551,7 +549,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       Text(
                         "Already have an account? ",
                         style: TextStyle(
-                            color: Color(0xFF3B3F43),
+                            color: const Color(0xFF3B3F43),
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Roboto"),
@@ -563,7 +561,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         child: Text(
                           "Login",
                           style: TextStyle(
-                            color: Color(0xFF3B3F43),
+                            color: const Color(0xFF3B3F43),
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Roboto",
@@ -573,7 +571,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                     ],
                   ),
-      
+
                   SizedBox(
                     height: 10.h,
                   )
@@ -604,7 +602,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 20, 20, 20),
+                  color: const Color.fromARGB(255, 20, 20, 20),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
@@ -641,17 +639,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       //     ),
                       //   ),
                       // ),
-                    
+
                       Column(
                         children: [
-
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 Get.back();
                               },
-                              child: Icon(Icons.close,
+                              child: const Icon(
+                                Icons.close,
                                 color: AppColors.grey54595F,
                                 // ColorConstants.kPrimaryColor,
                                 size: 25,
@@ -660,13 +658,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           ),
                           // const SizedBox(height: 30),
 
-                          LottieBuilder.network("https://assets6.lottiefiles.com/packages/lf20_touohxv0.json",
+                          LottieBuilder.network(
+                            "https://assets6.lottiefiles.com/packages/lf20_touohxv0.json",
                             // height: ,
                             height: 250,
                             width: 200,
                           ),
 
-                          Text("Congratulations",
+                          const Text(
+                            "Congratulations",
                             style: TextStyle(
                               fontSize: 25,
                               color: AppColors.greyD3B3F43,
@@ -675,9 +675,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             ),
                           ),
 
-                          SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
 
-                          Text(
+                          const Text(
                             "bhb",
                             // HomeApiController().setMoodResponse,
                             // homeApiController.setMoodResponse.progressBar!,
@@ -696,12 +698,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           //         ),
                           //       )
 
-
-
-  
                           // const SizedBox(height: 34),
-
-
                         ],
                       ),
                     ],
@@ -711,29 +708,25 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             ],
           ),
         );
-   
       },
     );
   }
 
-  getAccountCreatedDailog(){
+  getAccountCreatedDailog() {
     Get.defaultDialog(
-      titleStyle: TextStyle(
-        fontSize: 0
-      ),
-      titlePadding: EdgeInsets.all(0),
-      contentPadding: EdgeInsets.all(10.h),
-      title: "",
-      barrierDismissible: false,
-      content: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        titleStyle: const TextStyle(fontSize: 0),
+        titlePadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.all(10.h),
+        title: "",
+        barrierDismissible: false,
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 children: [
-
                   // Align(
                   //   alignment: Alignment.centerRight,
                   //   child: GestureDetector(
@@ -749,13 +742,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   // ),
                   // const SizedBox(height: 30),
 
-                  LottieBuilder.network("https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
+                  LottieBuilder.network(
+                    "https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
                     // height: ,
                     height: 200.h,
                     width: 250.w,
                   ),
 
-                  Text("Congratulations",
+                  Text(
+                    "Congratulations",
                     style: TextStyle(
                       fontSize: 25.sp,
                       color: AppColors.greyD3B3F43,
@@ -764,7 +759,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
                   Text(
                     "Account Created Successfully",
@@ -805,7 +802,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       },
                     ),
                   ),
-               
 
                   // custom
 
@@ -820,17 +816,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
                   // custom
 
-
                   // const SizedBox(height: 34),
-
-
                 ],
               ),
             ],
           ),
-        )
-
-    );
+        ));
   }
-
 }

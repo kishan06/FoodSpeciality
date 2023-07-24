@@ -17,8 +17,12 @@ class ViewCommunity extends StatefulWidget {
 }
 
 class _ViewCommunityState extends State<ViewCommunity> {
-
-  List participants = ["Akanksha Surve","Namrata Burondkar","Mokshada Kesarkar","Aishwarya Raut"];
+  List participants = [
+    "Akanksha Surve",
+    "Namrata Burondkar",
+    "Mokshada Kesarkar",
+    "Aishwarya Raut"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class _ViewCommunityState extends State<ViewCommunity> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 35.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
               child: Column(
                 children: [
                   Row(
@@ -44,7 +48,6 @@ class _ViewCommunityState extends State<ViewCommunity> {
                           color: AppColors.greyD3B3F43,
                         ),
                       ),
-                      
                       InkWell(
                         onTap: () {
                           Get.toNamed("/EditCommunity");
@@ -59,32 +62,30 @@ class _ViewCommunityState extends State<ViewCommunity> {
                   ),
 
                   sizedBoxHeight(10.h),
-                
+
                   Container(
                     width: 120.h,
                     height: 120.h,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.white,
-                        width: 3.h,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          // offset: Offset(0, 3), // changes the position of the shadow
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.white,
+                          width: 3.h,
                         ),
-                      ],
-                      image: DecorationImage(
-                        image: AssetImage("assets/community.png"),
-                        fit: BoxFit.cover
-                      )
-                    ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            // offset: Offset(0, 3), // changes the position of the shadow
+                          ),
+                        ],
+                        image: const DecorationImage(
+                            image: AssetImage("assets/community.png"),
+                            fit: BoxFit.cover)),
                     // child: YourChildWidget(),
                   ),
-                  
+
                   sizedBoxHeight(10.h),
 
                   Column(
@@ -108,8 +109,6 @@ class _ViewCommunityState extends State<ViewCommunity> {
                       ),
                     ],
                   ),
-
-            
 
                   // ClipRRect(
                   //   borderRadius: BorderRadius.circular(10.0),
@@ -143,27 +142,26 @@ class _ViewCommunityState extends State<ViewCommunity> {
                   //           offset: Offset(0, -5.h)
                   //         ),
                   //       ],
-                        
+
                   //       borderRadius: BorderRadius.only(
                   //         topLeft: Radius.circular(20.h),
                   //         topRight: Radius.circular(20.h)
                   //       )
                   //   ),
                   // )
-                
                 ],
               ),
             ),
-
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.h),
                 child: Container(
                   // height: 100.0,
                   width: double.infinity,
-                  margin:  EdgeInsets.only(top: 6.h),
+                  margin: EdgeInsets.only(top: 6.h),
                   decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(30.0)),
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -174,7 +172,8 @@ class _ViewCommunityState extends State<ViewCommunity> {
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 22.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 22.h),
                     child: Column(
                       children: [
                         Row(
@@ -187,7 +186,9 @@ class _ViewCommunityState extends State<ViewCommunity> {
                                   // color: Color(0xFF54595F),
                                 ),
                                 const Positioned.fill(
-                                  child: Image(image: AssetImage("assets/icons/Vector.png")),
+                                  child: Image(
+                                      image: AssetImage(
+                                          "assets/icons/Vector.png")),
                                 )
                               ],
                             ),
@@ -219,14 +220,9 @@ class _ViewCommunityState extends State<ViewCommunity> {
                             //     ),
                             //   ),
                             // ),
-                
-
-
                           ],
                         ),
-
                         sizedBoxHeight(30.h),
-
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -238,27 +234,20 @@ class _ViewCommunityState extends State<ViewCommunity> {
                             return participantsList(participants[index]);
                           },
                         ),
-
                         sizedBoxHeight(40.h),
-
                         Row(
                           children: [
-                            
-                            SvgPicture.asset("assets/svg/exit_grp.svg",
+                            SvgPicture.asset(
+                              "assets/svg/exit_grp.svg",
                               height: 40.h,
                             ),
-
                             sizedBoxWidth(10.w),
-
                             textgreyD16BoldSP("Exit group"),
-
                           ],
                         ),
-
-                  
                       ],
                     ),
-                  ),                
+                  ),
                 ),
               ),
             ),
@@ -268,19 +257,17 @@ class _ViewCommunityState extends State<ViewCommunity> {
     );
   }
 
-  Widget participantsList(String name){
+  Widget participantsList(String name) {
     return Row(
       children: [
         Container(
           width: 60.h,
           height: 60.h,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("assets/home/profile.png"),
-              fit: BoxFit.cover
-            )
-          ),
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage("assets/home/profile.png"),
+                  fit: BoxFit.cover)),
         ),
 
         sizedBoxWidth(10.w),

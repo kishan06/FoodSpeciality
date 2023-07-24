@@ -98,7 +98,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
               })),
             ),
           ),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: SizedBox(
@@ -142,7 +141,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
               ),
             ),
           ),
-
           sizedBoxHeight(100.h)
         ],
       ),
@@ -188,7 +186,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                     // height: 30.h,
                     child: TextFormField(
                       style: TextStyle(
-                          color: Color(0xFF979797),
+                          color: const Color(0xFF979797),
                           fontSize: 20.sp,
                           fontFamily: "StudioProR"),
                       decoration: InputDecoration(
@@ -196,7 +194,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintStyle: TextStyle(
-                            color: Color(0xFF979797),
+                            color: const Color(0xFF979797),
                             fontSize: 20.sp,
                             fontFamily: "StudioProR"),
                         hintText: "Community Name",
@@ -207,7 +205,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                   sizedBoxHeight(15.h),
                   TextFormField(
                     style: TextStyle(
-                        color: Color(0xFF979797),
+                        color: const Color(0xFF979797),
                         fontSize: 20.sp,
                         fontFamily: "StudioProR"),
                     cursorColor: const Color(0xFFFFB600),
@@ -275,7 +273,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                       },
                     ),
                   ),
-               
                 ],
               ),
             ),

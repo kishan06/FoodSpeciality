@@ -201,7 +201,7 @@ class _ExploreState extends State<Explore> {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: GridView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: 13,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
@@ -217,8 +217,9 @@ class _ExploreState extends State<Explore> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: index.isEven
-                                        ? AssetImage("assets/home/17.png")
-                                        : AssetImage("assets/home/12.png"),
+                                        ? const AssetImage("assets/home/17.png")
+                                        : const AssetImage(
+                                            "assets/home/12.png"),
                                     fit: BoxFit.cover
                                     // Image.asset("name")
                                     )),
@@ -643,15 +644,15 @@ class _ExploreState extends State<Explore> {
             //   ),
             // ),
             // sizedBoxHeight(16.h),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                     onTap: () {
                       //Get.toNamed("/joinchallenge");
-                      Get.to(JoinChallenge(),
-                          duration: Duration(milliseconds: 500),
+                      Get.to(const JoinChallenge(),
+                          duration: const Duration(milliseconds: 500),
                           transition: Transition.fadeIn);
                     },
                     child: textBlack14SP_Med("Join Challenge")),
@@ -668,7 +669,6 @@ class _ExploreState extends State<Explore> {
                     child: textBlack14SP_Med("View Rules")),
               ],
             ),
-         
           ],
         ),
       ),
@@ -698,15 +698,15 @@ class _ExploreState extends State<Explore> {
               width: 110.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.h),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                       image: AssetImage("assets/home/food_bowl.png"),
                       fit: BoxFit.fill)),
             ),
             // sizedBoxHeight(5.h),
-            Spacer(),
+            const Spacer(),
             textgreyD10Robo("Slappappoffer Recipe"),
             // sizedBoxHeight(5.h),
-            Spacer()
+            const Spacer()
           ],
         ),
       ),

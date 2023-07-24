@@ -19,7 +19,6 @@ class EditCommunity extends StatefulWidget {
 }
 
 class _EditCommunityState extends State<EditCommunity> {
-
   TextEditingController tecSubject = TextEditingController(text: "WDIPL");
 
   @override
@@ -30,7 +29,7 @@ class _EditCommunityState extends State<EditCommunity> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 35.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -43,15 +42,14 @@ class _EditCommunityState extends State<EditCommunity> {
                           child: SvgPicture.asset(
                             "assets/icons/back_arrow.svg",
                             height: 25.h,
-                            // width: 40.w,
                             color: AppColors.greyD3B3F43,
                           ),
                         ),
                       ],
                     ),
-        
+
                     sizedBoxHeight(10.h),
-                  
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -59,29 +57,25 @@ class _EditCommunityState extends State<EditCommunity> {
                           width: 120.h,
                           height: 120.h,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.white,
-                              width: 3.h,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                // offset: Offset(0, 3), // changes the position of the shadow
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.white,
+                                width: 3.h,
                               ),
-                            ],
-                            image: DecorationImage(
-                              image: AssetImage("assets/community.png"),
-                              fit: BoxFit.cover
-                            )
-                          ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  // offset: Offset(0, 3), // changes the position of the shadow
+                                ),
+                              ],
+                              image: const DecorationImage(
+                                  image: AssetImage("assets/community.png"),
+                                  fit: BoxFit.cover)),
                           // child: YourChildWidget(),
                         ),
-        
                         sizedBoxWidth(20.w),
-        
                         SizedBox(
                           height: 40.h,
                           width: 130.w,
@@ -96,28 +90,27 @@ class _EditCommunityState extends State<EditCommunity> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.r),
                                 side: BorderSide(
-                                    color: Color(0xFF54595F), width: 1.w),
+                                    color: const Color(0xFF54595F), width: 1.w),
                               ),
                               elevation: 0,
-                              primary: Color(0xFF54595F),
+                              primary: const Color(0xFF54595F),
                               onPrimary: Colors.grey,
                             ),
                             child: Text(
                               'Change Photo',
                               style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
+                                  color: const Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18.h,
                                   fontFamily: "StudioProR"),
                             ),
                           ),
                         ),
-                          
                       ],
                     ),
-        
+
                     sizedBoxHeight(40.h),
-        
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -160,9 +153,9 @@ class _EditCommunityState extends State<EditCommunity> {
                       //   fit: BoxFit.contain,
                       // ),
                     ),
-        
+
                     sizedBoxHeight(100.h),
-                
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -180,23 +173,22 @@ class _EditCommunityState extends State<EditCommunity> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.r),
                                 side: BorderSide(
-                                    color: Color(0xFF54595F), width: 1.w),
+                                    color: const Color(0xFF54595F), width: 1.w),
                               ),
                               elevation: 0,
-                              primary: Color(0xFF54595F),
+                              primary: const Color(0xFF54595F),
                               onPrimary: Colors.grey,
                             ),
                             child: Text(
                               'Done',
                               style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
+                                  color: const Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18.h,
                                   fontFamily: "StudioProR"),
                             ),
                           ),
                         ),
-                        
                         SizedBox(
                           height: 50.h,
                           width: MediaQuery.of(context).size.width / 2 - 30.w,
@@ -210,8 +202,8 @@ class _EditCommunityState extends State<EditCommunity> {
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.r),
-                                side: BorderSide(
-                                    color: Colors.grey, width: 1.w),
+                                side:
+                                    BorderSide(color: Colors.grey, width: 1.w),
                               ),
                               elevation: 0,
                               primary: Colors.transparent,
@@ -226,12 +218,9 @@ class _EditCommunityState extends State<EditCommunity> {
                             ),
                           ),
                         ),
-                    
                       ],
                     ),
-              
-                    
-        
+
                     // ClipRRect(
                     //   borderRadius: BorderRadius.circular(10.0),
                     //   child: Container(
@@ -250,7 +239,7 @@ class _EditCommunityState extends State<EditCommunity> {
                     //     ),
                     //   ),
                     // ),
-        
+
                     // Container(
                     //   // height: 375.h,
                     //   // color: AppColors.white,
@@ -264,18 +253,16 @@ class _EditCommunityState extends State<EditCommunity> {
                     //           offset: Offset(0, -5.h)
                     //         ),
                     //       ],
-                          
+
                     //       borderRadius: BorderRadius.only(
                     //         topLeft: Radius.circular(20.h),
                     //         topRight: Radius.circular(20.h)
                     //       )
                     //   ),
                     // )
-                  
                   ],
                 ),
               ),
-        
             ],
           ),
         ),
@@ -283,19 +270,17 @@ class _EditCommunityState extends State<EditCommunity> {
     );
   }
 
-  Widget participantsList(String name){
+  Widget participantsList(String name) {
     return Row(
       children: [
         Container(
           width: 60.h,
           height: 60.h,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("assets/home/profile.png"),
-              fit: BoxFit.cover
-            )
-          ),
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage("assets/home/profile.png"),
+                  fit: BoxFit.cover)),
         ),
 
         sizedBoxWidth(10.w),

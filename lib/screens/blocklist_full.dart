@@ -63,7 +63,7 @@ class _BlockListFullState extends State<BlockListFull> {
                           fontFamily: "StudioProR",
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF54595F)),
+                          color: const Color(0xFF54595F)),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -74,11 +74,11 @@ class _BlockListFullState extends State<BlockListFull> {
                           fontFamily: "StudioProR",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(59, 63, 67, 0.49)),
+                          color: const Color.fromRGBO(59, 63, 67, 0.49)),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   height: 31.h,
                   child: ElevatedButton(
@@ -92,7 +92,6 @@ class _BlockListFullState extends State<BlockListFull> {
                     onPressed: () {
                       Get.snackbar(
                           "Successful", "Unblocked @priyujoshi successfully");
-                    
                     },
                     child: Text(
                       "Unblock",
@@ -157,7 +156,7 @@ class _BlockListFullState extends State<BlockListFull> {
                           fontFamily: "StudioProR",
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF54595F),
+                          color: const Color(0xFF54595F),
                         ),
                       ),
                       SizedBox(
@@ -169,12 +168,12 @@ class _BlockListFullState extends State<BlockListFull> {
                           fontFamily: "StudioProR",
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(59, 63, 67, 0.49),
+                          color: const Color.fromRGBO(59, 63, 67, 0.49),
                         ),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 31.h,
                     child: ElevatedButton(
@@ -205,11 +204,11 @@ class _BlockListFullState extends State<BlockListFull> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               endIndent: 20,
               indent: 20,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -254,7 +253,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF54595F)),
+                            color: const Color(0xFF54595F)),
                       ),
                       SizedBox(
                         height: 5.h,
@@ -265,11 +264,11 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(59, 63, 67, 0.49)),
+                            color: const Color.fromRGBO(59, 63, 67, 0.49)),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 31.h,
                     child: ElevatedButton(
@@ -298,11 +297,11 @@ class _BlockListFullState extends State<BlockListFull> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               endIndent: 20,
               indent: 20,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -347,7 +346,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF54595F)),
+                            color: const Color(0xFF54595F)),
                       ),
                       SizedBox(
                         height: 5.h,
@@ -358,11 +357,11 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(59, 63, 67, 0.49)),
+                            color: const Color.fromRGBO(59, 63, 67, 0.49)),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 31.h,
                     child: ElevatedButton(
@@ -391,11 +390,11 @@ class _BlockListFullState extends State<BlockListFull> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               endIndent: 20,
               indent: 20,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -440,7 +439,7 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF54595F)),
+                            color: const Color(0xFF54595F)),
                       ),
                       SizedBox(
                         height: 5.h,
@@ -451,11 +450,11 @@ class _BlockListFullState extends State<BlockListFull> {
                             fontFamily: "StudioProR",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(59, 63, 67, 0.49)),
+                            color: const Color.fromRGBO(59, 63, 67, 0.49)),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 31.h,
                     child: ElevatedButton(

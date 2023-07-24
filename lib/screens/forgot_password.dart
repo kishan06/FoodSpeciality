@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
-import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 class ForgotPassword extends StatefulWidget {

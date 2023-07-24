@@ -94,7 +94,7 @@ Future<T?> FilterBottomSheet<T>() {
                                 Text(
                                   "  Custom",
                                   style: TextStyle(
-                                      color: Color(0xffffffff),
+                                      color: const Color(0xffffffff),
                                       fontFamily: "Studio Pro",
                                       fontSize: 10.sp),
                                 ),

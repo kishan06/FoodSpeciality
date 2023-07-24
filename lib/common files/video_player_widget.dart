@@ -14,11 +14,11 @@ class VideoPlayerWidget extends StatelessWidget {
   Widget build(BuildContext context) =>
       controller != null && controller.value.isInitialized
           ? Container(
-            // height: 300.h,
+              // height: 300.h,
               alignment: Alignment.topCenter,
               child: buildVideo(),
             )
-          : Container(
+          : const SizedBox(
               height: 200,
               child: Center(
                 child: CircularProgressIndicator(),
@@ -41,10 +41,10 @@ class VideoPlayerWidget extends StatelessWidget {
                 child: Stack(
                   // fit: isPortrait ? StackFit.loose :StackFit.expand,
                   children: [
-                    Container(
-                      // color: AppColors.black,
-                      height: 400.h,
-                      child: buildVideoPlayer()),
+                    SizedBox(
+                        // color: AppColors.black,
+                        height: 400.h,
+                        child: buildVideoPlayer()),
                     Positioned.fill(child: buildPlay()),
                   ],
                 ),

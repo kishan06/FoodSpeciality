@@ -287,7 +287,7 @@ class _HomeState extends State<Home> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8.r),
                                       border: Border.all(
-                                        color: Color(0xFF3B3F43),
+                                        color: const Color(0xFF3B3F43),
                                       ),
                                     ),
                                     child: Padding(
@@ -308,12 +308,12 @@ class _HomeState extends State<Home> {
                                   )),
                         Container(
                           child: isFollowedByMe == 0
-                              ? SizedBox()
+                              ? const SizedBox()
                               : PopupMenuButton(
                                   offset: const Offset(0, 50),
                                   color: const Color(0xFFFFFFFF),
                                   tooltip: '',
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.more_vert,
                                     color: Color(0xFF3B3F43),
                                   ),
@@ -503,7 +503,7 @@ class _HomeState extends State<Home> {
                     height: 180.h,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.h),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             image: AssetImage("assets/home/food.png"),
                             fit: BoxFit.fill)),
                   ),
@@ -518,7 +518,7 @@ class _HomeState extends State<Home> {
                           InkWell(
                             onTap: () {
                               // Get.toNamed("/networkplayerwidget");
-                              Get.to(AssetPlayerWidget());
+                              Get.to(const AssetPlayerWidget());
                             },
                             child: Container(
                               width: 80.w,
@@ -978,7 +978,7 @@ Widget addCommunityDailog() {
                     child: TextFormField(
                       controller: communityName,
                       style: TextStyle(
-                          color: Color(0xFF979797),
+                          color: const Color(0xFF979797),
                           fontSize: 20.sp,
                           fontFamily: "StudioProR"),
                       decoration: InputDecoration(
@@ -986,7 +986,7 @@ Widget addCommunityDailog() {
                         filled: true,
                         fillColor: Colors.white,
                         hintStyle: TextStyle(
-                            color: Color(0xFF979797),
+                            color: const Color(0xFF979797),
                             fontSize: 20.sp,
                             fontFamily: "StudioProR"),
                         hintText: "Community Name",
@@ -1004,7 +1004,7 @@ Widget addCommunityDailog() {
                   TextFormField(
                     controller: description,
                     style: TextStyle(
-                        color: Color(0xFF979797),
+                        color: const Color(0xFF979797),
                         fontSize: 20.sp,
                         fontFamily: "StudioProR"),
                     cursorColor: const Color(0xFFFFB600),

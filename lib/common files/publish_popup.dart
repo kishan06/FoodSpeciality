@@ -119,7 +119,7 @@ class _PublishPopupState extends State<PublishPopup> {
                   onTap: () {
                     Get.offAll(BottomBar());
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.close,
                     color: Color(0xff3B3F43),
                   ),

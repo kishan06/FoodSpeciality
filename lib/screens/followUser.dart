@@ -28,12 +28,12 @@ class _followUserState extends State<followUser> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFFFFFF),
+          backgroundColor: const Color(0xFFFFFFFF),
           leading: GestureDetector(
             onTap: () {
               Get.back();
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: Color(0xFF3B3F43),
             ),
@@ -48,7 +48,7 @@ class _followUserState extends State<followUser> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Color.fromRGBO(59, 63, 67, 0.49),
+                    color: const Color.fromRGBO(59, 63, 67, 0.49),
                   ),
                   // height: 30,
                   child: Padding(
@@ -81,10 +81,10 @@ class _followUserState extends State<followUser> {
                           height: 25,
                           width: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text(
+                        const Text(
                           "Website",
                           style: TextStyle(color: Colors.black),
                         ),
@@ -100,10 +100,10 @@ class _followUserState extends State<followUser> {
                           height: 25,
                           width: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text(
+                        const Text(
                           "Instagram",
                           style: TextStyle(color: Colors.black),
                         ),
@@ -119,10 +119,10 @@ class _followUserState extends State<followUser> {
                           height: 25,
                           width: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text(
+                        const Text(
                           "Twitter",
                           style: TextStyle(color: Colors.black),
                         ),
@@ -138,10 +138,10 @@ class _followUserState extends State<followUser> {
                           height: 25,
                           width: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text(
+                        const Text(
                           "Pintrest",
                           style: TextStyle(color: Colors.black),
                         ),
@@ -157,10 +157,10 @@ class _followUserState extends State<followUser> {
                           height: 25,
                           width: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text(
+                        const Text(
                           "Facebook",
                           style: TextStyle(color: Colors.black),
                         ),
@@ -170,7 +170,7 @@ class _followUserState extends State<followUser> {
                 ];
               },
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             GestureDetector(
@@ -180,7 +180,7 @@ class _followUserState extends State<followUser> {
                   "Notification turned on",
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.notifications_none_outlined,
                 color: Color(0xFF3B3F43),
               ),
@@ -192,7 +192,7 @@ class _followUserState extends State<followUser> {
               offset: const Offset(0, 50),
               color: const Color(0xFFFFFFFF),
               tooltip: '',
-              child: Icon(
+              child: const Icon(
                 Icons.more_vert,
                 color: Color(0xFF3B3F43),
               ),
@@ -280,10 +280,10 @@ class _followUserState extends State<followUser> {
                               height: 20,
                               width: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 15,
                             ),
-                            Text(
+                            const Text(
                               "Share",
                               style: TextStyle(
                                   color: Colors.black,
@@ -392,7 +392,7 @@ class _followUserState extends State<followUser> {
                                     fontFamily: "StudioProR",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF54595F)),
+                                    color: const Color(0xFF54595F)),
                               ),
                               SizedBox(
                                 height: 5.h,
@@ -403,7 +403,8 @@ class _followUserState extends State<followUser> {
                                     fontFamily: "StudioProR",
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: Color.fromRGBO(59, 63, 67, 0.49)),
+                                    color:
+                                        const Color.fromRGBO(59, 63, 67, 0.49)),
                               ),
                               SizedBox(
                                 height: 15.h,
@@ -414,7 +415,7 @@ class _followUserState extends State<followUser> {
                                   fontFamily: "Roboto",
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFF54595F),
+                                  color: const Color(0xFF54595F),
                                 ),
                               ),
                               SizedBox(
@@ -436,7 +437,7 @@ class _followUserState extends State<followUser> {
                                               RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
-                                                side: BorderSide(
+                                                side: const BorderSide(
                                                   width: 3,
                                                   color: Color(0xFF3B3F43),
                                                 ),
@@ -450,7 +451,7 @@ class _followUserState extends State<followUser> {
                                                 fontFamily: "StudioProR",
                                                 fontSize: 18.sm,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF3B3F43)),
+                                                color: const Color(0xFF3B3F43)),
                                           )),
                                     ),
                                     SizedBox(
@@ -634,7 +635,6 @@ class _followUserState extends State<followUser> {
             ],
           ),
         ),
-   
       ),
 
       //  Scaffold(

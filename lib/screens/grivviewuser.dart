@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/comman_comment.dart';
-import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/screens/gridviewuser_content.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +19,6 @@ class _GridviewState extends State<Gridview> {
   int currentIndex = 0;
   HomeController controllerHome = Get.put(HomeController());
 
-
   // int index = 0;
 
   @override
@@ -36,13 +33,13 @@ class _GridviewState extends State<Gridview> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
             GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: (0.45 / 0.5),
                     crossAxisCount: 2,
                     mainAxisSpacing: 20,
@@ -77,7 +74,7 @@ class _GridviewState extends State<Gridview> {
     return Container(
         height: 180.h,
         width: 190.w,
-        decoration: BoxDecoration(boxShadow: [
+        decoration: BoxDecoration(boxShadow: const [
           BoxShadow(
             color: Colors.grey,
             blurRadius: 6.0, // soften the shadow
@@ -122,7 +119,7 @@ class _GridviewState extends State<Gridview> {
                   Text(
                     title,
                     style: TextStyle(
-                        color: Color(0xFF6B6B6B),
+                        color: const Color(0xFF6B6B6B),
                         fontFamily: "Roboto",
                         fontSize: 10.sp),
                   ),
@@ -165,7 +162,7 @@ class _GridviewState extends State<Gridview> {
                       Row(
                         children: [
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               commentbottomSheet(controllerHome);
                             },
                             child: Image.asset(

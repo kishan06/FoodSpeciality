@@ -94,14 +94,15 @@ class _ConversationListState extends State<ConversationList> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                (widget.index == 0 || widget.index == 1)  ? CircleAvatar(
-                  backgroundColor: AppColors.greyD3B3F43,
-                  radius: 11.h,
-                  child: Center(child: textWhite12Robo("2")),
-                ): SizedBox(),
-
-                sizedBoxHeight((widget.index == 0 || widget.index == 1) ? 5.h : 0),
-
+                (widget.index == 0 || widget.index == 1)
+                    ? CircleAvatar(
+                        backgroundColor: AppColors.greyD3B3F43,
+                        radius: 11.h,
+                        child: Center(child: textWhite12Robo("2")),
+                      )
+                    : const SizedBox(),
+                sizedBoxHeight(
+                    (widget.index == 0 || widget.index == 1) ? 5.h : 0),
                 textgreyD10Robo(widget.time)
               ],
             )

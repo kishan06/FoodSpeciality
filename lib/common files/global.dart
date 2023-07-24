@@ -9,4 +9,5 @@ class ApiUrls {
   static const createCommunity = _base + "community/create";
   static const getfollowerFollowing = _base + "user/followes";
   static const faq = _base + "admin/faq/getAll";
+  static const policy = _base + "admin/policy/getAll";
 }

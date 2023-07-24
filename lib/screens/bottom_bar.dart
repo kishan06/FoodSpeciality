@@ -14,9 +14,8 @@ import 'package:get/get.dart';
 import 'InsideBottomBar/myProfile/new_changed_profile.dart';
 
 class BottomBar extends StatefulWidget {
-
   var selectedIndex;
-  BottomBar({this.selectedIndex=0});
+  BottomBar({this.selectedIndex = 0});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -25,26 +24,23 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
-
-    Home(),
-    Explore(),
+    const Home(),
+    const Explore(),
     Container(),
-    ChatTab(),
+    const ChatTab(),
     // NewProfile(),
-    NewChangedProfile()
+    const NewChangedProfile()
   ];
   bool _canPop = false;
 
   @override
-
-  void initState(){
+  void initState() {
     super.initState();
     _selectedIndex.value = widget.selectedIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         await dialoBox();
@@ -62,24 +58,20 @@ class _BottomBarState extends State<BottomBar> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     bottomBarCont(),
-
                     Container(
                       height: 80.h,
                       width: 20.w,
                       color: AppColors.white,
                     ),
-
                     bottomBarCont()
                   ],
                 ),
-
                 SizedBox(
-                  child: Padding(
+                    child: Padding(
                   padding: EdgeInsets.only(top: 20.h),
-
                   child: BottomNavigationBar(
-                    selectedLabelStyle: TextStyle(fontSize: 0),
-                    unselectedLabelStyle: TextStyle(fontSize: 0),
+                    selectedLabelStyle: const TextStyle(fontSize: 0),
+                    unselectedLabelStyle: const TextStyle(fontSize: 0),
                     iconSize: 30.h,
                     selectedItemColor: AppColors.greyD3B3F43,
                     unselectedItemColor: AppColors.greyL979797,
@@ -97,7 +89,7 @@ class _BottomBarState extends State<BottomBar> {
                         icon: inactiveIcon("assets/bottomBar/explore.svg"),
                         label: "",
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.circle, size: 0),
                         label: "",
                       ),
@@ -113,7 +105,6 @@ class _BottomBarState extends State<BottomBar> {
                       ),
                     ],
                     currentIndex: _selectedIndex.value,
-
                     onTap: (int index) {
                       if (index != 2) {
                         _selectedIndex.value = index;
@@ -121,7 +112,6 @@ class _BottomBarState extends State<BottomBar> {
                     },
                   ),
                 )),
-
                 Positioned(
                   left: (MediaQuery.of(context).size.width / 2) - 32.5.h,
                   child: SizedBox(
@@ -140,7 +130,6 @@ class _BottomBarState extends State<BottomBar> {
                     ),
                   ),
                 ),
-
               ],
             ),
           )),
@@ -230,7 +219,8 @@ class _BottomBarState extends State<BottomBar> {
                   Positioned(
                     bottom: 0,
                     left: 0,
-                    right: 0, height: 247.h,
+                    right: 0,
+                    height: 247.h,
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -260,8 +250,7 @@ class _BottomBarState extends State<BottomBar> {
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18.sp),
                           ),
-                          Spacer(),
-
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -280,8 +269,7 @@ class _BottomBarState extends State<BottomBar> {
                               ),
                             ],
                           ),
-
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                     ),
@@ -308,9 +296,9 @@ class _BottomBarState extends State<BottomBar> {
 
   Widget bottomBarCont() {
     return Expanded(
-      child: Container(
+        child: Container(
       clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Container(
         height: 80.h,
         margin: EdgeInsets.only(top: 10.h), // ***
@@ -327,9 +315,7 @@ class _BottomBarState extends State<BottomBar> {
               topLeft: Radius.circular(35.h), topRight: Radius.circular(35.h)),
         ),
       ),
-    )
-
-        );
+    ));
   }
 
   Widget activeIcon(String imagePath) {
