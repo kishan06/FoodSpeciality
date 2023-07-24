@@ -36,7 +36,6 @@ import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
-import 'screens/completed_challenge.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
