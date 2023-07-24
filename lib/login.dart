@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/bottom_bar.dart';
-import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
