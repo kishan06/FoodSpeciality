@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
@@ -37,7 +38,6 @@ import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
-import 'screens/completed_challenge.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -54,8 +54,7 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-
-    runApp(new MyApp());
+    runApp(const MyApp());
   });
 }
 
@@ -107,54 +106,60 @@ class _MyAppState extends State<MyApp> {
           // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()
-            GetPage(name: '/', page: () => SplashScreen2()),
-            GetPage(name: "/onboard", page: () => OnBoarding()),
-            GetPage(name: "/login", page: () => Login()),
+            GetPage(name: '/', page: () => const SplashScreen2()),
+            GetPage(name: "/onboard", page: () => const OnBoarding()),
+            GetPage(name: "/login", page: () => const Login()),
             GetPage(name: "/forgetPass", page: () => ForgotPassword()),
-            GetPage(name: "/otpverification", page: () => otpVerification()),
+            GetPage(
+                name: "/otpverification", page: () => const otpVerification()),
             GetPage(name: "/createAcc", page: () => CreateAccountScreen()),
             GetPage(name: "/resetPass", page: () => ResetPassword()),
-            GetPage(name: "/signUpProfile", page: () => SignupProfile()),
+            GetPage(name: "/signUpProfile", page: () => const SignupProfile()),
             GetPage(
                 name: "/discoveryRecipes",
-                page: () => DiscoveryRecipesScreen()),
-            GetPage(name: "/viewuser", page: () => viewUser()),
-            GetPage(name: "/followuser", page: () => followUser()),
+                page: () => const DiscoveryRecipesScreen()),
+            GetPage(name: "/viewuser", page: () => const viewUser()),
+            GetPage(name: "/followuser", page: () => const followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
             GetPage(
                 name: "/communityaddparticipants",
-                page: () => CommunityAddParticipants()),
+                page: () => const CommunityAddParticipants()),
             GetPage(
                 name: "/chatcommunitydetail",
-                page: () => ChatCommunityDetail()),
-            GetPage(name: "/chatdetail", page: () => ChatPrivateDetail()),
+                page: () => const ChatCommunityDetail()),
+            GetPage(name: "/chatdetail", page: () => const ChatPrivateDetail()),
             // GetPage(name: "/myProfile", page: () => myProfile()),
             GetPage(
                 name: "/networkplayerwidget",
-                page: () => NetworkPlayerWidget()),
-            GetPage(name: "/setting", page: () => Setting()),
-            GetPage(name: "/joinchallenge", page: () => JoinChallenge()),
-            GetPage(name: "/notification", page: () => UserNotifications()),
-            GetPage(name: "/EditProfile", page: () => EditProfile()),
-            GetPage(name: "/Report", page: () => Report()),
-            GetPage(name: "/ReportSuccess", page: () => ReportSuccess()),
-            GetPage(name: "/blocklistfull", page: () => BlockListFull()),
+                page: () => const NetworkPlayerWidget()),
+            GetPage(name: "/setting", page: () => const Setting()),
+            GetPage(name: "/joinchallenge", page: () => const JoinChallenge()),
             GetPage(
-                name: "/sucessfullyblocked", page: () => SucessfullyBlocked()),
+                name: "/notification", page: () => const UserNotifications()),
+            GetPage(name: "/EditProfile", page: () => EditProfile()),
+            GetPage(name: "/Report", page: () => const Report()),
+            GetPage(name: "/ReportSuccess", page: () => const ReportSuccess()),
+            GetPage(name: "/blocklistfull", page: () => const BlockListFull()),
+            GetPage(
+                name: "/sucessfullyblocked",
+                page: () => const SucessfullyBlocked()),
             GetPage(
                 name: "/InspirationRecipeComment",
-                page: () => InspirationRecipeComment()),
+                page: () => const InspirationRecipeComment()),
 
-            GetPage(name: "/SearchPage", page: () => SearchPage()),
-            GetPage(name: "/RecipeIng", page: () => RecipeIng()),
+            GetPage(name: "/SearchPage", page: () => const SearchPage()),
+            GetPage(name: "/RecipeIng", page: () => const RecipeIng()),
             GetPage(name: "/FilePlayerWidget", page: () => FilePlayerWidget()),
-            GetPage(name: "/ViewCommunity", page: () => ViewCommunity()),
-            GetPage(name: "/EditCommunity", page: () => EditCommunity()),
-            GetPage(name: "/following", page: () => Following()),
-            GetPage(name: "/follower", page: () => Follower()),
-            GetPage(name: "/faq", page: () => Accordion()),
+            GetPage(name: "/ViewCommunity", page: () => const ViewCommunity()),
+            GetPage(name: "/EditCommunity", page: () => const EditCommunity()),
+            GetPage(name: "/following", page: () => const Following()),
+            GetPage(name: "/follower", page: () => const Follower()),
+            GetPage(name: "/faq", page: () => const Accordion()),
             GetPage(
-                name: "/CompletedChallenge", page: () => CompletedChallenge()),
+                name: "/CompletedChallenge",
+                page: () => const CompletedChallenge()),
+            GetPage(
+                name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
           ],
         ),
       ),

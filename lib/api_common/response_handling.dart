@@ -1,7 +1,5 @@
-
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 
@@ -12,7 +10,7 @@ Future<ResponseData<dynamic>> responseHandling({
   // required VoidCallback onSuccess,
 }) async {
   var resp = await response.stream.bytesToString();
-      // print(resp);
+  // print(resp);
   var jsonResp = jsonDecode(resp);
   print(response.statusCode);
   print(jsonResp);
@@ -20,41 +18,44 @@ Future<ResponseData<dynamic>> responseHandling({
   switch (response.statusCode) {
     case 200:
       // onSuccess();
-      // return 
+      // return
       return ResponseData<dynamic>(
         // "success",
         jsonResp["message"],
         ResponseStatus.SUCCESS,
-        
       );
 
-      // break;
+    // break;
 
     case 403:
       return ResponseData<dynamic>(
         "UnAuthorized",
         ResponseStatus.PRIVATE,
-        // data: 
+        // data:
       );
-      // break;
+    // break;
     case 400:
       // Get.showSnackbar(snackbar)
+
+      Get.snackbar("Error", jsonResp["data"]["message"]);
+
+
       Get.snackbar(
         "Error", jsonResp["message"]
       );
-                    
+          
       return ResponseData<dynamic>(
         "UnAuthorized",
         ResponseStatus.FAILED,
-        // data: 
+        // data:
       );
-      // break;
+    // break;
     default:
-    // ret
+      // ret
       return ResponseData<dynamic>(
         "Default",
         ResponseStatus.FAILED,
-        // data: 
+        // data:
       );
   }
 }

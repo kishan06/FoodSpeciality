@@ -202,7 +202,7 @@ class _CompletedChallengeState extends State<CompletedChallenge> {
                                   height: 36.h,
                                   fit: BoxFit.fitHeight,
                                 )
-                              : SizedBox(
+                              : const SizedBox(
                                   child: Text(""),
                                 ),
                 ),

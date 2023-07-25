@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:get/get.dart';
 
 class CustomTextFormField extends StatefulWidget {
   CustomTextFormField({
@@ -111,41 +110,41 @@ class _CustomtextFormFieldState extends State<CustomTextFormField> {
           //         child: widget.leadingIcon!,
           //       ),
           prefixIconConstraints: const BoxConstraints(minWidth: 20),
-          prefixIcon: widget.withOutPrefix 
-          ? SizedBox() 
-          : Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              widget.isInputPassword
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 8.w),
-                          child: Icon(
-                            Icons.lock_outline,
-                            color: Colors.black54,
-                            size: 24.sp,
+          prefixIcon: widget.withOutPrefix
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    widget.isInputPassword
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 8.w),
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  color: Colors.black54,
+                                  size: 24.sp,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(left: 8.w),
+                            child: widget.suffixIcon,
                           ),
-                        ),
-                      ],
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(left: 8.w),
-                      child: widget.suffixIcon,
+                    sizedBoxWidth(2),
+                    SizedBox(
+                      height: 30.h,
+                      child: VerticalDivider(
+                        thickness: 1,
+                        width: 15.w,
+                        color: const Color(0xff54595F63),
+                      ),
                     ),
-              sizedBoxWidth(2),
-              SizedBox(
-                height: 30.h,
-                child: VerticalDivider(
-                  thickness: 1,
-                  width: 15.w,
-                  color: const Color(0xff54595F63),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
         keyboardType: widget.texttype,
         validator: widget.validator,

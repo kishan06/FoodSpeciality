@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/user_notification.dart';
@@ -27,8 +26,8 @@ Widget searchNotification() {
             autofocus: true,
             onTap: () {
               //Get.toNamed("/SearchPage");
-              Get.to(SearchPage(),
-                  duration: Duration(milliseconds: 500),
+              Get.to(const SearchPage(),
+                  duration: const Duration(milliseconds: 500),
                   transition: Transition.downToUp);
             },
             readonly: true,
@@ -46,8 +45,8 @@ Widget searchNotification() {
         GestureDetector(
           onTap: () {
             //Get.toNamed("/notification");
-            Get.to(UserNotifications(),
-                duration: Duration(milliseconds: 500),
+            Get.to(const UserNotifications(),
+                duration: const Duration(milliseconds: 500),
                 transition: Transition.downToUp);
           },
           child: Image.asset(

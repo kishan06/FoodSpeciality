@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 // import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 // import 'base_manager.dart';
 
 import 'package:http/http.dart' as http;
@@ -10,8 +8,6 @@ import 'package:http/http.dart' as http;
 import '../constants/base_manager.dart';
 
 class NetworkApi {
-
-
   Future<ResponseData<dynamic>> postApiHttp(
       String token, String url, Map<String, String> body) async {
     var headers = {

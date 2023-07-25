@@ -10,7 +10,6 @@ class ApiUrls {
 
   static const forgotPassword = _base + "auth/forgot-password";
   static const verifyOtp = _base + "auth/verify-otp";
-  
 
   static const createCommunity = _base + "community/create";
   static const getfollowerFollowing = _base + "user/followes";
@@ -19,4 +18,7 @@ class ApiUrls {
   static const setNewPassword = _base + "auth/set-password";
 
 
+  static const policy = _base + "admin/policy/getAll";
+  static const getrecipe = _base + "recipe/all";
+  static const getcommunityguidelines = _base + "admin/community/getAll";
 }

@@ -131,9 +131,7 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                             ),
                           ],
                         ),
-                 
                       ),
-                    
                       sizedBoxHeight(25.h)
                     ],
                   ),
@@ -156,8 +154,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                             onTap: () {
                               Get.to(() => const SpinTheWheel());
                             },
-                            child: catContainer(
-                                AppColors.white, 'Spin the wheel', 'SpinWheel')),
+                            child: catContainer(AppColors.white,
+                                'Spin the wheel', 'SpinWheel')),
                         sizedBoxWidth(25),
                         GestureDetector(
                           onTap: () {
@@ -198,45 +196,44 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w400),
                         ),
-          
                         InkWell(
                           onTap: () {
                             showDialog(
-                              barrierDismissible: false,
-                              context: context, builder: (context) => PPopupDailyBonus()
-                            );
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) => const PPopupDailyBonus());
                           },
                           child: Container(
-                            height: 77.h,
-                            width: 77.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.grey9A9A9A,
-                               boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 3,
-                                  // offset: Offset(0, 3),
-                                ),
-                              ],
-                              shape: BoxShape.circle,
-                              gradient: const RadialGradient(
-                                colors: [
-                                  Color.fromARGB(255, 196, 196, 196),
-                                  AppColors.grey9A9A9A
-                                  // Colors.blue, // Change the colors as per your preference
-                                  // Colors.white,
-                                ],
-                                stops: [0.0, 1.0],
-                                center: Alignment.center,
-                                radius: 1.0,
-                                tileMode: TileMode.clamp,
-                              ),
-                              // borderRadius: BorderRadius.circular(40.h),
-                              border: Border.all(width: 1, color: Colors.black)
-                            ),
-                            child: Center(child: textWhite14Robo("DAILY BONUS"))
-                          ),
+                              height: 77.h,
+                              width: 77.h,
+                              decoration: BoxDecoration(
+                                  color: AppColors.grey9A9A9A,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 3,
+                                      // offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                  shape: BoxShape.circle,
+                                  gradient: const RadialGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 196, 196, 196),
+                                      AppColors.grey9A9A9A
+                                      // Colors.blue, // Change the colors as per your preference
+                                      // Colors.white,
+                                    ],
+                                    stops: [0.0, 1.0],
+                                    center: Alignment.center,
+                                    radius: 1.0,
+                                    tileMode: TileMode.clamp,
+                                  ),
+                                  // borderRadius: BorderRadius.circular(40.h),
+                                  border: Border.all(
+                                      width: 1, color: Colors.black)),
+                              child: Center(
+                                  child: textWhite14Robo("DAILY BONUS"))),
                         ),
                       ],
                     ),
@@ -257,8 +254,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                     ),
                     sizedBoxHeight(30.h),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 20.h),
                       width: double.infinity,
                       decoration: BoxDecoration(
                           color: AppColors.grey54595F,
@@ -321,9 +318,7 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                         ],
                       ),
                     ),
-
                     sizedBoxHeight(15.h),
-                    
                   ],
                 ),
               ),
@@ -358,7 +353,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset('assets/svg/$svg.svg',
+                SvgPicture.asset(
+                  'assets/svg/$svg.svg',
                   height: 35.h,
                   width: 35.h,
                 ),
@@ -367,9 +363,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                   height: 27.h,
                   width: 60.w,
                   decoration: BoxDecoration(
-                    color: AppColors.buttonGrey54595F,
-                    borderRadius: BorderRadius.circular(8.h)
-                  ),
+                      color: AppColors.buttonGrey54595F,
+                      borderRadius: BorderRadius.circular(8.h)),
                   child: Row(
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -378,7 +373,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                       textWhite14Robo("20"),
                       Padding(
                         padding: EdgeInsets.only(top: 2.h),
-                        child: Image.asset('assets/svg/Coin.png',
+                        child: Image.asset(
+                          'assets/svg/Coin.png',
                           width: 20.h,
                           height: 20.h,
                         ),
@@ -398,7 +394,6 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
                       // ),
                     ],
                   ),
-            
                 )
                 // RotationTransition(
                 //   turns: const AlwaysStoppedAnimation(180 / 360),
@@ -439,7 +434,8 @@ class _ChallengesAndRewardsState extends State<ChallengesAndRewards>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SvgPicture.asset('assets/svg/$svg.svg',
+          SvgPicture.asset(
+            'assets/svg/$svg.svg',
             height: 60.h,
             width: 45.w,
           ),

@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class ChatPrivate {
   String name;
   String messageText;

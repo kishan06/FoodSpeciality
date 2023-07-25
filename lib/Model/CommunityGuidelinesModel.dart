@@ -1,15 +1,15 @@
-class FaqModel {
+class CommunityGuidelinesModel {
   bool? success;
   List<Data>? data;
 
-  FaqModel({this.success, this.data});
+  CommunityGuidelinesModel({this.success, this.data});
 
-  FaqModel.fromJson(Map<String, dynamic> json) {
+  CommunityGuidelinesModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
@@ -26,25 +26,25 @@ class FaqModel {
 
 class Data {
   String? id;
-  String? question;
-  String? answer;
-  String? categories;
+  String? name;
+  String? description;
+  String? adminId;
 
-  Data({this.id, this.question, this.answer, this.categories});
+  Data({this.id, this.name, this.description, this.adminId});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    question = json['question'];
-    answer = json['answer'];
-    categories = json['categories'];
+    name = json['name'];
+    description = json['description'];
+    adminId = json['adminId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['question'] = this.question;
-    data['answer'] = this.answer;
-    data['categories'] = this.categories;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['adminId'] = this.adminId;
     return data;
   }
 }

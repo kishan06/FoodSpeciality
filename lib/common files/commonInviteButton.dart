@@ -25,18 +25,19 @@ class _CommonInviteButtonState extends State<CommonInviteButton> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          primary: _colorchange ? Color.fromRGBO(84, 89, 95, 1) : Colors.white,
+          primary:
+              _colorchange ? const Color.fromRGBO(84, 89, 95, 1) : Colors.white,
           shape: RoundedRectangleBorder(
             side: _colorchange
                 ? BorderSide.none
-                : BorderSide(color: Color.fromARGB(84, 89, 95, 1)),
+                : const BorderSide(color: Color.fromARGB(84, 89, 95, 1)),
             borderRadius: BorderRadius.circular(8.r),
           ),
         ),
         child: Text(
           widget.text,
           style: TextStyle(
-            color: _colorchange ? Colors.white : Color(0xFF303030),
+            color: _colorchange ? Colors.white : const Color(0xFF303030),
             fontSize: 14.sm,
             fontFamily: 'StudioProR',
           ),

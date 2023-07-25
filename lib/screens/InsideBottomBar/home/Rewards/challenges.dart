@@ -97,7 +97,8 @@ class _ChallengesState extends State<Challenges> {
                                         EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8.r)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r)),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -110,7 +111,8 @@ class _ChallengesState extends State<Challenges> {
                                                 totalCoins.string,
                                                 style: TextStyle(
                                                     fontSize: 17.sp,
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                             ),
                                             sizedBoxHeight(5.h)
@@ -181,33 +183,34 @@ class _ChallengesState extends State<Challenges> {
         children: [
           sizedBoxHeight(15.h),
           challengeContainer(
-              'Upload your profile picture', 'profileCircle', 5, 'Start', () {
-            Get.to(() => SignupProfile(
-                  nextDoneRoute: 1,
-                  onTapChallengeDone: () {
-                    Get.back();
-                    Get.back();
-                    Get.to(() => const Challenges(
-                          challengeTabIndex: 2,
-                        ));
-                    totalCoins += 5;
-                    showDialog(
-                        context: context,
-                        builder: (context) => const PPopup(
-                              coins: 5,
-                            ));
-                  },
-                ));
-          },
-          
+            'Upload your profile picture',
+            'profileCircle',
+            5,
+            'Start',
+            () {
+              Get.to(() => SignupProfile(
+                    nextDoneRoute: 1,
+                    onTapChallengeDone: () {
+                      Get.back();
+                      Get.back();
+                      Get.to(() => const Challenges(
+                            challengeTabIndex: 2,
+                          ));
+                      totalCoins += 5;
+                      showDialog(
+                          context: context,
+                          builder: (context) => const PPopup(
+                                coins: 5,
+                              ));
+                    },
+                  ));
+            },
           ),
           sizedBoxHeight(25.h),
-          challengeContainer('Upload a recipe',
-              'UploadRecipe', 20, 'Start', () {
+          challengeContainer('Upload a recipe', 'UploadRecipe', 20, 'Start',
+              () {
             Get.to(() => const RecipeIng());
-          },
-          showNum: true
-          ),
+          }, showNum: true),
         ],
       ),
     );
@@ -265,7 +268,8 @@ class _ChallengesState extends State<Challenges> {
   }
 
   Widget challengeContainer(
-      String txt, String svg, int coins, String buttonTxt, onTap,{bool showNum = false}) {
+      String txt, String svg, int coins, String buttonTxt, onTap,
+      {bool showNum = false}) {
     return Container(
       padding:
           EdgeInsetsDirectional.symmetric(horizontal: 12.w, vertical: 12.h),
@@ -304,36 +308,41 @@ class _ChallengesState extends State<Challenges> {
                           fontSize: 20.sp),
                     ),
                   ),
+                  showNum
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            sizedBoxHeight(5.h),
 
-                  showNum ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      sizedBoxHeight(5.h),
-                   
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: List.generate(6, (index) => Container(
-                          margin: EdgeInsets.only(right: 5.w),
-                          // mar
-                          height: 20.h,
-                          width: 20.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: AppColors.grey54595F)
-                          ),
-                          child: Center(child: textgreyD10Robo((index + 1).toString())),
-                          // child: Icon(Icons.check, color: Colors.white,),
-                        )),
-                      )
-                                          // List.generate(length, (index) => null)       
-                    ],
-                  ) : SizedBox()
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: List.generate(
+                                  6,
+                                  (index) => Container(
+                                        margin: EdgeInsets.only(right: 5.w),
+                                        // mar
+                                        height: 20.h,
+                                        width: 20.h,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: AppColors.grey54595F)),
+                                        child: Center(
+                                            child: textgreyD10Robo(
+                                                (index + 1).toString())),
+                                        // child: Icon(Icons.check, color: Colors.white,),
+                                      )),
+                            )
+                            // List.generate(length, (index) => null)
+                          ],
+                        )
+                      : const SizedBox()
                 ],
               ),
             ],
           ),
-          sizedBoxWidth(15.w), 
+          sizedBoxWidth(15.w),
           InkWell(
             onTap: onTap,
             child: Column(
@@ -501,25 +510,26 @@ class _PPopupState extends State<PPopup> {
 
 class PPopupDailyBonus extends StatefulWidget {
   // final int coins;
-  const PPopupDailyBonus({super.key,});
+  const PPopupDailyBonus({
+    super.key,
+  });
 
   @override
   State<PPopupDailyBonus> createState() => _PPopupDailyBonusState();
 }
 
 class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
- 
   Duration _timeLeft = Duration.zero;
   late DateTime _endTime;
   late Timer _timer;
 
   List gridData = [
-    {"days":"1 day(s)", "text":"+5"},
-    {"days":"2 day(s)", "text":"+5"},
-    {"days":"3 day(s)", "text":"CLAIM"},
-    {"days":"4 day(s)", "text":"CLAIM"},
-    {"days":"5 day(s)", "text":"CLAIM"},
-    {"days":"6 day(s)", "text":"CLAIM"},
+    {"days": "1 day(s)", "text": "+5"},
+    {"days": "2 day(s)", "text": "+5"},
+    {"days": "3 day(s)", "text": "CLAIM"},
+    {"days": "4 day(s)", "text": "CLAIM"},
+    {"days": "5 day(s)", "text": "CLAIM"},
+    {"days": "6 day(s)", "text": "CLAIM"},
   ];
 
   String _formatTime(Duration duration) {
@@ -560,14 +570,11 @@ class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
     _startTimer();
   }
 
-    
-
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -586,53 +593,51 @@ class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
               Align(
                 alignment: Alignment.centerRight,
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                   },
-                  child: Icon(Icons.cancel_outlined,
+                  child: Icon(
+                    Icons.cancel_outlined,
                     size: 27.h,
                     color: AppColors.grey54595F,
                   ),
                 ),
               ),
-              
+
               sizedBoxHeight(5.h),
-              
+
               textgreyD18Robo("Daily Bonus"),
-              
+
               sizedBoxHeight(5.h),
-              
+
               textgreyD14Robo("Log in everyday and earn rewards!"),
-              
+
               sizedBoxHeight(20.h),
-              
+
               Container(
                 height: 40.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.h),
-                  color: AppColors.greyD9D9D9
-                ),
+                    borderRadius: BorderRadius.circular(6.h),
+                    color: AppColors.greyD9D9D9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     textgreyD14Robo("Attended for 3day(s)"),
                   ],
                 ),
-              
               ),
-        
+
               sizedBoxHeight(20.h),
-              
+
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: gridData.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 25.w,
-                  mainAxisSpacing: 20.h,
-                  childAspectRatio: (1/1.2)
-                ),
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 25.w,
+                    mainAxisSpacing: 20.h,
+                    childAspectRatio: (1 / 1.2)),
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
@@ -641,84 +646,85 @@ class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
                     child: Container(
                       // padding: EdgeInsets.symmetric(vertical: 5.h),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.h),
-                        color: AppColors.greyD9D9D9
-                      ),
+                          borderRadius: BorderRadius.circular(6.h),
+                          color: AppColors.greyD9D9D9),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           textgreyD14Robo(gridData[index]["days"]),
-        // /
+                          // /
                           // sizedBoxHeight(5.h),
-        
+
                           // imagassets/svg/Coin.png
-                          Image.asset("assets/svg/Coin.png",
+                          Image.asset(
+                            "assets/svg/Coin.png",
                             height: 60.h,
                             width: 60.h,
                             // fit: BoxFit.fill,
                           ),
-        
+
                           // sizedBoxHeight(5.h),
-        
-                          index == 0 
-                          ? Icon(Icons.check_circle,
-                            size: 27.h,
-                            color: AppColors.green86BA51,
-                          )
-                          :Container(
-                            // padding: EdgeInsets.symmetric(
-                            //   horizontal: 8.w,
-                            //   vertical: 2.h
-                            // ),
-                            height: 25.h,
-                            width: 60.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.h),
-                              color: AppColors.greyM707070
-                            ),
-                            child: Center(child: textWhite14Robo(gridData[index]["text"])),
-                          )
-        
+
+                          index == 0
+                              ? Icon(
+                                  Icons.check_circle,
+                                  size: 27.h,
+                                  color: AppColors.green86BA51,
+                                )
+                              : Container(
+                                  // padding: EdgeInsets.symmetric(
+                                  //   horizontal: 8.w,
+                                  //   vertical: 2.h
+                                  // ),
+                                  height: 25.h,
+                                  width: 60.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6.h),
+                                      color: AppColors.greyM707070),
+                                  child: Center(
+                                      child: textWhite14Robo(
+                                          gridData[index]["text"])),
+                                )
                         ],
                       ),
                     ),
                   );
                 },
               ),
-              
+
               sizedBoxHeight(20.h),
-        
+
               Container(
                 // height: 40.h,
-                padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 15.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.h),
-                  color: AppColors.greyD9D9D9
-                ),
+                    borderRadius: BorderRadius.circular(6.h),
+                    color: AppColors.greyD9D9D9),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     textgreyD14Robo("DAY 7"),
-        
+
                     // Image.asset(name)
                     Center(
-                      child: SvgPicture.asset("assets/svg/giftBox.svg",
+                      child: SvgPicture.asset(
+                        "assets/svg/giftBox.svg",
                         height: 80.h,
                         width: 120.w,
                       ),
                     ),
-        
+
                     sizedBoxHeight(10.h),
-        
+
                     Center(child: textgreyD14Robo("SUPRISE CHEST"))
                   ],
                 ),
               ),
-        
+
               sizedBoxHeight(20.h),
-        
+
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h),
                 decoration: BoxDecoration(
@@ -749,14 +755,8 @@ class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
                   style: TextStyle(fontFamily: 'Roboto', fontSize: 12.sp),
                 ),
               ),
-        
-        
+
               // GridView.builder(gridDelegate: gridDelegate, itemBuilder: itemBuilder)
-              
-              
-              
-              
-              
             ],
           ),
         ),
@@ -764,8 +764,6 @@ class _PPopupDailyBonusState extends State<PPopupDailyBonus> {
     );
   }
 }
-
-
 
 class PPopupNew extends StatefulWidget {
   final int coins;
@@ -779,10 +777,10 @@ class _PPopupNewState extends State<PPopupNew> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         totalCoins = totalCoins + widget.coins;
 
-        // Get.back();      
+        // Get.back();
         return true;
       },
       child: Stack(
@@ -790,12 +788,12 @@ class _PPopupNewState extends State<PPopupNew> {
         children: [
           AlertDialog(
             elevation: 0,
-            insetPadding: EdgeInsets.all(0),
+            insetPadding: const EdgeInsets.all(0),
             backgroundColor: Colors.black.withOpacity(0.8),
             // shape:
             //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             // contentPadding: EdgeInsets.all(20.h),
-            content: Container(
+            content: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -818,7 +816,7 @@ class _PPopupNewState extends State<PPopupNew> {
                   InkWell(
                     onTap: () {
                       totalCoins = totalCoins + widget.coins;
-    
+
                       Get.back();
                     },
                     child: Container(

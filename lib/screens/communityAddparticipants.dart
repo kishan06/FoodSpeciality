@@ -124,7 +124,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
               future: followerFollowing.getfollowfollowing(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
                   final followers = snapshot.data!.data!.followers;
                   return ListView.builder(
@@ -146,7 +146,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Failed to load followers'));
+                  return const Center(child: Text('Failed to load followers'));
                 } else {
                   return Container();
                 }

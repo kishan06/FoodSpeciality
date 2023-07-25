@@ -110,7 +110,6 @@ class Levels extends StatelessWidget {
             //     ),
             //   ),
             // ),
-          
           ],
         ),
       ),
@@ -176,8 +175,7 @@ class Levels extends StatelessWidget {
                     ),
                     sizedBoxHeight(9.h),
                     Container(
-                      padding:
-                          EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
+                      padding: EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8.r)),
@@ -188,13 +186,13 @@ class Levels extends StatelessWidget {
                           Column(
                             children: [
                               Obx(
-                                  () => Text(
-                                    totalCoins.string,
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                                () => Text(
+                                  totalCoins.string,
+                                  style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w600),
                                 ),
+                              ),
                               sizedBoxHeight(5.h)
                             ],
                           ),
@@ -208,7 +206,6 @@ class Levels extends StatelessWidget {
             ),
           ),
         ),
-      
         Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -259,11 +256,11 @@ class Levels extends StatelessWidget {
                       verDivider(101, [
                         dotTxtRow('Reach tier platinum'),
                         dotTxtRow('Have more than 150 recipes'),
-                        dotTxtRow('Unlock rewards exclusive to Exclusive Members'),
+                        dotTxtRow(
+                            'Unlock rewards exclusive to Exclusive Members'),
                         dotTxtRow(
                             'First to know about new products & insider content'),
                       ]),
-                      
                     ],
                   ),
                 ),
@@ -278,15 +275,13 @@ class Levels extends StatelessWidget {
                       height: 116..h,
                       width: double.infinity,
                       // color: AppColors.black.withOpacity(0.41),
-                      decoration: BoxDecoration(
-                        
-                        // color: AppColors.black.withOpacity(0.41),
+                      decoration: const BoxDecoration(
 
-                        image: DecorationImage(
-                          image: AssetImage("assets/svg/levelEnding.png"),
-                          fit: BoxFit.fill
-                        )
-                      ),
+                          // color: AppColors.black.withOpacity(0.41),
+
+                          image: DecorationImage(
+                              image: AssetImage("assets/svg/levelEnding.png"),
+                              fit: BoxFit.fill)),
                     ),
 
                     Container(
@@ -294,7 +289,6 @@ class Levels extends StatelessWidget {
                       width: double.infinity,
                       // color: AppColors.black.withOpacity(0.41),
                       decoration: BoxDecoration(
-                        
                         color: AppColors.black.withOpacity(0.41),
 
                         // image: DecorationImage(
@@ -329,12 +323,10 @@ class Levels extends StatelessWidget {
                 //             fontWeight: FontWeight.w700),
                 //       ),
                 //     )),
-            
               ],
             ),
           ),
         ),
-        
       ]),
     );
   }
