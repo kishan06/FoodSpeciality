@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/video_player_widget.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class AssetPlayerWidget extends StatefulWidget {
@@ -11,7 +12,7 @@ class AssetPlayerWidget extends StatefulWidget {
 }
 
 class _AssetPlayerWidgetState extends State<AssetPlayerWidget> {
-  final asset = 'assets/video/video.mp4';
+  final asset = Get.arguments["videourl"];
   late VideoPlayerController videoController;
 
   @override
@@ -19,10 +20,11 @@ class _AssetPlayerWidgetState extends State<AssetPlayerWidget> {
     // TODO: implement initState
     super.initState();
 
-    videoController = VideoPlayerController.asset(asset)
-      ..addListener(() => setState(() {}))
-      ..setLooping(true)
-      ..initialize().then((_) => videoController.play());
+    videoController =
+        VideoPlayerController.network("http://77.68.102.23:8000/$asset")
+          ..addListener(() => setState(() {}))
+          ..setLooping(true)
+          ..initialize().then((_) => videoController.play());
   }
 
   @override

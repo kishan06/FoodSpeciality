@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
@@ -51,7 +52,6 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-
     runApp(const MyApp());
   });
 }
@@ -151,6 +151,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/CompletedChallenge",
                 page: () => const CompletedChallenge()),
+            GetPage(
+                name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
           ],
         ),
       ),
