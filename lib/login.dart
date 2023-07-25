@@ -265,7 +265,9 @@ class _LoginState extends State<Login> {
                         ),
                         onPressed: () {
                           // Get.toNamed("/bottomBar");
+
                           googleAuthService().handleGoogleSignIn();
+
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

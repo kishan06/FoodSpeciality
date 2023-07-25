@@ -36,7 +36,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Please enter your email address.You will \nreceive a link to create a new password via \nemail",
+                  "Please enter your email address. You will receive a verification code on your register email",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: const Color.fromRGBO(112, 112, 112, 1),

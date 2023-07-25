@@ -8,6 +8,7 @@ import 'package:foodspeciality/screens/onboarding/content/onboarding_content.dar
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({Key? key}) : super(key: key);
@@ -106,8 +107,12 @@ class _OnBoardingState extends State<OnBoarding> {
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: InkWell(
-                                      onTap: () {
+                                      onTap: () async {
                                         // Get.off(LoginScreen());
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        prefs.setBool("OnBoard", true);
+                                        // await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
+
                                         Get.toNamed("/login");
                                       },
                                       child: textWhite16RoboBold("Skip"),
@@ -128,12 +133,15 @@ class _OnBoardingState extends State<OnBoarding> {
               sizedBoxHeight(30.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: customButtonWithBorder("Continue", onPressed: () {
+                child: customButtonWithBorder("Continue", onPressed: () async {
                   if (currentIndex == contents.length - 1) {
                     // SharedPreferences pref = await SharedPreferences.getInstance();
                     // pref.setBool("onBoarding_done", true);
                     // Get.off(LoginScreen());
                     //Navigator.push(context, _createRoute());
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setBool("OnBoard", true);
+
                     Get.to(() => const Login(),
                         duration: const Duration(milliseconds: 500),
                         transition: Transition.rightToLeft);

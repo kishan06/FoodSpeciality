@@ -9,6 +9,7 @@ import 'package:foodspeciality/screens/setting/setting/blocked_list.dart';
 import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
 import 'package:foodspeciality/screens/setting/setting/privacypolicy.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'CommunityGuidelines.dart';
 import 'Notificationscreen.dart';
@@ -179,7 +180,12 @@ class _SettingState extends State<Setting> {
           ),
           sizedBoxWidth(15.sp),
           InkWell(
-            onTap: () {
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              // print("token " + jsonResp["data"]["accessToken"]);
+              await prefs.setString('accessToken', "");
+              await prefs.setString('refreshToken', "");
+
               Get.offAll(Login());
             },
             child: Text(
