@@ -48,6 +48,8 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');
+  onboard = prefs.getBool("OnBoard");
+
   print("acs to ${accessToken}");
 
   SystemChrome.setPreferredOrientations(
@@ -96,7 +98,12 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(scaffoldBackgroundColor: AppColors.white),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
-          initialRoute: accessToken == null ? '/' : '/bottomBar',
+          // initialRoute: (accessToken == null || accessToken == "") ? '/' : '/bottomBar',
+          initialRoute: onboard != true 
+            ? '/' 
+            : (accessToken == null || accessToken == "") 
+              ? '/login' 
+              : '/bottomBar',
           // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()

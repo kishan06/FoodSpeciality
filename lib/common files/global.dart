@@ -1,4 +1,5 @@
 String? accessToken;
+bool? onboard;
 // String uri = 'http://<yourip>:3000';
 
 class ApiUrls {
@@ -14,5 +15,8 @@ class ApiUrls {
   static const createCommunity = _base + "community/create";
   static const getfollowerFollowing = _base + "user/followes";
   static const faq = _base + "admin/faq/getAll";
+  static const resendOtp = _base + "auth/resend-otp";
+  static const setNewPassword = _base + "auth/set-password";
+
 
 }
