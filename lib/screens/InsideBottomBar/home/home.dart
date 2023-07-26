@@ -6,7 +6,6 @@ import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
 import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/services/get_recipe_service.dart';
@@ -680,11 +679,11 @@ class _HomeState extends State<Home> {
                                                           child: selectedVideoIndex ==
                                                                   index
                                                               ? textgreyD12Robo(
-                                                                  tags.join(
-                                                                      ', '))
+                                                                  tags.elementAt(
+                                                                      index))
                                                               : textWhite12Robo(
-                                                                  tags.join(
-                                                                      ', ')),
+                                                                  tags.elementAt(
+                                                                      index)),
                                                         ),
                                                       ),
                                                     );

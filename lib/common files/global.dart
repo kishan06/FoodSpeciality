@@ -17,8 +17,8 @@ class ApiUrls {
   static const resendOtp = _base + "auth/resend-otp";
   static const setNewPassword = _base + "auth/set-password";
 
-
   static const policy = _base + "admin/policy/getAll";
   static const getrecipe = _base + "recipe/all";
-  static const getcommunityguidelines = _base + "admin/community/getAll";
+  static const getcommunityguidelines = _base + "admin/community-guidlines/get";
+  static const getabout = _base + "admin/about-us/get";
 }
