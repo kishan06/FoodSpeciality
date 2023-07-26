@@ -1,11 +1,11 @@
-class CommunityGuidelinesModel {
+class AboutUsModel {
   bool? success;
   String? message;
   List<Data>? data;
 
-  CommunityGuidelinesModel({this.success, this.message, this.data});
+  AboutUsModel({this.success, this.message, this.data});
 
-  CommunityGuidelinesModel.fromJson(Map<String, dynamic> json) {
+  AboutUsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
