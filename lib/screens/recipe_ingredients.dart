@@ -242,7 +242,8 @@ class _RecipeIngState extends State<RecipeIng>
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(const Preview());
+                              // Get.to(const Preview());
+                              Get.toNamed("/Preview");
                             },
                             child: Text(
                               "Preview",
