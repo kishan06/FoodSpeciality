@@ -8,6 +8,7 @@ class GetRecipeService {
 
   Future<RecipeModel> getRecipeData() async {
     try {
+      print("getRecipeData");
       final response = await http.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
