@@ -140,6 +140,7 @@ class _HomeState extends State<Home> {
       child: FutureBuilder<RecipeModel>(
         future: GetRecipeService().getRecipeData(),
         builder: (context, snapshot) {
+          
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           } else if (snapshot.hasError) {

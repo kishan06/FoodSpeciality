@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../common files/common_view_rules.dart';
 import '../../../common files/sized_box.dart';
+import '../../../controllers/user_data_controller.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/texts.dart';
 import '../../edit_profile.dart';
@@ -21,6 +22,16 @@ class NewChangedProfile extends StatefulWidget {
 class _NewChangedProfileState extends State<NewChangedProfile> {
   double? profileCompleted = 0.7;
   ScrollController? _scrollviewcontroller;
+  UserDataController userDataController = Get.put(UserDataController());
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userDataController.getUserProfile();
+ 
+  }
 
   @override
   Widget build(BuildContext context) {
