@@ -21,6 +21,8 @@ class ApiUrls {
   static const getrecipe = _base + "recipe/all";
   static const getcommunityguidelines = _base + "admin/community-guidlines/get";
   static const getabout = _base + "admin/about-us/get";
+  static const like = _base + "user/recipe/like";
+  static const save = _base + "user/recipe/save";
+  static const follow = _base + "user/follow";
   static const getProfileData = _base + "user/profile";
-  
 }

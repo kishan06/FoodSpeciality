@@ -24,7 +24,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
   static final List<Widget> _widgetOptions = <Widget>[
-    const Home(),
+    Home(),
     const Explore(),
     Container(),
     const ChatTab(),
