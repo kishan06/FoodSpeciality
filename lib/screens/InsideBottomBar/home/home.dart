@@ -8,53 +8,26 @@ import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
+import 'package:foodspeciality/services/follow_service.dart';
 import 'package:foodspeciality/services/get_recipe_service.dart';
+import 'package:foodspeciality/services/like_service.dart';
+import 'package:foodspeciality/services/save_recipe.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 import '../../../Model/RecipeModel.dart';
 
-List listCardData = [
-  {
-    "like": 0,
-    "save": 0,
-    "selectedVideoInde": 0,
-    "isFollowedByMe": 0,
-  },
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-  {"like": 0, "save": 0, "selectedVideoInde": 0, "isFollowedByMe": 0},
-];
-
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({
+    super.key,
+  });
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final tecComment = TextEditingController();
-  int selectedVideoIndex = 0;
-
-  // List tags = [
-  //   "Limpopo",
-  //   "Simple greens",
-  //   "Flavour explosions",
-  //   "Limpopo",
-  //   "Simple greens",
-  //   "Flavour explosions"
-  // ];
-
-  HomeController controllerHome = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -75,7 +48,7 @@ class _HomeState extends State<Home> {
                   color: AppColors.greyLtEBEBEB,
                   // color: Colors.red,
 
-                  child: TabBarView(children: [tabbarView1(), tabbarView2()]),
+                  child: TabBarView(children: [tabbarView1(), Ingridents()]),
                 ),
               )
             ],
@@ -132,927 +105,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget tabbarView2() {
-    return Center(
-      child: FutureBuilder<RecipeModel>(
-        future: GetRecipeService().getRecipeData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data?.data?.length ?? 0,
-              itemBuilder: (context, index) {
-                final recipeData = snapshot.data?.data?[index];
-                final tags =
-                    recipeData?.tags?.map((tag) => tag.tag?.name ?? '') ?? [];
-                return Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 9.h, 16.w, 0),
-                  // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 9.h),
-                  child: Column(
-                    children: [
-                      Container(
-                          // height: 425.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25.h),
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.greyL979797,
-                                blurRadius: 2.h,
-                                spreadRadius: 1.h,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 16.h, horizontal: 9.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Container(
-                                                width: 50.h,
-                                                height: 50.h,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.h),
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            recipeData?.user
-                                                                    ?.profileImage ??
-                                                                ''),
-                                                        fit: BoxFit.fill)),
-                                              ),
-                                              Positioned(
-                                                bottom: -10.h,
-                                                right: 2.h,
-                                                child: Image.asset(
-                                                  "assets/svg/rankTag.png",
-                                                  height: 45.h,
-                                                  width: 25.h,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          sizedBoxWidth(10.w),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              // textWhite17w500("George Smith"),
-                                              // e=
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.toNamed("/viewuser");
-                                                },
-                                                child: textgreyD16BoldSP(
-                                                    recipeData
-                                                            ?.user?.username ??
-                                                        ''),
-                                              ),
-
-                                              sizedBoxHeight(5.h),
-
-                                              textgreyD12Robo("2 Days ago")
-
-                                              // textGrey15W500("21 Jan, 2022, 10:41 am")
-                                            ],
-                                          )
-                                        ],
-                                      ),
-
-                                      Row(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              print("pressed");
-                                              // setState(() {
-                                              //   listCardData[index][
-                                              //           "isFollowedByMe"] =
-                                              //       isFollowedByMe ==
-                                              //               0
-                                              //           ? 1
-                                              //           : 0;
-                                              // });
-                                            },
-                                            child: recipeData!.following!
-                                                ? Container(
-                                                    //     width: 60.w,
-                                                    // height: 30,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r),
-                                                      border: Border.all(
-                                                        color: const Color(
-                                                            0xFF3B3F43),
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(5.h),
-                                                      child: Center(
-                                                          child:
-                                                              textgreyD14Robo(
-                                                                  "Following")
-                                                          // Text(
-                                                          //   "Following",
-                                                          //   style: TextStyle(
-                                                          //     fontFamily: "StudioProR",
-                                                          //     fontSize: 14.sp,
-                                                          //     fontWeight: FontWeight.w500,
-                                                          //     color: Color(0xFF3B3F43),
-                                                          //   ),
-                                                          // ),
-                                                          ),
-                                                    ),
-                                                  )
-                                                : Container(
-                                                    //  width: 80.w,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          AppColors.greyD3B3F43,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r),
-                                                      border: Border.all(
-                                                          color: Colors
-                                                              .grey.shade700),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(5.h),
-                                                      child: Center(
-                                                        child: textWhite14Robo(
-                                                            "Follow"),
-                                                      ),
-                                                    ),
-                                                  ),
-                                          ),
-                                          Container(
-                                              child: recipeData.following!
-                                                  ? PopupMenuButton(
-                                                      offset:
-                                                          const Offset(0, 50),
-                                                      color: const Color(
-                                                          0xFFFFFFFF),
-                                                      tooltip: '',
-                                                      child: const Icon(
-                                                        Icons.more_vert,
-                                                        color:
-                                                            Color(0xFF3B3F43),
-                                                      ),
-                                                      onSelected: (value) {
-                                                        if (value ==
-                                                            'unfollow') {
-                                                          setState(() {
-                                                            // listCardData[index][
-                                                            //         "isFollowedByMe"] =
-                                                            //     isFollowedByMe ==
-                                                            //             0
-                                                            //         ? 1
-                                                            //         : 0;
-                                                          });
-                                                        } else if (value ==
-                                                            "Report") {
-                                                          Get.toNamed(
-                                                              '/Report');
-                                                        } else if (value ==
-                                                            "block") {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(
-                                                                          15.w),
-                                                              child:
-                                                                  AlertDialog(
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10.r)),
-                                                                insetPadding:
-                                                                    const EdgeInsets
-                                                                            .symmetric(
-                                                                        vertical:
-                                                                            10),
-                                                                title: Text(
-                                                                  "Block User",
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          'Studio Pro',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          18.sp,
-                                                                      color: const Color(
-                                                                          0xff3B3F43)),
-                                                                ),
-                                                                content:
-                                                                    SizedBox(
-                                                                  // margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                                                  width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                                  child: Text(
-                                                                    "Are you sure you want to Block @priyujoshi?",
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontSize: 16
-                                                                            .sp,
-                                                                        color: const Color(
-                                                                            0xff54595F)),
-                                                                  ),
-                                                                ),
-                                                                actions: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                    },
-                                                                    child: Text(
-                                                                      "Cancel",
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              "Roboto",
-                                                                          fontWeight: FontWeight
-                                                                              .w500,
-                                                                          fontSize: 16
-                                                                              .sp,
-                                                                          color:
-                                                                              const Color(0xff000000)),
-                                                                    ),
-                                                                  ),
-                                                                  sizedBoxWidth(
-                                                                      15.sp),
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                      Get.toNamed(
-                                                                          "/sucessfullyblocked");
-
-                                                                      // _canPop = true;
-                                                                    },
-                                                                    child: Text(
-                                                                      "Block User",
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              "Roboto",
-                                                                          fontWeight: FontWeight
-                                                                              .w500,
-                                                                          fontSize: 16
-                                                                              .sp,
-                                                                          color:
-                                                                              const Color(0xffB90101)),
-                                                                    ),
-                                                                  ),
-                                                                  sizedBoxWidth(
-                                                                      15.sp),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                      },
-                                                      itemBuilder:
-                                                          (BuildContext bc) {
-                                                        return [
-                                                          PopupMenuItem(
-                                                            value: 'unfollow',
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .link_off,
-                                                                      size:
-                                                                          20.sp,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width:
-                                                                          15.w,
-                                                                    ),
-                                                                    Text(
-                                                                      "Unfollow",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontFamily:
-                                                                              "Roboto",
-                                                                          fontSize:
-                                                                              16.sp),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          PopupMenuItem(
-                                                            value: 'Report',
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                      "assets/question-circle-svgrepo-com.svg",
-                                                                      height:
-                                                                          20.h,
-                                                                      width:
-                                                                          20.w,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width:
-                                                                          15.w,
-                                                                    ),
-                                                                    Text(
-                                                                      "Report",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontFamily:
-                                                                              "Roboto",
-                                                                          fontSize:
-                                                                              16.sp),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          PopupMenuItem(
-                                                            value: 'block',
-                                                            child: Row(
-                                                              children: [
-                                                                SvgPicture
-                                                                    .asset(
-                                                                  "assets/block-svgrepo-com.svg",
-                                                                  height: 20.h,
-                                                                  width: 20.w,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 15.w,
-                                                                ),
-                                                                Text(
-                                                                  "Block",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontFamily:
-                                                                          "Roboto",
-                                                                      fontSize:
-                                                                          16.sp),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ];
-                                                      },
-                                                    )
-                                                  : const SizedBox())
-                                        ],
-                                      ),
-
-                                      // customButtonWithBorder(
-                                      //   "text",
-                                      //   onPressed: onPressed
-                                      // )
-                                    ],
-                                  ),
-                                ),
-                                sizedBoxHeight(14.h),
-                                Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    recipeData.coverImage != null
-                                        ? Container(
-                                            height: 180.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.h),
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "http://77.68.102.23:8000/${recipeData.coverImage}"),
-                                                    fit: BoxFit.fill)),
-                                          )
-                                        : Container(
-                                            height: 180.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.h),
-                                                image: DecorationImage(
-                                                    image: NetworkImage(''),
-                                                    fit: BoxFit.fill)),
-                                          ),
-                                    Container(
-                                      height: 180.h,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(9.h),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Get.toNamed(
-                                                    "/assetplayerwidget",
-                                                    arguments: {
-                                                      "videourl":
-                                                          recipeData.video
-                                                    });
-                                              },
-                                              child: Container(
-                                                width: 80.w,
-                                                height: 30.h,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.h),
-                                                    color: AppColors.white
-                                                        .withOpacity(0.5)),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Image.asset(
-                                                      "assets/icons/video.png",
-                                                      height: 10.h,
-                                                      width: 15.w,
-                                                    ),
-                                                    sizedBoxWidth(2.w),
-                                                    textgreyD12Robo("Video")
-                                                  ],
-
-                                                  // Image.asset("assets/icons/video.png"),
-                                                ),
-                                              ),
-                                            ),
-
-                                            // Spacer(),
-
-                                            SizedBox(
-                                              height: 27.h,
-                                              child: ListView.separated(
-                                                separatorBuilder:
-                                                    (context, index) {
-                                                  return SizedBox(width: 5.w);
-                                                },
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                physics:
-                                                    const BouncingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount: tags.length,
-                                                itemBuilder: (context, index) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        selectedVideoIndex =
-                                                            index;
-                                                        // listCardData[index]["selectedVideoInde"] = index;
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  15.h),
-                                                          color: index ==
-                                                                  selectedVideoIndex
-                                                              ? AppColors.white
-                                                                  .withOpacity(
-                                                                      0.7)
-                                                              : AppColors
-                                                                  .greyD3B3F43
-                                                                  .withOpacity(
-                                                                      0.7)),
-                                                      child: Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 7.w,
-                                                                vertical: 5.h),
-                                                        child: selectedVideoIndex ==
-                                                                index
-                                                            ? textgreyD12Robo(
-                                                                tags.elementAt(
-                                                                    index))
-                                                            : textWhite12Robo(
-                                                                tags.elementAt(
-                                                                    index)),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-
-                                            // Container(
-                                            //   decoration: BoxDecoration(
-                                            //     borderRadius: BorderRadius.circular(15.h),
-                                            //     color: AppColors.white.withOpacity(0.5)
-                                            //   ),
-                                            //   child: Padding(
-                                            //     padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 5.h),
-                                            //     child: textgreyD12Robo("Video"),
-                                            //   ),
-                                            // )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                sizedBoxHeight(13.h),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                              onTap: () {
-                                                // sets
-                                                // like = !like;
-                                                // setState(() {
-                                                //   listCardData[index]
-                                                //           ["like"] =
-                                                //       like == 0 ? 1 : 0;
-                                                //   // sdf
-                                                // });
-                                              },
-                                              child: recipeData.liked!
-                                                  ? Image.asset(
-                                                      "assets/icons/like_filled.png",
-                                                      width: 20.w,
-                                                      height: 18.h,
-                                                      // color: like == 0 ? AppColors.red:AppColors.black,
-                                                      // color: like ?AppColors.white : null ,
-                                                    )
-                                                  : Image.asset(
-                                                      "assets/icons/like.png",
-                                                      width: 20.w,
-                                                      height: 18.h,
-                                                      // color: like == 0 ? AppColors.red:AppColors.black,
-                                                      // color: like ?AppColors.white : null ,
-                                                    )),
-                                          sizedBoxWidth(25.w),
-                                          InkWell(
-                                            onTap: () {
-                                              commentbottomSheet();
-                                            },
-                                            child: Image.asset(
-                                              "assets/icons/comment.png",
-                                              width: 20.w,
-                                              height: 18.h,
-                                            ),
-                                          ),
-                                          sizedBoxWidth(25.w),
-                                          InkWell(
-                                            onTap: share,
-                                            // (){
-                                            //   shar
-                                            //   // Share.share('https://www.google.co.in/');
-                                            // },
-                                            child: Image.asset(
-                                              "assets/icons/share.png",
-                                              width: 20.w,
-                                              height: 18.h,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          // setState(() {
-                                          //   listCardData[index]
-                                          //           ["save"] =
-                                          //       save == 0 ? 1 : 0;
-                                          // });
-                                        },
-                                        child: recipeData.saved!
-                                            ? Image.asset(
-                                                "assets/icons/save_filled.png",
-                                                width: 20.w,
-                                                height: 18.h,
-                                              )
-                                            : Image.asset(
-                                                "assets/icons/save.png",
-                                                width: 20.w,
-                                                height: 18.h,
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                sizedBoxHeight(10.h),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.fromLTRB(11.w, 0.w, 0.w, 10.w),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      textgreyD12Robo(
-                                          "${recipeData.likes.toString()} likes"),
-                                      textgreyD20BoldSP(recipeData.name!),
-                                      textgreyL12Robo(
-                                          "View all ${recipeData.comments} comments"),
-                                      SizedBox(height: 5.w),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 11.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: 27.h,
-                                            height: 27.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(14.h),
-                                                image: const DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/home/profile.png"),
-                                                    fit: BoxFit.fill)),
-                                          ),
-                                          sizedBoxWidth(5.w),
-                                          InkWell(
-                                              onTap: () {
-                                                commentbottomSheet();
-                                              },
-                                              child: textgreyL12Robo(
-                                                  "Add a comment"))
-                                        ],
-                                      ),
-                                      InkWell(
-                                          onTap: () {
-                                            Get.toNamed(
-                                                "/InspirationRecipeComment");
-                                          },
-                                          child:
-                                              textgreyD12Robo("View Recipe >"))
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-
-                      // listCard(
-                      //     listCardData[index]["like"],
-                      //     listCardData[index]["save"],
-                      //     index,
-                      //     listCardData[index]["isFollowedByMe"]),
-                      sizedBoxHeight(13.h)
-                    ],
-                  ),
-                )
-                    // Card(
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       ListTile(
-                    //         leading: CircleAvatar(
-                    //           backgroundImage: NetworkImage(
-                    //               recipe.user?.profileImage ?? ''),
-                    //         ),
-                    //         title: Text(recipe.user?.username ?? ''),
-                    //         subtitle: Text(recipe.name ?? ''),
-                    //         //    trailing: Text('Likes: ${recipe.likes ?? 0}'),
-                    //       ),
-                    //       Padding(
-                    //         padding: const EdgeInsets.all(8.0),
-                    //         child: Text('Tags: ${tags.join(', ')}'),
-                    //       ),
-                    //       Image.network(recipe.coverImage ?? ''),
-                    //       Divider(),
-                    //     ],
-                    //   ),
-                    // )
-                    ;
-              },
-            );
-          }
-        },
-      ),
-    );
-  }
-
-  Widget tileForlist(String comment, int like, int index) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 35.h,
-          height: 35.h,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.h),
-              image: const DecorationImage(
-                  image: AssetImage("assets/home/profile.png"),
-                  fit: BoxFit.fill)),
-        ),
-        sizedBoxWidth(10.w),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // textWhite17w500("George Smith"),
-            // e=
-            textBlack16SP("Chaitali tatkare"),
-
-            sizedBoxHeight(5.h),
-
-            // textgreyD12Robo("2 Days ago")
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.h),
-                  color: AppColors.greyLtEBEBEB),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                child: textgreyD10Robo("11:36"),
-              ),
-            ),
-
-            sizedBoxHeight(5.h),
-
-            Row(
-              children: [
-                SizedBox(
-                    // hei
-                    width: 290.w,
-                    child: textBlack15Robo(comment
-                        // "Lorem Ipsum is simply dummy text of the printing and typesetting industry.."
-                        )),
-                sizedBoxWidth(10.w),
-                Column(
-                  children: [
-                    // /
-                    InkWell(
-                      onTap: () {
-                        controllerHome.likeMethod(index, like);
-                        // sets
-                        // like = !like;
-                        // setState(() {
-                        //   commentLike[index]["like"] = like == 0 ? 1 : 0;
-                        //   // sdf
-                        // });
-                        // controllerHome.commentLike
-                      },
-                      child: like == 0
-                          ? Image.asset(
-                              "assets/icons/like.png",
-                              width: 20.w,
-                              height: 18.h,
-                            )
-                          : Image.asset(
-                              "assets/icons/like_filled.png",
-                              width: 20.w,
-                              height: 18.h,
-                            ),
-                    ),
-
-                    sizedBoxHeight(2.h),
-
-                    textgreyL12Robo("20")
-                  ],
-                )
-              ],
-            ),
-
-            sizedBoxHeight(5.h),
-
-            textgreyM14Sp("Reply")
-
-            // textGrey15W500("21 Jan, 2022, 10:41 am")
-          ],
-        )
-      ],
-    );
-  }
-
-  Future<T?> commentbottomSheet<T>() {
-    return Get.bottomSheet(
-      Container(
-          height: 375.h,
-          // color: AppColors.white,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.h),
-                  topRight: Radius.circular(20.h))),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-
-            // padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                // tileForlist()
-                Expanded(child: GetBuilder<HomeController>(builder: (_) {
-                  return ListView.builder(
-                    // physics: const NeverScrollableScrollPhysics(),
-                    // shrinkWrap: true,
-                    itemCount: controllerHome.commentLike.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          tileForlist(
-                              controllerHome.commentLike[index]["comment"],
-                              controllerHome.commentLike[index]["like"],
-                              index),
-                          sizedBoxHeight(13.h)
-                        ],
-                      );
-                    },
-                  );
-                })
-                    // ListView.builder(
-                    //   // physics: const NeverScrollableScrollPhysics(),
-                    //   // shrinkWrap: true,
-                    //   itemCount: 5,
-                    //   itemBuilder: (context, index) {
-                    //     return Column(
-                    //       children: [
-                    //         tileForlist(
-                    //             controllerHome.commentLike[index]["comment"],
-                    //             controllerHome.commentLike[index]["like"],
-                    //             index),
-                    //         sizedBoxHeight(13.h)
-                    //       ],
-                    //     );
-                    //   },
-                    // ),
-
-                    ),
-
-                sizedBoxHeight(15.h),
-
-                CustomSearchTextFormField(
-                    textEditingController: tecComment,
-                    autofocus: false,
-                    hintText: "Add a comment",
-                    validatorText: '',
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(right: 15.w),
-                      child: SizedBox(
-                          height: 50.h,
-                          width: 40.w,
-                          child: Center(
-                              child: InkWell(
-                                  onTap: () {
-                                    if (tecComment.text.isNotEmpty) {
-                                      // print(tecComment.text);
-                                      controllerHome
-                                          .commentMethod(tecComment.text);
-                                      tecComment.clear();
-                                    }
-                                  },
-                                  child: textgreyM14Sp("Send")))),
-                    ))
-              ],
-            ),
-          )),
-      // barrierColor: Colors.red[50],
-      // isDismissible: false,
     );
   }
 }
@@ -1257,4 +309,922 @@ Widget addCommunityDailog() {
       ],
     ),
   );
+}
+
+class Ingridents extends StatefulWidget {
+  const Ingridents({super.key});
+
+  @override
+  State<Ingridents> createState() => _IngridentsState();
+}
+
+class _IngridentsState extends State<Ingridents> {
+  late Future<RecipeModel> myfuture;
+  bool? isLiked;
+  bool? isFollow;
+  bool? isSaved;
+  int selectedVideoIndex = 0;
+  final tecComment = TextEditingController();
+  HomeController controllerHome = Get.put(HomeController());
+
+  Future<T?> commentbottomSheet<T>() {
+    return Get.bottomSheet(
+      Container(
+          height: 375.h,
+          // color: AppColors.white,
+          decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.h),
+                  topRight: Radius.circular(20.h))),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+
+            // padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                // tileForlist()
+                Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                  return ListView.builder(
+                    // physics: const NeverScrollableScrollPhysics(),
+                    // shrinkWrap: true,
+                    itemCount: controllerHome.commentLike.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          tileForlist(
+                              controllerHome.commentLike[index]["comment"],
+                              controllerHome.commentLike[index]["like"],
+                              index),
+                          sizedBoxHeight(13.h)
+                        ],
+                      );
+                    },
+                  );
+                })
+                    // ListView.builder(
+                    //   // physics: const NeverScrollableScrollPhysics(),
+                    //   // shrinkWrap: true,
+                    //   itemCount: 5,
+                    //   itemBuilder: (context, index) {
+                    //     return Column(
+                    //       children: [
+                    //         tileForlist(
+                    //             controllerHome.commentLike[index]["comment"],
+                    //             controllerHome.commentLike[index]["like"],
+                    //             index),
+                    //         sizedBoxHeight(13.h)
+                    //       ],
+                    //     );
+                    //   },
+                    // ),
+
+                    ),
+
+                sizedBoxHeight(15.h),
+
+                CustomSearchTextFormField(
+                    textEditingController: tecComment,
+                    autofocus: false,
+                    hintText: "Add a comment",
+                    validatorText: '',
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: SizedBox(
+                          height: 50.h,
+                          width: 40.w,
+                          child: Center(
+                              child: InkWell(
+                                  onTap: () {
+                                    if (tecComment.text.isNotEmpty) {
+                                      // print(tecComment.text);
+                                      controllerHome
+                                          .commentMethod(tecComment.text);
+                                      tecComment.clear();
+                                    }
+                                  },
+                                  child: textgreyM14Sp("Send")))),
+                    ))
+              ],
+            ),
+          )),
+      // barrierColor: Colors.red[50],
+      // isDismissible: false,
+    );
+  }
+
+  Widget tileForlist(String comment, int like, int index) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 35.h,
+          height: 35.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.h),
+              image: const DecorationImage(
+                  image: AssetImage("assets/home/profile.png"),
+                  fit: BoxFit.fill)),
+        ),
+        sizedBoxWidth(10.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // textWhite17w500("George Smith"),
+            // e=
+            textBlack16SP("Chaitali tatkare"),
+
+            sizedBoxHeight(5.h),
+
+            // textgreyD12Robo("2 Days ago")
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.h),
+                  color: AppColors.greyLtEBEBEB),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                child: textgreyD10Robo("11:36"),
+              ),
+            ),
+
+            sizedBoxHeight(5.h),
+
+            Row(
+              children: [
+                SizedBox(
+                    // hei
+                    width: 290.w,
+                    child: textBlack15Robo(comment
+                        // "Lorem Ipsum is simply dummy text of the printing and typesetting industry.."
+                        )),
+                sizedBoxWidth(10.w),
+                Column(
+                  children: [
+                    // /
+                    InkWell(
+                      onTap: () {
+                        controllerHome.likeMethod(index, like);
+                        // sets
+                        // like = !like;
+                        // setState(() {
+                        //   commentLike[index]["like"] = like == 0 ? 1 : 0;
+                        //   // sdf
+                        // });
+                        // controllerHome.commentLike
+                      },
+                      child: like == 0
+                          ? Image.asset(
+                              "assets/icons/like.png",
+                              width: 20.w,
+                              height: 18.h,
+                            )
+                          : Image.asset(
+                              "assets/icons/like_filled.png",
+                              width: 20.w,
+                              height: 18.h,
+                            ),
+                    ),
+
+                    sizedBoxHeight(2.h),
+
+                    textgreyL12Robo("20")
+                  ],
+                )
+              ],
+            ),
+
+            sizedBoxHeight(5.h),
+
+            textgreyM14Sp("Reply")
+
+            // textGrey15W500("21 Jan, 2022, 10:41 am")
+          ],
+        )
+      ],
+    );
+  }
+
+  void _handleLikeButton(id) async {
+    try {
+      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
+      var resp = await LikeService.likeRecipe(id ?? "");
+      if (resp) {
+        setState(() {
+          isLiked = !isLiked!;
+        });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error liking recipe: $e');
+    }
+  }
+
+  void _handleSaveButton(id) async {
+    try {
+      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
+      var resp = await SaveService.saveRecipe(id ?? "");
+      if (resp) {
+        setState(() {
+          isSaved = !isSaved!;
+        });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error saving recipe: $e');
+    }
+  }
+
+  void _handleFollowButton(id) async {
+    try {
+      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
+      var resp = await FollowService.followRecipe(id ?? "");
+      if (resp) {
+        setState(() {
+          isFollow = !isFollow!;
+        });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: FutureBuilder<RecipeModel>(
+        future: GetRecipeService().getRecipeData(),
+        builder: (ctx, snapshot) {
+          if (snapshot.data == null) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [CircularProgressIndicator()],
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  '${snapshot.error} occured',
+                  style: TextStyle(fontSize: 18.sm),
+                ),
+              );
+            }
+          }
+          return ListView.builder(
+            itemCount: receipeModelvar!.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              final recipeData = receipeModelvar!.data?[index];
+              isLiked = recipeData?.liked!;
+              isSaved = recipeData?.saved!;
+              isFollow = recipeData?.following!;
+              final tags =
+                  recipeData?.tags?.map((tag) => tag.tag?.name ?? '') ?? [];
+              return Padding(
+                padding: EdgeInsets.fromLTRB(16.w, 9.h, 16.w, 0),
+                // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 9.h),
+                child: Column(
+                  children: [
+                    Container(
+                        // height: 425.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.h),
+                          color: AppColors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.greyL979797,
+                              blurRadius: 2.h,
+                              spreadRadius: 1.h,
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16.h, horizontal: 9.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Container(
+                                              width: 50.h,
+                                              height: 50.h,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.h),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          recipeData?.user
+                                                                  ?.profileImage ??
+                                                              ''),
+                                                      fit: BoxFit.fill)),
+                                            ),
+                                            Positioned(
+                                              bottom: -10.h,
+                                              right: 2.h,
+                                              child: Image.asset(
+                                                "assets/svg/rankTag.png",
+                                                height: 45.h,
+                                                width: 25.h,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        sizedBoxWidth(10.w),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            // textWhite17w500("George Smith"),
+                                            // e=
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed("/viewuser");
+                                              },
+                                              child: textgreyD16BoldSP(
+                                                  recipeData?.user?.username ??
+                                                      ''),
+                                            ),
+
+                                            sizedBoxHeight(5.h),
+
+                                            textgreyD12Robo("2 Days ago")
+
+                                            // textGrey15W500("21 Jan, 2022, 10:41 am")
+                                          ],
+                                        )
+                                      ],
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            print("pressed");
+                                            _handleFollowButton(
+                                                recipeData.user!.id!);
+                                          },
+                                          child: recipeData!.following!
+                                              ? Container(
+                                                  //     width: 60.w,
+                                                  // height: 30,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.r),
+                                                    border: Border.all(
+                                                      color: const Color(
+                                                          0xFF3B3F43),
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(5.h),
+                                                    child: Center(
+                                                      child: textgreyD14Robo(
+                                                          "Following"),
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(
+                                                  //  width: 80.w,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        AppColors.greyD3B3F43,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.r),
+                                                    border: Border.all(
+                                                        color: Colors
+                                                            .grey.shade700),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(5.h),
+                                                    child: Center(
+                                                      child: textWhite14Robo(
+                                                          "Follow"),
+                                                    ),
+                                                  ),
+                                                ),
+                                        ),
+                                        Container(
+                                            child: recipeData.following!
+                                                ? PopupMenuButton(
+                                                    offset: const Offset(0, 50),
+                                                    color:
+                                                        const Color(0xFFFFFFFF),
+                                                    tooltip: '',
+                                                    child: const Icon(
+                                                      Icons.more_vert,
+                                                      color: Color(0xFF3B3F43),
+                                                    ),
+                                                    onSelected: (value) {
+                                                      if (value == "Report") {
+                                                        Get.toNamed('/Report');
+                                                      } else if (value ==
+                                                          "block") {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) =>
+                                                              Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15.w),
+                                                            child: AlertDialog(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10.r)),
+                                                              insetPadding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          10),
+                                                              title: Text(
+                                                                "Block User",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'Studio Pro',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        18.sp,
+                                                                    color: const Color(
+                                                                        0xff3B3F43)),
+                                                              ),
+                                                              content: SizedBox(
+                                                                // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                child: Text(
+                                                                  "Are you sure you want to Block @priyujoshi?",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      fontSize:
+                                                                          16.sp,
+                                                                      color: const Color(
+                                                                          0xff54595F)),
+                                                                ),
+                                                              ),
+                                                              actions: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    Get.back();
+                                                                  },
+                                                                  child: Text(
+                                                                    "Cancel",
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            "Roboto",
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        fontSize: 16
+                                                                            .sp,
+                                                                        color: const Color(
+                                                                            0xff000000)),
+                                                                  ),
+                                                                ),
+                                                                sizedBoxWidth(
+                                                                    15.sp),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Get.back();
+                                                                    Get.toNamed(
+                                                                        "/sucessfullyblocked");
+
+                                                                    // _canPop = true;
+                                                                  },
+                                                                  child: Text(
+                                                                    "Block User",
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            "Roboto",
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        fontSize: 16
+                                                                            .sp,
+                                                                        color: const Color(
+                                                                            0xffB90101)),
+                                                                  ),
+                                                                ),
+                                                                sizedBoxWidth(
+                                                                    15.sp),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    itemBuilder:
+                                                        (BuildContext bc) {
+                                                      return [
+                                                        PopupMenuItem(
+                                                          value: 'Report',
+                                                          child: Column(
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                    "assets/question-circle-svgrepo-com.svg",
+                                                                    height:
+                                                                        20.h,
+                                                                    width: 20.w,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 15.w,
+                                                                  ),
+                                                                  Text(
+                                                                    "Report",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontFamily:
+                                                                            "Roboto",
+                                                                        fontSize:
+                                                                            16.sp),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        PopupMenuItem(
+                                                          value: 'block',
+                                                          child: Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                "assets/block-svgrepo-com.svg",
+                                                                height: 20.h,
+                                                                width: 20.w,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 15.w,
+                                                              ),
+                                                              Text(
+                                                                "Block",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontFamily:
+                                                                        "Roboto",
+                                                                    fontSize:
+                                                                        16.sp),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ];
+                                                    },
+                                                  )
+                                                : const SizedBox())
+                                      ],
+                                    ),
+
+                                    // customButtonWithBorder(
+                                    //   "text",
+                                    //   onPressed: onPressed
+                                    // )
+                                  ],
+                                ),
+                              ),
+                              sizedBoxHeight(14.h),
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  recipeData.coverImage != null
+                                      ? Container(
+                                          height: 180.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.h),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "http://77.68.102.23:8000/${recipeData.coverImage}"),
+                                                  fit: BoxFit.fill)),
+                                        )
+                                      : Container(
+                                          height: 180.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.h),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(''),
+                                                  fit: BoxFit.fill)),
+                                        ),
+                                  Container(
+                                    height: 180.h,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(9.h),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Get.toNamed("/assetplayerwidget",
+                                                  arguments: {
+                                                    "videourl": recipeData.video
+                                                  });
+                                            },
+                                            child: Container(
+                                              width: 80.w,
+                                              height: 30.h,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.h),
+                                                  color: AppColors.white
+                                                      .withOpacity(0.5)),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/icons/video.png",
+                                                    height: 10.h,
+                                                    width: 15.w,
+                                                  ),
+                                                  sizedBoxWidth(2.w),
+                                                  textgreyD12Robo("Video")
+                                                ],
+
+                                                // Image.asset("assets/icons/video.png"),
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Spacer(),
+
+                                          SizedBox(
+                                            height: 27.h,
+                                            child: ListView.separated(
+                                              separatorBuilder:
+                                                  (context, index) {
+                                                return SizedBox(width: 5.w);
+                                              },
+                                              scrollDirection: Axis.horizontal,
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: tags.length,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedVideoIndex =
+                                                          index;
+                                                      // listCardData[index]["selectedVideoInde"] = index;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.h),
+                                                        color: index ==
+                                                                selectedVideoIndex
+                                                            ? AppColors.white
+                                                                .withOpacity(
+                                                                    0.7)
+                                                            : AppColors
+                                                                .greyD3B3F43
+                                                                .withOpacity(
+                                                                    0.7)),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 7.w,
+                                                              vertical: 5.h),
+                                                      child: selectedVideoIndex ==
+                                                              index
+                                                          ? textgreyD12Robo(tags
+                                                              .elementAt(index))
+                                                          : textWhite12Robo(
+                                                              tags.elementAt(
+                                                                  index)),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+
+                                          // Container(
+                                          //   decoration: BoxDecoration(
+                                          //     borderRadius: BorderRadius.circular(15.h),
+                                          //     color: AppColors.white.withOpacity(0.5)
+                                          //   ),
+                                          //   child: Padding(
+                                          //     padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 5.h),
+                                          //     child: textgreyD12Robo("Video"),
+                                          //   ),
+                                          // )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              sizedBoxHeight(13.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            _handleLikeButton(recipeData.id!);
+                                          },
+                                          child: isLiked!
+                                              ? Image.asset(
+                                                  "assets/icons/like_filled.png",
+                                                  width: 20.w,
+                                                  height: 18.h,
+                                                  // color: like == 0 ? AppColors.red:AppColors.black,
+                                                  // color: like ?AppColors.white : null ,
+                                                )
+                                              : Image.asset(
+                                                  "assets/icons/like.png",
+                                                  width: 20.w,
+                                                  height: 18.h,
+                                                  // color: like == 0 ? AppColors.red:AppColors.black,
+                                                  // color: like ?AppColors.white : null ,
+                                                ),
+                                        ),
+                                        sizedBoxWidth(25.w),
+                                        InkWell(
+                                          onTap: () {
+                                            commentbottomSheet();
+                                          },
+                                          child: Image.asset(
+                                            "assets/icons/comment.png",
+                                            width: 20.w,
+                                            height: 18.h,
+                                          ),
+                                        ),
+                                        sizedBoxWidth(25.w),
+                                        InkWell(
+                                          onTap: share,
+                                          // (){
+                                          //   shar
+                                          //   // Share.share('https://www.google.co.in/');
+                                          // },
+                                          child: Image.asset(
+                                            "assets/icons/share.png",
+                                            width: 20.w,
+                                            height: 18.h,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        _handleSaveButton(recipeData.id!);
+                                        // setState(() {
+                                        //   listCardData[index]
+                                        //           ["save"] =
+                                        //       save == 0 ? 1 : 0;
+                                        // });
+                                      },
+                                      child: recipeData.saved!
+                                          ? Image.asset(
+                                              "assets/icons/save_filled.png",
+                                              width: 20.w,
+                                              height: 18.h,
+                                            )
+                                          : Image.asset(
+                                              "assets/icons/save.png",
+                                              width: 20.w,
+                                              height: 18.h,
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              sizedBoxHeight(10.h),
+                              Padding(
+                                padding:
+                                    EdgeInsets.fromLTRB(11.w, 0.w, 0.w, 10.w),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    textgreyD12Robo(
+                                        "${recipeData.likes.toString()} likes"),
+                                    textgreyD20BoldSP(recipeData.name!),
+                                    textgreyL12Robo(
+                                        "View all ${recipeData.comments} comments"),
+                                    SizedBox(height: 5.w),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 11.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 27.h,
+                                          height: 27.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(14.h),
+                                              image: const DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/home/profile.png"),
+                                                  fit: BoxFit.fill)),
+                                        ),
+                                        sizedBoxWidth(5.w),
+                                        InkWell(
+                                            onTap: () {
+                                              commentbottomSheet();
+                                            },
+                                            child: textgreyL12Robo(
+                                                "Add a comment"))
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Get.toNamed(
+                                              "/InspirationRecipeComment");
+                                        },
+                                        child: textgreyD12Robo("View Recipe >"))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+
+                    // listCard(
+                    //     listCardData[index]["like"],
+                    //     listCardData[index]["save"],
+                    //     index,
+                    //     listCardData[index]["isFollowedByMe"]),
+                    sizedBoxHeight(13.h)
+                  ],
+                ),
+              )
+                  // Card(
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       ListTile(
+                  //         leading: CircleAvatar(
+                  //           backgroundImage: NetworkImage(
+                  //               recipe.user?.profileImage ?? ''),
+                  //         ),
+                  //         title: Text(recipe.user?.username ?? ''),
+                  //         subtitle: Text(recipe.name ?? ''),
+                  //         //    trailing: Text('Likes: ${recipe.likes ?? 0}'),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: Text('Tags: ${tags.join(', ')}'),
+                  //       ),
+                  //       Image.network(recipe.coverImage ?? ''),
+                  //       Divider(),
+                  //     ],
+                  //   ),
+                  // )
+                  ;
+            },
+          );
+        },
+      ),
+    );
+  }
 }
