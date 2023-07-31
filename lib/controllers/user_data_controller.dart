@@ -12,101 +12,66 @@ import 'package:http/http.dart' as http;
 import '../constants/base_manager.dart';
 
 class UserDataController extends GetxController{
-  UserData? userData;
-
-  Future<ResponseData<dynamic>> getProfileData() async {
-    print("addRecipe");
+  UserData? _userData;
+  UserData? get userData => _userData;
+  
+  getUserProfile() async {
     try {
+      print("getUserProfile");
       var headers = {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY4OTkzOTcxNCwiZXhwIjoxNjkwNTQ0NTE0fQ.T_WbFlhU9tXIoIofyiqzAcyo8tqwyHpuGyl1RpoJq_Y'
+        'x-auth-token': accessToken!
+        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY4OTkzOTcxNCwiZXhwIjoxNjkwNTQ0NTE0fQ.T_WbFlhU9tXIoIofyiqzAcyo8tqwyHpuGyl1RpoJq_Y'
       };
-      var request = http.Request('GET', Uri.parse('http://77.68.102.23:8000/user/profile'));
+      var request = http.Request('GET', Uri.parse(ApiUrls.getProfileData));
       request.body = '''''';
       request.headers.addAll(headers);
 
-
-
       http.StreamedResponse response = await request.send();
 
-      // return responseHandling(response: response);
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+
+      // print("calling signInUser");
+      // var headers = {
+      //   'Content-Type': 'application/json'
+      // };
+      // var request = http.Request('POST', Uri.parse(ApiUrls.forgotPassword));
+      // request.body = json.encode({
+      //   "email_address": email
+      // });
+      // request.headers.addAll(headers);
+
+      // http.StreamedResponse response = await request.send();
+
+      
 
 
+      // var resp = await response.stream.bytesToString();
+      // print(resp);
+      // var jsonResp = jsonDecode(resp);
       // if (response.statusCode == 200) {
-      //   print(await response.stream.bytesToString());
-      // //   return ResponseData<dynamic>(
-      // //   // jsonResp["message"],
-      // //   // e.toString(),
-      // //   "fgh",
-      // //   ResponseStatus.FAILED,
-      // // );
+      //   var id = jsonResp["id"];
+      //   Get.toNamed("/otpverification",
+      //     arguments: <String>[id,email]
+      //   );
+      //   // Get.offAll("bh");
+        
+      // } else if(response.statusCode == 404) {
+      //   Get.snackbar("Error", jsonResp["message"]);
       // }
       // else {
-      //   print(response.reasonPhrase);
-      //   // return ResponseData<dynamic>(
-      //   // // jsonResp["message"],
-      //   // // e.toString(),
-      //   // "fgh",
-      //   // ResponseStatus.FAILED,
-      //   // );
+      //   Get.snackbar("Error", response.reasonPhrase!);
+
+      //   // print(response.reasonPhrase);
       // }
-      
-      // return responseHandling(response: response);
-      var resp = await response.stream.bytesToString();
-      // print(resp);
-      var jsonResp = jsonDecode(resp);
-
-      switch (response.statusCode) {
-      case 200:
-        // onSuccess();
-        // return 
-        return ResponseData<dynamic>(
-          // "success",
-          jsonResp["message"],
-          ResponseStatus.SUCCESS,
-          
-        );
-
-        // break;
-
-      case 403:
-        return ResponseData<dynamic>(
-          "UnAuthorized",
-          ResponseStatus.PRIVATE,
-          // data: 
-        );
-        // break;
-      case 400:
-        // Get.showSnackbar(snackbar)
-        Get.snackbar(
-          "Error", jsonResp["message"]
-        );
-                      
-        return ResponseData<dynamic>(
-          "UnAuthorized",
-          ResponseStatus.FAILED,
-          // data: 
-        );
-        // break;
-      default:
-      // ret
-        return ResponseData<dynamic>(
-          "Default",
-          ResponseStatus.FAILED,
-          // data: 
-        );
-    }
-
-
-      
-      
 
     } catch (e) {
       Get.snackbar("Error", e.toString());
-      return ResponseData<dynamic>(
-        e.toString(),
-        ResponseStatus.FAILED,
-      );
     }
   }
-
+  
 }

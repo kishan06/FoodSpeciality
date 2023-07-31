@@ -21,6 +21,7 @@ import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/otpScreen.dart';
+import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
@@ -121,6 +122,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/viewuser", page: () => const viewUser()),
             GetPage(name: "/followuser", page: () => const followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
+            GetPage(name: "/Preview", page: () => Preview()),
+            
             GetPage(
                 name: "/communityaddparticipants",
                 page: () => const CommunityAddParticipants()),

@@ -24,4 +24,5 @@ class ApiUrls {
   static const like = _base + "user/recipe/like";
   static const save = _base + "user/recipe/save";
   static const follow = _base + "user/follow";
+  static const getProfileData = _base + "user/profile";
 }
