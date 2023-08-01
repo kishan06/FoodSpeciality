@@ -8,6 +8,7 @@ import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
+import 'package:foodspeciality/services/block_service.dart';
 import 'package:foodspeciality/services/follow_service.dart';
 import 'package:foodspeciality/services/get_recipe_service.dart';
 import 'package:foodspeciality/services/like_service.dart';
@@ -507,7 +508,6 @@ class _IngridentsState extends State<Ingridents> {
 
   void _handleLikeButton(id) async {
     try {
-      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
       var resp = await LikeService.likeRecipe(id ?? "");
       if (resp) {
         setState(() {
@@ -522,7 +522,6 @@ class _IngridentsState extends State<Ingridents> {
 
   void _handleSaveButton(id) async {
     try {
-      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
       var resp = await SaveService.saveRecipe(id ?? "");
       if (resp) {
         setState(() {
@@ -537,7 +536,6 @@ class _IngridentsState extends State<Ingridents> {
 
   void _handleFollowButton(id) async {
     try {
-      // Replace 'userId' with theraj actual user ID from your application's state or authentication system
       var resp = await FollowService.followRecipe(id ?? "");
       if (resp) {
         setState(() {
@@ -547,6 +545,20 @@ class _IngridentsState extends State<Ingridents> {
     } catch (e) {
       // Handle error here
       print('Error Following user: $e');
+    }
+  }
+
+  void _handleBlockButton(userid, userName) async {
+    try {
+      var resp = await BlockService.blockRecipe(userid ?? "");
+      if (resp) {
+        setState(() {});
+        Get.toNamed("/sucessfullyblocked",
+            arguments: {"userid": userid, "userName": userName});
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error blocking user: $e');
     }
   }
 
@@ -777,7 +789,7 @@ class _IngridentsState extends State<Ingridents> {
                                                                     .size
                                                                     .width,
                                                                 child: Text(
-                                                                  "Are you sure you want to Block @priyujoshi?",
+                                                                  "Are you sure you want to Block @${recipeData.user!.username}?",
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           'Roboto',
@@ -811,10 +823,12 @@ class _IngridentsState extends State<Ingridents> {
                                                                 GestureDetector(
                                                                   onTap: () {
                                                                     Get.back();
-                                                                    Get.toNamed(
-                                                                        "/sucessfullyblocked");
-
-                                                                    // _canPop = true;
+                                                                    _handleBlockButton(
+                                                                        recipeData
+                                                                            .userId,
+                                                                        recipeData
+                                                                            .user!
+                                                                            .username);
                                                                   },
                                                                   child: Text(
                                                                     "Block User",

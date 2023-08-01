@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/services/unblock_service.dart';
 import 'package:get/get.dart';
 
 class SucessfullyBlocked extends StatefulWidget {
@@ -13,6 +14,21 @@ class SucessfullyBlocked extends StatefulWidget {
 }
 
 class _SucessfullyBlockedState extends State<SucessfullyBlocked> {
+  final userid = Get.arguments["userid"];
+
+  void _handleUnblockButton(userid) async {
+    try {
+      var resp = await UnblockService.unblockRecipe(userid ?? "");
+      if (resp) {
+        Get.toNamed("/bottomBar");
+        Get.snackbar("Successful", "Unbloced successfully");
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error unblocking user: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +56,7 @@ class _SucessfullyBlockedState extends State<SucessfullyBlocked> {
                     dialoBox();
                   },
                   child: Text(
-                    '@priyujoshi',
+                    '@${Get.arguments["userName"]}',
                     style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 20.sp,
@@ -91,8 +107,7 @@ class _SucessfullyBlockedState extends State<SucessfullyBlocked> {
                       width: 184.w,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed("/bottomBar");
-                          Get.snackbar("Successful", "Unbloced successfully");
+                          _handleUnblockButton(userid);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

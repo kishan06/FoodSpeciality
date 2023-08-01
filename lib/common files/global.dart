@@ -25,4 +25,6 @@ class ApiUrls {
   static const save = _base + "user/recipe/save";
   static const follow = _base + "user/follow";
   static const getProfileData = _base + "user/profile";
+  static const block = _base + "block";
+  static const unblock = _base + "unblock";
 }
