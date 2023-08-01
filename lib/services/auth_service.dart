@@ -46,7 +46,7 @@ class AuthService {
 
       } else if(response.statusCode == 400) {
 
-        Get.snackbar("Error", jsonResp["data"]["message"]);
+        Get.snackbar("Error", jsonResp["message"]);
       } else {
         Get.snackbar("Error", response.reasonPhrase!);
 

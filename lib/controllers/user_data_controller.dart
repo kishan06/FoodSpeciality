@@ -14,7 +14,10 @@ import '../constants/base_manager.dart';
 class UserDataController extends GetxController{
   UserData? _userData;
   UserData? get userData => _userData;
-  
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   getUserProfile() async {
     try {
       print("getUserProfile");
@@ -28,8 +31,16 @@ class UserDataController extends GetxController{
 
       http.StreamedResponse response = await request.send();
 
+      var resp = await response.stream.bytesToString();
+      // print(resp);
+      var jsonResp = jsonDecode(resp);
+
       if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
+        // print(await response.stream.bytesToString());
+        _userData = UserData.fromJson(jsonResp);
+        _isLoading = false;
+        update();
+        print(_userData);
       }
       else {
         print(response.reasonPhrase);
