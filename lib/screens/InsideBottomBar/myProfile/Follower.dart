@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerCard.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingCard.dart';
 
 class Follower extends StatefulWidget {
@@ -21,7 +22,8 @@ class _FollowingState extends State<Follower> {
         controller: followingcontroller,
         child: Column(
           children: [
-            myFollowingCard(),
+            // myFollowingCard(),
+            MyfollowingCardNew()
           ],
         ),
       ),

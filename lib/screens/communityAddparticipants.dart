@@ -152,6 +152,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                 }
               },
             ),
+        
           ),
           SizedBox(
             height: 50.h,
