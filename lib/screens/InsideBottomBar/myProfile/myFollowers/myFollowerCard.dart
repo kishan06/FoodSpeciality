@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerContent.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingContent.dart';
-import 'package:get/get.dart';
 
 class myFollowerCard extends StatefulWidget {
   const myFollowerCard({

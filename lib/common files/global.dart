@@ -27,4 +27,5 @@ class ApiUrls {
   static const getProfileData = _base + "user/profile";
   static const block = _base + "block";
   static const unblock = _base + "unblock";
+  static const blocklist = _base + "block/blockList";
 }
