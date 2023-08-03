@@ -21,31 +21,6 @@ class UserData {
 
 class Data {
   Data({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.user,
-  });
-  late final String accessToken;
-  late final String refreshToken;
-  late final User user;
-  
-  Data.fromJson(Map<String, dynamic> json){
-    accessToken = json['accessToken'];
-    refreshToken = json['refreshToken'];
-    user = User.fromJson(json['user']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['accessToken'] = accessToken;
-    _data['refreshToken'] = refreshToken;
-    _data['user'] = user.toJson();
-    return _data;
-  }
-}
-
-class User {
-  User({
     required this.id,
     required this.createdAt,
     required this.updatedAt,
@@ -61,6 +36,9 @@ class User {
      this.socialLinks,
     required this.lastLogin,
     required this.online,
+    required this.role,
+    required this.followers,
+    required this.following,
   });
   late final String id;
   late final String createdAt;
@@ -77,8 +55,11 @@ class User {
   late final Null socialLinks;
   late final String lastLogin;
   late final bool online;
+  late final String role;
+  late final int followers;
+  late final int following;
   
-  User.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -94,6 +75,9 @@ class User {
     socialLinks = null;
     lastLogin = json['last_login'];
     online = json['online'];
+    role = json['role'];
+    followers = json['followers'];
+    following = json['following'];
   }
 
   Map<String, dynamic> toJson() {
@@ -113,6 +97,9 @@ class User {
     _data['social_links'] = socialLinks;
     _data['last_login'] = lastLogin;
     _data['online'] = online;
+    _data['role'] = role;
+    _data['followers'] = followers;
+    _data['following'] = following;
     return _data;
   }
 }
