@@ -9,7 +9,6 @@ import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Follower.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Following.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
-import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:foodspeciality/screens/completed_challenge.dart';
@@ -26,6 +25,7 @@ import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/setting/setting/accordion.dart';
+import 'package:foodspeciality/screens/setting/setting/blocklist_full.dart';
 // import 'packa+ge:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
@@ -99,11 +99,11 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
           // initialRoute: (accessToken == null || accessToken == "") ? '/' : '/bottomBar',
-          initialRoute: onboard != true 
-            ? '/' 
-            : (accessToken == null || accessToken == "") 
-              ? '/login' 
-              : '/bottomBar',
+          initialRoute: onboard != true
+              ? '/'
+              : (accessToken == null || accessToken == "")
+                  ? '/login'
+                  : '/bottomBar',
           // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/followuser", page: () => const followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
             GetPage(name: "/Preview", page: () => Preview()),
-            
+
             GetPage(
                 name: "/communityaddparticipants",
                 page: () => const CommunityAddParticipants()),
@@ -144,8 +144,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/ReportSuccess", page: () => const ReportSuccess()),
             GetPage(name: "/blocklistfull", page: () => const BlockListFull()),
             GetPage(
-                name: "/sucessfullyblocked",
-                page: () => const SucessfullyBlocked()),
+                name: "/sucessfullyblocked", page: () => SucessfullyBlocked()),
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => const InspirationRecipeComment()),
