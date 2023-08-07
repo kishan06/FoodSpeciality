@@ -5,7 +5,6 @@ import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/setting/setting/about.dart';
-import 'package:foodspeciality/screens/setting/setting/blocked_list.dart';
 import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
 import 'package:foodspeciality/screens/setting/setting/privacypolicy.dart';
 import 'package:get/get.dart';
@@ -63,7 +62,7 @@ class _SettingState extends State<Setting> {
                           Get.to(PrivacyPolicy());
                           break;
                         case 2:
-                          Get.to(BlockedList());
+                          Get.toNamed("/blocklistfull");
                           break;
                         case 3:
                           Get.toNamed("/faq");
