@@ -32,6 +32,8 @@ class RecipeService {
     required List<File?> instructionsImages
   }) async {
     print("addRecipe");
+    print("imagePath- $imagePath");
+    print("instructionsImages $instructionsImages");
     try {
       var headers = {
         'x-auth-token': accessToken!
@@ -49,7 +51,7 @@ class RecipeService {
         'ingredients': ingredients,
         'instructions': instructions,
 
-        'publish_status': publish_status,
+        'published_status': publish_status,
       };
       request.fields.addAll(other);
       print({
@@ -63,11 +65,14 @@ class RecipeService {
 
         // 'ingredients': '[{"name": "rice", "quantity": "1cup"}]',
         'instructions': instructions,
-        'publish_status': 'draft'
+        'published_status': publish_status
       });
       request.files.add(await http.MultipartFile.fromPath('video', videoPath));
       request.files.add(await http.MultipartFile.fromPath('cover_image', imagePath));
-      request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
+      // request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
+      for (var i = 0; i < instructionsImages.length; i++) {
+        request.files.add(await http.MultipartFile.fromPath('inCover_image', instructionsImages[i]!.path));
+      }
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

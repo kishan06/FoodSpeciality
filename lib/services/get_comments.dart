@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:foodspeciality/Model/RecipeModel.dart';
+import 'package:foodspeciality/Model/Replies.dart';
 import 'package:foodspeciality/Model/comments_model.dart';
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:get/get.dart';
@@ -47,7 +49,7 @@ class GetCommentsController extends GetxController {
     }
   }
 
-  addCommentApi({required String commment, required String recipeId}) async {
+  Future<bool?> addCommentApi({required String commment, required String recipeId}) async {
     try {
       var headers = {
         'x-auth-token': accessToken!,
@@ -65,6 +67,7 @@ class GetCommentsController extends GetxController {
       if (response.statusCode == 200) {
         // print(await response.stream.bytesToString());
         getCommentsData(recipeId);
+        return true;
       }
       else {
         print(response.reasonPhrase);
@@ -111,4 +114,51 @@ class GetCommentsController extends GetxController {
     }
   }
 
+  Future<Replies> getReplies({required String commentId}) async {
+    try {
+      print("getReplies");
+      print(commentId);
+      // http.Response response = await http.get(
+      //   Uri.tryParse(ApiUrls.getfollowerFollowing)!,
+      //   headers: {'x-auth-token': "$accessToken"},
+      // );
+      var headers = {
+        'x-auth-token': accessToken!,
+        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTA3MTk5NywiZXhwIjoxNjkxNjc2Nzk3fQ.bSHK-qQpKZ3s77DgKSovLZs1YdqW3NQtA6H7yeelKws',
+        'Content-Type': 'application/json'
+      };
+      print(accessToken);
+      var request = http.Request('GET', Uri.parse(ApiUrls.commentReplies));
+      request.body = json.encode({
+        "commentId": commentId
+        // "6f49806a-4072-4070-8b67-0b9a14d6e32a"
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      // if (response.statusCode == 200) {
+      //   print(await response.stream.bytesToString());
+      // }
+      // else {
+      //   print(response.reasonPhrase);
+      // }
+      print(response.statusCode);
+      // print(response);
+      // print(object)
+
+      if (response.statusCode == 200) {
+        var resData = await response.stream.bytesToString();
+        print(resData);
+        var result = jsonDecode(resData);
+        var repliesData = Replies.fromJson(result);
+        return repliesData;
+      } else {
+        throw Exception('Failed to load replies');
+      }
+    } catch (e) {
+      log('Error while getting data: $e');
+      throw Exception('Failed to load replies');
+    }
+  }
 }

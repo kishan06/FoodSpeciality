@@ -1,12 +1,12 @@
-class Comments {
-  Comments({
+class Replies {
+  Replies({
     required this.success,
     required this.data,
   });
   late final bool success;
   late final List<Data> data;
   
-  Comments.fromJson(Map<String, dynamic> json){
+  Replies.fromJson(Map<String, dynamic> json){
     success = json['success'];
     data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
   }
@@ -24,36 +24,27 @@ class Data {
     required this.id,
     required this.comment,
     required this.createdAt,
-    required this.recipeId,
-     this.replyId,
+     this.recipeId,
+    required this.replyId,
     required this.userId,
     required this.user,
-    required this.likedComments,
-    required this.liked,
-    required this.repliesLength,
   });
   late final String id;
   late final String comment;
   late final String createdAt;
-  late final String recipeId;
-  late final Null replyId;
+  late final Null recipeId;
+  late final String replyId;
   late final String userId;
   late final User user;
-  late final List<dynamic> likedComments;
-  late final bool liked;
-  late final int repliesLength;
   
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
     comment = json['comment'];
     createdAt = json['createdAt'];
-    recipeId = json['recipeId'];
-    replyId = null;
+    recipeId = null;
+    replyId = json['replyId'];
     userId = json['userId'];
     user = User.fromJson(json['user']);
-    likedComments = List.castFrom<dynamic, dynamic>(json['liked_comments']);
-    liked = json['liked'];
-    repliesLength = json['repliesLength'];
   }
 
   Map<String, dynamic> toJson() {
@@ -65,9 +56,6 @@ class Data {
     _data['replyId'] = replyId;
     _data['userId'] = userId;
     _data['user'] = user.toJson();
-    _data['liked_comments'] = likedComments;
-    _data['liked'] = liked;
-    _data['repliesLength'] = repliesLength;
     return _data;
   }
 }
