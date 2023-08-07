@@ -28,5 +28,5 @@ class ApiUrls {
   static const getComments = _base + "recipe/get-comments";
   static const addComments  = _base + "recipe/add-comment";
   static const likeComment  = _base + "recipe/comment/like";
-  
+  static const commentReplies = _base + "recipe/get-replies";
 }

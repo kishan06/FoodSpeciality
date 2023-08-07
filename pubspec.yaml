@@ -53,6 +53,7 @@ dependencies:
 
   socket_io_client: ^2.0.2
   dropdown_button2: 
+  intl: ^0.18.1
   # buttons_tabbar: ^1.3.7+1
 
 

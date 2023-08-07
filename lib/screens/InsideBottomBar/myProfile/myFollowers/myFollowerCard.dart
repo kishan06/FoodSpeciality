@@ -181,8 +181,8 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
                     height: 5.h,
                   ),
                   Text(
-                    name,
-                    //    "@priyujoshi",
+                    "@$name",
+                      //  "@priyujoshi",
                     style: TextStyle(
                         fontFamily: "StudioProR",
                         fontSize: 14.sp,

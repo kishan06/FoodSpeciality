@@ -8,11 +8,12 @@ import 'package:http/http.dart' as http;
 class FollowerFollowing extends GetxController {
   Future<Followes> getfollowfollowing() async {
     try {
-      print("getfollowfollowing");
+      print("getfollowfollowing g");
       http.Response response = await http.get(
         Uri.tryParse(ApiUrls.getfollowerFollowing)!,
         headers: {'x-auth-token': "$accessToken"},
       );
+      print("accessToken $accessToken");
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
 
