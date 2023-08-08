@@ -38,7 +38,10 @@ class AuthService {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         print("token " + jsonResp["data"]["accessToken"]);
         await prefs.setString('accessToken', jsonResp["data"]["accessToken"]);
+
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
+
+        accessToken = jsonResp["data"]["accessToken"];
 
         // print(await response.stream.bytesToString());
 

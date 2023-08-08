@@ -3,10 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerContent.dart';
 
-import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingContent.dart';
-import 'package:foodspeciality/screens/viewUser.dart';
-import 'package:get/get.dart';
-
 import '../../../../Model/FollowesModel.dart';
 import '../../../../services/follower_following_service.dart';
 import '../../../../utils/texts.dart';
@@ -182,8 +178,8 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
                     height: 5.h,
                   ),
                   Text(
-                    name,
-                    //    "@priyujoshi",
+                    "@$name",
+                    //  "@priyujoshi",
                     style: TextStyle(
                         fontFamily: "StudioProR",
                         fontSize: 14.sp,

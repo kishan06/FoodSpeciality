@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/Model/Replies.dart';
+import 'package:foodspeciality/Model/comments_model.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
@@ -18,6 +20,7 @@ import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 import '../../../Model/RecipeModel.dart';
 
 class Home extends StatefulWidget {
@@ -369,6 +372,11 @@ class _IngridentsState extends State<Ingridents> {
                             itemBuilder: (context, index) {
                               final commentData =
                                   commentsContoller.comments!.data[index];
+                              String originalDate = commentData.createdAt;
+                              DateTime parsedDate =
+                                  DateTime.parse(originalDate);
+                              String formattedDate =
+                                  DateFormat('dd/mm/yyyy').format(parsedDate);
                               return Column(
                                 children: [
                                   tileForlist(
@@ -381,7 +389,9 @@ class _IngridentsState extends State<Ingridents> {
                                       likedStatus: commentData.liked,
                                       likeNo: commentData.likedComments.length,
                                       commentId: commentData.id,
-                                      recipeId: recipeId),
+                                      recipeId: recipeId,
+                                      numReplies: commentData.repliesLength,
+                                      dateTime: formattedDate),
                                   // tileForlist(
                                   //     // controllerHome.commentLike[index]["comment"],
                                   //     commentData.comment,
@@ -445,135 +455,23 @@ class _IngridentsState extends State<Ingridents> {
           ),
         ),
       );
-    })
-
-        // FutureBuilder<Comments>(/=
-        //   future: GetCommentsService().getCommentsData(recipeId),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.data == null) {
-        //       return Column(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: [CircularProgressIndicator()],
-        //       );
-        //     }
-        //     if (snapshot.connectionState == ConnectionState.done) {
-        //       if (snapshot.hasError) {
-        //         return Center(
-        //           child: Text(
-        //             '${snapshot.error} occured',
-        //             style: TextStyle(fontSize: 18.sp),
-        //           ),
-        //         );
-        //       }
-        //     }
-        //     return Container(
-        //       height: 375.h,
-        //       // color: AppColors.white,
-        //       decoration: BoxDecoration(
-        //           color: AppColors.white,
-        //           borderRadius: BorderRadius.only(
-        //               topLeft: Radius.circular(20.h),
-        //               topRight: Radius.circular(20.h))),
-        //       child: Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-        //         // padding: const EdgeInsets.all(8.0),
-        //         child: Column(
-        //           children: [
-        //             // tileForlist()
-        //             Expanded(
-        //               child: GetBuilder<HomeController>(builder: (_) {
-        //               return ListView.builder(
-        //                 // physics: const NeverScrollableScrollPhysics(),
-        //                 // shrinkWrap: true,
-        //                 // itemCount: controllerHome.commentLike.length,
-        //                 itemCount: comments!.data.length,
-        //                 itemBuilder: (context, index) {
-        //                   final commentData = comments!.data[index];
-        //                   return Column(
-        //                     children: [
-        //                       tileForlist(
-        //                         profileImage: commentData.user.profileImage,
-        //                         userName: commentData.user.firstName + " " + commentData.user.lastName,
-        //                         comment: commentData.comment,
-        //                         likedStatus: commentData.liked,
-        //                         likeNo: commentData.likedComments.length
-        //                       ),
-        //                       // tileForlist(
-        //                       //     // controllerHome.commentLike[index]["comment"],
-        //                       //     commentData.comment,
-        //                       //     // commentData.likedComments.length,
-        //                       //     controllerHome.commentLike[index]["like"],
-        //                       //     ),
-        //                       sizedBoxHeight(13.h)
-        //                     ],
-        //                   );
-        //                 },
-        //               );
-        //             })
-        //                 // ListView.builder(
-        //                 //   // physics: const NeverScrollableScrollPhysics(),
-        //                 //   // shrinkWrap: true,
-        //                 //   itemCount: 5,
-        //                 //   itemBuilder: (context, index) {
-        //                 //     return Column(
-        //                 //       children: [
-        //                 //         tileForlist(
-        //                 //             controllerHome.commentLike[index]["comment"],
-        //                 //             controllerHome.commentLike[index]["like"],
-        //                 //             index),
-        //                 //         sizedBoxHeight(13.h)
-        //                 //       ],
-        //                 //     );
-        //                 //   },
-        //                 // ),
-        //                 ),
-        //             sizedBoxHeight(15.h),
-        //             CustomSearchTextFormField(
-        //                 textEditingController: tecComment,
-        //                 autofocus: false,
-        //                 hintText: "Add a comment",
-        //                 validatorText: '',
-        //                 suffixIcon: Padding(
-        //                   padding: EdgeInsets.only(right: 15.w),
-        //                   child: SizedBox(
-        //                       height: 50.h,
-        //                       width: 40.w,
-        //                       child: Center(
-        //                           child: InkWell(
-        //                               onTap: () {
-        //                                 if (tecComment.text.isNotEmpty) {
-        //                                   // print(tecComment.text);
-        //                                   controllerHome
-        //                                       .commentMethod(tecComment.text);
-        //                                   tecComment.clear();
-        //                                 }
-        //                               },
-        //                               child: textgreyM14Sp("Send")))),
-        //                 ))
-        //           ],
-        //         ),
-        //       )
-        //     );
-        //   },
-        // ),
-        // barrierColor: Colors.red[50],
-        // isDismissible: false,
-
-        );
+    }));
   }
 
-  Widget tileForlist({
-    required String userName,
-    required String comment,
-    String? profileImage,
-    required bool likedStatus,
-    required int likeNo,
-    required String commentId,
-    required String recipeId,
+  Widget tileForlist(
+      {required String userName,
+      required String comment,
+      String? profileImage,
+      required bool likedStatus,
+      required int likeNo,
+      required String commentId,
+      required String recipeId,
+      required String dateTime,
+      required int numReplies
 
-    // required String date
-  }) {
+      // required String date
+      }) {
+    var viewReply = false.obs;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -605,7 +503,8 @@ class _IngridentsState extends State<Ingridents> {
                   color: AppColors.greyLtEBEBEB),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                child: textgreyD10Robo("11:36"),
+                // child: textgreyD10Robo("11:36"),
+                child: textgreyD10Robo(dateTime),
               ),
             ),
 
@@ -652,7 +551,193 @@ class _IngridentsState extends State<Ingridents> {
 
             sizedBoxHeight(5.h),
 
-            textgreyM14Sp("Reply")
+            textgreyM14Sp("Reply"),
+
+            sizedBoxHeight(4.h),
+
+            Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Visibility(
+                      visible: viewReply.value,
+                      child: viewReply.value
+                          ? FutureBuilder<Replies>(
+                              future: commentsContoller.getReplies(
+                                  commentId: commentId),
+                              builder: (context, snapshot) {
+                                // print()
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasData) {
+                                  // print(" main wid");
+                                  final repliesData = snapshot.data!.data;
+                                  // return Icon(Icons.safety_check);
+                                  // return ListView()
+                                  return SizedBox(
+                                    height: 200.h,
+                                    child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: repliesData.length,
+                                      itemBuilder: (context, index) {
+                                        print("sdf" +
+                                            repliesData.length.toString());
+                                        final reply = repliesData[index];
+
+                                        String originalDate = reply.createdAt;
+                                        DateTime parsedDate =
+                                            DateTime.parse(originalDate);
+                                        String formattedDateReply =
+                                            DateFormat('dd/MM/yyyy')
+                                                .format(parsedDate);
+
+                                        return Icon(Icons.sd);
+
+                                        // return Row(
+                                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                                        //   children: [
+                                        //     Container(
+                                        //       width: 30.h,
+                                        //       height: 30.h,
+                                        //       decoration: BoxDecoration(
+                                        //           borderRadius: BorderRadius.circular(15.h),
+                                        //           image: const DecorationImage(
+                                        //               image: AssetImage("assets/home/profile.png"),
+                                        //               fit: BoxFit.fill)),
+                                        //     ),
+                                        //     sizedBoxWidth(10.w),
+                                        //     Column(
+                                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                                        //       mainAxisAlignment: MainAxisAlignment.center,
+                                        //       children: [
+                                        //         // textWhite17w500("George Smith"),
+                                        //         // e=
+                                        //         // textBlack16SP("Chaitali tatkare"),
+                                        //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+
+                                        //         sizedBoxHeight(5.h),
+
+                                        //         // textgreyD12Robo("2 Days ago")
+                                        //         Container(
+                                        //           decoration: BoxDecoration(
+                                        //               borderRadius: BorderRadius.circular(15.h),
+                                        //               color: AppColors.greyLtEBEBEB),
+                                        //           child: Padding(
+                                        //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                                        //             // child: textgreyD10Robo("11:36"),
+                                        //             child: textgreyD10Robo(formattedDateReply),
+
+                                        //           ),
+                                        //         ),
+
+                                        //         sizedBoxHeight(5.h),
+
+                                        //         textBlack15Robo(reply.comment),
+                                        //       ],
+                                        //     )
+                                        //   ],
+                                        // );
+
+                                        // final follower = followers[index].follower;
+                                        // return invite(
+                                        //   firstname: follower!.firstName!,
+                                        //   username: follower.username!,
+                                        //   profileimage: follower.profileImage,
+                                        //   userId: follower.id!,
+                                        //   index: index,
+                                        //   selectedIds: selectedIds,
+                                        //   onInvitePressed: (id) {
+                                        //     // Handle invite button pressed
+                                        //     print('Invite button pressed for: $id');
+                                        //   },
+                                        // );
+                                      },
+                                    ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return const Center(
+                                      child: Text('Failed to load followers'));
+                                } else {
+                                  return Container();
+                                }
+                              })
+                          : SizedBox()
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Container(
+                      //       width: 30.h,
+                      //       height: 30.h,
+                      //       decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15.h),
+                      //           image: const DecorationImage(
+                      //               image: AssetImage("assets/home/profile.png"),
+                      //               fit: BoxFit.fill)),
+                      //     ),
+                      //     sizedBoxWidth(10.w),
+                      //     Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         // textWhite17w500("George Smith"),
+                      //         // e=
+                      //         // textBlack16SP("Chaitali tatkare"),
+                      //         textBlack16SP(userName),
+
+                      //         sizedBoxHeight(5.h),
+
+                      //         // textgreyD12Robo("2 Days ago")
+                      //         Container(
+                      //           decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(15.h),
+                      //               color: AppColors.greyLtEBEBEB),
+                      //           child: Padding(
+                      //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                      //             // child: textgreyD10Robo("11:36"),
+                      //             child: textgreyD10Robo(dateTime),
+
+                      //           ),
+                      //         ),
+
+                      //         sizedBoxHeight(5.h),
+
+                      //         textBlack15Robo(comment),
+                      //       ],
+                      //     )
+                      //   ],
+                      // ),
+
+                      ),
+                  sizedBoxHeight(5.h),
+                  numReplies > 0
+                      ? InkWell(
+                          onTap: () {
+                            viewReply.value = !viewReply.value;
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 20.w,
+                                child: Divider(
+                                  thickness: 0.5.h,
+                                  color: AppColors.grey54595F,
+                                ),
+                              ),
+                              sizedBoxWidth(5.w),
+                              textgreyD12Robo(viewReply.value
+                                  ? "Hide reply"
+                                  : "View ${numReplies.toString()} reply")
+                            ],
+                          ),
+                        )
+                      : SizedBox(),
+                ],
+              );
+            })
 
             // textGrey15W500("21 Jan, 2022, 10:41 am")
           ],

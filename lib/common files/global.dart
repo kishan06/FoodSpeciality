@@ -36,4 +36,6 @@ class ApiUrls {
 
   static const privatechatlist = _base + "user/chat-rooms";
   static const report = _base + "report/create";
+
+  static const commentReplies = _base + "recipe/get-replies";
 }

@@ -22,8 +22,8 @@ class _FollowingState extends State<Follower> {
         controller: followingcontroller,
         child: Column(
           children: [
-            // myFollowingCard(),
-            MyfollowingCardNew()
+            myFollowingCard(),
+            // MyfollowingCardNew()
           ],
         ),
       ),
