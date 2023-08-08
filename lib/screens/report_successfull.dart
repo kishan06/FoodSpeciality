@@ -18,40 +18,40 @@ class ReportSuccess extends StatefulWidget {
 }
 
 class _ReportSuccessState extends State<ReportSuccess> {
-  List text = [
-    {
-      "title": "It's spam",
-      "image": "assets/ReportSuccess svg/notification.svg"
-    },
-    {
-      "title": "Nudity or sexual activity",
-      "image": "assets/ReportSuccess svg/lock.svg"
-    },
-    {
-      "title": "Hate speech of any kind",
-      "image": "assets/ReportSuccess svg/block.svg"
-    },
-    {
-      "title": "Violent or graphic content",
-      "image": "assets/ReportSuccess svg/frequently.svg"
-    },
-    {
-      "title": "Threatening or harmful content",
-      "image": "assets/ReportSuccess svg/community.svg"
-    },
-    {
-      "title": "Bullying or harassment",
-      "image": "assets/ReportSuccess svg/question.svg"
-    },
-    {
-      "title": "It promotes self-harm or suicide",
-      "image": "assets/ReportSuccess svg/article.svg"
-    },
-    {
-      "title": "It promotes unlawful activity",
-      "image": "assets/ReportSuccess svg/article.svg"
-    },
-  ];
+  // List text = [
+  //   {
+  //     "title": "It's spam",
+  //     "image": "assets/ReportSuccess svg/notification.svg"
+  //   },
+  //   {
+  //     "title": "Nudity or sexual activity",
+  //     "image": "assets/ReportSuccess svg/lock.svg"
+  //   },
+  //   {
+  //     "title": "Hate speech of any kind",
+  //     "image": "assets/ReportSuccess svg/block.svg"
+  //   },
+  //   {
+  //     "title": "Violent or graphic content",
+  //     "image": "assets/ReportSuccess svg/frequently.svg"
+  //   },
+  //   {
+  //     "title": "Threatening or harmful content",
+  //     "image": "assets/ReportSuccess svg/community.svg"
+  //   },
+  //   {
+  //     "title": "Bullying or harassment",
+  //     "image": "assets/ReportSuccess svg/question.svg"
+  //   },
+  //   {
+  //     "title": "It promotes self-harm or suicide",
+  //     "image": "assets/ReportSuccess svg/article.svg"
+  //   },
+  //   {
+  //     "title": "It promotes unlawful activity",
+  //     "image": "assets/ReportSuccess svg/article.svg"
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {

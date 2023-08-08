@@ -25,10 +25,15 @@ class ApiUrls {
   static const save = _base + "user/recipe/save";
   static const follow = _base + "user/follow";
   static const getProfileData = _base + "user/profile";
+
   static const block = _base + "block";
   static const unblock = _base + "unblock";
   static const blocklist = _base + "block/blockList";
+
   static const getComments = _base + "recipe/get-comments";
   static const addComments = _base + "recipe/add-comment";
   static const likeComment = _base + "recipe/comment/like";
+
+  static const privatechatlist = _base + "user/chat-rooms";
+  static const report = _base + "report/create";
 }

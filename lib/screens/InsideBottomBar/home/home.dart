@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/Model/comments_model.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
@@ -18,7 +17,7 @@ import 'package:foodspeciality/services/save_recipe.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../../../Model/RecipeModel.dart';
 
 class Home extends StatefulWidget {
@@ -31,7 +30,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   // GetCommentsController commentsContoller = Get.put(GetCommentsController());
 
   @override
@@ -334,255 +332,247 @@ class _IngridentsState extends State<Ingridents> {
   HomeController controllerHome = Get.put(HomeController());
   GetCommentsController commentsContoller = Get.put(GetCommentsController());
 
-
   Future<T?> commentbottomSheet<T>(String recipeId) {
     // GetCommentsController commentsContoller = Get.put(GetCommentsController());
     commentsContoller.emptyComments();
     commentsContoller.getCommentsData(recipeId);
-    
+
     return Get.bottomSheet(
-      // commentsContoller.getCommentsData(recipeId);
-      GetBuilder<GetCommentsController>(builder: (context){
-        return Container(
-          height: 375.h,
-          // color: AppColors.white,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.h),
-                  topRight: Radius.circular(20.h))),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+        // commentsContoller.getCommentsData(recipeId);
+        GetBuilder<GetCommentsController>(builder: (context) {
+      return Container(
+        height: 375.h,
+        // color: AppColors.white,
+        decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.h),
+                topRight: Radius.circular(20.h))),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
 
-            // padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                // tileForlist()
-                Expanded(
-                  child: GetBuilder<HomeController>(builder: (_) {
-                  return commentsContoller.comments == null ? Center(child: CircularProgressIndicator()) : commentsContoller.comments!.data.isEmpty ? Center(child: textBlack14Robo("No comments")) :  ListView.builder(
-                    // physics: const NeverScrollableScrollPhysics(),
-                    // shrinkWrap: true,
-                    // itemCount: controllerHome.commentLike.length,
-                    itemCount: commentsContoller.comments!.data.length,
+          // padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              // tileForlist()
+              Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                return commentsContoller.comments == null
+                    ? Center(child: CircularProgressIndicator())
+                    : commentsContoller.comments!.data.isEmpty
+                        ? Center(child: textBlack14Robo("No comments"))
+                        : ListView.builder(
+                            // physics: const NeverScrollableScrollPhysics(),
+                            // shrinkWrap: true,
+                            // itemCount: controllerHome.commentLike.length,
+                            itemCount: commentsContoller.comments!.data.length,
 
-                    itemBuilder: (context, index) {
-                      final commentData = commentsContoller.comments!.data[index];
-                      return Column(
-                        children: [
-                          tileForlist(
-                            profileImage: commentData.user.profileImage,
-                            userName: commentData.user.firstName + " " + commentData.user.lastName, 
+                            itemBuilder: (context, index) {
+                              final commentData =
+                                  commentsContoller.comments!.data[index];
+                              return Column(
+                                children: [
+                                  tileForlist(
+                                      profileImage:
+                                          commentData.user.profileImage,
+                                      userName: commentData.user.firstName +
+                                          " " +
+                                          commentData.user.lastName,
+                                      comment: commentData.comment,
+                                      likedStatus: commentData.liked,
+                                      likeNo: commentData.likedComments.length,
+                                      commentId: commentData.id,
+                                      recipeId: recipeId),
+                                  // tileForlist(
+                                  //     // controllerHome.commentLike[index]["comment"],
+                                  //     commentData.comment,
+                                  //     // commentData.likedComments.length,
+                                  //     controllerHome.commentLike[index]["like"],
 
-                            comment: commentData.comment, 
-                            likedStatus: commentData.liked, 
-                            likeNo: commentData.likedComments.length,
-                            commentId: commentData.id,
-                            recipeId: recipeId
-                          ),
-                          // tileForlist(
-                          //     // controllerHome.commentLike[index]["comment"],
-                          //     commentData.comment,
-                          //     // commentData.likedComments.length,
-                          //     controllerHome.commentLike[index]["like"],
+                                  //     ),
+                                  sizedBoxHeight(13.h)
+                                ],
+                              );
+                            },
+                          );
+              })
+                  // ListView.builder(
+                  //   // physics: const NeverScrollableScrollPhysics(),
+                  //   // shrinkWrap: true,
+                  //   itemCount: 5,
+                  //   itemBuilder: (context, index) {
+                  //     return Column(
+                  //       children: [
+                  //         tileForlist(
+                  //             controllerHome.commentLike[index]["comment"],
+                  //             controllerHome.commentLike[index]["like"],
+                  //             index),
+                  //         sizedBoxHeight(13.h)
+                  //       ],
+                  //     );
+                  //   },
+                  // ),
 
-                          //     ),
-                          sizedBoxHeight(13.h)
-                        ],
-                      );
-                    },
-                  );
-                })
-                    // ListView.builder(
-                    //   // physics: const NeverScrollableScrollPhysics(),
-                    //   // shrinkWrap: true,
-                    //   itemCount: 5,
-                    //   itemBuilder: (context, index) {
-                    //     return Column(
-                    //       children: [
-                    //         tileForlist(
-                    //             controllerHome.commentLike[index]["comment"],
-                    //             controllerHome.commentLike[index]["like"],
-                    //             index),
-                    //         sizedBoxHeight(13.h)
-                    //       ],
-                    //     );
-                    //   },
-                    // ),
+                  ),
 
-                    ),
+              sizedBoxHeight(15.h),
 
-                sizedBoxHeight(15.h),
+              CustomSearchTextFormField(
+                  textEditingController: tecComment,
+                  autofocus: false,
+                  hintText: "Add a comment",
+                  validatorText: '',
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: SizedBox(
+                        height: 50.h,
+                        width: 40.w,
+                        child: Center(
+                            child: InkWell(
+                                onTap: () {
+                                  if (tecComment.text.isNotEmpty) {
+                                    // print(tecComment.text);
+                                    // controllerHome
+                                    //     .commentMethod(tecComment.text);
+                                    commentsContoller.addCommentApi(
+                                        commment: tecComment.text,
+                                        recipeId: recipeId);
+                                    tecComment.clear();
+                                  }
+                                },
+                                child: textgreyM14Sp("Send")))),
+                  ))
+            ],
+          ),
+        ),
+      );
+    })
 
-                CustomSearchTextFormField(
-                    textEditingController: tecComment,
-                    autofocus: false,
-                    hintText: "Add a comment",
-                    validatorText: '',
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(right: 15.w),
-                      child: SizedBox(
-                          height: 50.h,
-                          width: 40.w,
-                          child: Center(
-                              child: InkWell(
-                                  onTap: () {
-                                    if (tecComment.text.isNotEmpty) {
-                                      // print(tecComment.text);
-                                      // controllerHome
-                                      //     .commentMethod(tecComment.text);
-                                      commentsContoller.addCommentApi(
-                                        commment: tecComment.text, 
-                                        recipeId: recipeId
-                                      );
-                                      tecComment.clear();
-                                    }
-                                  },
-                                  child: textgreyM14Sp("Send")))),
-                    ))
-              ],
-            ),
-          )
+        // FutureBuilder<Comments>(/=
+        //   future: GetCommentsService().getCommentsData(recipeId),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.data == null) {
+        //       return Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [CircularProgressIndicator()],
+        //       );
+        //     }
+        //     if (snapshot.connectionState == ConnectionState.done) {
+        //       if (snapshot.hasError) {
+        //         return Center(
+        //           child: Text(
+        //             '${snapshot.error} occured',
+        //             style: TextStyle(fontSize: 18.sp),
+        //           ),
+        //         );
+        //       }
+        //     }
+        //     return Container(
+        //       height: 375.h,
+        //       // color: AppColors.white,
+        //       decoration: BoxDecoration(
+        //           color: AppColors.white,
+        //           borderRadius: BorderRadius.only(
+        //               topLeft: Radius.circular(20.h),
+        //               topRight: Radius.circular(20.h))),
+        //       child: Padding(
+        //         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+        //         // padding: const EdgeInsets.all(8.0),
+        //         child: Column(
+        //           children: [
+        //             // tileForlist()
+        //             Expanded(
+        //               child: GetBuilder<HomeController>(builder: (_) {
+        //               return ListView.builder(
+        //                 // physics: const NeverScrollableScrollPhysics(),
+        //                 // shrinkWrap: true,
+        //                 // itemCount: controllerHome.commentLike.length,
+        //                 itemCount: comments!.data.length,
+        //                 itemBuilder: (context, index) {
+        //                   final commentData = comments!.data[index];
+        //                   return Column(
+        //                     children: [
+        //                       tileForlist(
+        //                         profileImage: commentData.user.profileImage,
+        //                         userName: commentData.user.firstName + " " + commentData.user.lastName,
+        //                         comment: commentData.comment,
+        //                         likedStatus: commentData.liked,
+        //                         likeNo: commentData.likedComments.length
+        //                       ),
+        //                       // tileForlist(
+        //                       //     // controllerHome.commentLike[index]["comment"],
+        //                       //     commentData.comment,
+        //                       //     // commentData.likedComments.length,
+        //                       //     controllerHome.commentLike[index]["like"],
+        //                       //     ),
+        //                       sizedBoxHeight(13.h)
+        //                     ],
+        //                   );
+        //                 },
+        //               );
+        //             })
+        //                 // ListView.builder(
+        //                 //   // physics: const NeverScrollableScrollPhysics(),
+        //                 //   // shrinkWrap: true,
+        //                 //   itemCount: 5,
+        //                 //   itemBuilder: (context, index) {
+        //                 //     return Column(
+        //                 //       children: [
+        //                 //         tileForlist(
+        //                 //             controllerHome.commentLike[index]["comment"],
+        //                 //             controllerHome.commentLike[index]["like"],
+        //                 //             index),
+        //                 //         sizedBoxHeight(13.h)
+        //                 //       ],
+        //                 //     );
+        //                 //   },
+        //                 // ),
+        //                 ),
+        //             sizedBoxHeight(15.h),
+        //             CustomSearchTextFormField(
+        //                 textEditingController: tecComment,
+        //                 autofocus: false,
+        //                 hintText: "Add a comment",
+        //                 validatorText: '',
+        //                 suffixIcon: Padding(
+        //                   padding: EdgeInsets.only(right: 15.w),
+        //                   child: SizedBox(
+        //                       height: 50.h,
+        //                       width: 40.w,
+        //                       child: Center(
+        //                           child: InkWell(
+        //                               onTap: () {
+        //                                 if (tecComment.text.isNotEmpty) {
+        //                                   // print(tecComment.text);
+        //                                   controllerHome
+        //                                       .commentMethod(tecComment.text);
+        //                                   tecComment.clear();
+        //                                 }
+        //                               },
+        //                               child: textgreyM14Sp("Send")))),
+        //                 ))
+        //           ],
+        //         ),
+        //       )
+        //     );
+        //   },
+        // ),
+        // barrierColor: Colors.red[50],
+        // isDismissible: false,
+
         );
-    
-      })
-    
-      // FutureBuilder<Comments>(
-      //   future: GetCommentsService().getCommentsData(recipeId),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.data == null) {
-      //       return Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         crossAxisAlignment: CrossAxisAlignment.center,
-      //         children: [CircularProgressIndicator()],
-      //       );
-      //     }
-      //     if (snapshot.connectionState == ConnectionState.done) {
-      //       if (snapshot.hasError) {
-      //         return Center(
-      //           child: Text(
-      //             '${snapshot.error} occured',
-      //             style: TextStyle(fontSize: 18.sp),
-      //           ),
-      //         );
-      //       }
-      //     }
-      //     return Container(
-      //       height: 375.h,
-      //       // color: AppColors.white,
-      //       decoration: BoxDecoration(
-      //           color: AppColors.white,
-      //           borderRadius: BorderRadius.only(
-      //               topLeft: Radius.circular(20.h),
-      //               topRight: Radius.circular(20.h))),
-      //       child: Padding(
-      //         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-
-      //         // padding: const EdgeInsets.all(8.0),
-      //         child: Column(
-      //           children: [
-      //             // tileForlist()
-      //             Expanded(
-      //               child: GetBuilder<HomeController>(builder: (_) {
-      //               return ListView.builder(
-      //                 // physics: const NeverScrollableScrollPhysics(),
-      //                 // shrinkWrap: true,
-      //                 // itemCount: controllerHome.commentLike.length,
-      //                 itemCount: comments!.data.length,
-
-      //                 itemBuilder: (context, index) {
-      //                   final commentData = comments!.data[index];
-      //                   return Column(
-      //                     children: [
-      //                       tileForlist(
-      //                         profileImage: commentData.user.profileImage,
-      //                         userName: commentData.user.firstName + " " + commentData.user.lastName, 
-
-      //                         comment: commentData.comment, 
-      //                         likedStatus: commentData.liked, 
-      //                         likeNo: commentData.likedComments.length
-      //                       ),
-      //                       // tileForlist(
-      //                       //     // controllerHome.commentLike[index]["comment"],
-      //                       //     commentData.comment,
-      //                       //     // commentData.likedComments.length,
-      //                       //     controllerHome.commentLike[index]["like"],
-
-      //                       //     ),
-      //                       sizedBoxHeight(13.h)
-      //                     ],
-      //                   );
-      //                 },
-      //               );
-      //             })
-      //                 // ListView.builder(
-      //                 //   // physics: const NeverScrollableScrollPhysics(),
-      //                 //   // shrinkWrap: true,
-      //                 //   itemCount: 5,
-      //                 //   itemBuilder: (context, index) {
-      //                 //     return Column(
-      //                 //       children: [
-      //                 //         tileForlist(
-      //                 //             controllerHome.commentLike[index]["comment"],
-      //                 //             controllerHome.commentLike[index]["like"],
-      //                 //             index),
-      //                 //         sizedBoxHeight(13.h)
-      //                 //       ],
-      //                 //     );
-      //                 //   },
-      //                 // ),
-
-      //                 ),
-
-      //             sizedBoxHeight(15.h),
-
-      //             CustomSearchTextFormField(
-      //                 textEditingController: tecComment,
-      //                 autofocus: false,
-      //                 hintText: "Add a comment",
-      //                 validatorText: '',
-      //                 suffixIcon: Padding(
-      //                   padding: EdgeInsets.only(right: 15.w),
-      //                   child: SizedBox(
-      //                       height: 50.h,
-      //                       width: 40.w,
-      //                       child: Center(
-      //                           child: InkWell(
-      //                               onTap: () {
-      //                                 if (tecComment.text.isNotEmpty) {
-      //                                   // print(tecComment.text);
-      //                                   controllerHome
-      //                                       .commentMethod(tecComment.text);
-      //                                   tecComment.clear();
-      //                                 }
-      //                               },
-      //                               child: textgreyM14Sp("Send")))),
-      //                 ))
-      //           ],
-      //         ),
-      //       )
-      //     );
-    
-      //   },
-      // ),
-    
-      // barrierColor: Colors.red[50],
-      // isDismissible: false,
-    );
   }
 
   Widget tileForlist({
-    required String userName, 
-    required String comment, 
-    String? profileImage, 
-    required bool likedStatus, 
+    required String userName,
+    required String comment,
+    String? profileImage,
+    required bool likedStatus,
     required int likeNo,
-    required String commentId, 
-    required String recipeId, 
-    
+    required String commentId,
+    required String recipeId,
 
     // required String date
-
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -605,7 +595,6 @@ class _IngridentsState extends State<Ingridents> {
             // e=
             // textBlack16SP("Chaitali tatkare"),
             textBlack16SP(userName),
-
 
             sizedBoxHeight(5.h),
 
@@ -637,9 +626,7 @@ class _IngridentsState extends State<Ingridents> {
                     InkWell(
                       onTap: () {
                         commentsContoller.likeCommentApi(
-                          commentId: commentId, 
-                          recipeId: recipeId
-                        );
+                            commentId: commentId, recipeId: recipeId);
                       },
                       child: !likedStatus
                           ? Image.asset(
@@ -658,7 +645,6 @@ class _IngridentsState extends State<Ingridents> {
 
                     // textgreyL12Robo("20")
                     textgreyL12Robo(likeNo > 0 ? likeNo.toString() : "")
-
                   ],
                 )
               ],
@@ -733,7 +719,6 @@ class _IngridentsState extends State<Ingridents> {
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: FutureBuilder<RecipeModel>(
         future: GetRecipeService().getRecipeData(),
@@ -764,6 +749,10 @@ class _IngridentsState extends State<Ingridents> {
               isFollow = recipeData?.following!;
               final tags =
                   recipeData?.tags?.map((tag) => tag.tag?.name ?? '') ?? [];
+              String originalDate = recipeData!.createdAt!;
+              DateTime parsedDate = DateTime.parse(originalDate);
+              String formattedDate =
+                  DateFormat('dd/MM/yyyy').format(parsedDate);
               return Padding(
                 padding: EdgeInsets.fromLTRB(16.w, 9.h, 16.w, 0),
                 // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 9.h),
@@ -844,7 +833,7 @@ class _IngridentsState extends State<Ingridents> {
 
                                             sizedBoxHeight(5.h),
 
-                                            textgreyD12Robo("2 Days ago")
+                                            textgreyD12Robo(formattedDate)
 
                                             // textGrey15W500("21 Jan, 2022, 10:41 am")
                                           ],
@@ -918,7 +907,11 @@ class _IngridentsState extends State<Ingridents> {
                                                     ),
                                                     onSelected: (value) {
                                                       if (value == "Report") {
-                                                        Get.toNamed('/Report');
+                                                        Get.toNamed('/Report',
+                                                            arguments: {
+                                                              "recipeid":
+                                                                  recipeData.id
+                                                            });
                                                       } else if (value ==
                                                           "block") {
                                                         showDialog(
@@ -1264,9 +1257,7 @@ class _IngridentsState extends State<Ingridents> {
                                                   // color: like ?AppColors.white : null ,
                                                 ),
                                         ),
-
                                         sizedBoxWidth(25.w),
-
                                         InkWell(
                                           onTap: () {
                                             commentbottomSheet(recipeData.id!);
@@ -1325,8 +1316,10 @@ class _IngridentsState extends State<Ingridents> {
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    textgreyD12Robo(
-                                        "${recipeData.likes.toString()} likes"),
+                                    recipeData.likes == 0
+                                        ? textgreyD12Robo("")
+                                        : textgreyD12Robo(
+                                            "${recipeData.likes.toString()} likes"),
                                     textgreyD20BoldSP(recipeData.name!),
                                     textgreyL12Robo(
                                         "View all ${recipeData.comments} comments"),
@@ -1356,7 +1349,8 @@ class _IngridentsState extends State<Ingridents> {
                                         sizedBoxWidth(5.w),
                                         InkWell(
                                             onTap: () {
-                                              commentbottomSheet(recipeData.id!);
+                                              commentbottomSheet(
+                                                  recipeData.id!);
                                             },
                                             child: textgreyL12Robo(
                                                 "Add a comment"))
@@ -1411,9 +1405,6 @@ class _IngridentsState extends State<Ingridents> {
           );
         },
       ),
-    
     );
   }
 }
-
-
