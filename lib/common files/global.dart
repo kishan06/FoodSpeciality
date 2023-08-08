@@ -31,9 +31,11 @@ class ApiUrls {
   static const blocklist = _base + "block/blockList";
 
   static const getComments = _base + "recipe/get-comments";
-  static const addComments  = _base + "recipe/add-comment";
-  static const likeComment  = _base + "recipe/comment/like";
+  static const addComments = _base + "recipe/add-comment";
+  static const likeComment = _base + "recipe/comment/like";
+
+  static const privatechatlist = _base + "user/chat-rooms";
+  static const report = _base + "report/create";
 
   static const commentReplies = _base + "recipe/get-replies";
-
 }
