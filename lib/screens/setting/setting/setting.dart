@@ -184,6 +184,8 @@ class _SettingState extends State<Setting> {
               // print("token " + jsonResp["data"]["accessToken"]);
               await prefs.setString('accessToken', "");
               await prefs.setString('refreshToken', "");
+              await prefs.setString('userId', "");
+              
 
               Get.offAll(Login());
             },

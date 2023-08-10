@@ -339,6 +339,16 @@ class _IngridentsState extends State<Ingridents> {
     // GetCommentsController commentsContoller = Get.put(GetCommentsController());
     commentsContoller.emptyComments();
     commentsContoller.getCommentsData(recipeId);
+// <<<<<<< shams10_8
+    
+//     return Get.bottomSheet(
+//       // commentsContoller.getCommentsData(recipeId);
+//       GetBuilder<GetCommentsController>(builder: (context){
+//         return Container(
+//           // height: 375.h,
+//           // height: 425.h,
+// =======
+// >>>>>>> main
 
     return Get.bottomSheet(
         // commentsContoller.getCommentsData(recipeId);
@@ -559,6 +569,163 @@ class _IngridentsState extends State<Ingridents> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Visibility(
+
+                    //one
+                  visible: viewReply.value,
+                  child: 
+                  viewReply.value ? 
+                  // GetBuilder(builder: (context){
+                  //   return SizedBox();
+                  // })
+                  FutureBuilder<Replies>(
+                    future: commentsContoller.getReplies(commentId: commentId),
+                    builder: (BuildContext context, AsyncSnapshot snapshot){
+                      // print()
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                        // print(" main wid");
+                        final data = snapshot.data;
+                        final repliesData = data;
+                        // return Icon(Icons.safety_check);
+                        // return ListView()
+                        return SizedBox(
+                          height: 200.h,
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: repliesData.length,
+                            itemBuilder: (context, index) {
+                              print("sdf" + repliesData.length.toString());
+                              final reply = repliesData[index];
+                                      
+                              String originalDate = reply.createdAt;
+                              DateTime parsedDate = DateTime.parse(originalDate);
+                              String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+                          
+                              return Icon(Icons.sd);
+                          
+                              // return Row(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Container(
+                              //       width: 30.h,
+                              //       height: 30.h,
+                              //       decoration: BoxDecoration(
+                              //           borderRadius: BorderRadius.circular(15.h),
+                              //           image: const DecorationImage(
+                              //               image: AssetImage("assets/home/profile.png"),
+                              //               fit: BoxFit.fill)),
+                              //     ),
+                              //     sizedBoxWidth(10.w),
+                              //     Column(
+                              //       crossAxisAlignment: CrossAxisAlignment.start,
+                              //       mainAxisAlignment: MainAxisAlignment.center,
+                              //       children: [
+                              //         // textWhite17w500("George Smith"),
+                              //         // e=
+                              //         // textBlack16SP("Chaitali tatkare"),
+                              //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+                                              
+                                              
+                              //         sizedBoxHeight(5.h),
+                                              
+                              //         // textgreyD12Robo("2 Days ago")
+                              //         Container(
+                              //           decoration: BoxDecoration(
+                              //               borderRadius: BorderRadius.circular(15.h),
+                              //               color: AppColors.greyLtEBEBEB),
+                              //           child: Padding(
+                              //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                              //             // child: textgreyD10Robo("11:36"),
+                              //             child: textgreyD10Robo(formattedDateReply),
+                                          
+                              //           ),
+                              //         ),
+                                              
+                              //         sizedBoxHeight(5.h),
+                                              
+                              //         textBlack15Robo(reply.comment),
+                              //       ],
+                              //     )
+                              //   ],
+                              // );
+                                            
+                              // final follower = followers[index].follower;
+                              // return invite(
+                              //   firstname: follower!.firstName!,
+                              //   username: follower.username!,
+                              //   profileimage: follower.profileImage,
+                              //   userId: follower.id!,
+                              //   index: index,
+                              //   selectedIds: selectedIds,
+                              //   onInvitePressed: (id) {
+                              //     // Handle invite button pressed
+                              //     print('Invite button pressed for: $id');
+                              //   },
+                              // );
+                            },
+                          ),
+                        );
+                     
+                      } else if (snapshot.hasError) {
+                        return const Center(child: Text('Failed to load replies'));
+                      } else {
+                        
+                        return Container();
+                      }
+                    }) 
+                    : SizedBox()
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Container(
+                  //       width: 30.h,
+                  //       height: 30.h,
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(15.h),
+                  //           image: const DecorationImage(
+                  //               image: AssetImage("assets/home/profile.png"),
+                  //               fit: BoxFit.fill)),
+                  //     ),
+                  //     sizedBoxWidth(10.w),
+                  //     Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         // textWhite17w500("George Smith"),
+                  //         // e=
+                  //         // textBlack16SP("Chaitali tatkare"),
+                  //         textBlack16SP(userName),
+                        
+                        
+                  //         sizedBoxHeight(5.h),
+                        
+                  //         // textgreyD12Robo("2 Days ago")
+                  //         Container(
+                  //           decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(15.h),
+                  //               color: AppColors.greyLtEBEBEB),
+                  //           child: Padding(
+                  //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                  //             // child: textgreyD10Robo("11:36"),
+                  //             child: textgreyD10Robo(dateTime),
+                              
+                  //           ),
+                  //         ),
+                        
+                  //         sizedBoxHeight(5.h),
+                        
+                  //         textBlack15Robo(comment),
+                  //       ],
+                  //     )
+                  //   ],
+                  // ),
+                    
+                        ),
+              
+
+                  //two
                       visible: viewReply.value,
                       child: viewReply.value
                           ? FutureBuilder<Replies>(
@@ -711,6 +878,8 @@ class _IngridentsState extends State<Ingridents> {
                       // ),
 
                       ),
+
+                  //three
                   sizedBoxHeight(5.h),
                   numReplies > 0
                       ? InkWell(
@@ -1442,8 +1611,9 @@ class _IngridentsState extends State<Ingridents> {
                                     ),
                                     InkWell(
                                         onTap: () {
-                                          Get.toNamed(
-                                              "/InspirationRecipeComment");
+                                          Get.toNamed("/InspirationRecipeComment",
+                                            arguments:recipeData.id
+                                          );
                                         },
                                         child: textgreyD12Robo("View Recipe >"))
                                   ],

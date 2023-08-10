@@ -50,6 +50,7 @@ Future<void> main() async {
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');
   onboard = prefs.getBool("OnBoard");
+  myUserId = prefs.getString('userId');
 
   print("acs to ${accessToken}");
 

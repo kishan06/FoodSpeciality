@@ -2,6 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:get/get.dart';
 
 import '../../../common files/common_view_rules.dart';
@@ -30,7 +31,17 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
     // TODO: implement initState
     super.initState();
     userDataController.getUserProfile();
- 
+    userDataController.getUserSaved();
+    userDataController.getUserRecipe();
+    
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // userDataController.dispose();
+    super.dispose();
   }
 
   @override
@@ -430,7 +441,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                     child: TabBarView(
                       children: [
                         tab1(),
-                        tab1(),
+                        tab2(),
 
                         // FirstTab(),
                         // SecondTab(),
@@ -450,34 +461,103 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
   }
 
   Widget tab1() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: 13,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 7.w,
-        mainAxisSpacing: 7.w,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            Get.toNamed("/InspirationRecipeComment");
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: index.isEven
-                        ? AssetImage("assets/home/17.png")
-                        : AssetImage("assets/home/12.png"),
-                    fit: BoxFit.cover
-                    // Image.asset("name")
-                    )),
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingUserRecipe 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.userRecipes == null 
+        ? Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: textgrey18BoldSP("Something went wrong"),
+        )
+        : userDataController.userRecipes!.data.isEmpty 
+          ? Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: textgrey18BoldSP("No recipes uploaded"),
+          )
+          : GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: userDataController.userRecipes!.data.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 7.w,
+            mainAxisSpacing: 7.w,
           ),
+          itemBuilder: (BuildContext context, int index) {
+            final recipeData = userDataController.userRecipes!.data[index];
+            return InkWell(
+              onTap: () {
+                Get.toNamed("/InspirationRecipeComment");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: 
+                        // index.isEven
+                        //     ? AssetImage("assets/home/17.png")
+                        //     :
+                            NetworkImage(ApiUrls.base + recipeData.coverImage!),
+                        fit: BoxFit.cover
+                        // Image.asset("name")
+                        )),
+              ),
+            );
+          },
         );
-      },
-    );
+    
+    });
+    
   }
+
+  Widget tab2() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingSaved 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.userSaved == null 
+        ? Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: textgrey18BoldSP("Something went wrong"),
+        )
+        : userDataController.userSaved!.data.isEmpty 
+          ? Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: textgrey18BoldSP("No saved recipes"),
+          )
+          : GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: userDataController.userSaved!.data.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 7.w,
+            mainAxisSpacing: 7.w,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            final savedRecipeData = userDataController.userSaved!.data[index];
+            return InkWell(
+              onTap: () {
+                Get.toNamed("/InspirationRecipeComment");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: 
+                        // index.isEven
+                        //     ? AssetImage("assets/home/17.png")
+                        //     :
+                            NetworkImage(ApiUrls.base + savedRecipeData.coverImage),
+                        fit: BoxFit.cover
+                        // Image.asset("name")
+                        )),
+              ),
+            );
+          },
+        );
+    
+    });
+    
+  }
+
 
   Widget mainChallengesCard(int? tabNum) {
     return Padding(

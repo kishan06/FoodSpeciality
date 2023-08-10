@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:foodspeciality/Model/RecipeModel.dart';
 import 'package:foodspeciality/Model/Replies.dart';
 import 'package:foodspeciality/Model/comments_model.dart';
@@ -114,51 +115,89 @@ class GetCommentsController extends GetxController {
     }
   }
 
+  
+
   Future<Replies> getReplies({required String commentId}) async {
     try {
-      print("getReplies");
-      print(commentId);
-      // http.Response response = await http.get(
-      //   Uri.tryParse(ApiUrls.getfollowerFollowing)!,
-      //   headers: {'x-auth-token': "$accessToken"},
-      // );
       var headers = {
         'x-auth-token': accessToken!,
-        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTA3MTk5NywiZXhwIjoxNjkxNjc2Nzk3fQ.bSHK-qQpKZ3s77DgKSovLZs1YdqW3NQtA6H7yeelKws',
+
+        // 'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTA3MTk5NywiZXhwIjoxNjkxNjc2Nzk3fQ.bSHK-qQpKZ3s77DgKSovLZs1YdqW3NQtA6H7yeelKws',
         'Content-Type': 'application/json'
       };
-      print(accessToken);
-      var request = http.Request('GET', Uri.parse(ApiUrls.commentReplies));
-      request.body = json.encode({
+      var data = json.encode({
         "commentId": commentId
-        // "6f49806a-4072-4070-8b67-0b9a14d6e32a"
+
+        // "commentId": "a462b3cc-d444-4fcb-8f2a-0973ca0c7e53"
       });
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-
-      // if (response.statusCode == 200) {
-      //   print(await response.stream.bytesToString());
-      // }
-      // else {
-      //   print(response.reasonPhrase);
-      // }
-      print(response.statusCode);
-      // print(response);
-      // print(object)
+      var dio = Dio();
+      var response = await dio.request(
+        ApiUrls.commentReplies,
+        options: Options(
+          method: 'GET',
+          headers: headers,
+        ),
+        data: data,
+      );
 
       if (response.statusCode == 200) {
-        var resData = await response.stream.bytesToString();
-        print(resData);
-        var result = jsonDecode(resData);
-        var repliesData = Replies.fromJson(result);
-        return repliesData;
-      } else {
-        throw Exception('Failed to load replies');
+        // print(json.encode(response.data));
+        var resp = json.encode(response.data);
+        var result = jsonDecode(resp);
+        var replies = Replies.fromJson(result);
+        return replies;
       }
+      else {
+        // print(response.statusMessage);
+        throw Exception('Failed to load replies');
+
+      }
+      // print("getReplies");
+      // print(commentId);
+      // // http.Response response = await http.get(
+      // //   Uri.tryParse(ApiUrls.getfollowerFollowing)!,
+      // //   headers: {'x-auth-token': "$accessToken"},
+      // // );
+      // var headers = {
+      //   'x-auth-token': accessToken!,
+      //   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTA3MTk5NywiZXhwIjoxNjkxNjc2Nzk3fQ.bSHK-qQpKZ3s77DgKSovLZs1YdqW3NQtA6H7yeelKws',
+      //   'Content-Type': 'application/json'
+      // };
+      // print(accessToken);
+      // var request = http.Request('GET', Uri.parse(ApiUrls.commentReplies));
+      // request.body = json.encode({
+      //   "commentId": commentId
+      //   // "6f49806a-4072-4070-8b67-0b9a14d6e32a"
+      // });
+      // request.headers.addAll(headers);
+
+      // // http.Response response = await request.send();
+
+      // http.StreamedResponse response = await request.send();
+
+      // // if (response.statusCode == 200) {
+      // //   print(await response.stream.bytesToString());
+      // // }
+      // // else {
+      // //   print(response.reasonPhrase);
+      // // }
+      // print(response.statusCode);
+      // // print(response);
+      // // print(object)
+
+      // if (response.statusCode == 200) {
+      //   var resData = await response.stream.bytesToString();
+      //   print(resData);
+      //   var result = jsonDecode(resData);
+      //   var repliesData = Replies.fromJson(result);
+      //   return repliesData;
+      // } else {
+      //   throw Exception('Failed to load replies');
+      // }
     } catch (e) {
       log('Error while getting data: $e');
       throw Exception('Failed to load replies');
     }
   }
+
 }
