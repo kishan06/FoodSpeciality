@@ -346,7 +346,7 @@ class _IngridentsState extends State<Ingridents> {
       // commentsContoller.getCommentsData(recipeId);
       GetBuilder<GetCommentsController>(builder: (context){
         return Container(
-          height: 375.h,
+          // height: 375.h,
           // height: 425.h,
 
           // color: AppColors.white,
@@ -582,15 +582,20 @@ class _IngridentsState extends State<Ingridents> {
                   Visibility(
                   visible: viewReply.value,
                   child: 
-                  viewReply.value ? FutureBuilder<Replies>(
+                  viewReply.value ? 
+                  // GetBuilder(builder: (context){
+                  //   return SizedBox();
+                  // })
+                  FutureBuilder<Replies>(
                     future: commentsContoller.getReplies(commentId: commentId),
-                    builder: (context, snapshot){
+                    builder: (BuildContext context, AsyncSnapshot snapshot){
                       // print()
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData) {
+                      } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                         // print(" main wid");
-                        final repliesData = snapshot.data!.data;
+                        final data = snapshot.data;
+                        final repliesData = data;
                         // return Icon(Icons.safety_check);
                         // return ListView()
                         return SizedBox(
@@ -673,12 +678,13 @@ class _IngridentsState extends State<Ingridents> {
                         );
                      
                       } else if (snapshot.hasError) {
-                        return const Center(child: Text('Failed to load followers'));
+                        return const Center(child: Text('Failed to load replies'));
                       } else {
                         
                         return Container();
                       }
-                    }) : SizedBox()
+                    }) 
+                    : SizedBox()
                   // Row(
                   //   crossAxisAlignment: CrossAxisAlignment.start,
                   //   children: [
@@ -1457,8 +1463,9 @@ class _IngridentsState extends State<Ingridents> {
                                     ),
                                     InkWell(
                                         onTap: () {
-                                          Get.toNamed(
-                                              "/InspirationRecipeComment");
+                                          Get.toNamed("/InspirationRecipeComment",
+                                            arguments:recipeData.id
+                                          );
                                         },
                                         child: textgreyD12Robo("View Recipe >"))
                                   ],

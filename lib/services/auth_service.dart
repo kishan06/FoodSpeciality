@@ -40,8 +40,11 @@ class AuthService {
         await prefs.setString('accessToken', jsonResp["data"]["accessToken"]);
 
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
+        await prefs.setString('userId', jsonResp["data"]["user"]["id"]);
+        
 
         accessToken = jsonResp["data"]["accessToken"];
+        myUserId = jsonResp["data"]["user"]["id"];
 
         // print(await response.stream.bytesToString());
 

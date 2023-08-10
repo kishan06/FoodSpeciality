@@ -1,9 +1,12 @@
 String? accessToken;
+String? myUserId;
+
 bool? onboard;
 // String uri = 'http://<yourip>:3000';
 
 class ApiUrls {
   static const _base = "http://77.68.102.23:8000/";
+  static const base = "http://77.68.102.23:8000/";
   static const login = _base + "auth/login";
   static const signUp = _base + "auth/register";
   static const addRecipe = _base + "recipe/create";
@@ -35,5 +38,8 @@ class ApiUrls {
   static const likeComment  = _base + "recipe/comment/like";
 
   static const commentReplies = _base + "recipe/get-replies";
+  static const savedRecipes = _base + "user/recipes/saved";
+  static const recipeDetails = _base + "recipe/getdetails";
+  static const userRecipes = _base + "recipe/getPublished";
 
 }

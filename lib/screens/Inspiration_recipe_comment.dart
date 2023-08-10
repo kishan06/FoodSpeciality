@@ -4,15 +4,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/comman_comment.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/controllers/recipe_ingre_controller.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/new_insp_reci_Comt.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
+import 'package:foodspeciality/services/view_recipe_contro.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
+import '../Model/recipe_details.dart';
 import 'filter_bottom_sheet.dart';
 
 class InspirationRecipeComment extends StatefulWidget {
@@ -26,7 +30,7 @@ class InspirationRecipeComment extends StatefulWidget {
 class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     with SingleTickerProviderStateMixin {
   bool more = false;
-  late TabController _tabController;
+  // late TabController _tabController;
   int _currentIndex = 0;
   int selectedVideoIndex = 0;
   final tecComment = TextEditingController();
@@ -34,6 +38,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   bool save = false;
 
   HomeController controllerHome = Get.put(HomeController());
+  ViewRecipeController viewRecipeController  = Get.put(ViewRecipeController());
 
   List tags = [
     "Limpopo",
@@ -47,40 +52,13 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        switch (_tabController.index) {
-          case 0:
-            _currentIndex = 0;
-
-            break;
-          case 1:
-            _currentIndex = 1;
-
-            break;
-          case 2:
-            _currentIndex = 2;
-
-            break;
-          default:
-            _currentIndex = 3;
-        }
-      });
-
-      // // setState(() {});
-      // if (_tabController.indexIsChanging) {
-      //   setState(() {
-      //     _currentIndex = _tabController.index;
-      //   });
-      // }
-    });
-    _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    final recipeId = Get.arguments;
+    viewRecipeController.getRecipeDetails(recipeId: recipeId);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    // _tabController.dispose();
     super.dispose();
   }
 
@@ -113,168 +91,189 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
         //   title: ,
         // ),
         body: SafeArea(
-          child: Column(
-            children: [
-              // sizedBoxHeight(8.h),
-              Stack(
+          child: GetBuilder<ViewRecipeController>(builder: (context){
+            if (viewRecipeController.isLoadingRecipeDetails) {
+              return Center(child: CircularProgressIndicator());
+            } else if(viewRecipeController.recipeDetails == null){
+              return Center(child: textgrey18BoldSP("Something went wrong"));
+            }
+            else {
+              final recipeDetailsData = viewRecipeController.recipeDetails!.data[0];
+              return Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: 258.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Mask Group 14.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 16.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
+                  // sizedBoxHeight(8.h),
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 258.h,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: 
+                            NetworkImage(ApiUrls.base + "${recipeDetailsData.coverImage}"),
+                            // AssetImage("assets/Mask Group 14.png"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              sizedBoxHeight(26.h),
-                              GestureDetector(
-                                  onTap: () {
-                                    Get.back();
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/Path 39.svg',
-                                    height: 18.h,
-                                    width: 27.w,
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/svg/media-play-circle-svgrepo-com.svg",
-                                height: 63.h,
-                                width: 63.h,
-                              ),
-                              sizedBoxHeight(30.h),
-                              sizedBoxHeight(5.h),
-                              Container(
-                                decoration: BoxDecoration(boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.9),
-                                    blurRadius: 25.0, // soften the shadow
-                                    spreadRadius: 20.0, //extend the shadow
-                                    offset: const Offset(
-                                      5.0, // Move to right 5  horizontally
-                                      5.0, // Move to bottom 5 Vertically
-                                    ),
-                                  )
-                                ]),
-                                height: 35.h,
-                                width: double.infinity,
-                                child: Text(
-                                  "Chomolia Recipe",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20.sp),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 27.h,
-                                child: ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(width: 5.w);
-                                  },
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: tags.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  sizedBoxHeight(26.h),
+                                  GestureDetector(
                                       onTap: () {
-                                        setState(() {
-                                          selectedVideoIndex = index;
-                                          // listCardData[index]["selectedVideoInde"] = index;
-                                        });
+                                        Get.back();
                                       },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15.h),
-                                            color: index == selectedVideoIndex
-                                                ? AppColors.white
-                                                    .withOpacity(0.7)
-                                                : AppColors.greyD3B3F43
-                                                    .withOpacity(0.7)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 7.w, vertical: 5.h),
-                                          child: selectedVideoIndex == index
-                                              ? textgreyD12Robo(tags[index])
-                                              : textWhite12Robo(tags[index]),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                      child: SvgPicture.asset(
+                                        'assets/Path 39.svg',
+                                        height: 18.h,
+                                        width: 27.w,
+                                      )),
+                                ],
                               ),
-                              sizedBoxHeight(8.h),
+                              Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/svg/media-play-circle-svgrepo-com.svg",
+                                    height: 63.h,
+                                    width: 63.h,
+                                  ),
+                                  sizedBoxHeight(30.h),
+                                  sizedBoxHeight(5.h),
+                                  Container(
+                                    decoration: BoxDecoration(boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.9),
+                                        blurRadius: 25.0, // soften the shadow
+                                        spreadRadius: 20.0, //extend the shadow
+                                        offset: const Offset(
+                                          5.0, // Move to right 5  horizontally
+                                          5.0, // Move to bottom 5 Vertically
+                                        ),
+                                      )
+                                    ]),
+                                    height: 35.h,
+                                    width: double.infinity,
+                                    child: Text(
+                                      // "Chomolia Recipe",
+                                      recipeDetailsData.name,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20.sp),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SizedBox(
+                                      height: 27.h,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) {
+                                          return SizedBox(width: 5.w);
+                                        },
+                                        scrollDirection: Axis.horizontal,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: recipeDetailsData.tags.length,
+                                        // tags.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedVideoIndex = index;
+                                                // listCardData[index]["selectedVideoInde"] = index;
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15.h),
+                                                  color: index == selectedVideoIndex
+                                                      ? AppColors.white
+                                                          .withOpacity(0.7)
+                                                      : AppColors.greyD3B3F43
+                                                          .withOpacity(0.7)),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 7.w, vertical: 5.h),
+                                                child: selectedVideoIndex == index
+                                                    ? textgreyD12Robo(recipeDetailsData.tags[index].tag.name)
+                                                    : textWhite12Robo(recipeDetailsData.tags[index].tag.name),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  sizedBoxHeight(8.h),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 80.h,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 14.sp,
-                            color: Colors.white,
                           ),
-                          sizedBoxWidth(3.w),
-                          Text(
-                            "30 Min",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontFamily: 'StudioProM',
-                                fontSize: 12.sp,
-                                color: const Color(0xffFFFFFF)),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        bottom: 80.h,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                size: 14.sp,
+                                color: Colors.white,
+                              ),
+                              sizedBoxWidth(3.w),
+                              Text(
+                                // "30 Min",
+                                recipeDetailsData.cookingTime + " Min",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontFamily: 'StudioProM',
+                                    fontSize: 12.sp,
+                                    color: const Color(0xffFFFFFF)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
 
-              DataTabBarView()
-              // Expanded(
-              //   child: SizedBox(
-              //     // height: MediaQuery.of(context).size.height,
-              //     child: TabBarView(
-              //       controller: _tabController,
-              //       children: [
-              //         DataTabBarView(),
-              //         DataTabBarView(),
-              //         DataTabBarView(),
-              //         DataTabBarView()
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+                  DataTabBarView(recipeDetailsData)
+                  // Expanded(
+                  //   child: SizedBox(
+                  //     // height: MediaQuery.of(context).size.height,
+                  //     child: TabBarView(
+                  //       controller: _tabController,
+                  //       children: [
+                  //         DataTabBarView(),
+                  //         DataTabBarView(),
+                  //         DataTabBarView(),
+                  //         DataTabBarView()
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              );
+          
+            }
+          
+          })
+          
         ),
       ),
     );
   }
 
   // ignore: non_constant_identifier_names
-  Widget DataTabBarView() {
+  Widget DataTabBarView(Data recipeDetailsData) {
     return Expanded(
       child: NestedScrollView(
         controller: _scrollViewController,
@@ -291,6 +290,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                 title: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       sizedBoxHeight(5.h),
 
@@ -311,7 +311,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                           like = !like;
                                         });
                                       },
-                                      child: like
+                                      child: !recipeDetailsData.liked
                                           ? Image.asset(
                                               'assets/icons/like.png',
                                               height: 18.h,
@@ -323,7 +323,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                               width: 20.w,
                                             )),
                                   Text(
-                                    '23k',
+                                    // '23k',
+                                    recipeDetailsData.likes > 0 ? recipeDetailsData.likes.toString() : "",
                                     style: TextStyle(
                                         color: const Color(0xff020202),
                                         fontSize: 10.sp),
@@ -344,7 +345,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                     ),
                                   ),
                                   Text(
-                                    '150',
+                                    recipeDetailsData.comments > 0 ? recipeDetailsData.comments.toString() : "",
                                     style: TextStyle(
                                         color: const Color(0xff020202),
                                         fontSize: 10.sp),
@@ -374,7 +375,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         });
                                         // save = !save;
                                       },
-                                      child: save
+                                      child: !recipeDetailsData.saved
                                           ? Image.asset(
                                               'assets/icons/save.png',
                                               height: 18.h,
@@ -385,12 +386,12 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                               height: 18.h,
                                               width: 20.w,
                                             )),
-                                  Text(
-                                    '50',
-                                    style: TextStyle(
-                                        color: const Color(0xff020202),
-                                        fontSize: 10.sp),
-                                  )
+                                  // Text(
+                                  //   '50',
+                                  //   style: TextStyle(
+                                  //       color: const Color(0xff020202),
+                                  //       fontSize: 10.sp),
+                                  // )
                                 ],
                               ),
                               // sizedBoxWidth(16),
@@ -405,25 +406,43 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(
-                                radius: 32.r,
-                                backgroundColor: Colors.grey,
-                                child: const Image(
-                                    image:
-                                        AssetImage("assets/Mask Group 40.png")),
+                              // CircleAvatar(
+                              //   radius: 32.r,
+                              //   backgroundColor: Colors.grey,
+                              //   child: Image(
+                              //     image: NetworkImage(ApiUrls.base + "${recipeDetailsData.user.profileImage}")
+                              //           // AssetImage("assets/Mask Group 40.png")),
+                              //   )
+                              // ),
+                              Container(
+                                width: 64.h,
+                                height: 64.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(32.h),
+                                    image:  DecorationImage(
+                                        // image: 
+                                  image: NetworkImage(ApiUrls.base + "${recipeDetailsData.user.profileImage}"),
+
+                                        // AssetImage("assets/home/profile.png"),
+                                        fit: BoxFit.cover)),
                               ),
                               sizedBoxWidth(9.w),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Namrata Burondkar",
+                                    // "Namrata Burondkar",
+                                    recipeDetailsData.user.firstName + " " + recipeDetailsData.user.lastName,
                                     style: TextStyle(
                                         fontSize: 16.h,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color(0xff979797),
+                                        
+                                        ),
                                   ),
                                   Text(
-                                    "@Namrata07",
+                                    // "@Namrata0",
+                                    "@${recipeDetailsData.user.username}",
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: const Color(0xff979797),
@@ -439,7 +458,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         color: const Color(0xff54595F),
                                       ),
                                       Text(
-                                        "South Africa",
+                                        // "South Africa",
+                                        recipeDetailsData.user.location??"",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                             fontSize: 14.sp,
@@ -482,7 +502,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                       sizedBoxHeight(13.h),
 
                       Text(
-                          "Lorem Ipsum is simply dummy text of the printing and ty..",
+                        recipeDetailsData.description,
+                          // "Lorem Ipsum is simply dummy text of the printing and ty..",
                           // maxLines: more ? null : 1,
                           style: TextStyle(
                               fontSize: 14.sp,
@@ -504,7 +525,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           ),
                           sizedBoxWidth(3.5.w),
                           Text(
-                            "10 Serving",
+                            "${recipeDetailsData.servings} Serving",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontFamily: 'Roboto',
