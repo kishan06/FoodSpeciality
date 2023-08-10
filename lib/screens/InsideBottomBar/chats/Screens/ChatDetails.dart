@@ -18,6 +18,9 @@ class ChatPrivateDetail extends StatefulWidget {
 
 class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
   final TextEditingController _messageController = TextEditingController();
+  final username = Get.arguments["username"];
+  final profileimage = Get.arguments["profileimage"];
+  final userid = Get.arguments["userid"];
 
   late IO.Socket socket;
   ScrollController myController = ScrollController();
@@ -82,7 +85,7 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
     if (message.isNotEmpty) {
       // Emit a message event to the server
       Map<String, dynamic> messageMap = {
-        'room': "c2dbd846-5eeb-49f6-bc45-b58d54fa4fc4",
+        'room': "$userid",
         'message': message,
       };
       setMessage("source", message);
@@ -125,7 +128,8 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                     width: 2.w,
                   ),
                   CircleAvatar(
-                    backgroundImage: const AssetImage('assets/chef.png'),
+                    backgroundImage: NetworkImage(
+                        "http://77.68.102.23:8000/${profileimage}"),
                     maxRadius: 20.r,
                   ),
                   SizedBox(
@@ -137,7 +141,7 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Kriss Benwat",
+                          username,
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.w600),
                         ),

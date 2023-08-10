@@ -26,11 +26,15 @@ class PrivateChatListModel {
 
 class Data {
   User? user;
+  String? message;
+  String? createdAt;
 
-  Data({this.user});
+  Data({this.user, this.message, this.createdAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    message = json['message'];
+    createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +42,8 @@ class Data {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
+    data['message'] = this.message;
+    data['createdAt'] = this.createdAt;
     return data;
   }
 }
