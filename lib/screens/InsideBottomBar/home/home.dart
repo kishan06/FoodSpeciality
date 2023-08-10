@@ -397,7 +397,6 @@ class _IngridentsState extends State<Ingridents> {
                                   //     commentData.comment,
                                   //     // commentData.likedComments.length,
                                   //     controllerHome.commentLike[index]["like"],
-
                                   //     ),
                                   sizedBoxHeight(13.h)
                                 ],
@@ -882,9 +881,7 @@ class _IngridentsState extends State<Ingridents> {
                                                           25.h),
                                                   image: DecorationImage(
                                                       image: NetworkImage(
-                                                          recipeData?.user
-                                                                  ?.profileImage ??
-                                                              ''),
+                                                          "http://77.68.102.23:8000/${recipeData.user?.profileImage}"),
                                                       fit: BoxFit.fill)),
                                             ),
                                             Positioned(
@@ -980,189 +977,190 @@ class _IngridentsState extends State<Ingridents> {
                                                 ),
                                         ),
                                         Container(
-                                            child: recipeData.following!
-                                                ? PopupMenuButton(
-                                                    offset: const Offset(0, 50),
-                                                    color:
-                                                        const Color(0xFFFFFFFF),
-                                                    tooltip: '',
-                                                    child: const Icon(
-                                                      Icons.more_vert,
-                                                      color: Color(0xFF3B3F43),
-                                                    ),
-                                                    onSelected: (value) {
-                                                      if (value == "Report") {
-                                                        Get.toNamed('/Report',
-                                                            arguments: {
-                                                              "recipeid":
-                                                                  recipeData.id
-                                                            });
-                                                      } else if (value ==
-                                                          "block") {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) =>
-                                                              Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    15.w),
-                                                            child: AlertDialog(
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.r)),
-                                                              insetPadding:
-                                                                  const EdgeInsets
-                                                                          .symmetric(
-                                                                      vertical:
-                                                                          10),
-                                                              title: Text(
-                                                                "Block User",
+                                          child: recipeData.following!
+                                              ? PopupMenuButton(
+                                                  offset: const Offset(0, 50),
+                                                  color:
+                                                      const Color(0xFFFFFFFF),
+                                                  tooltip: '',
+                                                  child: const Icon(
+                                                    Icons.more_vert,
+                                                    color: Color(0xFF3B3F43),
+                                                  ),
+                                                  onSelected: (value) {
+                                                    if (value == "Report") {
+                                                      Get.toNamed('/Report',
+                                                          arguments: {
+                                                            "recipeid":
+                                                                recipeData.id
+                                                          });
+                                                    } else if (value ==
+                                                        "block") {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  15.w),
+                                                          child: AlertDialog(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r)),
+                                                            insetPadding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        10),
+                                                            title: Text(
+                                                              "Block User",
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Studio Pro',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      18.sp,
+                                                                  color: const Color(
+                                                                      0xff3B3F43)),
+                                                            ),
+                                                            content: SizedBox(
+                                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              child: Text(
+                                                                "Are you sure you want to Block @${recipeData.user!.username}?",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        'Studio Pro',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
+                                                                        'Roboto',
                                                                     fontSize:
-                                                                        18.sp,
+                                                                        16.sp,
                                                                     color: const Color(
-                                                                        0xff3B3F43)),
+                                                                        0xff54595F)),
                                                               ),
-                                                              content: SizedBox(
-                                                                // margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
+                                                            ),
+                                                            actions: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },
                                                                 child: Text(
-                                                                  "Are you sure you want to Block @${recipeData.user!.username}?",
+                                                                  "Cancel",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          'Roboto',
+                                                                          "Roboto",
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
                                                                       fontSize:
                                                                           16.sp,
                                                                       color: const Color(
-                                                                          0xff54595F)),
+                                                                          0xff000000)),
                                                                 ),
                                                               ),
-                                                              actions: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Get.back();
-                                                                  },
-                                                                  child: Text(
-                                                                    "Cancel",
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            "Roboto",
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize: 16
-                                                                            .sp,
-                                                                        color: const Color(
-                                                                            0xff000000)),
-                                                                  ),
+                                                              sizedBoxWidth(
+                                                                  15.sp),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                  _handleBlockButton(
+                                                                      recipeData
+                                                                          .userId,
+                                                                      recipeData
+                                                                          .user!
+                                                                          .username);
+                                                                },
+                                                                child: Text(
+                                                                  "Block User",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          "Roboto",
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize:
+                                                                          16.sp,
+                                                                      color: const Color(
+                                                                          0xffB90101)),
                                                                 ),
-                                                                sizedBoxWidth(
-                                                                    15.sp),
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    Get.back();
-                                                                    _handleBlockButton(
-                                                                        recipeData
-                                                                            .userId,
-                                                                        recipeData
-                                                                            .user!
-                                                                            .username);
-                                                                  },
-                                                                  child: Text(
-                                                                    "Block User",
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            "Roboto",
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize: 16
-                                                                            .sp,
-                                                                        color: const Color(
-                                                                            0xffB90101)),
-                                                                  ),
+                                                              ),
+                                                              sizedBoxWidth(
+                                                                  15.sp),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  itemBuilder:
+                                                      (BuildContext bc) {
+                                                    return [
+                                                      PopupMenuItem(
+                                                        value: 'Report',
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                SvgPicture
+                                                                    .asset(
+                                                                  "assets/question-circle-svgrepo-com.svg",
+                                                                  height: 20.h,
+                                                                  width: 20.w,
                                                                 ),
-                                                                sizedBoxWidth(
-                                                                    15.sp),
+                                                                SizedBox(
+                                                                  width: 15.w,
+                                                                ),
+                                                                Text(
+                                                                  "Report",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontFamily:
+                                                                          "Roboto",
+                                                                      fontSize:
+                                                                          16.sp),
+                                                                ),
                                                               ],
                                                             ),
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                    itemBuilder:
-                                                        (BuildContext bc) {
-                                                      return [
-                                                        PopupMenuItem(
-                                                          value: 'Report',
-                                                          child: Column(
-                                                            children: [
-                                                              Row(
-                                                                children: [
-                                                                  SvgPicture
-                                                                      .asset(
-                                                                    "assets/question-circle-svgrepo-com.svg",
-                                                                    height:
-                                                                        20.h,
-                                                                    width: 20.w,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 15.w,
-                                                                  ),
-                                                                  Text(
-                                                                    "Report",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontFamily:
-                                                                            "Roboto",
-                                                                        fontSize:
-                                                                            16.sp),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
+                                                          ],
                                                         ),
-                                                        PopupMenuItem(
-                                                          value: 'block',
-                                                          child: Row(
-                                                            children: [
-                                                              SvgPicture.asset(
-                                                                "assets/block-svgrepo-com.svg",
-                                                                height: 20.h,
-                                                                width: 20.w,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 15.w,
-                                                              ),
-                                                              Text(
-                                                                "Block",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontFamily:
-                                                                        "Roboto",
-                                                                    fontSize:
-                                                                        16.sp),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                      ),
+                                                      PopupMenuItem(
+                                                        value: 'block',
+                                                        child: Row(
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                              "assets/block-svgrepo-com.svg",
+                                                              height: 20.h,
+                                                              width: 20.w,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 15.w,
+                                                            ),
+                                                            Text(
+                                                              "Block",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontFamily:
+                                                                      "Roboto",
+                                                                  fontSize:
+                                                                      16.sp),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ];
-                                                    },
-                                                  )
-                                                : const SizedBox())
+                                                      ),
+                                                    ];
+                                                  },
+                                                )
+                                              : const SizedBox(),
+                                        ),
                                       ],
                                     ),
 
@@ -1181,12 +1179,13 @@ class _IngridentsState extends State<Ingridents> {
                                       ? Container(
                                           height: 180.h,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.h),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      "http://77.68.102.23:8000/${recipeData.coverImage}"),
-                                                  fit: BoxFit.fill)),
+                                            borderRadius:
+                                                BorderRadius.circular(20.h),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "http://77.68.102.23:8000/${recipeData.coverImage}"),
+                                                fit: BoxFit.fill),
+                                          ),
                                         )
                                       : Container(
                                           height: 180.h,
