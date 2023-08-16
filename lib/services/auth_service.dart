@@ -41,11 +41,12 @@ class AuthService {
 
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
         await prefs.setString('userId', jsonResp["data"]["user"]["id"]);
+        await prefs.setString('myImage', jsonResp["data"]["user"]["profile_image"]);
         
 
         accessToken = jsonResp["data"]["accessToken"];
         myUserId = jsonResp["data"]["user"]["id"];
-
+        myImage = jsonResp["data"]["user"]["profile_image"];
         // print(await response.stream.bytesToString());
 
         Get.offAndToNamed("/bottomBar");
