@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/Model/PrivateChatListModel.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
+import 'package:foodspeciality/services/private_chatdetail_service.dart';
 import 'package:foodspeciality/services/private_chatlist_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
@@ -36,9 +36,8 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // CustomAppBarWithNotification(titleTxt: "Chats"),
           Padding(
-            // height: 50.h,
+            // height: 50.h,++
             padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
             child: TextField(
               style: TextStyle(fontSize: 16.sp),
@@ -92,22 +91,21 @@ class _ChatPageState extends State<ChatPage> {
                 stream: ChatRoomService().getChatRoomsStream(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: const CircularProgressIndicator(),
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     ); // Loading indicator
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     final chatRooms = snapshot.data!.data;
                     final filteredChatRooms = chatRooms!
-                        .where(
-                          (chatRoom) =>
-                              chatRoom.user!.username!.toLowerCase().contains(
-                                    _filterUsername.toLowerCase(),
-                                  ),
-                        )
+                        .where((chatRoom) =>
+                            chatRoom.user!.username!.toLowerCase().contains(
+                                  _filterUsername.toLowerCase(),
+                                ) &&
+                            chatRoom.user?.id != myUserId &&
+                            chatRoom.user != null)
                         .toList();
-
                     return ListView.builder(
                       itemCount: filteredChatRooms.length,
                       shrinkWrap: true,
@@ -121,19 +119,16 @@ class _ChatPageState extends State<ChatPage> {
                             DateFormat("MMMMd").format(parsedDate);
                         return GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) {
-                            //     return const ChatPrivateDetail();
-                            //   }),
-                            // );
                             Get.toNamed("/chatdetail", arguments: {
                               "userid": filteredChatRooms[index].user!.id,
                               "username":
                                   filteredChatRooms[index].user!.username,
                               "profileimage":
-                                  filteredChatRooms[index].user!.profileImage
+                                  filteredChatRooms[index].user!.profileImage,
+                              "targetUserId": filteredChatRooms[index].user!.id
                             });
+                            PrivateChatDetailService().getPrivateChatDetailData(
+                                filteredChatRooms[index].user!.id ?? "");
                           },
                           child: Container(
                             padding: EdgeInsets.only(

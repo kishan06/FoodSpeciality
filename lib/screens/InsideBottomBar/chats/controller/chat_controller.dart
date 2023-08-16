@@ -135,17 +135,4 @@ class ChatController extends GetxController {
     ),
   ];
   List<ChatCommunity> get chatcommunityBackUp => _chatcommunityBackUp;
-
-  searchFunctionCom(String text) {
-    _chatcommunity = chatcommunityBackUp
-        .where((tName) {
-          var tNameTitle = tName.name.toLowerCase();
-          // var tNameTitle = _chatPrivate.
-
-          return tNameTitle.contains(text);
-        })
-        .toSet()
-        .toList();
-    update();
-  }
 }

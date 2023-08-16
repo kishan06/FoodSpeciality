@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/setting/setting/about.dart';
@@ -185,7 +186,8 @@ class _SettingState extends State<Setting> {
               await prefs.setString('accessToken', "");
               await prefs.setString('refreshToken', "");
               await prefs.setString('userId', "");
-              
+              await prefs.setString('myImage', "");
+              // myImage
 
               Get.offAll(Login());
             },
