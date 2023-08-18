@@ -17,6 +17,9 @@ import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 import '../Model/recipe_details.dart';
+import '../services/follow_service.dart';
+import '../services/like_service.dart';
+import '../services/save_recipe.dart';
 import 'filter_bottom_sheet.dart';
 
 class InspirationRecipeComment extends StatefulWidget {
@@ -49,10 +52,16 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     "Flavour explosions"
   ];
 
+  Data? recipeDetailsData;
+
+  List<AllrecipeDetails>? allUserRecipes;
+  
+
   @override
   void initState() {
     super.initState();
     final recipeId = Get.arguments;
+    print(recipeId + " reci");
     viewRecipeController.getRecipeDetails(recipeId: recipeId);
   }
 
@@ -82,6 +91,51 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
 
   ScrollController? _scrollViewController;
 
+  void _handleLikeButton(String id) async {
+    try {
+      var resp = await LikeService.likeRecipe(id);
+      if (resp) {
+        viewRecipeController.getRecipeDetails(recipeId: id);
+        
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error liking recipe: $e');
+    }
+  }
+
+  void _handleSaveButton(id) async {
+    try {
+      var resp = await SaveService.saveRecipe(id ?? "");
+      if (resp) {
+        viewRecipeController.getRecipeDetails(recipeId: id);
+
+        // setState(() {
+        //   isSaved = !isSaved!;
+        // });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error saving recipe: $e');
+    }
+  }
+
+  void _handleFollowButton({required String userId, required String recipeId}) async {
+    try {
+      var resp = await FollowService.followRecipe(userId);
+      if (resp) {
+        viewRecipeController.getRecipeDetails(recipeId: recipeId);
+
+        // setState(() {
+        //   // isFollow = !isFollow!;
+        // });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -98,7 +152,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
               return Center(child: textgrey18BoldSP("Something went wrong"));
             }
             else {
-              final recipeDetailsData = viewRecipeController.recipeDetails!.data[0];
+              recipeDetailsData = viewRecipeController.recipeDetails!.data[0];
+              allUserRecipes = viewRecipeController.recipeDetails!.allrecipeDetails;
               return Column(
                 children: [
                   // sizedBoxHeight(8.h),
@@ -110,7 +165,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: 
-                            NetworkImage(ApiUrls.base + "${recipeDetailsData.coverImage}"),
+                            NetworkImage(ApiUrls.base + "${recipeDetailsData!.coverImage}"),
                             // AssetImage("assets/Mask Group 14.png"),
                             fit: BoxFit.cover,
                           ),
@@ -161,7 +216,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                     width: double.infinity,
                                     child: Text(
                                       // "Chomolia Recipe",
-                                      recipeDetailsData.name,
+                                      recipeDetailsData!.name,
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20.sp),
                                     ),
@@ -177,7 +232,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                         scrollDirection: Axis.horizontal,
                                         physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
-                                        itemCount: recipeDetailsData.tags.length,
+                                        itemCount: recipeDetailsData!.tags.length,
                                         // tags.length,
                                         itemBuilder: (context, index) {
                                           return InkWell(
@@ -200,8 +255,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 7.w, vertical: 5.h),
                                                 child: selectedVideoIndex == index
-                                                    ? textgreyD12Robo(recipeDetailsData.tags[index].tag.name)
-                                                    : textWhite12Robo(recipeDetailsData.tags[index].tag.name),
+                                                    ? textgreyD12Robo(recipeDetailsData!.tags[index].tag.name)
+                                                    : textWhite12Robo(recipeDetailsData!.tags[index].tag.name),
                                               ),
                                             ),
                                           );
@@ -231,7 +286,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                               sizedBoxWidth(3.w),
                               Text(
                                 // "30 Min",
-                                recipeDetailsData.cookingTime + " Min",
+                                recipeDetailsData!.cookingTime + " Min",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontFamily: 'StudioProM',
@@ -245,7 +300,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                     ],
                   ),
 
-                  DataTabBarView(recipeDetailsData)
+                  DataTabBarView()
                   // Expanded(
                   //   child: SizedBox(
                   //     // height: MediaQuery.of(context).size.height,
@@ -273,7 +328,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   }
 
   // ignore: non_constant_identifier_names
-  Widget DataTabBarView(Data recipeDetailsData) {
+  Widget DataTabBarView() {
     return Expanded(
       child: NestedScrollView(
         controller: _scrollViewController,
@@ -307,11 +362,12 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                        setState(() {
-                                          like = !like;
-                                        });
+                                        _handleLikeButton(recipeDetailsData!.id);
+                                        // setState(() {
+                                        //   like = !like;
+                                        // });
                                       },
-                                      child: !recipeDetailsData.liked
+                                      child: !recipeDetailsData!.liked
                                           ? Image.asset(
                                               'assets/icons/like.png',
                                               height: 18.h,
@@ -324,7 +380,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                             )),
                                   Text(
                                     // '23k',
-                                    recipeDetailsData.likes > 0 ? recipeDetailsData.likes.toString() : "",
+                                    recipeDetailsData!.likes > 0 ? recipeDetailsData!.likes.toString() : "",
                                     style: TextStyle(
                                         color: const Color(0xff020202),
                                         fontSize: 10.sp),
@@ -345,7 +401,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                     ),
                                   ),
                                   Text(
-                                    recipeDetailsData.comments > 0 ? recipeDetailsData.comments.toString() : "",
+                                    recipeDetailsData!.comments > 0 ? recipeDetailsData!.comments.toString() : "",
                                     style: TextStyle(
                                         color: const Color(0xff020202),
                                         fontSize: 10.sp),
@@ -370,12 +426,13 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                        setState(() {
-                                          save = !save;
-                                        });
+                                        _handleSaveButton(recipeDetailsData!.id);
+                                        // setState(() {
+                                        //   save = !save;
+                                        // });
                                         // save = !save;
                                       },
-                                      child: !recipeDetailsData.saved
+                                      child: !recipeDetailsData!.saved
                                           ? Image.asset(
                                               'assets/icons/save.png',
                                               height: 18.h,
@@ -421,7 +478,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                     borderRadius: BorderRadius.circular(32.h),
                                     image:  DecorationImage(
                                         // image: 
-                                  image: NetworkImage(ApiUrls.base + "${recipeDetailsData.user.profileImage}"),
+                                  image: NetworkImage(ApiUrls.base + "${recipeDetailsData!.user.profileImage}"),
 
                                         // AssetImage("assets/home/profile.png"),
                                         fit: BoxFit.cover)),
@@ -432,7 +489,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                 children: [
                                   Text(
                                     // "Namrata Burondkar",
-                                    recipeDetailsData.user.firstName + " " + recipeDetailsData.user.lastName,
+                                    recipeDetailsData!.user.firstName + " " + recipeDetailsData!.user.lastName,
                                     style: TextStyle(
                                         fontSize: 16.h,
                                         fontWeight: FontWeight.bold,
@@ -442,7 +499,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                   ),
                                   Text(
                                     // "@Namrata0",
-                                    "@${recipeDetailsData.user.username}",
+                                    "@${recipeDetailsData!.user.username}",
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: const Color(0xff979797),
@@ -459,7 +516,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                       ),
                                       Text(
                                         // "South Africa",
-                                        recipeDetailsData.user.location??"",
+                                        recipeDetailsData!.user.location??"",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                             fontSize: 14.sp,
@@ -471,38 +528,101 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                               ),
                             ],
                           ),
-                          Container(
-                            width: 80.w,
-                            // height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.r),
-                              border: Border.all(
-                                color: Color(0xFF3B3F43),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(5.h),
-                              child: Center(child: textgreyD14Robo("Following")
-                                  // Text(
-                                  //   "Following",
-                                  //   style: TextStyle(
-                                  //     fontFamily: "StudioProR",
-                                  //     fontSize: 14.sp,
-                                  //     fontWeight: FontWeight.w500,
-                                  //     color: Color(0xFF3B3F43),
-                                  //   ),
-                                  // ),
+
+                          myUserId == recipeDetailsData!.user.id 
+                          ? SizedBox()
+                        
+                          : GestureDetector(
+                            onTap: () {
+                              _handleFollowButton(
+                                userId: recipeDetailsData!.user.id,
+                                recipeId: recipeDetailsData!.id
+                                // recipeDetailsData!.user.id
+                              );
+                              // print("pressed");
+                              // _handleFollowButton(
+                              //     recipeData.user!.id!);
+                            },
+                            child: recipeDetailsData!.following
+                            // recipeData!.following!
+                                ? Container(
+                                    //     width: 60.w,
+                                    // height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.circular(
+                                              8.r),
+                                      border: Border.all(
+                                        color: const Color(
+                                            0xFF3B3F43),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(5.h),
+                                      child: Center(
+                                        child: textgreyD14Robo(
+                                            "Following"),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    //  width: 80.w,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          AppColors.greyD3B3F43,
+                                      borderRadius:
+                                          BorderRadius.circular(
+                                              8.r),
+                                      border: Border.all(
+                                          color: Colors
+                                              .grey.shade700),
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(5.h),
+                                      child: Center(
+                                        child: textWhite14Robo(
+                                            "Follow"),
+                                      ),
+                                    ),
                                   ),
-                            ),
                           ),
+                      
+                          // Container(
+                          //   width: 80.w,
+                          //   // height: 30,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(8.r),
+                          //     border: Border.all(
+                          //       color: Color(0xFF3B3F43),
+                          //     ),
+                          //   ),
+                          //   child: Padding(
+                          //     padding: EdgeInsets.all(5.h),
+                          //     child: Center(child: textgreyD14Robo("Following")
+                          //         // Text(
+                          //         //   "Following",
+                          //         //   style: TextStyle(
+                          //         //     fontFamily: "StudioProR",
+                          //         //     fontSize: 14.sp,
+                          //         //     fontWeight: FontWeight.w500,
+                          //         //     color: Color(0xFF3B3F43),
+                          //         //   ),
+                          //         // ),
+                          //         ),
+                          //   ),
+                          // ),
+                     
                         ],
                       ),
 
                       sizedBoxHeight(13.h),
 
                       Text(
-                        recipeDetailsData.description,
+                        recipeDetailsData!.description,
                           // "Lorem Ipsum is simply dummy text of the printing and ty..",
                           // maxLines: more ? null : 1,
                           style: TextStyle(
@@ -525,7 +645,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           ),
                           sizedBoxWidth(3.5.w),
                           Text(
-                            "${recipeDetailsData.servings} Serving",
+                            "${recipeDetailsData!.servings} Serving",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -539,7 +659,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                           ),
                           sizedBoxWidth(3.5.w),
                           Text(
-                            "30 Minutes",
+                            "${recipeDetailsData!.cookingTime} Minutes",
+                            // recipeDetailsData.cookingTime 
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -1169,108 +1290,20 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                       TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
                 ),
                 sizedBoxHeight(11.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "chomolia, finely chopped",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                    Text(
-                      "1 Bunch",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                  ],
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: recipeDetailsData!.ingredients.length,
+                  itemBuilder: (context, index) {
+                    final ingredientData = recipeDetailsData!.ingredients[index];
+                    return ingredientsTile(
+                      ingredientName: ingredientData.name,
+                      quantity: ingredientData.quantity
+                    );
+                  },
                 ),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                ),
-                sizedBoxHeight(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Onion, finely chopped",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                    Text(
-                      "1",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                ),
-                sizedBoxHeight(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Yellow pepper, finely chopped",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                    Text(
-                      "1",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                ),
-                sizedBoxHeight(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Olive oil",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                    Text(
-                      "2 TBS",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                ),
-                sizedBoxHeight(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Benny spice",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                    Text(
-                      "To Taste",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: const Color(0xff414141)),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                ),
-              ],
-            ),
-            sizedBoxHeight(30.h),
+                // ListView.builder(itemBuilder: itemBuilder)
+               
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1280,198 +1313,35 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                       TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
                 ),
                 sizedBoxHeight(15.h),
-                Container(
-                  height: 80.h,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xff7070705E)),
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 12.h),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        sizedBoxWidth(6.w),
-                        CircleAvatar(
-                          radius: 11.sp,
-                          backgroundColor: const Color(0xff6B6B6B),
-                          child: Text(
-                            "1",
-                            style:
-                                TextStyle(fontSize: 14.sp, color: Colors.white),
-                          ),
-                        ),
-                        sizedBoxWidth(7.w),
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: const Color(0xff707070),
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                sizedBoxHeight(14.h),
-                Container(
-                  height: 80.h,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xff7070705E)),
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 12.h),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        sizedBoxWidth(6.w),
-                        CircleAvatar(
-                          radius: 11.sp,
-                          backgroundColor: const Color(0xff6B6B6B),
-                          child: Text(
-                            "2",
-                            style:
-                                TextStyle(fontSize: 14.sp, color: Colors.white),
-                          ),
-                        ),
-                        sizedBoxWidth(7.w),
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: const Color(0xff707070),
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                sizedBoxHeight(14.h),
-                Container(
-                  // height: 80.h,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xff7070705E)),
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 12.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            sizedBoxWidth(6.w),
-                            CircleAvatar(
-                              radius: 11.sp,
-                              backgroundColor: const Color(0xff6B6B6B),
-                              child: Text(
-                                "3",
-                                style: TextStyle(
-                                    fontSize: 14.sp, color: Colors.white),
-                              ),
-                            ),
-                            sizedBoxWidth(7.w),
-                            Text(
-                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: const Color(0xff707070),
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ],
-                        ),
-                        sizedBoxHeight(6.h),
-                        Image.asset(
-                          "assets/Mask Group 24.png",
-                          height: 173.h,
-                          width: double.infinity,
-                          fit: BoxFit.fill,
-                        )
-                        // Image(
-                        //   height: 173.h,
-                        //   // fit:
-                        //   // ,
-                        //   width: double.infinity,
-                        //   image: AssetImage("assets/Mask Group 24.png",
-                        //     // heigh
-                        //   ))
-                      ],
-                    ),
-                  ),
-                ),
-                sizedBoxHeight(14.h),
-                Container(
-                  // height: 285.h,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Color(0xff7070705E)),
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 12.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            sizedBoxWidth(6.w),
-                            CircleAvatar(
-                              radius: 11.sp,
-                              backgroundColor: const Color(0xff6B6B6B),
-                              child: Text(
-                                "4",
-                                style: TextStyle(
-                                    fontSize: 14.sp, color: Colors.white),
-                              ),
-                            ),
-                            sizedBoxWidth(7.w),
-                            Text(
-                              "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: const Color(0xff707070),
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ],
-                        ),
 
-                        sizedBoxHeight(6.h),
-                        Image.asset(
-                          "assets/Mask Group 25.png",
-                          height: 173.h,
-                          width: double.infinity,
-                          fit: BoxFit.fill,
-                        )
-                        // const Image(
-                        //     image: AssetImage("assets/Mask Group 25.png")),
-                      ],
-                    ),
-                  ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: recipeDetailsData!.instruction.length,
+                  itemBuilder: (context, index) {
+                    final instructionData = recipeDetailsData!.instruction[index];
+                    return instructionTile(
+                      index: index,
+                      instructionText: instructionData.instructions,
+                      imageUrl: instructionData.coverImage?? ""
+                    );
+                  },
                 ),
-                sizedBoxHeight(42.h),
+
+                // sizedBoxHeight(42.h),
               ],
             ),
-            const Divider(
-              height: 0,
-            ),
-            sizedBoxHeight(20.h),
+            // const Divider(
+            //   height: 0,
+            // ),
+            sizedBoxHeight(10.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16),
+                  padding: const EdgeInsets.only(left: 0),
                   child: Text(
-                    'Other Recipes By @Priyujoshi',
+                    'Other Recipes By @${recipeDetailsData!.user.username}',
                     style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
                   ),
                 ),
@@ -1483,14 +1353,15 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16),
+                    padding: const EdgeInsets.only(left: 0),
                     child: SizedBox(
                       height: 155.h,
                       child: ListView.separated(
-                        itemCount: 5,
+                        itemCount: allUserRecipes!.length,
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
+
                           return OtherRecipeCard();
                         },
                         separatorBuilder: (context, index) {
@@ -1645,7 +1516,9 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             )
           ],
         ),
+          ]
       ),
+      )
     );
   }
 
@@ -1730,5 +1603,113 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             ],
           ),
         ));
+  }
+
+  Widget ingredientsTile({required String ingredientName, required String quantity}){
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              // "chomolia, finely chopped",
+              ingredientName,
+              style: TextStyle(
+                  fontSize: 14.sp, color: const Color(0xff414141)),
+            ),
+            Text(
+              // "1 Bunch",
+              quantity,
+              style: TextStyle(
+                  fontSize: 14.sp, color: const Color(0xff414141)),
+            ),
+          ],
+        ),
+        const Divider(
+          height: 1,
+          thickness: 0.5,
+        ),
+        sizedBoxHeight(15.h),
+      ],
+    );
+  }
+
+  Widget instructionTile({
+    required int index,
+    required String instructionText,
+    required String imageUrl
+  }){
+    return Column(
+      children: [
+        Container(
+          // height: 80.h,
+          decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Color(0xff7070705E)),
+                borderRadius: BorderRadius.circular(8)),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(top: 12.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    sizedBoxWidth(6.w),
+                    CircleAvatar(
+                      radius: 11.sp,
+                      backgroundColor: const Color(0xff6B6B6B),
+                      child: Text(
+                        // "3",
+                        (index + 1).toString(),
+                        style: TextStyle(
+                            fontSize: 14.sp, color: Colors.white),
+                      ),
+                    ),
+                    sizedBoxWidth(7.w),
+                    Text(
+                      instructionText,
+                      // "Lorem Ipsum is simply dummy text of the printing \nand typesetting industry.",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: const Color(0xff707070),
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                  ],
+                ),
+                sizedBoxHeight(6.h),
+                // Image.asset(
+                //   "assets/Mask Group 24.png",
+                //   height: 173.h,
+                //   width: double.infinity,
+                //   fit: BoxFit.fill,
+                // )
+                Image.network(
+                  ApiUrls.base + imageUrl,
+                  height: 173.h,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                )
+
+                // NetworkImage(
+                //   ApiUrls.base + imageUrl
+                // )
+                // Image(
+                //   height: 173.h,
+                //   // fit:
+                //   // ,
+                //   width: double.infinity,
+                //   image: AssetImage("assets/Mask Group 24.png",
+                //     // heigh
+                //   ))
+              ],
+            ),
+          ),
+        ),
+        sizedBoxHeight(14.h),
+      ],
+    );
   }
 }

@@ -496,7 +496,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                         // index.isEven
                         //     ? AssetImage("assets/home/17.png")
                         //     :
-                            NetworkImage(ApiUrls.base + recipeData.coverImage!),
+                            NetworkImage(ApiUrls.base + "${recipeData.coverImage}"),
                         fit: BoxFit.cover
                         // Image.asset("name")
                         )),
@@ -545,7 +545,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                         // index.isEven
                         //     ? AssetImage("assets/home/17.png")
                         //     :
-                            NetworkImage(ApiUrls.base + savedRecipeData.coverImage),
+                            NetworkImage(ApiUrls.base + "${savedRecipeData.coverImage}"),
                         fit: BoxFit.cover
                         // Image.asset("name")
                         )),

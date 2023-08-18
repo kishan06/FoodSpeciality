@@ -53,7 +53,7 @@ class Data {
   late final Null bio;
   late final Null location;
   late final Null socialLinks;
-  late final String lastLogin;
+  late final String? lastLogin;
   late final bool online;
   late final String role;
   late final int followers;

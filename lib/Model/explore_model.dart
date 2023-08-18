@@ -1,29 +1,25 @@
-class UserSaved {
-  UserSaved({
-    required this.success,
-    required this.data,
+class ExploreModel {
+  ExploreModel({
+    required this.recipes,
   });
-  late final bool success;
-  late final List<Data> data;
+  late final List<Recipes> recipes;
   
-  UserSaved.fromJson(Map<String, dynamic> json){
-    success = json['success'];
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+  ExploreModel.fromJson(Map<String, dynamic> json){
+    recipes = List.from(json['recipes']).map((e)=>Recipes.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['success'] = success;
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['recipes'] = recipes.map((e)=>e.toJson()).toList();
     return _data;
   }
 }
 
-class Data {
-  Data({
+class Recipes {
+  Recipes({
     required this.id,
-    required this.video,
-    required this.coverImage,
+     this.video,
+     this.coverImage,
     required this.name,
     required this.description,
     required this.difficulty,
@@ -49,9 +45,9 @@ class Data {
   late final String userId;
   late final String publishedStatus;
   
-  Data.fromJson(Map<String, dynamic> json){
+  Recipes.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    video = json['video'];
+    video = null;
     coverImage = json['cover_image'];
     name = json['name'];
     description = json['description'];

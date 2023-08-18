@@ -119,6 +119,7 @@ class GetCommentsController extends GetxController {
 
   Future<Replies> getReplies({required String commentId}) async {
     try {
+      print("getReplies");
       var headers = {
         'x-auth-token': accessToken!,
 
@@ -139,6 +140,7 @@ class GetCommentsController extends GetxController {
         ),
         data: data,
       );
+      print(response.data);
 
       if (response.statusCode == 200) {
         // print(json.encode(response.data));
@@ -199,5 +201,51 @@ class GetCommentsController extends GetxController {
       throw Exception('Failed to load replies');
     }
   }
+
+  Future<bool?> addReplyApi({required String reply, required String commentId, required String recipeId}) async {
+    try {
+      print(addReplyApi);
+      var headers = {
+        'x-auth-token': accessToken!,
+        // 'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc',
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse(ApiUrls.addReply));
+      request.body = json.encode({
+        "reply": reply,
+        "commentId": commentId
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      // var headers = {
+      //   'x-auth-token': accessToken!,
+      //   'Content-Type': 'application/json'
+      // };
+      // var request = http.Request('POST', Uri.parse(ApiUrls.addComments));
+      // request.body = json.encode({
+      //   "comment": commment,
+      //   "recipeId": recipeId
+      // });
+      // request.headers.addAll(headers);
+
+      // http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        getCommentsData(recipeId);
+        return true;
+      }
+      else {
+        print(response.reasonPhrase);
+        Get.snackbar("Error", "Something went wrong");
+      }
+    } catch (e) {
+      // Get.snackbar("Error", e.toString());
+      Get.snackbar("Error", "Something went wrong");
+
+    }
+  }
+
 
 }
