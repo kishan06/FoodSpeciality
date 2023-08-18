@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/Model/MessageModel.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/services/community_chatdetails_service.dart';
+import 'package:foodspeciality/services/delete_community_service.dart';
+import 'package:foodspeciality/services/exit_community_service.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -26,10 +29,44 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
   final communityId = Get.arguments["communityId"];
   final communityProfileImage = Get.arguments["communityProfileImage"];
   final communityName = Get.arguments["communityName"];
+  final communityDescription = Get.arguments["communityDescription"];
   final communitymembers = Get.arguments["members"];
+  final membersName = Get.arguments["membersName"];
+  final membersProfileImage = Get.arguments["membersPrifileImage"];
+  final membersId = Get.arguments["membersId"];
+  final memberFirstname = Get.arguments["memberFirstname"];
+  final adminId = Get.arguments["adminId"];
 
   List<CommunityMessageModel> Commessages = [];
   Future<CommunityChatDetailModel>? myfuture;
+
+  void _handleExitCommunityButton(id) async {
+    try {
+      var resp = await ExitCommunityService.exitCommunity(id ?? "");
+      if (resp) {
+        Get.to(() => BottomBar(
+              selectedIndex: 3,
+            ));
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
+
+  void _handleDeleteCommunityButton(id) async {
+    try {
+      var resp = await DeleteCommunityService.deleteCommunity(id ?? "");
+      if (resp) {
+        Get.to(() => BottomBar(
+              selectedIndex: 3,
+            ));
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
 
   @override
   void initState() {
@@ -167,7 +204,16 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed("/ViewCommunity");
+                        Get.toNamed("/ViewCommunity", arguments: {
+                          "communityId": communityId,
+                          "communityProfileImage": communityProfileImage,
+                          "communityName": communityName,
+                          "communitymembers": communitymembers,
+                          "membersName": membersName,
+                          "membersProfileImage": membersProfileImage,
+                          "membersId": membersId,
+                          "memberFirstname": memberFirstname
+                        });
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -195,7 +241,6 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                   ),
                   PopupMenuButton(
                     padding: const EdgeInsets.all(4),
-                    //  offset: const Offset(0, 50),
                     color: const Color(0xFFFFFFFF),
                     tooltip: '',
                     child: const Icon(
@@ -210,40 +255,36 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                     },
                     itemBuilder: (BuildContext bc) {
                       return [
-                        PopupMenuItem(
-                          onTap: () => Get.back(),
-                          value: '',
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.delete_outline_rounded,
-                                    size: 24.sp,
-                                  ),
-                                  // SvgPicture.asset(
-                                  //   "assets/question-circle-svgrepo-com.svg",
-                                  //   height: 20,
-                                  //   width: 20,
-                                  // ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Text(
-                                    "Delete",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "Roboto",
-                                        fontSize: 16.sp),
-                                  ),
-                                ],
-                              ),
-                              //    Divider()
-                            ],
+                        if (adminId == myUserId)
+                          PopupMenuItem(
+                            onTap: () =>
+                                _handleDeleteCommunityButton(communityId),
+                            value: '',
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.delete_outline_rounded,
+                                      size: 24.sp,
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text(
+                                      "Delete Community",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: "Roboto",
+                                          fontSize: 16.sp),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                         PopupMenuItem(
-                          onTap: () => Get.back(),
+                          onTap: () => _handleExitCommunityButton(communityId),
                           value: '',
                           child: Column(
                             children: [
@@ -256,12 +297,12 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                                   const SizedBox(
                                     width: 15,
                                   ),
-                                  const Text(
+                                  Text(
                                     "Exit Community",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontFamily: "Roboto",
-                                        fontSize: 16),
+                                        fontSize: 16.sp),
                                   ),
                                 ],
                               ),
@@ -429,87 +470,3 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
     );
   }
 }
-
-// class CommunitySender extends StatelessWidget {
-//   const CommunitySender({
-//     super.key,
-//     this.message,
-//   });
-
-//   final String? message;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-//       child: Align(
-//         alignment: Alignment.topRight,
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisAlignment: MainAxisAlignment.end,
-//           children: [
-//             Container(
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.only(
-//                   topLeft: Radius.circular(25.r),
-//                   bottomLeft: Radius.circular(25.r),
-//                   topRight: Radius.circular(25.r),
-//                 ),
-//                 color: const Color(0xFFE1E1E1),
-//               ),
-//               padding: EdgeInsets.all(16.sp),
-//               child: Text(
-//                 message!,
-//                 style: TextStyle(
-//                     fontFamily: "Roboto", fontSize: 15.sp, color: Colors.black),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class CommunityReciever extends StatelessWidget {
-//   const CommunityReciever({super.key, this.message, this.profileimage});
-//   final String? message;
-//   final dynamic profileimage;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 10.w),
-//       child: Align(
-//         alignment: Alignment.topLeft,
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             SizedBox(
-//               width: 40.w,
-//               height: 40.h,
-//               child: ClipRRect(
-//                   borderRadius: BorderRadius.circular(100.r),
-//                   child: NetworkImage(profileimage)),
-//             ),
-//             SizedBox(width: 10.w),
-//             Container(
-//               decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.only(
-//                     topRight: Radius.circular(25.r),
-//                     topLeft: Radius.circular(25.r),
-//                     bottomRight: Radius.circular(25.r),
-//                   ),
-//                   color: const Color(0xFFF2F2F2)),
-//               padding: EdgeInsets.all(16.sp),
-//               child: Text(
-//                 message!,
-//                 style: TextStyle(fontFamily: "Roboto", fontSize: 15.sp),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

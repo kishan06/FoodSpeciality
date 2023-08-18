@@ -20,7 +20,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final TextEditingController _filterController = TextEditingController();
   String _filterUsername = '';
-
+  final communitykey = GlobalKey<FormState>();
   @override
   void dispose() {
     _filterController.dispose();
@@ -104,6 +104,41 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                 ),
                           )
                           .toList();
+
+                      // community member username
+                      List<String> memberUsernames = [];
+
+                      for (var chatRoom in filteredCommunityChatRooms) {
+                        for (var member in chatRoom.members!) {
+                          memberUsernames.add(member.user!.username!);
+                        }
+                      }
+
+                      // community member profile image
+                      List<String> memberProfileImage = [];
+                      for (var chatRoom in filteredCommunityChatRooms) {
+                        for (var member in chatRoom.members!) {
+                          memberProfileImage
+                              .add(member.user!.profileImage ?? "");
+                        }
+                      }
+
+                      // community member id
+                      List<String> membersId = [];
+                      // for (var chatRoom in filteredCommunityChatRooms) {
+                      //   for (var member in chatRoom.members!) {
+                      //     membersId.add(member.user!.id!);
+                      //   }
+                      // }
+
+                      // community member first name
+                      List<String> memberFirstname = [];
+                      for (var chatRoom in filteredCommunityChatRooms) {
+                        for (var member in chatRoom.members!) {
+                          memberFirstname.add(member.user!.firstName!);
+                        }
+                      }
+
                       return ListView.builder(
                         itemCount: filteredCommunityChatRooms.length,
                         shrinkWrap: true,
@@ -119,6 +154,9 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                       filteredCommunityChatRooms[index].id,
                                   "communityName":
                                       filteredCommunityChatRooms[index].name,
+                                  "communityDescription":
+                                      filteredCommunityChatRooms[index]
+                                          .description,
                                   "communityProfileImage":
                                       filteredCommunityChatRooms[index]
                                           .profileImage,
@@ -126,6 +164,12 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                       .members!
                                       .length
                                       .toString(),
+                                  "membersName": memberUsernames,
+                                  "membersPrifileImage": memberProfileImage,
+                                  "membersfirstname": memberFirstname,
+                                  "membersId": filteredCommunityChatRooms[index].members,
+                                  "adminId":
+                                      filteredCommunityChatRooms[index].adminId,
                                 },
                               );
                               CommunityChatDetailService()
@@ -283,6 +327,8 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
   }
 
   Widget addCommunityDailog() {
+    TextEditingController communityName = TextEditingController();
+    TextEditingController description = TextEditingController();
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -297,118 +343,132 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
             ),
             child: Padding(
               padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 25.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Icon(
-                          Icons.close,
-                          size: 30.h,
-                          color: AppColors.greyM707070,
+              child: Form(
+                key: communitykey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(
+                            Icons.close,
+                            size: 30.h,
+                            color: AppColors.greyM707070,
+                          ),
                         ),
+                      ],
+                    ),
+                    sizedBoxHeight(20.h),
+                    SizedBox(
+                      width: 200.w,
+                      // height: 30.h,
+                      child: TextFormField(
+                        //    controller: communityName,
+                        style: TextStyle(
+                            color: const Color(0xFF979797),
+                            fontSize: 20.sp,
+                            fontFamily: "StudioProR"),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: const Color(0xFF979797),
+                              fontSize: 20.sp,
+                              fontFamily: "StudioProR"),
+                          hintText: "Community Name",
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ],
-                  ),
-                  sizedBoxHeight(20.h),
-                  SizedBox(
-                    width: 200.w,
-                    // height: 30.h,
-                    child: TextFormField(
+                    ),
+                    sizedBoxHeight(15.h),
+                    TextFormField(
+                      //     controller: description,
                       style: TextStyle(
                           color: const Color(0xFF979797),
                           fontSize: 20.sp,
                           fontFamily: "StudioProR"),
+                      cursorColor: const Color(0xFFFFB600),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(14.sp),
                         filled: true,
                         fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide(color: Colors.red, width: 1.w),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide(color: Colors.red, width: 1.w),
+                        ),
                         hintStyle: TextStyle(
-                            color: const Color(0xFF979797),
-                            fontSize: 20.sp,
-                            fontFamily: "StudioProR"),
-                        hintText: "Community Name",
+                            fontFamily: "StudioProR",
+                            color: const Color(0x80000000),
+                            fontSize: 17.sp),
+                        hintText: "Community Description",
                       ),
-                      textAlign: TextAlign.center,
+                      minLines: 4,
+                      maxLines: null,
                     ),
-                  ),
-                  sizedBoxHeight(15.h),
-                  TextFormField(
-                    style: TextStyle(
-                        color: const Color(0xFF979797),
-                        fontSize: 20.sp,
-                        fontFamily: "StudioProR"),
-                    cursorColor: const Color(0xFFFFB600),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(14.sp),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                        borderSide: BorderSide(
-                            color: const Color(0xFF979797), width: 0.5.w),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                        borderSide: BorderSide(
-                            color: const Color(0xFF979797), width: 0.5.w),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                        borderSide: BorderSide(
-                            color: const Color(0xFF979797), width: 0.5.w),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.r),
-                        borderSide: BorderSide(color: Colors.red, width: 1.w),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.r),
-                        borderSide: BorderSide(color: Colors.red, width: 1.w),
-                      ),
-                      hintStyle: TextStyle(
-                          fontFamily: "StudioProR",
-                          color: const Color(0x80000000),
-                          fontSize: 17.sp),
-                      hintText: "Community Description",
+                    sizedBoxHeight(15.h),
+                    SizedBox(
+                      height: 50.h,
+                      width: 170.w,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            // ignore: deprecated_member_use
+                            primary: const Color(0xFF3B3F43),
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(color: Color(0xFF707070)),
+                              borderRadius: BorderRadius.circular(8.h),
+                            ),
+                          ),
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontFamily: 'StudioProR',
+                            ),
+                          ),
+                          onPressed: () {
+                            final FormState? form = communitykey.currentState;
+                            if (form != null && form.validate()) {
+                              // Validated successfully
+                              Get.toNamed(
+                                "/communityaddparticipants",
+                                arguments: {
+                                  "name": communityName.text,
+                                  "description": description.text,
+                                },
+                              );
+                            }
+                          }),
                     ),
-                    minLines: 4,
-                    maxLines: null,
-                  ),
-                  sizedBoxHeight(15.h),
-                  SizedBox(
-                    height: 50.h,
-                    width: 170.w,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        // ignore: deprecated_member_use
-                        primary: const Color(0xFF3B3F43),
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(color: Color(0xFF707070)),
-                          borderRadius: BorderRadius.circular(8.h),
-                        ),
-                      ),
-                      child: Text(
-                        "Next",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.sp,
-                          fontFamily: 'StudioProR',
-                        ),
-                      ),
-                      onPressed: () {
-                        Get.toNamed("communityaddparticipants");
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

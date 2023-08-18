@@ -34,7 +34,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // GetCommentsController commentsContoller = Get.put(GetCommentsController());
-
+  final createcommunitykey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -55,7 +55,10 @@ class _HomeState extends State<Home> {
                   color: AppColors.greyLtEBEBEB,
                   // color: Colors.red,
 
-                  child: TabBarView(children: [tabbarView1(), Ingridents()]),
+                  child: TabBarView(children: [
+                    tabbarView1(createcommunitykey),
+                    Ingridents()
+                  ]),
                 ),
               )
             ],
@@ -63,7 +66,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget tabbarView1() {
+  Widget tabbarView1(createcommunitykey) {
     return Column(
       children: [
         Container(
@@ -101,7 +104,8 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => addCommunityDailog());
+                          builder: (context) =>
+                              addCommunityDailog(createcommunitykey));
                     }),
                   ),
 
@@ -116,8 +120,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget addCommunityDailog() {
-  final _createcommunitykey = GlobalKey<FormState>();
+Widget addCommunityDailog(createcommunitykey) {
   TextEditingController communityName = TextEditingController();
   TextEditingController description = TextEditingController();
 
@@ -136,7 +139,7 @@ Widget addCommunityDailog() {
           child: Padding(
             padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 25.h),
             child: Form(
-              key: _createcommunitykey,
+              key: createcommunitykey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -270,8 +273,7 @@ Widget addCommunityDailog() {
                       //   }
                       // },
                       onPressed: () {
-                        final FormState? form =
-                            _createcommunitykey.currentState;
+                        final FormState? form = createcommunitykey.currentState;
                         if (form != null && form.validate()) {
                           // Validated successfully
                           Get.toNamed(

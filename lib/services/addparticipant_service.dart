@@ -4,13 +4,12 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void createCommunity(
-    String accessToken, List selectedIds, String name, String desp) async {
-  const String apiUrl = ApiUrls.createCommunity;
+void addParticipants(
+    String accessToken, List selectedIds, String communityId) async {
+  const String apiUrl = ApiUrls.addparticipants;
 
   final Map<String, dynamic> requestBody = {
-    "name": name,
-    "description": desp,
+    "communityId": communityId,
     "members": selectedIds.map((id) => id.toString()).toList(),
   };
 
@@ -28,17 +27,18 @@ void createCommunity(
 
     if (response.statusCode == 200) {
       // Request successful, do something with the response
-      print('Community created successfully');
+
       Get.to(() => BottomBar(
             selectedIndex: 3,
           ));
+      print('participant added successfully');
       print(response.body);
     } else {
       // Request failed, handle the error
-      print('Failed to create community. Error: ${response.statusCode}');
+      print('Failed to add participant. Error: ${response.statusCode}');
     }
   } catch (error) {
     // Exception occurred during the request
-    print('Error creating community: $error');
+    print('Error adding participants: $error');
   }
 }

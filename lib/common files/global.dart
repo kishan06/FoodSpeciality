@@ -48,6 +48,8 @@ class ApiUrls {
   static const privatechatdetails = _base + "user/chats";
   static const communitychatdetails = _base + "community/chats";
   static const report = _base + "report/create";
-
+  static const exitcommunity = _base + "user/community/exit";
+  static const deletecommunity = _base + "user/community/delete";
+  static const addparticipants = _base + "community/members/add";
   // static const commentReplies = _base + "recipe/get-replies";
 }

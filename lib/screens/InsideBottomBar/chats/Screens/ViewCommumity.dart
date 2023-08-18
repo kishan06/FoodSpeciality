@@ -17,12 +17,15 @@ class ViewCommunity extends StatefulWidget {
 }
 
 class _ViewCommunityState extends State<ViewCommunity> {
-  List participants = [
-    "Akanksha Surve",
-    "Namrata Burondkar",
-    "Mokshada Kesarkar",
-    "Aishwarya Raut"
-  ];
+  final communityId = Get.arguments["communityId"];
+  final communityProfileImage = Get.arguments["communityProfileImage"];
+  final communityName = Get.arguments["communityName"];
+  final communitymembers = Get.arguments["communitymembers"];
+  final communityDescription = Get.arguments["communityDescription"];
+  final membersName = Get.arguments["membersName"];
+  final membersProfileImage = Get.arguments["membersProfileImage"];
+  final membersId = Get.arguments["membersId"];
+  final memberFirstname = Get.arguments["memberFirstname"];
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +83,9 @@ class _ViewCommunityState extends State<ViewCommunity> {
                             // offset: Offset(0, 3), // changes the position of the shadow
                           ),
                         ],
-                        image: const DecorationImage(
-                            image: AssetImage("assets/community.png"),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "http://77.68.102.23:8000/${communityProfileImage}"),
                             fit: BoxFit.cover)),
                     // child: YourChildWidget(),
                   ),
@@ -93,7 +97,7 @@ class _ViewCommunityState extends State<ViewCommunity> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "WDIPL",
+                        communityName ?? "",
                         style: TextStyle(
                             fontFamily: "StudioProR",
                             fontSize: 16.sp,
@@ -103,13 +107,13 @@ class _ViewCommunityState extends State<ViewCommunity> {
                         height: 6.h,
                       ),
                       Text(
-                        "Group 4 Participants",
+                        "$communitymembers Participants",
                         style: TextStyle(
                             color: const Color(0xFF3B3F43), fontSize: 13.sp),
                       ),
                       sizedBoxHeight(16.h),
                       Text(
-                        "Lorem Ipsum is a simple dummy text.Lorem Ipsum is a simple dummy text.",
+                        communityDescription ?? "",
                         style: TextStyle(
                             color: const Color(0xFF3B3F43), fontSize: 13.sp),
                         textAlign: TextAlign.center,
@@ -183,62 +187,62 @@ class _ViewCommunityState extends State<ViewCommunity> {
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 22.h),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Stack(
-                              children: [
-                                CircleAvatar(
-                                  radius: 32.r,
-                                  backgroundColor: AppColors.grey54595F,
-                                  // color: Color(0xFF54595F),
-                                ),
-                                const Positioned.fill(
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/icons/Vector.png")),
-                                )
-                              ],
-                            ),
-
-                            sizedBoxWidth(10.w),
-
-                            textgreyD16BoldSP("Add participants"),
-                            // Expanded(
-                            //   child: SizedBox(
-                            //     // width: 340.w,
-                            //     height: 25.h,
-                            //     child: TextFormField(
-                            //       style: TextStyle(
-                            //           color: Colors.black,
-                            //           fontFamily: "Roboto",
-                            //           fontSize: 16.sp),
-                            //       decoration: InputDecoration(
-                            //         contentPadding: EdgeInsets.only(bottom: 12),
-                            //         border: InputBorder.none,
-                            //         filled: true,
-                            //         fillColor: Colors.white,
-                            //         hintStyle: TextStyle(
-                            //             color: Color.fromRGBO(151, 151, 151, 0.48),
-                            //             fontFamily: "Roboto",
-                            //             fontSize: 16.sp),
-                            //         hintText: "South Africa,Western Cape",
-                            //       ),
-                            //       textAlign: TextAlign.start,
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed("/addparticipantsexistingcommunity",
+                                arguments: {
+                                  "communityId": communityId,
+                                  "membersName": membersName,
+                                  "membersProfileImage": membersProfileImage,
+                                  "membersId": membersId,
+                                  "memberFirstname": memberFirstname
+                                });
+                          },
+                          child: Row(
+                            children: [
+                              Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 32.r,
+                                    backgroundColor: AppColors.grey54595F,
+                                    // color: Color(0xFF54595F),
+                                  ),
+                                  const Positioned.fill(
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/icons/Vector.png")),
+                                  )
+                                ],
+                              ),
+                              sizedBoxWidth(10.w),
+                              textgreyD16BoldSP("Add participants"),
+                            ],
+                          ),
                         ),
                         sizedBoxHeight(30.h),
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: participants.length,
+                          itemCount: int.parse(communitymembers),
                           separatorBuilder: (context, index) {
                             return sizedBoxHeight(20.h);
                           },
                           itemBuilder: (context, index) {
-                            return participantsList(participants[index]);
+                            return Row(
+                              children: [
+                                Container(
+                                  width: 60.h,
+                                  height: 60.h,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(image: NetworkImage(
+                                          // "http://77.68.102.23:8000/${membersProfileImage[index] ?? ""}"),
+                                          ""), fit: BoxFit.cover)),
+                                ),
+                                sizedBoxWidth(10.w),
+                                textBlack18bold(membersName[index]),
+                              ],
+                            );
                           },
                         ),
                         sizedBoxHeight(40.h),
@@ -261,28 +265,6 @@ class _ViewCommunityState extends State<ViewCommunity> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget participantsList(String name) {
-    return Row(
-      children: [
-        Container(
-          width: 60.h,
-          height: 60.h,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage("assets/home/profile.png"),
-                  fit: BoxFit.cover)),
-        ),
-
-        sizedBoxWidth(10.w),
-
-        textBlack18bold(name),
-
-        // sizedBoxHeight(20.h)
-      ],
     );
   }
 }
