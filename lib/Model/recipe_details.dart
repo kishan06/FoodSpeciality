@@ -5,12 +5,12 @@ class RecipeDetails {
     required this.allrecipeDetails,
   });
   late final bool status;
-  late final List<Data> data;
+  late final List<RecipeData> data;
   late final List<AllrecipeDetails> allrecipeDetails;
   
   RecipeDetails.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    data = List.from(json['data']).map((e)=>RecipeData.fromJson(e)).toList();
     allrecipeDetails = List.from(json['allrecipeDetails']).map((e)=>AllrecipeDetails.fromJson(e)).toList();
   }
 
@@ -23,8 +23,8 @@ class RecipeDetails {
   }
 }
 
-class Data {
-  Data({
+class RecipeData {
+  RecipeData({
     required this.id,
      this.video,
      this.coverImage,
@@ -75,7 +75,7 @@ class Data {
   late final bool saved;
   late final bool following;
   
-  Data.fromJson(Map<String, dynamic> json){
+  RecipeData.fromJson(Map<String, dynamic> json){
     id = json['id'];
     video = null;
     coverImage = json['cover_image'];

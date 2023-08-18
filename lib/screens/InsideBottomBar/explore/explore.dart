@@ -463,11 +463,15 @@ class _ExploreState extends State<Explore> {
                             mainAxisSpacing: 7.w,
                           ),
                           itemBuilder: (BuildContext context, int index) {
+                            final recipeData = controllerExplore.exploreJson!.recipes[index];
                             // print(index);
                             // print(ApiUrls.base + "${controllerExplore.exploreJson!.recipes[index].coverImage}");
                             return InkWell(
                               onTap: () {
-                                Get.toNamed("/InspirationRecipeComment");
+                                Get.toNamed("/InspirationRecipeComment",
+                                  arguments: recipeData.id
+                                );
+                                print(recipeData.id);
                               },
                               child: Container(
                                 decoration: BoxDecoration(

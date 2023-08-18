@@ -15,9 +15,12 @@ import 'package:foodspeciality/services/view_recipe_contro.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../Model/Replies.dart';
 import '../Model/recipe_details.dart';
 import '../services/follow_service.dart';
+import '../services/get_comments.dart';
 import '../services/like_service.dart';
 import '../services/save_recipe.dart';
 import 'filter_bottom_sheet.dart';
@@ -41,7 +44,15 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   bool save = false;
 
   HomeController controllerHome = Get.put(HomeController());
+  GetCommentsController commentsContoller = Get.put(GetCommentsController());
+
   ViewRecipeController viewRecipeController  = Get.put(ViewRecipeController());
+  var isReply = false.obs;
+  FocusNode _focusNode = FocusNode();
+   String? commentIdForReply;
+
+
+
 
   List tags = [
     "Limpopo",
@@ -52,17 +63,20 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     "Flavour explosions"
   ];
 
-  Data? recipeDetailsData;
+  RecipeData? recipeDetailsData;
 
   List<AllrecipeDetails>? allUserRecipes;
+  var recipeId;
   
 
   @override
   void initState() {
     super.initState();
-    final recipeId = Get.arguments;
+    recipeId = Get.arguments;
     print(recipeId + " reci");
     viewRecipeController.getRecipeDetails(recipeId: recipeId);
+    commentsContoller.getCommentsData(recipeId);
+
   }
 
   @override
@@ -154,168 +168,174 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             else {
               recipeDetailsData = viewRecipeController.recipeDetails!.data[0];
               allUserRecipes = viewRecipeController.recipeDetails!.allrecipeDetails;
-              return Column(
-                children: [
-                  // sizedBoxHeight(8.h),
-                  Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 258.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: 
-                            NetworkImage(ApiUrls.base + "${recipeDetailsData!.coverImage}"),
-                            // AssetImage("assets/Mask Group 14.png"),
-                            fit: BoxFit.cover,
+              return GestureDetector(
+                onTap: (){
+                  isReply.value = false;
+                  _focusNode.unfocus();
+                },
+                child: Column(
+                  children: [
+                    // sizedBoxHeight(8.h),
+                    Stack(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 258.h,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: 
+                              NetworkImage(ApiUrls.base + "${recipeDetailsData!.coverImage}"),
+                              // AssetImage("assets/Mask Group 14.png"),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  sizedBoxHeight(26.h),
-                                  GestureDetector(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: SvgPicture.asset(
-                                        'assets/Path 39.svg',
-                                        height: 18.h,
-                                        width: 27.w,
-                                      )),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/media-play-circle-svgrepo-com.svg",
-                                    height: 63.h,
-                                    width: 63.h,
-                                  ),
-                                  sizedBoxHeight(30.h),
-                                  sizedBoxHeight(5.h),
-                                  Container(
-                                    decoration: BoxDecoration(boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.9),
-                                        blurRadius: 25.0, // soften the shadow
-                                        spreadRadius: 20.0, //extend the shadow
-                                        offset: const Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ]),
-                                    height: 35.h,
-                                    width: double.infinity,
-                                    child: Text(
-                                      // "Chomolia Recipe",
-                                      recipeDetailsData!.name,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20.sp),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    sizedBoxHeight(26.h),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: SvgPicture.asset(
+                                          'assets/Path 39.svg',
+                                          height: 18.h,
+                                          width: 27.w,
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/media-play-circle-svgrepo-com.svg",
+                                      height: 63.h,
+                                      width: 63.h,
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: SizedBox(
-                                      height: 27.h,
-                                      child: ListView.separated(
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(width: 5.w);
-                                        },
-                                        scrollDirection: Axis.horizontal,
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: recipeDetailsData!.tags.length,
-                                        // tags.length,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                selectedVideoIndex = index;
-                                                // listCardData[index]["selectedVideoInde"] = index;
-                                              });
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15.h),
-                                                  color: index == selectedVideoIndex
-                                                      ? AppColors.white
-                                                          .withOpacity(0.7)
-                                                      : AppColors.greyD3B3F43
-                                                          .withOpacity(0.7)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 7.w, vertical: 5.h),
-                                                child: selectedVideoIndex == index
-                                                    ? textgreyD12Robo(recipeDetailsData!.tags[index].tag.name)
-                                                    : textWhite12Robo(recipeDetailsData!.tags[index].tag.name),
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                    sizedBoxHeight(30.h),
+                                    sizedBoxHeight(5.h),
+                                    Container(
+                                      decoration: BoxDecoration(boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.9),
+                                          blurRadius: 25.0, // soften the shadow
+                                          spreadRadius: 20.0, //extend the shadow
+                                          offset: const Offset(
+                                            5.0, // Move to right 5  horizontally
+                                            5.0, // Move to bottom 5 Vertically
+                                          ),
+                                        )
+                                      ]),
+                                      height: 35.h,
+                                      width: double.infinity,
+                                      child: Text(
+                                        // "Chomolia Recipe",
+                                        recipeDetailsData!.name,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20.sp),
                                       ),
                                     ),
-                                  ),
-                                  sizedBoxHeight(8.h),
-                                ],
-                              )
-                            ],
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        height: 27.h,
+                                        child: ListView.separated(
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(width: 5.w);
+                                          },
+                                          scrollDirection: Axis.horizontal,
+                                          physics: const BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: recipeDetailsData!.tags.length,
+                                          // tags.length,
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedVideoIndex = index;
+                                                  // listCardData[index]["selectedVideoInde"] = index;
+                                                });
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(15.h),
+                                                    color: index == selectedVideoIndex
+                                                        ? AppColors.white
+                                                            .withOpacity(0.7)
+                                                        : AppColors.greyD3B3F43
+                                                            .withOpacity(0.7)),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 7.w, vertical: 5.h),
+                                                  child: selectedVideoIndex == index
+                                                      ? textgreyD12Robo(recipeDetailsData!.tags[index].tag.name)
+                                                      : textWhite12Robo(recipeDetailsData!.tags[index].tag.name),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    sizedBoxHeight(8.h),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 80.h,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.access_time,
-                                size: 14.sp,
-                                color: Colors.white,
-                              ),
-                              sizedBoxWidth(3.w),
-                              Text(
-                                // "30 Min",
-                                recipeDetailsData!.cookingTime + " Min",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontFamily: 'StudioProM',
-                                    fontSize: 12.sp,
-                                    color: const Color(0xffFFFFFF)),
-                              ),
-                            ],
+                        Positioned(
+                          bottom: 80.h,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.access_time,
+                                  size: 14.sp,
+                                  color: Colors.white,
+                                ),
+                                sizedBoxWidth(3.w),
+                                Text(
+                                  // "30 Min",
+                                  recipeDetailsData!.cookingTime + " Min",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontFamily: 'StudioProM',
+                                      fontSize: 12.sp,
+                                      color: const Color(0xffFFFFFF)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-
-                  DataTabBarView()
-                  // Expanded(
-                  //   child: SizedBox(
-                  //     // height: MediaQuery.of(context).size.height,
-                  //     child: TabBarView(
-                  //       controller: _tabController,
-                  //       children: [
-                  //         DataTabBarView(),
-                  //         DataTabBarView(),
-                  //         DataTabBarView(),
-                  //         DataTabBarView()
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
+                      ],
+                    ),
+              
+                    DataTabBarView()
+                    // Expanded(
+                    //   child: SizedBox(
+                    //     // height: MediaQuery.of(context).size.height,
+                    //     child: TabBarView(
+                    //       controller: _tabController,
+                    //       children: [
+                    //         DataTabBarView(),
+                    //         DataTabBarView(),
+                    //         DataTabBarView(),
+                    //         DataTabBarView()
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
               );
           
             }
@@ -1523,65 +1543,107 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   }
 
   Widget _commentTabbarView() {
-    return Container(
-        height: 375.h,
-        // color: AppColors.white,
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.h),
-                topRight: Radius.circular(20.h))),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+    // String? commentIdForReply;
 
-          // padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // tileForlist()
-              Expanded(child: GetBuilder<HomeController>(builder: (_) {
-                return ListView.builder(
-                  // physics: const NeverScrollableScrollPhysics(),
-                  // shrinkWrap: true,
-                  itemCount: controllerHome.commentLike.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        tileForlist(
-                            controllerHome.commentLike[index]["comment"],
-                            controllerHome.commentLike[index]["like"],
-                            index,
-                            controllerHome),
-                        sizedBoxHeight(13.h)
-                      ],
-                    );
-                  },
-                );
-              })
-                  // ListView.builder(
-                  //   // physics: const NeverScrollableScrollPhysics(),
-                  //   // shrinkWrap: true,
-                  //   itemCount: 5,
-                  //   itemBuilder: (context, index) {
-                  //     return Column(
-                  //       children: [
-                  //         tileForlist(
-                  //             controllerHome.commentLike[index]["comment"],
-                  //             controllerHome.commentLike[index]["like"],
-                  //             index),
-                  //         sizedBoxHeight(13.h)
-                  //       ],
-                  //     );
-                  //   },
-                  // ),
+    // var isReply = false.obs;
+    // FocusNode _focusNode = FocusNode();
+    GetCommentsController commentsContoller = Get.put(GetCommentsController());
 
-                  ),
 
-              sizedBoxHeight(15.h),
 
-              CustomSearchTextFormField(
+    return GetBuilder<GetCommentsController>(builder: (context) {
+      return GestureDetector(
+        onTap: (){
+          isReply.value = false;
+          _focusNode.unfocus();
+        },
+        child: Container(
+          // height: 375.h,
+          // color: AppColors.white,
+          decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.h),
+                  topRight: Radius.circular(20.h))),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+      
+            // padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                // tileForlist()
+                Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                  return commentsContoller.comments == null
+                      ? Center(child: CircularProgressIndicator())
+                      : commentsContoller.comments!.data.isEmpty
+                          ? Center(child: textBlack14Robo("No comments"))
+                          : ListView.builder(
+                              // physics: const NeverScrollableScrollPhysics(),
+                              // shrinkWrap: true,
+                              // itemCount: controllerHome.commentLike.length,
+                              itemCount: commentsContoller.comments!.data.length,
+      
+                              itemBuilder: (context, index) {
+                                final commentData =
+                                    commentsContoller.comments!.data[index];
+                                String originalDate = commentData.createdAt;
+                                DateTime parsedDate =
+                                    DateTime.parse(originalDate);
+                                String formattedDate =
+                                    DateFormat('dd/mm/yyyy').format(parsedDate);
+                                return Column(
+                                  children: [
+                                    tileForlist(
+                                        profileImage:
+                                            commentData.user.profileImage,
+                                        userName: commentData.user.firstName +
+                                            " " +
+                                            commentData.user.lastName,
+                                        comment: commentData.comment,
+                                        likedStatus: commentData.liked,
+                                        likeNo: commentData.likedComments.length,
+                                        commentId: commentData.id,
+                                        recipeId: recipeId,
+                                        numReplies: commentData.repliesLength,
+                                        dateTime: formattedDate),
+                                    // tileForlist(
+                                    //     // controllerHome.commentLike[index]["comment"],
+                                    //     commentData.comment,
+                                    //     // commentData.likedComments.length,
+                                    //     controllerHome.commentLike[index]["like"],
+                                    //     ),
+                                    sizedBoxHeight(13.h)
+                                  ],
+                                );
+                              },
+                            );
+                })
+                    // ListView.builder(
+                    //   // physics: const NeverScrollableScrollPhysics(),
+                    //   // shrinkWrap: true,
+                    //   itemCount: 5,
+                    //   itemBuilder: (context, index) {
+                    //     return Column(
+                    //       children: [
+                    //         tileForlist(
+                    //             controllerHome.commentLike[index]["comment"],
+                    //             controllerHome.commentLike[index]["like"],
+                    //             index),
+                    //         sizedBoxHeight(13.h)
+                    //       ],
+                    //     );
+                    //   },
+                    // ),
+      
+                    ),
+      
+                sizedBoxHeight(15.h),
+      
+                Obx(() => CustomSearchTextFormField(
                   textEditingController: tecComment,
                   autofocus: false,
-                  hintText: "Add a comment",
+                  focusNode: _focusNode,
+                  hintText: isReply.value ? "Add a reply" :"Add a comment",
                   validatorText: '',
                   suffixIcon: Padding(
                     padding: EdgeInsets.only(right: 15.w),
@@ -1590,20 +1652,611 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                         width: 40.w,
                         child: Center(
                             child: InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   if (tecComment.text.isNotEmpty) {
                                     // print(tecComment.text);
-                                    controllerHome
-                                        .commentMethod(tecComment.text);
-                                    tecComment.clear();
+                                    // controllerHome
+                                    //     .commentMethod(tecComment.text);
+                                    if (isReply.value) { //for reply
+                                      commentsContoller.addReplyApi(
+                                        reply: tecComment.text, 
+                                        commentId: commentIdForReply!,
+                                        recipeId: recipeId
+                                      );
+                                      tecComment.clear();
+                                      isReply.value = false;
+
+                                    } else { // for comment
+                                      var resp = await commentsContoller.addCommentApi(
+                                          commment: tecComment.text,
+                                          recipeId: recipeId);
+                                      if (resp!) {
+                                        setState(() {
+                                          
+                                        });
+                                      }
+                                      tecComment.clear();
+                                    }
+                                    
                                   }
                                 },
                                 child: textgreyM14Sp("Send")))),
-                  ))
-            ],
+                  )))
+                
+              ],
+            ),
           ),
-        ));
+        ),
+      );
+    });
+   
+    // return Container(
+    //     height: 375.h,
+    //     // color: AppColors.white,
+    //     decoration: BoxDecoration(
+    //         color: AppColors.white,
+    //         borderRadius: BorderRadius.only(
+    //             topLeft: Radius.circular(20.h),
+    //             topRight: Radius.circular(20.h))),
+    //     child: Padding(
+    //       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+
+    //       // padding: const EdgeInsets.all(8.0),
+    //       child: Column(
+    //         children: [
+    //           // tileForlist()
+    //           Expanded(child: GetBuilder<HomeController>(builder: (_) {
+    //             return ListView.builder(
+    //               // physics: const NeverScrollableScrollPhysics(),
+    //               // shrinkWrap: true,
+    //               itemCount: controllerHome.commentLike.length,
+    //               itemBuilder: (context, index) {
+    //                 return Column(
+    //                   children: [
+    //                     tileForlist(
+    //                         controllerHome.commentLike[index]["comment"],
+    //                         controllerHome.commentLike[index]["like"],
+    //                         index,
+    //                         controllerHome),
+    //                     sizedBoxHeight(13.h)
+    //                   ],
+    //                 );
+    //               },
+    //             );
+    //           })
+    //               // ListView.builder(
+    //               //   // physics: const NeverScrollableScrollPhysics(),
+    //               //   // shrinkWrap: true,
+    //               //   itemCount: 5,
+    //               //   itemBuilder: (context, index) {
+    //               //     return Column(
+    //               //       children: [
+    //               //         tileForlist(
+    //               //             controllerHome.commentLike[index]["comment"],
+    //               //             controllerHome.commentLike[index]["like"],
+    //               //             index),
+    //               //         sizedBoxHeight(13.h)
+    //               //       ],
+    //               //     );
+    //               //   },
+    //               // ),
+
+    //               ),
+
+    //           sizedBoxHeight(15.h),
+
+    //           CustomSearchTextFormField(
+    //               textEditingController: tecComment,
+    //               autofocus: false,
+    //               hintText: "Add a comment",
+    //               validatorText: '',
+    //               suffixIcon: Padding(
+    //                 padding: EdgeInsets.only(right: 15.w),
+    //                 child: SizedBox(
+    //                     height: 50.h,
+    //                     width: 40.w,
+    //                     child: Center(
+    //                         child: InkWell(
+    //                             onTap: () {
+    //                               if (tecComment.text.isNotEmpty) {
+    //                                 // print(tecComment.text);
+    //                                 controllerHome
+    //                                     .commentMethod(tecComment.text);
+    //                                 tecComment.clear();
+    //                               }
+    //                             },
+    //                             child: textgreyM14Sp("Send")))),
+    //               ))
+    //         ],
+    //       ),
+    //     ));
+ 
   }
+
+    Widget tileForlist(
+      {required String userName,
+      required String comment,
+      String? profileImage,
+      required bool likedStatus,
+      required int likeNo,
+      required String commentId,
+      required String recipeId,
+      required String dateTime,
+      required int numReplies
+
+      // required String date
+      }) {
+    var viewReply = false.obs;
+    Replies? replies;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 35.h,
+          height: 35.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.h),
+              image: const DecorationImage(
+                  image: AssetImage("assets/home/profile.png"),
+                  fit: BoxFit.fill)),
+        ),
+        sizedBoxWidth(10.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // textWhite17w500("George Smith"),
+            // e=
+            // textBlack16SP("Chaitali tatkare"),
+            textBlack16SP(userName),
+
+            sizedBoxHeight(5.h),
+
+            // textgreyD12Robo("2 Days ago")
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.h),
+                  color: AppColors.greyLtEBEBEB),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                // child: textgreyD10Robo("11:36"),
+                child: textgreyD10Robo(dateTime),
+              ),
+            ),
+
+            sizedBoxHeight(5.h),
+
+            Row(
+              children: [
+                SizedBox(
+                    // hei
+                    width: 290.w,
+                    child: textBlack15Robo(comment
+                        // "Lorem Ipsum is simply dummy text of the printing and typesetting industry.."
+                        )),
+                sizedBoxWidth(10.w),
+                Column(
+                  children: [
+                    // /
+                    InkWell(
+                      onTap: () {
+                        commentsContoller.likeCommentApi(
+                            commentId: commentId, recipeId: recipeId);
+                      },
+                      child: !likedStatus
+                          ? Image.asset(
+                              "assets/icons/like.png",
+                              width: 20.w,
+                              height: 18.h,
+                            )
+                          : Image.asset(
+                              "assets/icons/like_filled.png",
+                              width: 20.w,
+                              height: 18.h,
+                            ),
+                    ),
+
+                    sizedBoxHeight(2.h),
+
+                    // textgreyL12Robo("20")
+                    textgreyL12Robo(likeNo > 0 ? likeNo.toString() : "")
+                  ],
+                )
+              ],
+            ),
+
+            sizedBoxHeight(5.h),
+
+            InkWell(
+              onTap: (){
+                print("reply");
+                isReply.value = true;
+                _focusNode.requestFocus();
+                commentIdForReply = commentId;
+                print(commentIdForReply);
+                
+                // focusForReply();
+                // FocusScope.of(context).requestFocus(_focusNode);
+              },
+              child: textgreyM14Sp("Reply")
+            ),
+
+            sizedBoxHeight(5.h),
+
+            Obx(() {
+              // Replies? replies;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  
+                  Visibility(
+
+              
+                      //one
+                    visible: viewReply.value,
+                    child: 
+                    viewReply.value ? 
+                    // GetBuilder(builder: (context){
+                    //   return SizedBox();
+                    // })
+                      replies != null
+                        ? 
+                        SizedBox(
+                          // height: 100.h,
+              
+                          width: 290.w,
+                          // width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                            physics:
+                                const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: replies!.data.length,
+                            itemBuilder: (context, index) {
+                              // print("sdf" +
+                              //     repliesData.length.toString());
+                              final reply = replies!.data[index];
+
+                              String originalDate = reply.createdAt;
+                              DateTime parsedDate =
+                                  DateTime.parse(originalDate);
+                              String formattedDateReply =
+                                  DateFormat('dd/MM/yyyy')
+                                      .format(parsedDate);
+
+                              // return Icon(Icons.sd);
+
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 5.h),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 30.h,
+                                      height: 30.h,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15.h),
+                                          image: DecorationImage(
+                                              image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
+                                              // AssetImage("assets/home/profile.png"),
+                                              fit: BoxFit.fill)),
+                                    ),
+                                    sizedBoxWidth(10.w),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // textWhite17w500("George Smith"),
+                                        // e=
+                                        // textBlack16SP("Chaitali tatkare"),
+                                        textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+                              
+                                        sizedBoxHeight(5.h),
+                              
+                                        // textgreyD12Robo("2 Days ago")
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15.h),
+                                              color: AppColors.greyLtEBEBEB),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                                            // child: textgreyD10Robo("11:36"),
+                                            child: textgreyD10Robo(formattedDateReply),
+                              
+                                          ),
+                                        ),
+                              
+                                        sizedBoxHeight(5.h),
+                              
+                                        textBlack15Robo(reply.comment),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+
+                              // final follower = followers[index].follower;
+                              // return invite(
+                              //   firstname: follower!.firstName!,
+                              //   username: follower.username!,
+                              //   profileimage: follower.profileImage,
+                              //   userId: follower.id!,
+                              //   index: index,
+                              //   selectedIds: selectedIds,
+                              //   onInvitePressed: (id) {
+                              //     // Handle invite button pressed
+                              //     print('Invite button pressed for: $id');
+                              //   },
+                              // );
+                            },
+                          ),
+                        )
+                        // Text("sd")
+                        // Expanded(
+                        //   child: ListView.builder(
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     // shrinkWrap: true,
+                        //     scrollDirection: Axis.vertical,
+                        //     itemCount: replies!.data.length,
+                        //     itemBuilder: (context, index) {
+                        //       print(replies!.data.length);
+                        //       // print("sdf" + repliesData.length.toString());
+                        //       final reply = replies!.data[index];
+                                      
+                        //       String originalDate = reply.createdAt;
+                        //       DateTime parsedDate = DateTime.parse(originalDate);
+                        //       String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+                          
+                        //       return Text("fgvhbjn");
+                        //       // Icon(Icons.ac_unit);
+                          
+                              
+                        //     },
+                        //   ),
+                        // )
+                        
+                          : 
+                          textBlack10Robo("could not load replies")
+                      
+              
+                    // FutureBuilder<Replies>(
+                    //   future: commentsContoller.getReplies(commentId: commentId),
+                    //   builder: (BuildContext context, AsyncSnapshot snapshot){
+                    //     // print()
+                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                    //       return const Center(child: CircularProgressIndicator());
+                    //     } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                    //       // print(" main wid");
+                    //       final data = snapshot.data;
+                    //       final repliesData = data;
+                    //       // return Icon(Icons.safety_check);
+                    //       // return ListView()
+                    //       return SizedBox(
+                    //         height: 200.h,
+                    //         child: ListView.builder(
+                    //           physics: const NeverScrollableScrollPhysics(),
+                    //           shrinkWrap: true,
+                    //           itemCount: repliesData.length,
+                    //           itemBuilder: (context, index) {
+                    //             print("sdf" + repliesData.length.toString());
+                    //             final reply = repliesData[index];
+                                        
+                    //             String originalDate = reply.createdAt;
+                    //             DateTime parsedDate = DateTime.parse(originalDate);
+                    //             String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+                            
+                    //             return Icon(Icons.sd);
+                            
+                                
+                    //           },
+                    //         ),
+                    //       );
+                      
+                    //     } else if (snapshot.hasError) {
+                    //       return const Center(child: Text('Failed to load replies'));
+                    //     } else {
+                          
+                    //       return Container();
+                    //     }
+                    //   }) 
+                   
+                      : SizedBox()
+                    
+                          ),
+              
+              
+                  //two
+                      // visible: viewReply.value,
+                      // child: viewReply.value
+                      //     ? FutureBuilder<Replies>(
+                      //         future: commentsContoller.getReplies(
+                      //             commentId: commentId),
+                      //         builder: (context, snapshot) {
+                      //           // print()
+                      //           if (snapshot.connectionState ==
+                      //               ConnectionState.waiting) {
+                      //             return const Center(
+                      //                 child: CircularProgressIndicator());
+                      //           } else if (snapshot.hasData) {
+                      //             // print(" main wid");
+                      //             final repliesData = snapshot.data!.data;
+                      //             // return Icon(Icons.safety_check);
+                      //             // return ListView()
+                      //             return SizedBox(
+                      //               height: 200.h,
+                      //               child: ListView.builder(
+                      //                 physics:
+                      //                     const NeverScrollableScrollPhysics(),
+                      //                 shrinkWrap: true,
+                      //                 itemCount: repliesData.length,
+                      //                 itemBuilder: (context, index) {
+                      //                   print("sdf" +
+                      //                       repliesData.length.toString());
+                      //                   final reply = repliesData[index];
+              
+                      //                   String originalDate = reply.createdAt;
+                      //                   DateTime parsedDate =
+                      //                       DateTime.parse(originalDate);
+                      //                   String formattedDateReply =
+                      //                       DateFormat('dd/MM/yyyy')
+                      //                           .format(parsedDate);
+              
+                      //                   return Icon(Icons.sd);
+              
+                      //                   // return Row(
+                      //                   //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //                   //   children: [
+                      //                   //     Container(
+                      //                   //       width: 30.h,
+                      //                   //       height: 30.h,
+                      //                   //       decoration: BoxDecoration(
+                      //                   //           borderRadius: BorderRadius.circular(15.h),
+                      //                   //           image: const DecorationImage(
+                      //                   //               image: AssetImage("assets/home/profile.png"),
+                      //                   //               fit: BoxFit.fill)),
+                      //                   //     ),
+                      //                   //     sizedBoxWidth(10.w),
+                      //                   //     Column(
+                      //                   //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //                   //       mainAxisAlignment: MainAxisAlignment.center,
+                      //                   //       children: [
+                      //                   //         // textWhite17w500("George Smith"),
+                      //                   //         // e=
+                      //                   //         // textBlack16SP("Chaitali tatkare"),
+                      //                   //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+              
+                      //                   //         sizedBoxHeight(5.h),
+              
+                      //                   //         // textgreyD12Robo("2 Days ago")
+                      //                   //         Container(
+                      //                   //           decoration: BoxDecoration(
+                      //                   //               borderRadius: BorderRadius.circular(15.h),
+                      //                   //               color: AppColors.greyLtEBEBEB),
+                      //                   //           child: Padding(
+                      //                   //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                      //                   //             // child: textgreyD10Robo("11:36"),
+                      //                   //             child: textgreyD10Robo(formattedDateReply),
+              
+                      //                   //           ),
+                      //                   //         ),
+              
+                      //                   //         sizedBoxHeight(5.h),
+              
+                      //                   //         textBlack15Robo(reply.comment),
+                      //                   //       ],
+                      //                   //     )
+                      //                   //   ],
+                      //                   // );
+              
+                      //                   // final follower = followers[index].follower;
+                      //                   // return invite(
+                      //                   //   firstname: follower!.firstName!,
+                      //                   //   username: follower.username!,
+                      //                   //   profileimage: follower.profileImage,
+                      //                   //   userId: follower.id!,
+                      //                   //   index: index,
+                      //                   //   selectedIds: selectedIds,
+                      //                   //   onInvitePressed: (id) {
+                      //                   //     // Handle invite button pressed
+                      //                   //     print('Invite button pressed for: $id');
+                      //                   //   },
+                      //                   // );
+                      //                 },
+                      //               ),
+                      //             );
+                      //           } else if (snapshot.hasError) {
+                      //             return const Center(
+                      //                 child: Text('Failed to load followers'));
+                      //           } else {
+                      //             return Container();
+                      //           }
+                      //         })
+                      //     : SizedBox()
+                      // // Row(
+                      // //   crossAxisAlignment: CrossAxisAlignment.start,
+                      // //   children: [
+                      // //     Container(
+                      // //       width: 30.h,
+                      // //       height: 30.h,
+                      // //       decoration: BoxDecoration(
+                      // //           borderRadius: BorderRadius.circular(15.h),
+                      // //           image: const DecorationImage(
+                      // //               image: AssetImage("assets/home/profile.png"),
+                      // //               fit: BoxFit.fill)),
+                      // //     ),
+                      // //     sizedBoxWidth(10.w),
+                      // //     Column(
+                      // //       crossAxisAlignment: CrossAxisAlignment.start,
+                      // //       mainAxisAlignment: MainAxisAlignment.center,
+                      // //       children: [
+                      // //         // textWhite17w500("George Smith"),
+                      // //         // e=
+                      // //         // textBlack16SP("Chaitali tatkare"),
+                      // //         textBlack16SP(userName),
+              
+                      // //         sizedBoxHeight(5.h),
+              
+                      // //         // textgreyD12Robo("2 Days ago")
+                      // //         Container(
+                      // //           decoration: BoxDecoration(
+                      // //               borderRadius: BorderRadius.circular(15.h),
+                      // //               color: AppColors.greyLtEBEBEB),
+                      // //           child: Padding(
+                      // //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                      // //             // child: textgreyD10Robo("11:36"),
+                      // //             child: textgreyD10Robo(dateTime),
+              
+                      // //           ),
+                      // //         ),
+              
+                      // //         sizedBoxHeight(5.h),
+              
+                      // //         textBlack15Robo(comment),
+                      // //       ],
+                      // //     )
+                      // //   ],
+                      // // ),
+              
+                      // ),
+              
+
+                  //three
+                  sizedBoxHeight(5.h),
+                  numReplies > 0
+                      ? InkWell(
+                          onTap: () async {
+                            replies = await commentsContoller.getReplies(commentId: commentId);
+                            viewReply.value = !viewReply.value;
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 20.w,
+                                child: Divider(
+                                  thickness: 0.5.h,
+                                  color: AppColors.grey54595F,
+                                ),
+                              ),
+                              sizedBoxWidth(5.w),
+                              textgreyD12Robo(viewReply.value
+                                  ? "Hide reply"
+                                  : "View ${numReplies.toString()} reply")
+                            ],
+                          ),
+                        )
+                      : SizedBox(),
+                ],
+              );
+            })
+
+            // textGrey15W500("21 Jan, 2022, 10:41 am")
+          ],
+        )
+      ],
+    );
+  }
+
 
   Widget ingredientsTile({required String ingredientName, required String quantity}){
     return Column(
