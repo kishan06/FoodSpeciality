@@ -1,33 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/Model/CommunityChatListModel.dart';
 import 'package:foodspeciality/Model/FollowesModel.dart';
 import 'package:foodspeciality/common%20files/commonInviteButton.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/services/addparticipant_service.dart';
 import 'package:foodspeciality/services/create_community_service.dart';
 import 'package:foodspeciality/services/follower_following_service.dart';
 import 'package:get/get.dart';
 
-class CommunityAddParticipants extends StatefulWidget {
-  const CommunityAddParticipants({Key? key}) : super(key: key);
+class AddParticipantExistingCommunity extends StatefulWidget {
+  const AddParticipantExistingCommunity({Key? key}) : super(key: key);
 
   @override
-  State<CommunityAddParticipants> createState() =>
-      _CommunityAddParticipantsState();
+  State<AddParticipantExistingCommunity> createState() =>
+      _AddParticipantExistingCommunityState();
 }
 
-class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
+class _AddParticipantExistingCommunityState
+    extends State<AddParticipantExistingCommunity> {
   final FollowerFollowing followerFollowing = FollowerFollowing();
   List<String> selectedIds = [];
-  String? revname;
-  String? revdesp;
+  final memberFirstname = Get.arguments["memberFirstname"];
+  List<Members>? membersId = Get.arguments["membersId"];
+  final membersProfileImage = Get.arguments["membersProfileImage"];
+  final membersName = Get.arguments["membersName"];
+  final communityId = Get.arguments["communityId"];
+  List<Followers> followersList = [];
 
-  @override
-  void initState() {
-    revname = Get.arguments["name"];
-    revdesp = Get.arguments["description"];
-    super.initState();
+  sortFollowers(List<Followers> followersApiList) {
+    for (var follower in followersApiList) {
+      bool isMember = false;
+
+      for (var member in membersId!) {
+        if (follower.follower!.id == member.user?.id ||
+            follower.follower!.id == myUserId) {
+          isMember = true;
+          break;
+        }
+      }
+
+      if (!isMember) {
+        followersList.add(follower);
+      }
+    }
   }
+  // @override
+  // void initState() {
+  //   revname = Get.arguments["name"];
+  //   revdesp = Get.arguments["description"];
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +82,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "New Community",
+                  "Add Participants",
                   style: TextStyle(
                     fontFamily: "StudioProR",
                     fontSize: 18.spMin,
@@ -69,7 +93,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                   height: 2,
                 ),
                 Text(
-                  "Add Participants",
+                  "",
                   style: TextStyle(
                     fontFamily: "Roboto",
                     fontSize: 14.spMin,
@@ -126,11 +150,14 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  final followers = snapshot.data!.data!.followers;
+                  // final followers = snapshot.data!.data!.followers!.map((e) {
+                  //   if (e.follower!.id != membersId) return e;
+                  // }).toList();
+                  sortFollowers(snapshot.data!.data!.followers!);
                   return ListView.builder(
-                    itemCount: followers!.length,
+                    itemCount: followersList!.length,
                     itemBuilder: (context, index) {
-                      final follower = followers[index].follower;
+                      final follower = followersList[index]!.follower;
                       return invite(
                         firstname: follower!.firstName!,
                         username: follower.username!,
@@ -152,7 +179,6 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                 }
               },
             ),
-        
           ),
           SizedBox(
             height: 50.h,
@@ -169,7 +195,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                   ),
                 ),
                 child: Text(
-                  "Create",
+                  "Add Participants",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sm,
@@ -178,13 +204,8 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                 ),
                 onPressed: () {
                   print(selectedIds.toString());
-                  // CreateCommunityService().createCommunity(
-                  //     name: Get.parameters['name'] ?? "",
-                  //     description: Get.parameters['description'] ?? "",
-                  //     members: selectedIds);
-                  createCommunity(
-                      accessToken!, selectedIds, revname!, revdesp!);
-               
+                  addParticipants(accessToken!, selectedIds, communityId);
+                  //  Get.toNamed("/chatcommunitydetail");
                 },
               ),
             ),

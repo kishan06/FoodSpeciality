@@ -5,6 +5,7 @@ import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
+import 'package:foodspeciality/screens/AddParticipantExistingCommunity.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Follower.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Following.dart';
@@ -128,6 +129,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/communityaddparticipants",
                 page: () => const CommunityAddParticipants()),
+            GetPage(
+                name: "/addparticipantsexistingcommunity",
+                page: () => const AddParticipantExistingCommunity()),
             GetPage(
                 name: "/chatcommunitydetail",
                 page: () => const ChatCommunityDetail()),
