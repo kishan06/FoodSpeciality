@@ -82,7 +82,7 @@ class User {
   late final String id;
   late final String createdAt;
   late final String updatedAt;
-  late final Null profileImage;
+  late final String? profileImage;
   late final String username;
   late final String firstName;
   late final String lastName;
@@ -100,7 +100,7 @@ class User {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    profileImage = null;
+    profileImage = json['profile_image'];
     username = json['username'];
     firstName = json['first_name'];
     lastName = json['last_name'];

@@ -163,7 +163,7 @@ class _GridviewState extends State<Gridview> {
                         children: [
                           InkWell(
                             onTap: () {
-                              commentbottomSheet(controllerHome);
+                              // commentbottomSheet(controllerHome);
                             },
                             child: Image.asset(
                               "assets/icons/comment.png",

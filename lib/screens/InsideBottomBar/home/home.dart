@@ -35,6 +35,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // GetCommentsController commentsContoller = Get.put(GetCommentsController());
 
+  // onback(){
+  //   setState(() {
+      
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -334,138 +340,184 @@ class _IngridentsState extends State<Ingridents> {
   final tecComment = TextEditingController();
   HomeController controllerHome = Get.put(HomeController());
   GetCommentsController commentsContoller = Get.put(GetCommentsController());
+  FocusNode _focusNode = FocusNode();
+  var isReply = false.obs;
+  String? commentIdForReply;
+
+
+  // _focusNode.addListener(() { });
 
   Future<T?> commentbottomSheet<T>(String recipeId) {
+    isReply.value = false;
+    // String? commentIdForReply;
+    
+    
+    // FocusNode _focusNode = FocusNode();
+    // _focusNode.addListener(() { });
     // GetCommentsController commentsContoller = Get.put(GetCommentsController());
+    // bool? isReply = false;
+
     commentsContoller.emptyComments();
     commentsContoller.getCommentsData(recipeId);
-// <<<<<<< shams10_8
 
-//     return Get.bottomSheet(
-//       // commentsContoller.getCommentsData(recipeId);
-//       GetBuilder<GetCommentsController>(builder: (context){
-//         return Container(
-//           // height: 375.h,
-//           // height: 425.h,
-// =======
-// >>>>>>> main
+
+    // focusForReply(){
+    //   if (_focusNode.hasFocus) {
+    //     _focusNode.requestFocus();
+    //   }
+    // }
+
 
     return Get.bottomSheet(
-        // commentsContoller.getCommentsData(recipeId);
-        GetBuilder<GetCommentsController>(builder: (context) {
-      return Container(
-        height: 375.h,
-        // color: AppColors.white,
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.h),
-                topRight: Radius.circular(20.h))),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-
-          // padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // tileForlist()
-              Expanded(child: GetBuilder<HomeController>(builder: (_) {
-                return commentsContoller.comments == null
-                    ? Center(child: CircularProgressIndicator())
-                    : commentsContoller.comments!.data.isEmpty
-                        ? Center(child: textBlack14Robo("No comments"))
-                        : ListView.builder(
-                            // physics: const NeverScrollableScrollPhysics(),
-                            // shrinkWrap: true,
-                            // itemCount: controllerHome.commentLike.length,
-                            itemCount: commentsContoller.comments!.data.length,
-
-                            itemBuilder: (context, index) {
-                              final commentData =
-                                  commentsContoller.comments!.data[index];
-                              String originalDate = commentData.createdAt;
-                              DateTime parsedDate =
-                                  DateTime.parse(originalDate);
-                              String formattedDate =
-                                  DateFormat('dd/mm/yyyy').format(parsedDate);
-                              return Column(
-                                children: [
-                                  tileForlist(
-                                      profileImage:
-                                          commentData.user.profileImage,
-                                      userName: commentData.user.firstName +
-                                          " " +
-                                          commentData.user.lastName,
-                                      comment: commentData.comment,
-                                      likedStatus: commentData.liked,
-                                      likeNo: commentData.likedComments.length,
-                                      commentId: commentData.id,
-                                      recipeId: recipeId,
-                                      numReplies: commentData.repliesLength,
-                                      dateTime: formattedDate),
-                                  // tileForlist(
-                                  //     // controllerHome.commentLike[index]["comment"],
-                                  //     commentData.comment,
-                                  //     // commentData.likedComments.length,
-                                  //     controllerHome.commentLike[index]["like"],
-                                  //     ),
-                                  sizedBoxHeight(13.h)
-                                ],
-                              );
-                            },
-                          );
-              })
-                  // ListView.builder(
-                  //   // physics: const NeverScrollableScrollPhysics(),
-                  //   // shrinkWrap: true,
-                  //   itemCount: 5,
-                  //   itemBuilder: (context, index) {
-                  //     return Column(
-                  //       children: [
-                  //         tileForlist(
-                  //             controllerHome.commentLike[index]["comment"],
-                  //             controllerHome.commentLike[index]["like"],
-                  //             index),
-                  //         sizedBoxHeight(13.h)
-                  //       ],
-                  //     );
-                  //   },
-                  // ),
-
-                  ),
-
-              sizedBoxHeight(15.h),
-
-              CustomSearchTextFormField(
-                  textEditingController: tecComment,
-                  autofocus: false,
-                  hintText: "Add a comment",
-                  validatorText: '',
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: SizedBox(
-                        height: 50.h,
-                        width: 40.w,
-                        child: Center(
-                            child: InkWell(
-                                onTap: () {
-                                  if (tecComment.text.isNotEmpty) {
-                                    // print(tecComment.text);
-                                    // controllerHome
-                                    //     .commentMethod(tecComment.text);
-                                    commentsContoller.addCommentApi(
-                                        commment: tecComment.text,
-                                        recipeId: recipeId);
-                                    tecComment.clear();
-                                  }
+      // commentsContoller.getCommentsData(recipeId);
+      GetBuilder<GetCommentsController>(builder: (context) {
+        return GestureDetector(
+          onTap: (){
+            isReply.value = false;
+            _focusNode.unfocus();
+          },
+          child: Container(
+            // height: 375.h,
+            // color: AppColors.white,
+            decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.h),
+                    topRight: Radius.circular(20.h))),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+        
+              // padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  // tileForlist()
+                  Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                    return commentsContoller.comments == null
+                        ? Center(child: CircularProgressIndicator())
+                        : commentsContoller.comments!.data.isEmpty
+                            ? Center(child: textBlack14Robo("No comments"))
+                            : ListView.builder(
+                                // physics: const NeverScrollableScrollPhysics(),
+                                // shrinkWrap: true,
+                                // itemCount: controllerHome.commentLike.length,
+                                itemCount: commentsContoller.comments!.data.length,
+        
+                                itemBuilder: (context, index) {
+                                  final commentData =
+                                      commentsContoller.comments!.data[index];
+                                  String originalDate = commentData.createdAt;
+                                  DateTime parsedDate =
+                                      DateTime.parse(originalDate);
+                                  String formattedDate =
+                                      DateFormat('dd/mm/yyyy').format(parsedDate);
+                                  return Column(
+                                    children: [
+                                      tileForlist(
+                                          profileImage:
+                                              commentData.user.profileImage,
+                                          userName: commentData.user.firstName +
+                                              " " +
+                                              commentData.user.lastName,
+                                          comment: commentData.comment,
+                                          likedStatus: commentData.liked,
+                                          likeNo: commentData.likedComments.length,
+                                          commentId: commentData.id,
+                                          recipeId: recipeId,
+                                          numReplies: commentData.repliesLength,
+                                          dateTime: formattedDate),
+                                      // tileForlist(
+                                      //     // controllerHome.commentLike[index]["comment"],
+                                      //     commentData.comment,
+                                      //     // commentData.likedComments.length,
+                                      //     controllerHome.commentLike[index]["like"],
+                                      //     ),
+                                      sizedBoxHeight(13.h)
+                                    ],
+                                  );
                                 },
-                                child: textgreyM14Sp("Send")))),
-                  ))
-            ],
+                              );
+                  })
+                      // ListView.builder(
+                      //   // physics: const NeverScrollableScrollPhysics(),
+                      //   // shrinkWrap: true,
+                      //   itemCount: 5,
+                      //   itemBuilder: (context, index) {
+                      //     return Column(
+                      //       children: [
+                      //         tileForlist(
+                      //             controllerHome.commentLike[index]["comment"],
+                      //             controllerHome.commentLike[index]["like"],
+                      //             index),
+                      //         sizedBoxHeight(13.h)
+                      //       ],
+                      //     );
+                      //   },
+                      // ),
+        
+                      ),
+        
+                  sizedBoxHeight(15.h),
+        
+                  Obx(() => CustomSearchTextFormField(
+                    textEditingController: tecComment,
+                    autofocus: false,
+                    focusNode: _focusNode,
+                    hintText: isReply.value ? "Add a reply" :"Add a comment",
+                    validatorText: '',
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: SizedBox(
+                          height: 50.h,
+                          width: 40.w,
+                          child: Center(
+                              child: InkWell(
+                                  onTap: () async {
+                                    if (tecComment.text.isNotEmpty) {
+                                      // print(tecComment.text);
+                                      // controllerHome
+                                      //     .commentMethod(tecComment.text);
+                                      if (isReply.value) { //for reply
+                                        commentsContoller.addReplyApi(
+                                          reply: tecComment.text, 
+                                          commentId: commentIdForReply!,
+                                          recipeId: recipeId
+                                        );
+                                        tecComment.clear();
+                                        isReply.value = false;
+
+                                      } else { // for comment
+                                        var resp = await commentsContoller.addCommentApi(
+                                            commment: tecComment.text,
+                                            recipeId: recipeId);
+                                        if (resp!) {
+                                          setState(() {
+                                            
+                                          });
+                                        }
+                                        tecComment.clear();
+                                      }
+                                      
+                                    }
+                                  },
+                                  child: textgreyM14Sp("Send")))),
+                    )))
+                  
+                ],
+              ),
+            ),
           ),
-        ),
-      );
-    }));
+        );
+      })
+   
+    );
   }
+
+  // focusForReply(){
+  //   print("focusForReply");
+  //   if (_focusNode.hasFocus) {
+  //     _focusNode.requestFocus();
+  //   }
+  // }
 
   Widget tileForlist(
       {required String userName,
@@ -481,6 +533,8 @@ class _IngridentsState extends State<Ingridents> {
       // required String date
       }) {
     var viewReply = false.obs;
+    Replies? replies;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -560,337 +614,365 @@ class _IngridentsState extends State<Ingridents> {
 
             sizedBoxHeight(5.h),
 
-            textgreyM14Sp("Reply"),
+            InkWell(
+              onTap: (){
+                print("reply");
+                isReply.value = true;
+                _focusNode.requestFocus();
+                commentIdForReply = commentId;
+                print(commentIdForReply);
+                
+                // focusForReply();
+                // FocusScope.of(context).requestFocus(_focusNode);
+              },
+              child: textgreyM14Sp("Reply")
+            ),
 
-            sizedBoxHeight(4.h),
+            sizedBoxHeight(5.h),
 
             Obx(() {
+              // Replies? replies;
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  
                   Visibility(
 
+              
                       //one
-                      visible: viewReply.value,
-                      child: viewReply.value
-                          ?
-                          // GetBuilder(builder: (context){
-                          //   return SizedBox();
-                          // })
-                          FutureBuilder<Replies>(
-                              future: commentsContoller.getReplies(
-                                  commentId: commentId),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                // print()
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.connectionState ==
-                                        ConnectionState.done &&
-                                    snapshot.hasData) {
-                                  // print(" main wid");
-                                  final data = snapshot.data;
-                                  final repliesData = data;
-                                  // return Icon(Icons.safety_check);
-                                  // return ListView()
-                                  return SizedBox(
-                                    height: 200.h,
-                                    child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: repliesData.length,
-                                      itemBuilder: (context, index) {
-                                        print("sdf" +
-                                            repliesData.length.toString());
-                                        final reply = repliesData[index];
+                    visible: viewReply.value,
+                    child: 
+                    viewReply.value ? 
+                    // GetBuilder(builder: (context){
+                    //   return SizedBox();
+                    // })
+                      replies != null
+                        ? 
+                        SizedBox(
+                          // height: 100.h,
+              
+                          width: 290.w,
+                          // width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                            physics:
+                                const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: replies!.data.length,
+                            itemBuilder: (context, index) {
+                              // print("sdf" +
+                              //     repliesData.length.toString());
+                              final reply = replies!.data[index];
 
-                                        String originalDate = reply.createdAt;
-                                        DateTime parsedDate =
-                                            DateTime.parse(originalDate);
-                                        String formattedDateReply =
-                                            DateFormat('dd/MM/yyyy')
-                                                .format(parsedDate);
+                              String originalDate = reply.createdAt;
+                              DateTime parsedDate =
+                                  DateTime.parse(originalDate);
+                              String formattedDateReply =
+                                  DateFormat('dd/MM/yyyy')
+                                      .format(parsedDate);
 
-                                        return Icon(Icons.sd);
+                              // return Icon(Icons.sd);
 
-                                        // return Row(
-                                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                                        //   children: [
-                                        //     Container(
-                                        //       width: 30.h,
-                                        //       height: 30.h,
-                                        //       decoration: BoxDecoration(
-                                        //           borderRadius: BorderRadius.circular(15.h),
-                                        //           image: const DecorationImage(
-                                        //               image: AssetImage("assets/home/profile.png"),
-                                        //               fit: BoxFit.fill)),
-                                        //     ),
-                                        //     sizedBoxWidth(10.w),
-                                        //     Column(
-                                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                                        //       mainAxisAlignment: MainAxisAlignment.center,
-                                        //       children: [
-                                        //         // textWhite17w500("George Smith"),
-                                        //         // e=
-                                        //         // textBlack16SP("Chaitali tatkare"),
-                                        //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
-
-                                        //         sizedBoxHeight(5.h),
-
-                                        //         // textgreyD12Robo("2 Days ago")
-                                        //         Container(
-                                        //           decoration: BoxDecoration(
-                                        //               borderRadius: BorderRadius.circular(15.h),
-                                        //               color: AppColors.greyLtEBEBEB),
-                                        //           child: Padding(
-                                        //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                                        //             // child: textgreyD10Robo("11:36"),
-                                        //             child: textgreyD10Robo(formattedDateReply),
-
-                                        //           ),
-                                        //         ),
-
-                                        //         sizedBoxHeight(5.h),
-
-                                        //         textBlack15Robo(reply.comment),
-                                        //       ],
-                                        //     )
-                                        //   ],
-                                        // );
-
-                                        // final follower = followers[index].follower;
-                                        // return invite(
-                                        //   firstname: follower!.firstName!,
-                                        //   username: follower.username!,
-                                        //   profileimage: follower.profileImage,
-                                        //   userId: follower.id!,
-                                        //   index: index,
-                                        //   selectedIds: selectedIds,
-                                        //   onInvitePressed: (id) {
-                                        //     // Handle invite button pressed
-                                        //     print('Invite button pressed for: $id');
-                                        //   },
-                                        // );
-                                      },
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 5.h),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 30.h,
+                                      height: 30.h,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15.h),
+                                          image: DecorationImage(
+                                              image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
+                                              // AssetImage("assets/home/profile.png"),
+                                              fit: BoxFit.fill)),
                                     ),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return const Center(
-                                      child: Text('Failed to load replies'));
-                                } else {
-                                  return Container();
-                                }
-                              })
-                          : SizedBox()
-                      // Row(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Container(
-                      //       width: 30.h,
-                      //       height: 30.h,
-                      //       decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(15.h),
-                      //           image: const DecorationImage(
-                      //               image: AssetImage("assets/home/profile.png"),
-                      //               fit: BoxFit.fill)),
-                      //     ),
-                      //     sizedBoxWidth(10.w),
-                      //     Column(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         // textWhite17w500("George Smith"),
-                      //         // e=
-                      //         // textBlack16SP("Chaitali tatkare"),
-                      //         textBlack16SP(userName),
+                                    sizedBoxWidth(10.w),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // textWhite17w500("George Smith"),
+                                        // e=
+                                        // textBlack16SP("Chaitali tatkare"),
+                                        textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+                              
+                                        sizedBoxHeight(5.h),
+                              
+                                        // textgreyD12Robo("2 Days ago")
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15.h),
+                                              color: AppColors.greyLtEBEBEB),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                                            // child: textgreyD10Robo("11:36"),
+                                            child: textgreyD10Robo(formattedDateReply),
+                              
+                                          ),
+                                        ),
+                              
+                                        sizedBoxHeight(5.h),
+                              
+                                        textBlack15Robo(reply.comment),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
 
-                      //         sizedBoxHeight(5.h),
-
-                      //         // textgreyD12Robo("2 Days ago")
-                      //         Container(
-                      //           decoration: BoxDecoration(
-                      //               borderRadius: BorderRadius.circular(15.h),
-                      //               color: AppColors.greyLtEBEBEB),
-                      //           child: Padding(
-                      //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                      //             // child: textgreyD10Robo("11:36"),
-                      //             child: textgreyD10Robo(dateTime),
-
-                      //           ),
-                      //         ),
-
-                      //         sizedBoxHeight(5.h),
-
-                      //         textBlack15Robo(comment),
-                      //       ],
-                      //     )
-                      //   ],
-                      // ),
-
-                      ),
-
+                              // final follower = followers[index].follower;
+                              // return invite(
+                              //   firstname: follower!.firstName!,
+                              //   username: follower.username!,
+                              //   profileimage: follower.profileImage,
+                              //   userId: follower.id!,
+                              //   index: index,
+                              //   selectedIds: selectedIds,
+                              //   onInvitePressed: (id) {
+                              //     // Handle invite button pressed
+                              //     print('Invite button pressed for: $id');
+                              //   },
+                              // );
+                            },
+                          ),
+                        )
+                        // Text("sd")
+                        // Expanded(
+                        //   child: ListView.builder(
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     // shrinkWrap: true,
+                        //     scrollDirection: Axis.vertical,
+                        //     itemCount: replies!.data.length,
+                        //     itemBuilder: (context, index) {
+                        //       print(replies!.data.length);
+                        //       // print("sdf" + repliesData.length.toString());
+                        //       final reply = replies!.data[index];
+                                      
+                        //       String originalDate = reply.createdAt;
+                        //       DateTime parsedDate = DateTime.parse(originalDate);
+                        //       String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+                          
+                        //       return Text("fgvhbjn");
+                        //       // Icon(Icons.ac_unit);
+                          
+                              
+                        //     },
+                        //   ),
+                        // )
+                        
+                          : 
+                          textBlack10Robo("could not load replies")
+                      
+              
+                    // FutureBuilder<Replies>(
+                    //   future: commentsContoller.getReplies(commentId: commentId),
+                    //   builder: (BuildContext context, AsyncSnapshot snapshot){
+                    //     // print()
+                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                    //       return const Center(child: CircularProgressIndicator());
+                    //     } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                    //       // print(" main wid");
+                    //       final data = snapshot.data;
+                    //       final repliesData = data;
+                    //       // return Icon(Icons.safety_check);
+                    //       // return ListView()
+                    //       return SizedBox(
+                    //         height: 200.h,
+                    //         child: ListView.builder(
+                    //           physics: const NeverScrollableScrollPhysics(),
+                    //           shrinkWrap: true,
+                    //           itemCount: repliesData.length,
+                    //           itemBuilder: (context, index) {
+                    //             print("sdf" + repliesData.length.toString());
+                    //             final reply = repliesData[index];
+                                        
+                    //             String originalDate = reply.createdAt;
+                    //             DateTime parsedDate = DateTime.parse(originalDate);
+                    //             String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+                            
+                    //             return Icon(Icons.sd);
+                            
+                                
+                    //           },
+                    //         ),
+                    //       );
+                      
+                    //     } else if (snapshot.hasError) {
+                    //       return const Center(child: Text('Failed to load replies'));
+                    //     } else {
+                          
+                    //       return Container();
+                    //     }
+                    //   }) 
+                   
+                      : SizedBox()
+                    
+                          ),
+              
+              
                   //two
-                  // visible: viewReply.value,
-                  // child: viewReply.value
-                  //     ? FutureBuilder<Replies>(
-                  //         future: commentsContoller.getReplies(
-                  //             commentId: commentId),
-                  //         builder: (context, snapshot) {
-                  //           // print()
-                  //           if (snapshot.connectionState ==
-                  //               ConnectionState.waiting) {
-                  //             return const Center(
-                  //                 child: CircularProgressIndicator());
-                  //           } else if (snapshot.hasData) {
-                  //             // print(" main wid");
-                  //             final repliesData = snapshot.data!.data;
-                  //             // return Icon(Icons.safety_check);
-                  //             // return ListView()
-                  //             return SizedBox(
-                  //               height: 200.h,
-                  //               child: ListView.builder(
-                  //                 physics:
-                  //                     const NeverScrollableScrollPhysics(),
-                  //                 shrinkWrap: true,
-                  //                 itemCount: repliesData.length,
-                  //                 itemBuilder: (context, index) {
-                  //                   print("sdf" +
-                  //                       repliesData.length.toString());
-                  //                   final reply = repliesData[index];
-
-                  //                   String originalDate = reply.createdAt;
-                  //                   DateTime parsedDate =
-                  //                       DateTime.parse(originalDate);
-                  //                   String formattedDateReply =
-                  //                       DateFormat('dd/MM/yyyy')
-                  //                           .format(parsedDate);
-
-                  //                   return Icon(Icons.sd);
-
-                  //                   // return Row(
-                  //                   //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //                   //   children: [
-                  //                   //     Container(
-                  //                   //       width: 30.h,
-                  //                   //       height: 30.h,
-                  //                   //       decoration: BoxDecoration(
-                  //                   //           borderRadius: BorderRadius.circular(15.h),
-                  //                   //           image: const DecorationImage(
-                  //                   //               image: AssetImage("assets/home/profile.png"),
-                  //                   //               fit: BoxFit.fill)),
-                  //                   //     ),
-                  //                   //     sizedBoxWidth(10.w),
-                  //                   //     Column(
-                  //                   //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //                   //       mainAxisAlignment: MainAxisAlignment.center,
-                  //                   //       children: [
-                  //                   //         // textWhite17w500("George Smith"),
-                  //                   //         // e=
-                  //                   //         // textBlack16SP("Chaitali tatkare"),
-                  //                   //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
-
-                  //                   //         sizedBoxHeight(5.h),
-
-                  //                   //         // textgreyD12Robo("2 Days ago")
-                  //                   //         Container(
-                  //                   //           decoration: BoxDecoration(
-                  //                   //               borderRadius: BorderRadius.circular(15.h),
-                  //                   //               color: AppColors.greyLtEBEBEB),
-                  //                   //           child: Padding(
-                  //                   //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                  //                   //             // child: textgreyD10Robo("11:36"),
-                  //                   //             child: textgreyD10Robo(formattedDateReply),
-
-                  //                   //           ),
-                  //                   //         ),
-
-                  //                   //         sizedBoxHeight(5.h),
-
-                  //                   //         textBlack15Robo(reply.comment),
-                  //                   //       ],
-                  //                   //     )
-                  //                   //   ],
-                  //                   // );
-
-                  //                   // final follower = followers[index].follower;
-                  //                   // return invite(
-                  //                   //   firstname: follower!.firstName!,
-                  //                   //   username: follower.username!,
-                  //                   //   profileimage: follower.profileImage,
-                  //                   //   userId: follower.id!,
-                  //                   //   index: index,
-                  //                   //   selectedIds: selectedIds,
-                  //                   //   onInvitePressed: (id) {
-                  //                   //     // Handle invite button pressed
-                  //                   //     print('Invite button pressed for: $id');
-                  //                   //   },
-                  //                   // );
-                  //                 },
-                  //               ),
-                  //             );
-                  //           } else if (snapshot.hasError) {
-                  //             return const Center(
-                  //                 child: Text('Failed to load followers'));
-                  //           } else {
-                  //             return Container();
-                  //           }
-                  //         })
-                  //     : SizedBox()
-                  // // Row(
-                  // //   crossAxisAlignment: CrossAxisAlignment.start,
-                  // //   children: [
-                  // //     Container(
-                  // //       width: 30.h,
-                  // //       height: 30.h,
-                  // //       decoration: BoxDecoration(
-                  // //           borderRadius: BorderRadius.circular(15.h),
-                  // //           image: const DecorationImage(
-                  // //               image: AssetImage("assets/home/profile.png"),
-                  // //               fit: BoxFit.fill)),
-                  // //     ),
-                  // //     sizedBoxWidth(10.w),
-                  // //     Column(
-                  // //       crossAxisAlignment: CrossAxisAlignment.start,
-                  // //       mainAxisAlignment: MainAxisAlignment.center,
-                  // //       children: [
-                  // //         // textWhite17w500("George Smith"),
-                  // //         // e=
-                  // //         // textBlack16SP("Chaitali tatkare"),
-                  // //         textBlack16SP(userName),
-
-                  // //         sizedBoxHeight(5.h),
-
-                  // //         // textgreyD12Robo("2 Days ago")
-                  // //         Container(
-                  // //           decoration: BoxDecoration(
-                  // //               borderRadius: BorderRadius.circular(15.h),
-                  // //               color: AppColors.greyLtEBEBEB),
-                  // //           child: Padding(
-                  // //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                  // //             // child: textgreyD10Robo("11:36"),
-                  // //             child: textgreyD10Robo(dateTime),
-
-                  // //           ),
-                  // //         ),
-
-                  // //         sizedBoxHeight(5.h),
-
-                  // //         textBlack15Robo(comment),
-                  // //       ],
-                  // //     )
-                  // //   ],
-                  // // ),
-
-                  // ),
+                      // visible: viewReply.value,
+                      // child: viewReply.value
+                      //     ? FutureBuilder<Replies>(
+                      //         future: commentsContoller.getReplies(
+                      //             commentId: commentId),
+                      //         builder: (context, snapshot) {
+                      //           // print()
+                      //           if (snapshot.connectionState ==
+                      //               ConnectionState.waiting) {
+                      //             return const Center(
+                      //                 child: CircularProgressIndicator());
+                      //           } else if (snapshot.hasData) {
+                      //             // print(" main wid");
+                      //             final repliesData = snapshot.data!.data;
+                      //             // return Icon(Icons.safety_check);
+                      //             // return ListView()
+                      //             return SizedBox(
+                      //               height: 200.h,
+                      //               child: ListView.builder(
+                      //                 physics:
+                      //                     const NeverScrollableScrollPhysics(),
+                      //                 shrinkWrap: true,
+                      //                 itemCount: repliesData.length,
+                      //                 itemBuilder: (context, index) {
+                      //                   print("sdf" +
+                      //                       repliesData.length.toString());
+                      //                   final reply = repliesData[index];
+              
+                      //                   String originalDate = reply.createdAt;
+                      //                   DateTime parsedDate =
+                      //                       DateTime.parse(originalDate);
+                      //                   String formattedDateReply =
+                      //                       DateFormat('dd/MM/yyyy')
+                      //                           .format(parsedDate);
+              
+                      //                   return Icon(Icons.sd);
+              
+                      //                   // return Row(
+                      //                   //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //                   //   children: [
+                      //                   //     Container(
+                      //                   //       width: 30.h,
+                      //                   //       height: 30.h,
+                      //                   //       decoration: BoxDecoration(
+                      //                   //           borderRadius: BorderRadius.circular(15.h),
+                      //                   //           image: const DecorationImage(
+                      //                   //               image: AssetImage("assets/home/profile.png"),
+                      //                   //               fit: BoxFit.fill)),
+                      //                   //     ),
+                      //                   //     sizedBoxWidth(10.w),
+                      //                   //     Column(
+                      //                   //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //                   //       mainAxisAlignment: MainAxisAlignment.center,
+                      //                   //       children: [
+                      //                   //         // textWhite17w500("George Smith"),
+                      //                   //         // e=
+                      //                   //         // textBlack16SP("Chaitali tatkare"),
+                      //                   //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+              
+                      //                   //         sizedBoxHeight(5.h),
+              
+                      //                   //         // textgreyD12Robo("2 Days ago")
+                      //                   //         Container(
+                      //                   //           decoration: BoxDecoration(
+                      //                   //               borderRadius: BorderRadius.circular(15.h),
+                      //                   //               color: AppColors.greyLtEBEBEB),
+                      //                   //           child: Padding(
+                      //                   //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                      //                   //             // child: textgreyD10Robo("11:36"),
+                      //                   //             child: textgreyD10Robo(formattedDateReply),
+              
+                      //                   //           ),
+                      //                   //         ),
+              
+                      //                   //         sizedBoxHeight(5.h),
+              
+                      //                   //         textBlack15Robo(reply.comment),
+                      //                   //       ],
+                      //                   //     )
+                      //                   //   ],
+                      //                   // );
+              
+                      //                   // final follower = followers[index].follower;
+                      //                   // return invite(
+                      //                   //   firstname: follower!.firstName!,
+                      //                   //   username: follower.username!,
+                      //                   //   profileimage: follower.profileImage,
+                      //                   //   userId: follower.id!,
+                      //                   //   index: index,
+                      //                   //   selectedIds: selectedIds,
+                      //                   //   onInvitePressed: (id) {
+                      //                   //     // Handle invite button pressed
+                      //                   //     print('Invite button pressed for: $id');
+                      //                   //   },
+                      //                   // );
+                      //                 },
+                      //               ),
+                      //             );
+                      //           } else if (snapshot.hasError) {
+                      //             return const Center(
+                      //                 child: Text('Failed to load followers'));
+                      //           } else {
+                      //             return Container();
+                      //           }
+                      //         })
+                      //     : SizedBox()
+                      // // Row(
+                      // //   crossAxisAlignment: CrossAxisAlignment.start,
+                      // //   children: [
+                      // //     Container(
+                      // //       width: 30.h,
+                      // //       height: 30.h,
+                      // //       decoration: BoxDecoration(
+                      // //           borderRadius: BorderRadius.circular(15.h),
+                      // //           image: const DecorationImage(
+                      // //               image: AssetImage("assets/home/profile.png"),
+                      // //               fit: BoxFit.fill)),
+                      // //     ),
+                      // //     sizedBoxWidth(10.w),
+                      // //     Column(
+                      // //       crossAxisAlignment: CrossAxisAlignment.start,
+                      // //       mainAxisAlignment: MainAxisAlignment.center,
+                      // //       children: [
+                      // //         // textWhite17w500("George Smith"),
+                      // //         // e=
+                      // //         // textBlack16SP("Chaitali tatkare"),
+                      // //         textBlack16SP(userName),
+              
+                      // //         sizedBoxHeight(5.h),
+              
+                      // //         // textgreyD12Robo("2 Days ago")
+                      // //         Container(
+                      // //           decoration: BoxDecoration(
+                      // //               borderRadius: BorderRadius.circular(15.h),
+                      // //               color: AppColors.greyLtEBEBEB),
+                      // //           child: Padding(
+                      // //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                      // //             // child: textgreyD10Robo("11:36"),
+                      // //             child: textgreyD10Robo(dateTime),
+              
+                      // //           ),
+                      // //         ),
+              
+                      // //         sizedBoxHeight(5.h),
+              
+                      // //         textBlack15Robo(comment),
+                      // //       ],
+                      // //     )
+                      // //   ],
+                      // // ),
+              
+                      // ),
+              
 
                   //three
                   sizedBoxHeight(5.h),
                   numReplies > 0
                       ? InkWell(
-                          onTap: () {
+                          onTap: () async {
+                            replies = await commentsContoller.getReplies(commentId: commentId);
                             viewReply.value = !viewReply.value;
                           },
                           child: Row(
@@ -1101,6 +1183,7 @@ class _IngridentsState extends State<Ingridents> {
 
                                     Row(
                                       children: [
+
                                         recipeData.userId == myUserId
                                             ? SizedBox()
                                             : GestureDetector(
@@ -1162,6 +1245,7 @@ class _IngridentsState extends State<Ingridents> {
                                                         ),
                                                       ),
                                               ),
+
                                         Container(
                                           child: recipeData.following!
                                               ? PopupMenuButton(
@@ -1628,9 +1712,16 @@ class _IngridentsState extends State<Ingridents> {
                                     ),
                                     InkWell(
                                         onTap: () {
-                                          Get.toNamed(
-                                              "/InspirationRecipeComment",
-                                              arguments: recipeData.id);
+
+                                          print(recipeData.id);
+                                          Get.toNamed("/InspirationRecipeComment",
+                                            arguments:recipeData.id
+                                          );
+                                          // .then((value) {
+                                          //   onback();
+                                          //   return true;
+                                          // });
+
                                         },
                                         child: textgreyD12Robo("View Recipe >"))
                                   ],
@@ -1677,5 +1768,11 @@ class _IngridentsState extends State<Ingridents> {
         },
       ),
     );
+  }
+
+  onback(){
+    setState(() {
+      
+    });
   }
 }

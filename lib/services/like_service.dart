@@ -13,6 +13,7 @@ class LikeService {
         body: body,
         headers: {'x-auth-token': "$accessToken"},
       );
+      print(response.body);
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);

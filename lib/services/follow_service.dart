@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 class FollowService {
   static Future followRecipe(String userId) async {
+    print("followRecipe");
     final apiUrl = ApiUrls.follow;
     final body = {"userId": userId};
 

@@ -78,7 +78,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
     video = null;
-    coverImage = null;
+    coverImage = json['cover_image'];
     name = json['name'];
     description = json['description'];
     difficulty = json['difficulty'];
@@ -332,7 +332,7 @@ class Instruction {
   Instruction.fromJson(Map<String, dynamic> json){
     id = json['id'];
     instructions = json['instructions'];
-    coverImage = null;
+    coverImage = json['cover_image'];
     recipeId = json['recipeId'];
   }
 
