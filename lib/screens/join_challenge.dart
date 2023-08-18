@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/comment_bottom_sheet.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/explore/controller/explore_cont.dart';
+import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/controllers/join_challenge_controller.dart';
+import 'package:foodspeciality/screens/InsideBottomBar/explore/controller/explore_controller.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
@@ -12,6 +14,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../common files/app_bar.dart';
 import '../common files/sized_box.dart';
+import '../services/like_service.dart';
+import '../services/save_recipe.dart';
 
 class JoinChallenge extends StatefulWidget {
   const JoinChallenge({super.key});
@@ -24,225 +28,335 @@ class _JoinChallengeState extends State<JoinChallenge> {
   ExploreController controllerExplore = Get.put(ExploreController());
   HomeController controllerHome = Get.put(HomeController());
   final tecComment = TextEditingController();
+  JoinChallengeController joinChallengeController = Get.put(JoinChallengeController());
+  var challengeId;
+
+  void _handleLikeButton(String id) async {
+    try {
+      var resp = await LikeService.likeRecipe(id);
+      if (resp) {
+        joinChallengeController.getChallenge(challengeId: challengeId);
+        // viewRecipeController.getRecipeDetails(recipeId: id);
+        
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error liking recipe: $e');
+    }
+  }
+
+  void _handleSaveButton(id) async {
+    try {
+      var resp = await SaveService.saveRecipe(id ?? "");
+      if (resp) {
+        joinChallengeController.getChallenge(challengeId: challengeId);
+        // viewRecipeController.getRecipeDetails(recipeId: id);
+
+        // setState(() {
+        //   isSaved = !isSaved!;
+        // });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error saving recipe: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    challengeId = Get.arguments;
+    joinChallengeController.getChallenge(challengeId: challengeId);
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(86),
-                child: Material(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(14),
-                      topRight: Radius.circular(14)),
-                  // shape: Border.all(color: Colors.white),
-                  color: Colors.white,
-                  elevation: 2,
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    height: 86.h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        sizedBoxWidth(9.w),
-                        CircularPercentIndicator(
-                          radius: 28.r,
-                          percent: 0.72,
-                          startAngle: 320,
-                          progressColor: const Color(0xff3B3F43),
-                          lineWidth: 2,
-                          center: const Icon(
-                            Icons.calendar_today_outlined,
-                            size: 18,
-                          ),
-                        ),
-                        sizedBoxWidth(10.w),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        body: GetBuilder<JoinChallengeController>(builder: (context){
+          return joinChallengeController.isloading 
+            ? Center(child: CircularProgressIndicator()) 
+            // ? 
+            : joinChallengeController.challengeModel == null 
+            ? Center(child: textgrey18BoldSP("Something went wrong"))
+            : CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(86),
+                    child: Material(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(14),
+                          topRight: Radius.circular(14)),
+                      // shape: Border.all(color: Colors.white),
+                      color: Colors.white,
+                      elevation: 2,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        height: 86.h,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              '2 Days Left',
-                              style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontFamily: 'StudioProM',
-                                  color: const Color(0xff3B3F43)),
+                            sizedBoxWidth(9.w),
+                            CircularPercentIndicator(
+                              radius: 28.r,
+                              percent: 0.72,
+                              startAngle: 320,
+                              progressColor: const Color(0xff3B3F43),
+                              lineWidth: 2,
+                              center: const Icon(
+                                Icons.calendar_today_outlined,
+                                size: 18,
+                              ),
                             ),
-                            sizedBoxHeight(5.h),
-                            LinearPercentIndicator(
-                              barRadius: Radius.circular(5.r),
-                              padding: const EdgeInsets.all(0),
-                              width: 186.w,
-                              percent: 0.4,
-                              progressColor: const Color(0xff979797),
-                              backgroundColor: const Color(0xffF2F2F2),
+                            sizedBoxWidth(10.w),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GetBuilder<JoinChallengeController>(builder: (builder){
+                                  final daysLeft = joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days;
+
+                                  return Text(
+                                    
+                                    // '2 Days Left',
+                                    daysLeft > 0 ? "${(daysLeft + 1).toString()} Days Left" : "Ends Today",
+                                    // joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
+
+                                    style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontFamily: 'StudioProM',
+                                        color: const Color(0xff3B3F43)),
+                                  );
+
+                                }), 
+                                // Text(
+                                  
+                                //   // '2 Days Left',
+                                //   joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
+
+                                //   style: TextStyle(
+                                //       fontSize: 10.sp,
+                                //       fontFamily: 'StudioProM',
+                                //       color: const Color(0xff3B3F43)),
+                                // ),
+                                sizedBoxHeight(5.h),
+                                LinearPercentIndicator(
+                                  barRadius: Radius.circular(5.r),
+                                  padding: const EdgeInsets.all(0),
+                                  width: 186.w,
+                                  percent: 0.4,
+                                  progressColor: const Color(0xff979797),
+                                  backgroundColor: const Color(0xffF2F2F2),
+                                ),
+                                // sizedBoxHeight(10.h)
+                              ],
                             ),
-                            // sizedBoxHeight(10.h)
+                            sizedBoxWidth(27.w),
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed("/RecipeIng",
+                                  arguments: challengeId
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Submit recipe',
+                                    style: TextStyle(
+                                      fontFamily: 'StudioProM',
+                                      fontSize: 14.sp,
+                                      color: const Color(0xff3B3F43),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 16.sp,
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        sizedBoxWidth(27.w),
-                        InkWell(
-                          onTap: () {
-                            Get.toNamed("/RecipeIng");
-                          },
-                          child: Row(
+                      ),
+                    ),
+                  ),
+                  automaticallyImplyLeading: false,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  opacity: 1,
+                                  image: 
+                                  NetworkImage(ApiUrls.base + "null")
+                                  // AssetImage('assets/home/food_bowl.png')
+                                  )),
+                          // child: Image.asset(
+                          //   "assets/Mask Group 108.png",
+                          //   // color: Color.fromARGB(255, 168, 168, 168).withOpacity(0.54),
+                          // ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Submit recipe',
-                                style: TextStyle(
-                                  fontFamily: 'StudioProM',
-                                  fontSize: 14.sp,
-                                  color: const Color(0xff3B3F43),
+                              Column(
+                                children: [
+                                  sizedBoxHeight(26.h),
+                                  GestureDetector(
+                                      onTap: () {
+                                        Get.back();
+                                      },
+                                      child:
+                                          SvgPicture.asset('assets/Path 39.svg')),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // 'The " Main" Mains Challenge',
+                                    joinChallengeController.challengeModel!.data.challengeDetails.title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "Studio Pro",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22.sp),
+                                  ),
+                                  sizedBoxHeight(10.h),
+                                  Text(
+                                    joinChallengeController.challengeModel!.data.challengeDetails.description,
+                                    // "Let's bring 'main-course' to the forefront \nthis week",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "Roboto",
+                                        fontSize: 16.sp),
+                                  ),
+                                  sizedBoxHeight(113.h),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    centerTitle: true,
+                  ),
+                  expandedHeight: 363,
+                  backgroundColor: Colors.white,
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: 1,
+                    (context, index) => SingleChildScrollView(
+                      // physics: BouncingScrollPhysics(),
+                      child: Container(
+                        // padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        width: double.infinity,
+                        // width: 20,
+                        // height: 600,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // const Divider(
+                              //     // color: const Color(0xff00000029),
+                              //     ),
+                              sizedBoxHeight(10.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Text(
+                                  // "12 Recipes Shared",
+                                  "${joinChallengeController.challengeModel!.data.recipes.length} Recipes Shared",
+                                  style: TextStyle(
+                                      color: const Color(0xff3B3F43),
+                                      fontFamily: "StudioProM",
+                                      fontSize: 18.sp),
                                 ),
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                size: 16.sp,
-                              )
+                              sizedBoxHeight(10.h),
+                              SizedBox(
+                                  // height: 520.h,
+                                  child:
+                                      GetBuilder<ExploreController>(builder: (_) {
+                                return ListView.separated(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      final recipeData = joinChallengeController.challengeModel!.data.recipes[index];
+                                      return shareRecipeCard(
+                                        recipeId: recipeData.recipe.id,
+                                        coverImage: recipeData.recipe.coverImage, 
+                                        recipeName: recipeData.recipe.name, 
+                                        userName: recipeData.recipe.user.username, 
+                                        numLikes: recipeData.likes, 
+                                        numComments: recipeData.comments, 
+                                        numSaves: recipeData.saves, 
+                                        cookingTime: recipeData.recipe.cookingTime,
+                                        liked: recipeData.liked,
+                                        saved: recipeData.saved
+                                      );
+                                      // shareRecipeCard(like, save, index, coverImage: coverImage, recipeName: recipeName, userName: userName, numLikes: numLikes, numComments: numComments, numSaves: numSaves, cookingTime: cookingTime)
+                                      // shareRecipeCard(
+                                      //     controllerExplore.likeSave[index]["like"],
+                                      //     controllerExplore.likeSave[index]["save"],
+                                      //     index,
+
+                                      // );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        height: 15.h,
+                                      );
+                                    },
+                                    itemCount: joinChallengeController.challengeModel!.data.recipes.length
+                                    // 5
+                                    );
+                              })),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              automaticallyImplyLeading: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              opacity: 1,
-                              image: AssetImage('assets/home/food_bowl.png'))),
-                      // child: Image.asset(
-                      //   "assets/Mask Group 108.png",
-                      //   // color: Color.fromARGB(255, 168, 168, 168).withOpacity(0.54),
-                      // ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              sizedBoxHeight(26.h),
-                              GestureDetector(
-                                  onTap: () {
-                                    Get.back();
-                                  },
-                                  child:
-                                      SvgPicture.asset('assets/Path 39.svg')),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'The " Main" Mains Challenge',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "Studio Pro",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22.sp),
-                              ),
-                              sizedBoxHeight(10.h),
-                              Text(
-                                "Let's bring 'main-course' to the forefront \nthis week",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Roboto",
-                                    fontSize: 16.sp),
-                              ),
-                              sizedBoxHeight(113.h),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                centerTitle: true,
-              ),
-              expandedHeight: 363,
-              backgroundColor: Colors.white,
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                childCount: 1,
-                (context, index) => SingleChildScrollView(
-                  // physics: BouncingScrollPhysics(),
-                  child: Container(
-                    // padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    width: double.infinity,
-                    // width: 20,
-                    // height: 600,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // const Divider(
-                          //     // color: const Color(0xff00000029),
-                          //     ),
-                          sizedBoxHeight(10.h),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Text(
-                              "12 Recipes Shared",
-                              style: TextStyle(
-                                  color: const Color(0xff3B3F43),
-                                  fontFamily: "StudioProM",
-                                  fontSize: 18.sp),
-                            ),
-                          ),
-                          sizedBoxHeight(10.h),
-                          SizedBox(
-                              // height: 520.h,
-                              child:
-                                  GetBuilder<ExploreController>(builder: (_) {
-                            return ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return shareRecipeCard(
-                                      controllerExplore.likeSave[index]["like"],
-                                      controllerExplore.likeSave[index]["save"],
-                                      index);
-                                },
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: 15.h,
-                                  );
-                                },
-                                itemCount: 5);
-                          })),
-                        ],
                       ),
                     ),
                   ),
-                ),
-              ),
-            )
-          ],
-        ),
+                )
+              ],
+            );
+        
+        })
+    
       ),
     );
   }
 
-  Widget shareRecipeCard(int like, int save, int index) {
+  Widget shareRecipeCard(
+    // int like, int save, int index,
+  {
+    required String recipeId,
+    required String coverImage,
+    required String recipeName,
+    required String userName,
+    required bool liked,
+    required bool saved,
+    required int numLikes,
+    required int numComments,
+    required int numSaves,
+    required String cookingTime,
+K
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Card(
@@ -267,8 +381,9 @@ class _JoinChallengeState extends State<JoinChallenge> {
                 height: 112.h,
                 width: 133.w,
                 decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage('assets/home/food.png'),
+                    image: DecorationImage(
+                      image: NetworkImage(ApiUrls.base + coverImage),
+                      // AssetImage('assets/home/food.png'),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(10.r)),
@@ -278,7 +393,8 @@ class _JoinChallengeState extends State<JoinChallenge> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Slappappoffer Recipe",
+                    // "Slappappoffer Recipe",
+                    recipeName,
                     style: TextStyle(
                         fontFamily: "StudioProM",
                         fontSize: 18.sp,
@@ -288,7 +404,8 @@ class _JoinChallengeState extends State<JoinChallenge> {
                     height: 5.h,
                   ),
                   Text(
-                    "@priyujoshi",
+                    // "@priyujoshi",
+                    "@$userName",
                     style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: 14.sp,
@@ -300,24 +417,39 @@ class _JoinChallengeState extends State<JoinChallenge> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       iconText(
-                          like == 0
-                              ? "assets/icons/like.png"
-                              : "assets/icons/like_filled.png",
-                          "55", onTap: () {
-                        controllerExplore.likeMethod(index, like);
-                      }, color: like == 0 ? AppColors.greyM707070 : null),
+                          liked
+                              ? "assets/icons/like_filled.png"
+                              : "assets/icons/like.png",
+                          // "55", 
+                          numLikes > 0 ? numLikes.toString() : "",
+                          onTap: () {
+                            _handleLikeButton(recipeId);
+                        // controllerExplore.likeMethod(index, like);
+                      }, 
+                      // color: like ? AppColors.greyM707070 : null
+                      ),
                       sizedBoxWidth(20.w),
-                      iconText("assets/icons/comment.png", "30", onTap: () {
+                      iconText("assets/icons/comment.png", 
+                      // "30",
+                      numComments > 0 ? numComments.toString() : "",
+                       onTap: () {
                         commentbottomSheet();
-                      }, color: AppColors.greyM707070),
+                      }, 
+                      // color: AppColors.greyM707070
+                      ),
                       sizedBoxWidth(20.w),
                       iconText(
-                          save == 0
-                              ? "assets/icons/save.png"
-                              : "assets/icons/save_filled.png",
-                          "55", onTap: () {
-                        controllerExplore.saveMethod(index, save);
-                      }, color: AppColors.greyM707070),
+                          saved
+                              ? "assets/icons/save_filled.png"
+                              : "assets/icons/save.png",
+                          // "55",
+                          numSaves > 0 ? numSaves.toString() : "",
+                          onTap: () {
+                            _handleSaveButton(recipeId);
+                        // controllerExplore.saveMethod(index, save);
+                      }, 
+                      // color: AppColors.greyM707070
+                      ),
                       sizedBoxWidth(40.w),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -330,7 +462,10 @@ class _JoinChallengeState extends State<JoinChallenge> {
                               color: AppColors.greyM707070),
                           sizedBoxWidth(2.w),
                           Text(
-                            '30 Min',
+                            // '30 Min',
+                            '$cookingTime Min',
+
+                            // cookingTime,
                             style: TextStyle(
                                 fontFamily: 'Roboto', fontSize: 10.sp),
                           )
@@ -526,7 +661,9 @@ class _JoinChallengeState extends State<JoinChallenge> {
   }
 
   Widget iconText(String imagePath, String text,
-      {void Function()? onTap, Color? color}) {
+      {void Function()? onTap, 
+      // Color? color
+      }) {
     return Column(
       children: [
         InkWell(

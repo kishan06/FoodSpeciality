@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import '../common files/common_sucess_dailog.dart';
 import '../common files/sized_box.dart';
 // import 'common_chip.dart';
 // import 'dropdownList.dart';
@@ -129,9 +130,14 @@ class _RecipeIngState extends State<RecipeIng>
 
   var _newFormKey = GlobalKey<FormState>();
 
+  var challengeId;
+
   @override
   void initState() {
     super.initState();
+    challengeId = Get.arguments ?? null;
+    print("challengeId $challengeId");
+
     _controllers.add(TextEditingController());
     //_controllers2.add(TextEditingController());
 
@@ -404,14 +410,24 @@ class _RecipeIngState extends State<RecipeIng>
         instructions: jsonEncode(instructions),
         
         publish_status: publish_status_value!,
-        instructionsImages: imageInstructionList
+        instructionsImages: imageInstructionList,
+        challengeId: challengeId??null
         );
         
 
     if (resp.status == ResponseStatus.PRIVATE) {
       callAddRecipeApi();
     } else if(resp.status == ResponseStatus.SUCCESS){
-      getRecipePublishSuccess();
+      if (challengeId != null) {
+        commonSucessDailog(
+          msg: "Recipe shared for challenge successfully", 
+          onPressed: (){
+            Get.offAllNamed("/bottomBar");
+          }
+        );
+      } else {
+        getRecipePublishSuccess();
+      }
     }
   }
 

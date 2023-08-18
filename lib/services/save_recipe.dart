@@ -13,10 +13,11 @@ class SaveService {
         body: body,
         headers: {'x-auth-token': "$accessToken"},
       );
+      print(response.body);
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        print("resp from api ${jsonResponse["message"]}");
+        // print("resp from api ${jsonResponse["message"]}");
         return jsonResponse["success"];
       } else {
         // API call failed

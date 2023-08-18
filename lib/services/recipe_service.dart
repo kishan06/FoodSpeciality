@@ -29,11 +29,13 @@ class RecipeService {
     required String ingredients,
     required String instructions,
     required String publish_status,
-    required List<File?> instructionsImages
+    required List<File?> instructionsImages,
+    String? challengeId
   }) async {
     print("addRecipe");
     print("imagePath- $imagePath");
     print("instructionsImages $instructionsImages");
+    
     try {
       var headers = {
         'x-auth-token': accessToken!
@@ -52,6 +54,7 @@ class RecipeService {
         'instructions': instructions,
 
         'published_status': publish_status,
+        'challengeId': challengeId??""
       };
       request.fields.addAll(other);
       print({

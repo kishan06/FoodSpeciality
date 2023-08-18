@@ -25,10 +25,14 @@ Widget searchNotification() {
           child: CustomSearchTextFormField(
             autofocus: true,
             onTap: () {
-              //Get.toNamed("/SearchPage");
-              Get.to(const SearchPage(),
-                  duration: const Duration(milliseconds: 500),
-                  transition: Transition.downToUp);
+              Get.toNamed("/SearchPage",
+                
+              
+              );
+              // Get.toNamed(page)
+              // Get.to(const SearchPage(),
+              //     duration: const Duration(milliseconds: 500),
+              //     transition: Transition.downToUp);
             },
             readonly: true,
             hintText: "search recipes, ingredients or tips",
