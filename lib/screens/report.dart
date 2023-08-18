@@ -69,7 +69,7 @@ class _ReportState extends State<Report> {
         // appBar: const CustomAppBar(titleTxt: "Report"),
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,9 +124,13 @@ class _ReportState extends State<Report> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 100.h,
+              ),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 34.w, vertical: 100.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 34.w,
+                ),
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

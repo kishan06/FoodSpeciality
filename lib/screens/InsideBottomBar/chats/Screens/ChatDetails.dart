@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/Model/MessageModel.dart';
+import 'package:foodspeciality/Model/PrivateChatDetailModel.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/services/private_chatdetail_service.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -26,10 +28,12 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
   ScrollController myController = ScrollController();
 
   List<MessageModel> messages = [];
-
+  Future<PrivateChatDetailModel>? myfuture;
   @override
   void initState() {
     connect();
+    myfuture = PrivateChatDetailService()
+        .getPrivateChatDetailData(Get.arguments["targetUserId"]);
     super.initState();
   }
 
@@ -47,8 +51,7 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
       print('Connected: ${socket.id}');
 
       // Join the room
-      socket.emit('join',
-          {'room': '8c77d84f-4752-4841-9db2-6758b3a089f3', 'type': 'personal'});
+      socket.emit('join', {'room': '$myUserId', 'type': 'personal'});
       // socket.emit('join', {'room': 'YOUR_ROOM_NAME', 'type': 'community'});
     });
 
@@ -96,6 +99,25 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
     }
   }
 
+  var isonce = true;
+  sortMessages() {
+    if (isonce) {
+      Timer(const Duration(seconds: 2), () {
+        for (var i = 0; i < chatData!.data!.length; i++) {
+          if (chatData!.data![i].senderId == myUserId) {
+            setMessage(
+              "source",
+              chatData!.data![i].message!,
+            );
+          } else {
+            setMessage("destination", chatData!.data![i].message!);
+          }
+        }
+      });
+      isonce = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(milliseconds: 50),
@@ -105,130 +127,148 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
         Get.focusScope?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFFFFFFF),
-        appBar: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          flexibleSpace: SafeArea(
-            child: Container(
-              padding: EdgeInsets.only(right: 16.w),
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "http://77.68.102.23:8000/${profileimage}"),
-                    maxRadius: 20.r,
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          username,
-                          style: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
-                        Text(
-                          "Online",
-                          style: TextStyle(
-                              color: Colors.grey.shade600, fontSize: 13.sp),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // ignore: prefer_const_constructors
-                ],
-              ),
-            ),
-          ),
-        ),
-        body: Stack(
-          children: <Widget>[
-            ListView.builder(
-              controller: myController,
-              itemCount: messages.length,
-              padding: EdgeInsets.only(top: 10.h, bottom: 60.h),
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return messages[index].type == "source"
-                    ? Sender(message: messages[index].message)
-                    : Receiver(message: messages[index].message);
-              },
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 8.h),
+          backgroundColor: const Color(0xFFFFFFFF),
+          appBar: AppBar(
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            flexibleSpace: SafeArea(
+              child: Container(
+                padding: EdgeInsets.only(right: 16.w),
                 child: Row(
                   children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
-                        child: TextFormField(
-                          controller: _messageController,
-                          decoration: InputDecoration(
-                            hintText: "Send Message",
-                            hintStyle: TextStyle(color: Colors.grey.shade600),
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.only(top: 14.h),
-                              child: InkWell(
-                                onTap: sendMessage,
-                                child: Text(
-                                  "Send",
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.all(10.sp),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                              borderSide: const BorderSide(
-                                color: Color(0xFF707070),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                              borderSide: const BorderSide(
-                                color: Color(0xFF707070),
-                              ),
-                            ),
-                          ),
-                        ),
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
                       ),
                     ),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "http://77.68.102.23:8000/${profileimage}"),
+                      maxRadius: 20.r,
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            username,
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            height: 6.h,
+                          ),
+                          Text(
+                            "Online",
+                            style: TextStyle(
+                                color: Colors.grey.shade600, fontSize: 13.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // ignore: prefer_const_constructors
                   ],
                 ),
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+          body: FutureBuilder<PrivateChatDetailModel>(
+            future: myfuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator(); // Show loading indicator while fetching data
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData || snapshot.data!.data == null) {
+                return Text('No data available.');
+              } else {
+                sortMessages();
+                return Stack(
+                  children: <Widget>[
+                    ListView.builder(
+                      controller: myController,
+                      itemCount: messages.length,
+                      padding: EdgeInsets.only(top: 10.h, bottom: 60.h),
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return messages[index].type == "source"
+                            ? Sender(message: messages[index].message)
+                            : Receiver(
+                                message: messages[index].message,
+                                profileimage:
+                                    Get.arguments["profileimage"] ?? "",
+                              );
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 16.h, left: 16.w, right: 16.w),
+                                child: TextFormField(
+                                  controller: _messageController,
+                                  decoration: InputDecoration(
+                                    hintText: "Send Message",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey.shade600),
+                                    suffixIcon: Padding(
+                                      padding: EdgeInsets.only(top: 14.h),
+                                      child: InkWell(
+                                        onTap: sendMessage,
+                                        child: Text(
+                                          "Send",
+                                          style: TextStyle(
+                                              fontFamily: "Roboto",
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: EdgeInsets.all(10.sp),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF707070),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF707070),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
+          )),
     );
   }
 }
@@ -274,9 +314,10 @@ class Sender extends StatelessWidget {
 }
 
 class Receiver extends StatelessWidget {
-  const Receiver({super.key, this.message});
+  const Receiver({super.key, this.message, this.profileimage});
 
   final String? message;
+  final dynamic profileimage;
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +333,7 @@ class Receiver extends StatelessWidget {
               height: 40.h,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100.r),
-                child: Image.asset('assets/chef.png'),
+                child: Image.asset(profileimage),
               ),
             ),
             SizedBox(width: 10.w),

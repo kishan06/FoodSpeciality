@@ -51,7 +51,7 @@ Future<void> main() async {
   accessToken = prefs.getString('accessToken');
   onboard = prefs.getBool("OnBoard");
   myUserId = prefs.getString('userId');
-
+  myImage = prefs.getString('myImage');
   print("acs to ${accessToken}");
 
   SystemChrome.setPreferredOrientations(

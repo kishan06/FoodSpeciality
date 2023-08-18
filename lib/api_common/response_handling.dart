@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-
 import '../constants/base_manager.dart';
 
 Future<ResponseData<dynamic>> responseHandling({
@@ -39,11 +37,8 @@ Future<ResponseData<dynamic>> responseHandling({
 
       Get.snackbar("Error", jsonResp["data"]["message"]);
 
+      Get.snackbar("Error", jsonResp["message"]);
 
-      Get.snackbar(
-        "Error", jsonResp["message"]
-      );
-          
       return ResponseData<dynamic>(
         "UnAuthorized",
         ResponseStatus.FAILED,

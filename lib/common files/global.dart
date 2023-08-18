@@ -1,5 +1,6 @@
 String? accessToken;
 String? myUserId;
+String? myImage;
 
 bool? onboard;
 // String uri = 'http://<yourip>:3000';
@@ -37,13 +38,15 @@ class ApiUrls {
   static const addComments = _base + "recipe/add-comment";
   static const likeComment = _base + "recipe/comment/like";
 
-
   static const commentReplies = _base + "recipe/get-replies";
   static const savedRecipes = _base + "user/recipes/saved";
   static const recipeDetails = _base + "recipe/getdetails";
   static const userRecipes = _base + "recipe/getPublished";
 
   static const privatechatlist = _base + "user/chat-rooms";
+  static const communitychatlist = _base + "user/community/all";
+  static const privatechatdetails = _base + "user/chats";
+  static const communitychatdetails = _base + "community/chats";
   static const report = _base + "report/create";
   static const addReply = _base + "recipe/add-reply";
   static const getExplore = _base + "recipe/explore";
@@ -51,7 +54,6 @@ class ApiUrls {
   static const getTrendingRecipe = _base + "recipe/trending";
   static const getChallengeData = _base + "user/challenges";
   
-
 
   // static const commentReplies = _base + "recipe/get-replies";
 }

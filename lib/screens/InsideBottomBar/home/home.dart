@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/Model/Replies.dart';
-import 'package:foodspeciality/Model/comments_model.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
 import 'package:foodspeciality/common%20files/comman_tabbar.dart';
 import 'package:foodspeciality/common%20files/customSearchTextfield.dart';
@@ -361,6 +360,7 @@ class _IngridentsState extends State<Ingridents> {
     commentsContoller.emptyComments();
     commentsContoller.getCommentsData(recipeId);
 
+
     // focusForReply(){
     //   if (_focusNode.hasFocus) {
     //     _focusNode.requestFocus();
@@ -638,6 +638,7 @@ class _IngridentsState extends State<Ingridents> {
                 children: [
                   
                   Visibility(
+
               
                       //one
                     visible: viewReply.value,
@@ -965,6 +966,7 @@ class _IngridentsState extends State<Ingridents> {
               
                       // ),
               
+
                   //three
                   sizedBoxHeight(5.h),
                   numReplies > 0
@@ -1181,58 +1183,69 @@ class _IngridentsState extends State<Ingridents> {
 
                                     Row(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            print("pressed");
-                                            _handleFollowButton(
-                                                recipeData.user!.id!);
-                                          },
-                                          child: recipeData!.following!
-                                              ? Container(
-                                                  //     width: 60.w,
-                                                  // height: 30,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.r),
-                                                    border: Border.all(
-                                                      color: const Color(
-                                                          0xFF3B3F43),
-                                                    ),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(5.h),
-                                                    child: Center(
-                                                      child: textgreyD14Robo(
-                                                          "Following"),
-                                                    ),
-                                                  ),
-                                                )
-                                              : Container(
-                                                  //  width: 80.w,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.greyD3B3F43,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.r),
-                                                    border: Border.all(
-                                                        color: Colors
-                                                            .grey.shade700),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(5.h),
-                                                    child: Center(
-                                                      child: textWhite14Robo(
-                                                          "Follow"),
-                                                    ),
-                                                  ),
-                                                ),
-                                        ),
-                                    
+
+                                        recipeData.userId == myUserId
+                                            ? SizedBox()
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  print("pressed");
+                                                  _handleFollowButton(
+                                                      recipeData.user!.id!);
+                                                },
+                                                child: recipeData!.following!
+                                                    ? Container(
+                                                        //     width: 60.w,
+                                                        // height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.r),
+                                                          border: Border.all(
+                                                            color: const Color(
+                                                                0xFF3B3F43),
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.h),
+                                                          child: Center(
+                                                            child:
+                                                                textgreyD14Robo(
+                                                                    "Following"),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        //  width: 80.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: AppColors
+                                                              .greyD3B3F43,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.r),
+                                                          border: Border.all(
+                                                              color: Colors.grey
+                                                                  .shade700),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.h),
+                                                          child: Center(
+                                                            child:
+                                                                textWhite14Robo(
+                                                                    "Follow"),
+                                                          ),
+                                                        ),
+                                                      ),
+                                              ),
+
                                         Container(
                                           child: recipeData.following!
                                               ? PopupMenuButton(
@@ -1699,6 +1712,7 @@ class _IngridentsState extends State<Ingridents> {
                                     ),
                                     InkWell(
                                         onTap: () {
+
                                           print(recipeData.id);
                                           Get.toNamed("/InspirationRecipeComment",
                                             arguments:recipeData.id
@@ -1707,6 +1721,7 @@ class _IngridentsState extends State<Ingridents> {
                                           //   onback();
                                           //   return true;
                                           // });
+
                                         },
                                         child: textgreyD12Robo("View Recipe >"))
                                   ],

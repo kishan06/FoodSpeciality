@@ -107,6 +107,13 @@ class _ViewCommunityState extends State<ViewCommunity> {
                         style: TextStyle(
                             color: const Color(0xFF3B3F43), fontSize: 13.sp),
                       ),
+                      sizedBoxHeight(16.h),
+                      Text(
+                        "Lorem Ipsum is a simple dummy text.Lorem Ipsum is a simple dummy text.",
+                        style: TextStyle(
+                            color: const Color(0xFF3B3F43), fontSize: 13.sp),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
 

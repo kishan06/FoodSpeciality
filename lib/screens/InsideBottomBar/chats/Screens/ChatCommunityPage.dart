@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/Model/CommunityChatListModel.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
+import 'package:foodspeciality/services/community_chatdetails_service.dart';
+import 'package:foodspeciality/services/community_chatlist_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +18,20 @@ class ChatCommunityPage extends StatefulWidget {
 
 class _ChatCommunityPageState extends State<ChatCommunityPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final controllerChat = Get.put(ChatController());
+  final TextEditingController _filterController = TextEditingController();
+  String _filterUsername = '';
 
   @override
-  void initState() {
-    super.initState();
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+  void dispose() {
+    _filterController.dispose();
+    super.dispose();
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   SystemChannels.textInput.invokeMethod('TextInput.hide');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +45,11 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
             padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
             child: TextField(
               style: TextStyle(fontSize: 16.sp),
-              onChanged: (text) {
-                text = text.toLowerCase();
-                controllerChat.searchFunctionCom(text);
+              controller: _filterController,
+              onChanged: (value) {
+                setState(() {
+                  _filterUsername = value;
+                });
               },
               decoration: InputDecoration(
                 hintText: "Search",
@@ -75,27 +85,152 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(top: 10.h, bottom: 0.h),
-              child: SingleChildScrollView(
-                  child: GetBuilder<ChatController>(builder: (_) {
-                return ListView.builder(
-                  itemCount: controllerChat.chatcommunity.length,
-                  shrinkWrap: true,
-                  // padding: EdgeInsets.only(top: 16),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return CommunityConversationList(
-                      name: controllerChat.chatcommunity[index].name,
-                      member: controllerChat.chatcommunity[index].members,
-                      messageText:
-                          controllerChat.chatcommunity[index].messageText,
-                      imageUrl: controllerChat.chatcommunity[index].imageURL,
-                      isMessageRead: (index == 0 || index == 3 || index == 2)
-                          ? true
-                          : false,
-                    );
-                  },
-                );
-              })),
+              child: StreamBuilder<CommunityChatListModel>(
+                  stream:
+                      CommunityChatRoomService().getCommunityChatRoomsStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: const CircularProgressIndicator(),
+                      ); // Loading indicator
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      final CommunityChatRooms = snapshot.data!.data;
+                      final filteredCommunityChatRooms = CommunityChatRooms!
+                          .where(
+                            (chatRoom) => chatRoom.name!.toLowerCase().contains(
+                                  _filterUsername.toLowerCase(),
+                                ),
+                          )
+                          .toList();
+                      return ListView.builder(
+                        itemCount: filteredCommunityChatRooms.length,
+                        shrinkWrap: true,
+                        // padding: EdgeInsets.only(top: 16),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(
+                                "/chatcommunitydetail",
+                                arguments: {
+                                  "communityId":
+                                      filteredCommunityChatRooms[index].id,
+                                  "communityName":
+                                      filteredCommunityChatRooms[index].name,
+                                  "communityProfileImage":
+                                      filteredCommunityChatRooms[index]
+                                          .profileImage,
+                                  "members": filteredCommunityChatRooms[index]
+                                      .members!
+                                      .length
+                                      .toString(),
+                                },
+                              );
+                              CommunityChatDetailService()
+                                  .getCommunityChatDetailData(
+                                      filteredCommunityChatRooms[index].id ??
+                                          "");
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 16.w,
+                                  right: 16.w,
+                                  top: 10.h,
+                                  bottom: 10.h),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              "http://77.68.102.23:8000/${filteredCommunityChatRooms[index].profileImage}"),
+                                          maxRadius: 30.r,
+                                        ),
+                                        SizedBox(
+                                          width: 16.w,
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            color: Colors.transparent,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  filteredCommunityChatRooms[
+                                                          index]
+                                                      .name!,
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                SizedBox(
+                                                  height: 7.h,
+                                                ),
+                                                Text(
+                                                  "${filteredCommunityChatRooms[index].members!.length.toString()} members",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      fontSize: 15.sp,
+                                                      color: const Color(
+                                                          0xFF54595F),
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                filteredCommunityChatRooms[
+                                                            index]
+                                                        .chats!
+                                                        .isEmpty
+                                                    ? Text("")
+                                                    : Text(
+                                                        filteredCommunityChatRooms[
+                                                                index]
+                                                            .chats!
+                                                            .last
+                                                            .message!,
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "Roboto",
+                                                            fontSize: 15.sp,
+                                                            color: Colors
+                                                                .grey.shade800,
+                                                            fontWeight: (index ==
+                                                                        0 ||
+                                                                    index ==
+                                                                        3 ||
+                                                                    index == 2)
+                                                                ? FontWeight
+                                                                    .bold
+                                                                : FontWeight
+                                                                    .normal),
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('No data available'),
+                      );
+                    }
+                  }),
             ),
           ),
           Padding(
@@ -301,103 +436,6 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CommunityConversationList extends StatefulWidget {
-  String name;
-  String messageText;
-  String member;
-  String imageUrl;
-
-  bool isMessageRead;
-  CommunityConversationList(
-      {Key? key,
-      required this.name,
-      required this.messageText,
-      required this.member,
-      required this.imageUrl,
-      required this.isMessageRead})
-      : super(key: key);
-  @override
-  _CommunityConversationListState createState() =>
-      _CommunityConversationListState();
-}
-
-class _CommunityConversationListState extends State<CommunityConversationList> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return const ChatCommunityDetail();
-          }),
-        );
-      },
-      child: Container(
-        padding:
-            EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 10.h),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage(widget.imageUrl),
-                    maxRadius: 30.r,
-                  ),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            widget.name,
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 7.h,
-                          ),
-                          Text(
-                            widget.member,
-                            style: TextStyle(
-                                fontFamily: "Roboto",
-                                fontSize: 15.sp,
-                                color: const Color(0xFF54595F),
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            widget.messageText,
-                            style: TextStyle(
-                                fontFamily: "Roboto",
-                                fontSize: 15.sp,
-                                color: Colors.grey.shade800,
-                                fontWeight: widget.isMessageRead
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
