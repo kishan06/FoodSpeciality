@@ -742,9 +742,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   // ),
                   // const SizedBox(height: 30),
 
-                  LottieBuilder.network(
-                    "https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
-                    // height: ,
+                  // LottieBuilder.network(
+                  //   "https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
+                  //   // height: ,
+                  //   height: 200.h,
+                  //   width: 250.w,
+                  // ),
+
+                  LottieBuilder.asset("assets/sucess_lottie.json",
                     height: 200.h,
                     width: 250.w,
                   ),

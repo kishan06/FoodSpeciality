@@ -41,7 +41,7 @@ class AuthService {
 
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
         await prefs.setString('userId', jsonResp["data"]["user"]["id"]);
-        await prefs.setString('myImage', jsonResp["data"]["user"]["profile_image"]);
+        await prefs.setString('myImage', jsonResp["data"]["user"]["profile_image"]??"");
         
 
         accessToken = jsonResp["data"]["accessToken"];

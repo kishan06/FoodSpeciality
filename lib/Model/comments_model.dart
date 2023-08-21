@@ -87,14 +87,14 @@ class User {
      this.bio,
      this.location,
      this.socialLinks,
-    required this.lastLogin,
+    // required this.lastLogin,
     required this.online,
     required this.role,
   });
   late final String id;
   late final String createdAt;
   late final String updatedAt;
-  late final Null profileImage;
+  late final String? profileImage;
   late final String username;
   late final String firstName;
   late final String lastName;
@@ -104,7 +104,7 @@ class User {
   late final Null bio;
   late final Null location;
   late final Null socialLinks;
-  late final String lastLogin;
+  // late final String lastLogin;
   late final bool online;
   late final String role;
   
@@ -112,7 +112,7 @@ class User {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    profileImage = null;
+    profileImage = json['profile_image'];
     username = json['username'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -122,7 +122,7 @@ class User {
     bio = null;
     location = null;
     socialLinks = null;
-    lastLogin = json['last_login'];
+    // lastLogin = json['last_login'];
     online = json['online'];
     role = json['role'];
   }
@@ -142,7 +142,7 @@ class User {
     _data['bio'] = bio;
     _data['location'] = location;
     _data['social_links'] = socialLinks;
-    _data['last_login'] = lastLogin;
+    // _data['last_login'] = lastLogin;
     _data['online'] = online;
     _data['role'] = role;
     return _data;

@@ -186,7 +186,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                               image: 
                               NetworkImage(ApiUrls.base + "${recipeDetailsData!.coverImage}"),
                               // AssetImage("assets/Mask Group 14.png"),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           child: Padding(
@@ -212,10 +212,20 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                 ),
                                 Column(
                                   children: [
-                                    SvgPicture.asset(
-                                      "assets/svg/media-play-circle-svgrepo-com.svg",
-                                      height: 63.h,
-                                      width: 63.h,
+                                    InkWell(
+                                      // onTap: (){
+                                      onTap: () {
+                                        Get.toNamed("/assetplayerwidget",
+                                            arguments: {
+                                              "videourl": recipeDetailsData!.video
+                                            });
+                                      },
+                                      // },
+                                      child: SvgPicture.asset(
+                                        "assets/svg/media-play-circle-svgrepo-com.svg",
+                                        height: 63.h,
+                                        width: 63.h,
+                                      ),
                                     ),
                                     sizedBoxHeight(30.h),
                                     sizedBoxHeight(5.h),
@@ -496,12 +506,34 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                 height: 64.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(32.h),
-                                    image:  DecorationImage(
-                                        // image: 
-                                  image: NetworkImage(ApiUrls.base + "${recipeDetailsData!.user.profileImage}"),
+                                    image: 
+                                                  recipeDetailsData!.user.profileImage == null 
+                                                  ? DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      AssetImage("assets/default_profile.webp"),
+                                                      // :
+                                                      //  NetworkImage(
+                                                      //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                                  :
+                                                  DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      // AssetImage("assetName")
+                                                      // :
+                                                       NetworkImage(
+                                                          ApiUrls.base + "${recipeDetailsData!.user.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                  //   image:  DecorationImage(
+                                  //       // image: 
+                                  // image: NetworkImage(ApiUrls.base + "${recipeDetailsData!.user.profileImage}"),
 
-                                        // AssetImage("assets/home/profile.png"),
-                                        fit: BoxFit.cover)),
+                                  //       // AssetImage("assets/home/profile.png"),
+                                  //       fit: BoxFit.cover)
+                                        ),
                               ),
                               sizedBoxWidth(9.w),
                               Column(
@@ -1558,135 +1590,136 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
           _focusNode.unfocus();
         },
         child: Container(
-          // height: 375.h,
-          // color: AppColors.white,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.h),
-                  topRight: Radius.circular(20.h))),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-      
-            // padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                // tileForlist()
-                Expanded(child: GetBuilder<HomeController>(builder: (_) {
-                  return commentsContoller.comments == null
-                      ? Center(child: CircularProgressIndicator())
-                      : commentsContoller.comments!.data.isEmpty
-                          ? Center(child: textBlack14Robo("No comments"))
-                          : ListView.builder(
-                              // physics: const NeverScrollableScrollPhysics(),
-                              // shrinkWrap: true,
-                              // itemCount: controllerHome.commentLike.length,
-                              itemCount: commentsContoller.comments!.data.length,
-      
-                              itemBuilder: (context, index) {
-                                final commentData =
-                                    commentsContoller.comments!.data[index];
-                                String originalDate = commentData.createdAt;
-                                DateTime parsedDate =
-                                    DateTime.parse(originalDate);
-                                String formattedDate =
-                                    DateFormat('dd/mm/yyyy').format(parsedDate);
-                                return Column(
-                                  children: [
-                                    tileForlist(
-                                        profileImage:
-                                            commentData.user.profileImage,
-                                        userName: commentData.user.firstName +
-                                            " " +
-                                            commentData.user.lastName,
-                                        comment: commentData.comment,
-                                        likedStatus: commentData.liked,
-                                        likeNo: commentData.likedComments.length,
-                                        commentId: commentData.id,
-                                        recipeId: recipeId,
-                                        numReplies: commentData.repliesLength,
-                                        dateTime: formattedDate),
-                                    // tileForlist(
-                                    //     // controllerHome.commentLike[index]["comment"],
-                                    //     commentData.comment,
-                                    //     // commentData.likedComments.length,
-                                    //     controllerHome.commentLike[index]["like"],
-                                    //     ),
-                                    sizedBoxHeight(13.h)
-                                  ],
-                                );
-                              },
-                            );
-                })
-                    // ListView.builder(
-                    //   // physics: const NeverScrollableScrollPhysics(),
-                    //   // shrinkWrap: true,
-                    //   itemCount: 5,
-                    //   itemBuilder: (context, index) {
-                    //     return Column(
-                    //       children: [
-                    //         tileForlist(
-                    //             controllerHome.commentLike[index]["comment"],
-                    //             controllerHome.commentLike[index]["like"],
-                    //             index),
-                    //         sizedBoxHeight(13.h)
-                    //       ],
-                    //     );
-                    //   },
-                    // ),
-      
-                    ),
-      
-                sizedBoxHeight(15.h),
-      
-                Obx(() => CustomSearchTextFormField(
-                  textEditingController: tecComment,
-                  autofocus: false,
-                  focusNode: _focusNode,
-                  hintText: isReply.value ? "Add a reply" :"Add a comment",
-                  validatorText: '',
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: SizedBox(
-                        height: 50.h,
-                        width: 40.w,
-                        child: Center(
-                            child: InkWell(
-                                onTap: () async {
-                                  if (tecComment.text.isNotEmpty) {
-                                    // print(tecComment.text);
-                                    // controllerHome
-                                    //     .commentMethod(tecComment.text);
-                                    if (isReply.value) { //for reply
-                                      commentsContoller.addReplyApi(
-                                        reply: tecComment.text, 
-                                        commentId: commentIdForReply!,
-                                        recipeId: recipeId
-                                      );
-                                      tecComment.clear();
-                                      isReply.value = false;
-
-                                    } else { // for comment
-                                      var resp = await commentsContoller.addCommentApi(
-                                          commment: tecComment.text,
-                                          recipeId: recipeId);
-                                      if (resp!) {
-                                        setState(() {
-                                          
-                                        });
-                                      }
-                                      tecComment.clear();
-                                    }
-                                    
-                                  }
+            // height: 375.h,
+            // color: AppColors.white,
+            decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.h),
+                    topRight: Radius.circular(20.h))),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+        
+              // padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  // tileForlist()
+                  Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                    return commentsContoller.comments == null
+                        ? Center(child: CircularProgressIndicator())
+                        : commentsContoller.comments!.data.isEmpty
+                            ? Center(child: textBlack14Robo("No comments"))
+                            : ListView.builder(
+                                // physics: const NeverScrollableScrollPhysics(),
+                                // shrinkWrap: true,
+                                // itemCount: controllerHome.commentLike.length,
+                                itemCount: commentsContoller.comments!.data.length,
+        
+                                itemBuilder: (context, index) {
+                                  final commentData =
+                                      commentsContoller.comments!.data[index];
+                                  String originalDate = commentData.createdAt;
+                                  DateTime parsedDate =
+                                      DateTime.parse(originalDate);
+                                  String formattedDate =
+                                      DateFormat('dd/mm/yyyy').format(parsedDate);
+                                  return Column(
+                                    children: [
+                                      tileForlist(
+                                          profileImage:
+                                              commentData.user.profileImage,
+                                          userName: commentData.user.firstName +
+                                              " " +
+                                              commentData.user.lastName,
+                                          comment: commentData.comment,
+                                          likedStatus: commentData.liked,
+                                          likeNo: commentData.likedComments.length,
+                                          commentId: commentData.id,
+                                          recipeId: recipeId,
+                                          numReplies: commentData.repliesLength,
+                                          dateTime: formattedDate),
+                                      // tileForlist(
+                                      //     // controllerHome.commentLike[index]["comment"],
+                                      //     commentData.comment,
+                                      //     // commentData.likedComments.length,
+                                      //     controllerHome.commentLike[index]["like"],
+                                      //     ),
+                                      sizedBoxHeight(13.h)
+                                    ],
+                                  );
                                 },
-                                child: textgreyM14Sp("Send")))),
-                  )))
-                
-              ],
+                              );
+                  })
+                      // ListView.builder(
+                      //   // physics: const NeverScrollableScrollPhysics(),
+                      //   // shrinkWrap: true,
+                      //   itemCount: 5,
+                      //   itemBuilder: (context, index) {
+                      //     return Column(
+                      //       children: [
+                      //         tileForlist(
+                      //             controllerHome.commentLike[index]["comment"],
+                      //             controllerHome.commentLike[index]["like"],
+                      //             index),
+                      //         sizedBoxHeight(13.h)
+                      //       ],
+                      //     );
+                      //   },
+                      // ),
+        
+                      ),
+        
+                  sizedBoxHeight(15.h),
+        
+                  Obx(() => CustomSearchTextFormField(
+                    textEditingController: tecComment,
+                    autofocus: false,
+                    focusNode: _focusNode,
+                    hintText: isReply.value ? "Add a reply" :"Add a comment",
+                    validatorText: '',
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: SizedBox(
+                          height: 50.h,
+                          width: 40.w,
+                          child: Center(
+                              child: InkWell(
+                                  onTap: () async {
+                                    if (tecComment.text.isNotEmpty) {
+                                      // print(tecComment.text);
+                                      // controllerHome
+                                      //     .commentMethod(tecComment.text);
+                                      if (isReply.value) { //for reply
+                                        commentsContoller.addReplyApi(
+                                          reply: tecComment.text, 
+                                          commentId: commentIdForReply!,
+                                          recipeId: recipeId
+                                        );
+                                        tecComment.clear();
+                                        isReply.value = false;
+
+                                      } else { // for comment
+                                        var resp = await commentsContoller.addCommentApi(
+                                            commment: tecComment.text,
+                                            recipeId: recipeId);
+                                        if (resp!) {
+                                          setState(() {
+                                            
+                                          });
+                                        }
+                                        tecComment.clear();
+                                      }
+                                      
+                                    }
+                                  },
+                                  child: textgreyM14Sp("Send")))),
+                    )))
+                  
+                ],
+              ),
             ),
           ),
-        ),
+     
       );
     });
    
@@ -1773,7 +1806,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
  
   }
 
-    Widget tileForlist(
+  Widget tileForlist(
       {required String userName,
       required String comment,
       String? profileImage,
@@ -1797,9 +1830,31 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
           height: 35.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.h),
-              image: const DecorationImage(
-                  image: AssetImage("assets/home/profile.png"),
-                  fit: BoxFit.fill)),
+              image: 
+                profileImage == null 
+                ? DecorationImage(
+                    image: 
+                    // recipeData.user.profileImage == null 
+                    // ? 
+                    AssetImage("assets/default_profile.webp"),
+                    // :
+                    //  NetworkImage(
+                    //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                    fit: BoxFit.fill)
+                :
+                DecorationImage(
+                    image: 
+                    // recipeData.user.profileImage == null 
+                    // ? 
+                    // AssetImage("assetName")
+                    // :
+                      NetworkImage(
+                        ApiUrls.base + profileImage),
+                    fit: BoxFit.fill)
+              // image: const DecorationImage(
+              //     image: AssetImage("assets/home/profile.png"),
+              //     fit: BoxFit.fill)
+                ),
         ),
         sizedBoxWidth(10.w),
         Column(
@@ -1937,10 +1992,32 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
                                       height: 30.h,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(15.h),
-                                          image: DecorationImage(
-                                              image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
-                                              // AssetImage("assets/home/profile.png"),
-                                              fit: BoxFit.fill)),
+                                          image: 
+                                            reply.user.profileImage == null 
+                                            ? DecorationImage(
+                                                image: 
+                                                // recipeData.user.profileImage == null 
+                                                // ? 
+                                                AssetImage("assets/default_profile.webp"),
+                                                // :
+                                                //  NetworkImage(
+                                                //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                fit: BoxFit.fill)
+                                            :
+                                            DecorationImage(
+                                                image: 
+                                                // recipeData.user.profileImage == null 
+                                                // ? 
+                                                // AssetImage("assetName")
+                                                // :
+                                                  NetworkImage(
+                                                    ApiUrls.base + reply.user.profileImage!),
+                                                fit: BoxFit.fill)
+                                          // image: DecorationImage(
+                                          //     image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
+                                          //     // AssetImage("assets/home/profile.png"),
+                                          //     fit: BoxFit.fill)
+                                            ),
                                     ),
                                     sizedBoxWidth(10.w),
                                     Column(
@@ -2256,6 +2333,8 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
       ],
     );
   }
+
+
 
 
   Widget ingredientsTile({required String ingredientName, required String quantity}){

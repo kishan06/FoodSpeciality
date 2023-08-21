@@ -49,7 +49,7 @@ class ChallengeDetails {
     required this.endTime,
     required this.timeLeft,
   });
-  late final Null thumbnail;
+  late final String? thumbnail;
   late final String title;
   late final String description;
   late final String startTime;
@@ -57,7 +57,7 @@ class ChallengeDetails {
   late final TimeLeft timeLeft;
   
   ChallengeDetails.fromJson(Map<String, dynamic> json){
-    thumbnail = null;
+    thumbnail = json['thumbnail'];
     title = json['title'];
     description = json['description'];
     startTime = json['startTime'];
