@@ -543,166 +543,173 @@ class _ExploreState extends State<Explore> {
     bool? saved,
     required String cookingTime,
   }) {
-    return Container(
-      height: 97.h,
-      width: 250.w,
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.greyL979797),
-        borderRadius: BorderRadius.circular(9.h),
-        // color: AppColors.lightBlueF2F2F2,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 58.w,
-                  height: 47.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.h),
-                      image: DecorationImage(
-                          image: NetworkImage(ApiUrls.base + "$recipeImage"),
-                          // AssetImage("assets/home/food_bowl.png"),
-                          fit: BoxFit.fill)),
-                ),
-                sizedBoxWidth(10.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // textWhite17w500("George Smith"),
-                    // e=
-                    // textBlack14SP_Med("Bunny Chow"),
-                    textBlack14SP_Med(recipeName),
-
-                    // textgreyD16BoldSP("Priyanka Joshi"),
-
-                    sizedBoxHeight(5.h),
-
-                    // textgreyM10Robo("@Priyujoshi")
-                    textgreyM10Robo("@$userName")
-
-
-                    // textgreyD12Robo("2 Days ago")
-
-                    // textGrey15W500("21 Jan, 2022, 10:41 am")
-                  ],
-                )
-              ],
-            ),
-
-            // sizedBoxHeight(.h),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    // Row(
-                    //   children: [
-                    //     Image.asset("assets/icons/like.png",
-                    //       width: 18.w,
-                    //       height: 16.h,
-                    //     ),
-
-                    //     textBlack10Robo("55")
-                    //   ],
-                    // ),
-
-                    iconText(
-                        liked!
-                            ? "assets/icons/like_filled.png"
-                            : "assets/icons/like.png",
-                        numLike > 0 ?  numLike.toString() : "", 
-                        onTap: () {
-                          _handleLikeButton(recipeId);
-                          // controllerExplore.likeMethod(index, like);
-                        }, 
-                        // color: !liked ? AppColors.greyM707070 : null
-                        ),
-
-                    sizedBoxWidth(25.w),
-
-                    // InkWell(
-                    //   onTap: (){
-                    //     // commentbottomSheet();
-                    //   },
-                    //   child: Image.asset("assets/icons/comment.png",
-                    //     width: 18.w,
-                    //     height: 16.h,
-                    //   ),
-                    // ),
-
-                    iconText("assets/icons/comment.png", 
-                    numComment > 0 ? numComment.toString() : "", 
-                    onTap: () {
-                      // commentbottomSheet();
-                      // commentbottomSheet(recipeData.id!);
-
-                    }, 
-                    color: AppColors.greyM707070),
-
-                    sizedBoxWidth(25.w),
-
-                    // InkWell(
-                    //   // onTap: share,
-                    //   // (){
-                    //   //   shar
-                    //   //   // Share.share('https://www.google.co.in/');
-                    //   // },
-                    //   child: Image.asset("assets/icons/share.png",
-                    //     width: 18.w,
-                    //     height: 16.h,
-                    //   ),
-                    // ),
-
-                    iconText(
-                        saved!
-                            ? "assets/icons/save_filled.png"
-                            : "assets/icons/save.png",
-                        "", onTap: () {
-                          _handleSaveButton(recipeId);
-                      // controllerExplore.saveMethod(index, save);
-                    }, color: AppColors.greyM707070),
-
-                    // iconText(
-                    //   "assets/icons/save.png", "25"),
-                  ],
-                ),
-
-                // Image.asset("assets/icons/save.png",
-                //   width: 18.w,
-                //   height: 16.h,
-                // ),
-                Row(
-                  children: [
-                    // Image.asset(imagePath,
-                    //   width: 18.w,
-                    //   height: 16.h,
-                    //   color: AppColors.greyM707070,
-                    // ),
-                    SvgPicture.asset(
-                      "assets/icons/time.svg",
-                      height: 16.h,
-                      width: 18.w,
-                      color: AppColors.greyM707070,
-                      // colorFilter: AppColors.greyD3B3F43,
-                    ),
-
-                    sizedBoxWidth(2.w),
-
-                    // textBlack10Robo("30 Min")
-                    textBlack10Robo(cookingTime + " min")
-                    
-                  ],
-                ),
-                // iconText("assets/icons/save.png", "30 Min")
-              ],
-            ),
-          ],
+    return InkWell(
+      onTap: () {
+        Get.toNamed("/InspirationRecipeComment",
+          arguments: recipeId
+        );
+      },
+      child: Container(
+        height: 97.h,
+        width: 250.w,
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.greyL979797),
+          borderRadius: BorderRadius.circular(9.h),
+          // color: AppColors.lightBlueF2F2F2,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 58.w,
+                    height: 47.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.h),
+                        image: DecorationImage(
+                            image: NetworkImage(ApiUrls.base + "$recipeImage"),
+                            // AssetImage("assets/home/food_bowl.png"),
+                            fit: BoxFit.fill)),
+                  ),
+                  sizedBoxWidth(10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // textWhite17w500("George Smith"),
+                      // e=
+                      // textBlack14SP_Med("Bunny Chow"),
+                      textBlack14SP_Med(recipeName),
+    
+                      // textgreyD16BoldSP("Priyanka Joshi"),
+    
+                      sizedBoxHeight(5.h),
+    
+                      // textgreyM10Robo("@Priyujoshi")
+                      textgreyM10Robo("@$userName")
+    
+    
+                      // textgreyD12Robo("2 Days ago")
+    
+                      // textGrey15W500("21 Jan, 2022, 10:41 am")
+                    ],
+                  )
+                ],
+              ),
+    
+              // sizedBoxHeight(.h),
+    
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      // Row(
+                      //   children: [
+                      //     Image.asset("assets/icons/like.png",
+                      //       width: 18.w,
+                      //       height: 16.h,
+                      //     ),
+    
+                      //     textBlack10Robo("55")
+                      //   ],
+                      // ),
+    
+                      iconText(
+                          liked!
+                              ? "assets/icons/like_filled.png"
+                              : "assets/icons/like.png",
+                          numLike > 0 ?  numLike.toString() : "", 
+                          onTap: () {
+                            _handleLikeButton(recipeId);
+                            // controllerExplore.likeMethod(index, like);
+                          }, 
+                          // color: !liked ? AppColors.greyM707070 : null
+                          ),
+    
+                      sizedBoxWidth(25.w),
+    
+                      // InkWell(
+                      //   onTap: (){
+                      //     // commentbottomSheet();
+                      //   },
+                      //   child: Image.asset("assets/icons/comment.png",
+                      //     width: 18.w,
+                      //     height: 16.h,
+                      //   ),
+                      // ),
+    
+                      iconText("assets/icons/comment.png", 
+                      numComment > 0 ? numComment.toString() : "", 
+                      // onTap: () {
+                      //   // commentbottomSheet();
+                      //   // commentbottomSheet(recipeData.id!);
+    
+                      // }, 
+                      color: AppColors.greyM707070),
+    
+                      sizedBoxWidth(25.w),
+    
+                      // InkWell(
+                      //   // onTap: share,
+                      //   // (){
+                      //   //   shar
+                      //   //   // Share.share('https://www.google.co.in/');
+                      //   // },
+                      //   child: Image.asset("assets/icons/share.png",
+                      //     width: 18.w,
+                      //     height: 16.h,
+                      //   ),
+                      // ),
+    
+                      iconText(
+                          saved!
+                              ? "assets/icons/save_filled.png"
+                              : "assets/icons/save.png",
+                          "", onTap: () {
+                            _handleSaveButton(recipeId);
+                        // controllerExplore.saveMethod(index, save);
+                      }, color: AppColors.greyM707070),
+    
+                      // iconText(
+                      //   "assets/icons/save.png", "25"),
+                    ],
+                  ),
+    
+                  // Image.asset("assets/icons/save.png",
+                  //   width: 18.w,
+                  //   height: 16.h,
+                  // ),
+                  Row(
+                    children: [
+                      // Image.asset(imagePath,
+                      //   width: 18.w,
+                      //   height: 16.h,
+                      //   color: AppColors.greyM707070,
+                      // ),
+                      SvgPicture.asset(
+                        "assets/icons/time.svg",
+                        height: 16.h,
+                        width: 18.w,
+                        color: AppColors.greyM707070,
+                        // colorFilter: AppColors.greyD3B3F43,
+                      ),
+    
+                      sizedBoxWidth(2.w),
+    
+                      // textBlack10Robo("30 Min")
+                      textBlack10Robo(cookingTime + " min")
+                      
+                    ],
+                  ),
+                  // iconText("assets/icons/save.png", "30 Min")
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

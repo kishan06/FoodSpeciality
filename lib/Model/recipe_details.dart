@@ -77,7 +77,7 @@ class RecipeData {
   
   RecipeData.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    video = null;
+    video = json['video'];
     coverImage = json['cover_image'];
     name = json['name'];
     description = json['description'];

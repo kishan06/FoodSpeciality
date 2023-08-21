@@ -190,14 +190,36 @@ class _JoinChallengeState extends State<JoinChallenge> {
                     background: Stack(
                       children: [
                         Container(
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  opacity: 1,
+                          decoration: BoxDecoration(
+                            image: 
+                              joinChallengeController.challengeModel!.data.challengeDetails.thumbnail == null 
+                              ? DecorationImage(
                                   image: 
-                                  NetworkImage(ApiUrls.base + "null")
-                                  // AssetImage('assets/home/food_bowl.png')
-                                  )),
+                                  // recipeData.user.profileImage == null 
+                                  // ? 
+                                  AssetImage("assets/No_Image_Available.jpg"),
+                                  // :
+                                  //  NetworkImage(
+                                  //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                  fit: BoxFit.fill)
+                              :
+                              DecorationImage(
+                                  image: 
+                                  // recipeData.user.profileImage == null 
+                                  // ? 
+                                  // AssetImage("assetName")
+                                  // :
+                                    NetworkImage(
+                                      ApiUrls.base + "${joinChallengeController.challengeModel!.data.challengeDetails.thumbnail}"),
+                                  fit: BoxFit.fill)
+                              // image: DecorationImage(
+                              //     fit: BoxFit.cover,
+                              //     opacity: 1,
+                              //     image: 
+                              //     NetworkImage(ApiUrls.base + "${joinChallengeController.challengeModel!.data.challengeDetails.thumbnail}")
+                              //     // AssetImage('assets/home/food_bowl.png')
+                              //     )
+                                ),
                           // child: Image.asset(
                           //   "assets/Mask Group 108.png",
                           //   // color: Color.fromARGB(255, 168, 168, 168).withOpacity(0.54),
@@ -280,7 +302,9 @@ class _JoinChallengeState extends State<JoinChallenge> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Text(
                                   // "12 Recipes Shared",
-                                  "${joinChallengeController.challengeModel!.data.recipes.length} Recipes Shared",
+                                  joinChallengeController.challengeModel!.data.recipes.length > 0 
+                                    ? "${joinChallengeController.challengeModel!.data.recipes.length} Recipes Shared"
+                                    :"",
                                   style: TextStyle(
                                       color: const Color(0xff3B3F43),
                                       fontFamily: "StudioProM",
@@ -292,7 +316,9 @@ class _JoinChallengeState extends State<JoinChallenge> {
                                   // height: 520.h,
                                   child:
                                       GetBuilder<ExploreController>(builder: (_) {
-                                return ListView.separated(
+                                return joinChallengeController.challengeModel!.data.recipes.isEmpty 
+                                ? Center(child: textgrey18BoldSP("No Recipe shared"))
+                                : ListView.separated(
                                     physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
@@ -359,123 +385,130 @@ K
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        color: Colors.white,
-        margin: const EdgeInsets.all(0),
-        child: Container(
-          padding: EdgeInsets.fromLTRB(13.w, 13.h, 0, 16.4),
-          // decoration: BoxDecoration(
-          //     border: Border.all(
-          //         color: const Color(0xff707070),
-          //         width: 0.2),
-          //     borderRadius:
-          //         BorderRadius.circular(10.r)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 112.h,
-                width: 133.w,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(ApiUrls.base + coverImage),
-                      // AssetImage('assets/home/food.png'),
-                      fit: BoxFit.cover,
+      child: InkWell(
+        onTap: (){
+          Get.toNamed("/InspirationRecipeComment",
+            arguments: recipeId
+          );
+        },
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          color: Colors.white,
+          margin: const EdgeInsets.all(0),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(13.w, 13.h, 0, 16.4),
+            // decoration: BoxDecoration(
+            //     border: Border.all(
+            //         color: const Color(0xff707070),
+            //         width: 0.2),
+            //     borderRadius:
+            //         BorderRadius.circular(10.r)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 112.h,
+                  width: 133.w,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(ApiUrls.base + coverImage),
+                        // AssetImage('assets/home/food.png'),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10.r)),
+                ),
+                sizedBoxWidth(27.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      // "Slappappoffer Recipe",
+                      recipeName,
+                      style: TextStyle(
+                          fontFamily: "StudioProM",
+                          fontSize: 18.sp,
+                          color: const Color(0xFF000000)),
                     ),
-                    borderRadius: BorderRadius.circular(10.r)),
-              ),
-              sizedBoxWidth(27.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    // "Slappappoffer Recipe",
-                    recipeName,
-                    style: TextStyle(
-                        fontFamily: "StudioProM",
-                        fontSize: 18.sp,
-                        color: const Color(0xFF000000)),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    // "@priyujoshi",
-                    "@$userName",
-                    style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 14.sp,
-                        color: const Color(0xff6B6B6B)),
-                  ),
-                  sizedBoxHeight(26.h),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      iconText(
-                          liked
-                              ? "assets/icons/like_filled.png"
-                              : "assets/icons/like.png",
-                          // "55", 
-                          numLikes > 0 ? numLikes.toString() : "",
-                          onTap: () {
-                            _handleLikeButton(recipeId);
-                        // controllerExplore.likeMethod(index, like);
-                      }, 
-                      // color: like ? AppColors.greyM707070 : null
-                      ),
-                      sizedBoxWidth(20.w),
-                      iconText("assets/icons/comment.png", 
-                      // "30",
-                      numComments > 0 ? numComments.toString() : "",
-                       onTap: () {
-                        commentbottomSheet();
-                      }, 
-                      // color: AppColors.greyM707070
-                      ),
-                      sizedBoxWidth(20.w),
-                      iconText(
-                          saved
-                              ? "assets/icons/save_filled.png"
-                              : "assets/icons/save.png",
-                          // "55",
-                          numSaves > 0 ? numSaves.toString() : "",
-                          onTap: () {
-                            _handleSaveButton(recipeId);
-                        // controllerExplore.saveMethod(index, save);
-                      }, 
-                      // color: AppColors.greyM707070
-                      ),
-                      sizedBoxWidth(40.w),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SvgPicture.asset('assets/icons/time.svg',
-                              width: 18.w,
-                              height: 16.h,
-                              // color: ,
-                              color: AppColors.greyM707070),
-                          sizedBoxWidth(2.w),
-                          Text(
-                            // '30 Min',
-                            '$cookingTime Min',
-
-                            // cookingTime,
-                            style: TextStyle(
-                                fontFamily: 'Roboto', fontSize: 10.sp),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      // "@priyujoshi",
+                      "@$userName",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 14.sp,
+                          color: const Color(0xff6B6B6B)),
+                    ),
+                    sizedBoxHeight(26.h),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        iconText(
+                            liked
+                                ? "assets/icons/like_filled.png"
+                                : "assets/icons/like.png",
+                            // "55", 
+                            numLikes > 0 ? numLikes.toString() : "",
+                            onTap: () {
+                              _handleLikeButton(recipeId);
+                          // controllerExplore.likeMethod(index, like);
+                        }, 
+                        // color: like ? AppColors.greyM707070 : null
+                        ),
+                        sizedBoxWidth(20.w),
+                        iconText("assets/icons/comment.png", 
+                        // "30",
+                        numComments > 0 ? numComments.toString() : "",
+                        //  onTap: () {
+                        //   commentbottomSheet();
+                        // }, 
+                        // color: AppColors.greyM707070
+                        ),
+                        sizedBoxWidth(20.w),
+                        iconText(
+                            saved
+                                ? "assets/icons/save_filled.png"
+                                : "assets/icons/save.png",
+                            // "55",
+                            numSaves > 0 ? numSaves.toString() : "",
+                            onTap: () {
+                              _handleSaveButton(recipeId);
+                          // controllerExplore.saveMethod(index, save);
+                        }, 
+                        // color: AppColors.greyM707070
+                        ),
+                        sizedBoxWidth(40.w),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SvgPicture.asset('assets/icons/time.svg',
+                                width: 18.w,
+                                height: 16.h,
+                                // color: ,
+                                color: AppColors.greyM707070),
+                            sizedBoxWidth(2.w),
+                            Text(
+                              // '30 Min',
+                              '$cookingTime Min',
+      
+                              // cookingTime,
+                              style: TextStyle(
+                                  fontFamily: 'Roboto', fontSize: 10.sp),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

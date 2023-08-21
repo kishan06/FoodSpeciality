@@ -512,6 +512,7 @@ class _IngridentsState extends State<Ingridents> {
               ),
             ),
           ),
+     
         );
       })
    
@@ -549,9 +550,31 @@ class _IngridentsState extends State<Ingridents> {
           height: 35.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.h),
-              image: const DecorationImage(
-                  image: AssetImage("assets/home/profile.png"),
-                  fit: BoxFit.fill)),
+              image: 
+                profileImage == null 
+                ? DecorationImage(
+                    image: 
+                    // recipeData.user.profileImage == null 
+                    // ? 
+                    AssetImage("assets/default_profile.webp"),
+                    // :
+                    //  NetworkImage(
+                    //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                    fit: BoxFit.fill)
+                :
+                DecorationImage(
+                    image: 
+                    // recipeData.user.profileImage == null 
+                    // ? 
+                    // AssetImage("assetName")
+                    // :
+                      NetworkImage(
+                        ApiUrls.base + profileImage),
+                    fit: BoxFit.fill)
+              // image: const DecorationImage(
+              //     image: AssetImage("assets/home/profile.png"),
+              //     fit: BoxFit.fill)
+                ),
         ),
         sizedBoxWidth(10.w),
         Column(
@@ -689,10 +712,32 @@ class _IngridentsState extends State<Ingridents> {
                                       height: 30.h,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(15.h),
-                                          image: DecorationImage(
-                                              image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
-                                              // AssetImage("assets/home/profile.png"),
-                                              fit: BoxFit.fill)),
+                                          image: 
+                                            reply.user.profileImage == null 
+                                            ? DecorationImage(
+                                                image: 
+                                                // recipeData.user.profileImage == null 
+                                                // ? 
+                                                AssetImage("assets/default_profile.webp"),
+                                                // :
+                                                //  NetworkImage(
+                                                //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                fit: BoxFit.fill)
+                                            :
+                                            DecorationImage(
+                                                image: 
+                                                // recipeData.user.profileImage == null 
+                                                // ? 
+                                                // AssetImage("assetName")
+                                                // :
+                                                  NetworkImage(
+                                                    ApiUrls.base + reply.user.profileImage!),
+                                                fit: BoxFit.fill)
+                                          // image: DecorationImage(
+                                          //     image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
+                                          //     // AssetImage("assets/home/profile.png"),
+                                          //     fit: BoxFit.fill)
+                                            ),
                                     ),
                                     sizedBoxWidth(10.w),
                                     Column(
@@ -1143,13 +1188,31 @@ class _IngridentsState extends State<Ingridents> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           25.h),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "http://77.68.102.23:8000/${recipeData.user?.profileImage}"),
-                                                      fit: BoxFit.fill)),
+                                                  image: 
+                                                  recipeData.user!.profileImage == null 
+                                                  ? DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      AssetImage("assets/default_profile.webp"),
+                                                      // :
+                                                      //  NetworkImage(
+                                                      //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                                  :
+                                                  DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      // AssetImage("assetName")
+                                                      // :
+                                                       NetworkImage(
+                                                          ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                                      ),
                                             ),
                                             Positioned(
-                                              bottom: -10.h,
+                                              bottom: -15.h,
                                               right: 2.h,
                                               child: Image.asset(
                                                 "assets/svg/rankTag.png",
@@ -1173,7 +1236,7 @@ class _IngridentsState extends State<Ingridents> {
                                                 Get.toNamed("/viewuser");
                                               },
                                               child: textgreyD16BoldSP(
-                                                  recipeData?.user?.username ??
+                                                  recipeData.user?.username ??
                                                       ''),
                                             ),
 
@@ -1192,67 +1255,69 @@ class _IngridentsState extends State<Ingridents> {
 
                                         recipeData.userId == myUserId
                                             ? SizedBox()
-                                            : GestureDetector(
-                                                onTap: () {
-                                                  print("pressed");
-                                                  _handleFollowButton(
-                                                      recipeData.user!.id!);
-                                                },
-                                                child: recipeData!.following!
-                                                    ? Container(
-                                                        //     width: 60.w,
-                                                        // height: 30,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.r),
-                                                          border: Border.all(
-                                                            color: const Color(
-                                                                0xFF3B3F43),
+                                            : Row(
+                                              children: [
+                                                GestureDetector(
+                                                    onTap: () {
+                                                      print("pressed");
+                                                      _handleFollowButton(
+                                                          recipeData.user!.id!);
+                                                    },
+                                                    child: recipeData.following!
+                                                        ? Container(
+                                                            //     width: 60.w,
+                                                            // height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.r),
+                                                              border: Border.all(
+                                                                color: const Color(
+                                                                    0xFF3B3F43),
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets.all(
+                                                                      5.h),
+                                                              child: Center(
+                                                                child:
+                                                                    textgreyD14Robo(
+                                                                        "Following"),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            //  width: 80.w,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: AppColors
+                                                                  .greyD3B3F43,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.r),
+                                                              border: Border.all(
+                                                                  color: Colors.grey
+                                                                      .shade700),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets.all(
+                                                                      5.h),
+                                                              child: Center(
+                                                                child:
+                                                                    textWhite14Robo(
+                                                                        "Follow"),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  5.h),
-                                                          child: Center(
-                                                            child:
-                                                                textgreyD14Robo(
-                                                                    "Following"),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Container(
-                                                        //  width: 80.w,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: AppColors
-                                                              .greyD3B3F43,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.r),
-                                                          border: Border.all(
-                                                              color: Colors.grey
-                                                                  .shade700),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  5.h),
-                                                          child: Center(
-                                                            child:
-                                                                textWhite14Robo(
-                                                                    "Follow"),
-                                                          ),
-                                                        ),
-                                                      ),
-                                              ),
+                                                  ),
 
-                                        Container(
+                                                Container(
                                           child: recipeData.following!
                                               ? PopupMenuButton(
                                                   offset: const Offset(0, 50),
@@ -1437,6 +1502,11 @@ class _IngridentsState extends State<Ingridents> {
                                                 )
                                               : const SizedBox(),
                                         ),
+                                      
+                                              ],
+                                            ),
+
+                                          
                                       ],
                                     ),
 
@@ -1681,8 +1751,8 @@ class _IngridentsState extends State<Ingridents> {
                                         : textgreyD12Robo(
                                             "${recipeData.likes.toString()} likes"),
                                     textgreyD20BoldSP(recipeData.name!),
-                                    textgreyL12Robo(
-                                        "View all ${recipeData.comments} comments"),
+                                    recipeData.comments! > 0 ? textgreyL12Robo(
+                                        "View all ${recipeData.comments} comments"): SizedBox(),
                                     SizedBox(height: 5.w),
                                   ],
                                 ),
@@ -1701,10 +1771,28 @@ class _IngridentsState extends State<Ingridents> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(14.h),
-                                              image: const DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/home/profile.png"),
-                                                  fit: BoxFit.fill)),
+                                              image: 
+                                                  recipeData.user!.profileImage == null 
+                                                  ? DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      AssetImage("assets/default_profile.webp"),
+                                                      // :
+                                                      //  NetworkImage(
+                                                      //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                                  :
+                                                  DecorationImage(
+                                                      image: 
+                                                      // recipeData.user.profileImage == null 
+                                                      // ? 
+                                                      // AssetImage("assetName")
+                                                      // :
+                                                       NetworkImage(
+                                                          ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)
+                                                ),
                                         ),
                                         sizedBoxWidth(5.w),
                                         InkWell(
