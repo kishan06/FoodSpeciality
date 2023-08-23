@@ -125,11 +125,11 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
 
                       // community member id
                       List<String> membersId = [];
-                      // for (var chatRoom in filteredCommunityChatRooms) {
-                      //   for (var member in chatRoom.members!) {
-                      //     membersId.add(member.user!.id!);
-                      //   }
-                      // }
+                      for (var chatRoom in filteredCommunityChatRooms) {
+                        for (var member in chatRoom.members!) {
+                          membersId.add(member.user!.id!);
+                        }
+                      }
 
                       // community member first name
                       List<String> memberFirstname = [];
@@ -167,7 +167,8 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                   "membersName": memberUsernames,
                                   "membersPrifileImage": memberProfileImage,
                                   "membersfirstname": memberFirstname,
-                                  "membersId": filteredCommunityChatRooms[index].members,
+                                  "membersId":
+                                      filteredCommunityChatRooms[index].members,
                                   "adminId":
                                       filteredCommunityChatRooms[index].adminId,
                                 },

@@ -51,6 +51,7 @@ class ApiUrls {
 
   static const exitcommunity = _base + "user/community/exit";
   static const deletecommunity = _base + "user/community/delete";
+  static const updatecommunity = _base + "user/community/update";
   static const addparticipants = _base + "community/members/add";
 
   static const addReply = _base + "recipe/add-reply";
