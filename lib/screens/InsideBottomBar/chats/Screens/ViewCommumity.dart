@@ -53,7 +53,11 @@ class _ViewCommunityState extends State<ViewCommunity> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed("/EditCommunity");
+                          Get.toNamed("/EditCommunity", arguments: {
+                            "communityId": communityId,
+                            "communityProfileImage": communityProfileImage,
+                            "communityName": communityName,
+                          });
                         },
                         child: Icon(
                           Icons.edit,
