@@ -379,7 +379,7 @@ class AllrecipeDetails {
   AllrecipeDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
     video = null;
-    coverImage = null;
+    coverImage = json['cover_image'];
     name = json['name'];
     description = json['description'];
     difficulty = json['difficulty'];
