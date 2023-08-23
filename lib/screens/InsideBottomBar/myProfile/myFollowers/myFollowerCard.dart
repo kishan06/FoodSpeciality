@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerContent.dart';
+import 'package:foodspeciality/utils/colors.dart';
 
 import '../../../../Model/FollowesModel.dart';
+import '../../../../services/follow_service.dart';
 import '../../../../services/follower_following_service.dart';
 import '../../../../utils/texts.dart';
 
@@ -30,6 +33,10 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
 
   // get followerFollowing => null;
   final FollowerFollowing followerFollowing = FollowerFollowing();
+  // var followings;\
+  List<Followings>? followings;
+  // var 
+  var futureData;
   // extension StringCasingExtension on String {
   //   String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
   //   String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
@@ -37,12 +44,30 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
 
   // int index = 0;
 
+  void _handleFollowButton({required String userId, required int index}) async {
+    try {
+      var resp = await FollowService.followRecipe(userId);
+      if (resp) {
+        // followings
+        // print(object)sest
+        setState(() {
+          followings![index].following!.isFollowing = !followings![index].following!.isFollowing;
+        });
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
+
   @override
   void initState() {
     // ignore: todo
     // TODO: implement initState
 
     super.initState();
+
+    futureData = followerFollowing.getfollowfollowing();
   }
 
   @override
@@ -52,18 +77,18 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
       child: Column(
         children: [
           FutureBuilder<Followes>(
-            future: followerFollowing.getfollowfollowing(),
+            future: futureData,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasData) {
-                final followings = snapshot.data!.data!.followings;
+                followings = snapshot.data!.data!.followings;
                 return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: followings!.length,
                   itemBuilder: (context, index) {
-                    final following = followings[index].following!;
+                    final following = followings![index].following!;
 
                     return followerlistCard(
                       // followerData[index]["recipeimage"],
@@ -74,7 +99,10 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
                       // followerData[index]["name"],
                       following.username,
                       index,
-                      followerData[index]["isFollowedByMe"],
+                      isFollowing: following.isFollowing,
+                      userId: following.id!
+
+                      // followerData[index]["isFollowedByMe"],
                     );
                     // final follower = followers[index].follower;
                     // return invite(
@@ -121,16 +149,18 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
     );
   }
 
-  Widget followerlistCard(dynamic profileImage, String title, dynamic name,
-      int index, int isFollowedByMe) {
-    // bool like = false;
+  Widget followerlistCard(
+    String? profileImage, String title, dynamic name,
+      int index, 
+      {required bool isFollowing, 
+      required String userId}
+    ) {
 
     return Container(
         child: Column(
       children: [
         Container(
           child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
@@ -138,15 +168,22 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
               ),
               Stack(
                 children: [
-                  SizedBox(
-                    width: 50.w,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Colors.grey,
-                      child: Image.asset(
-                        profileImage ?? "assets/Mask Group 86.png",
-                        height: 50.h,
-                      ),
+                  Container(
+                    width: 50.h,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.h),
+                      image: profileImage == null 
+                        ? DecorationImage(
+                          image: AssetImage("assets/default_profile.webp"),
+                          fit: BoxFit.fill
+                        )
+                        : DecorationImage(
+                          image: NetworkImage(
+                            ApiUrls.base + "${profileImage}"
+                          ),
+                          fit: BoxFit.fill
+                        )
                     ),
                   ),
                   Positioned(
@@ -191,55 +228,55 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
 
               const Spacer(),
 
-              // Container(
-              //   //  width: 80.w,
-              //   decoration: BoxDecoration(
-              //     color:
-              //         AppColors.greyD3B3F43,
-              //     borderRadius:
-              //         BorderRadius.circular(
-              //             8.r),
-              //     border: Border.all(
-              //         color: Colors
-              //             .grey.shade700),
-              //   ),
-              //   child: Padding(
-              //     padding:
-              //         EdgeInsets.all(5.h),
-              //     child: Center(
-              //       child: textWhite14Robo(
-              //           "Follow"),
-              //     ),
-              //   ),
-              // )
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  //     width: 60.w,
-                  // height: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(
-                      color: const Color(0xFF3B3F43),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(5.h),
-                    child: Center(child: textgreyD14Robo("Following")
-                        // Text(
-                        //   "Following",
-                        //   style: TextStyle(
-                        //     fontFamily: "StudioProR",
-                        //     fontSize: 14.sp,
-                        //     fontWeight: FontWeight.w500,
-                        //     color: Color(0xFF3B3F43),
-                        //   ),
-                        // ),
+
+              GestureDetector(
+                onTap: () {
+                  _handleFollowButton(userId: userId, index: index);
+                },
+                child: isFollowing
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.circular(
+                                  8.r),
+                          border: Border.all(
+                            color: const Color(
+                                0xFF3B3F43),
+                          ),
                         ),
-                  ),
-                ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.all(5.h),
+                          child: Center(
+                            child: textgreyD14Robo(
+                                "Following"),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        //  width: 80.w,
+                        decoration: BoxDecoration(
+                          color:
+                              AppColors.greyD3B3F43,
+                          borderRadius:
+                              BorderRadius.circular(
+                                  8.r),
+                          border: Border.all(
+                              color: Colors
+                                  .grey.shade700),
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.all(5.h),
+                          child: Center(
+                            child: textWhite14Robo(
+                                "Follow"),
+                          ),
+                        ),
+                      ),
               ),
+          
 
               // InkWell(
               //     onTap: () {

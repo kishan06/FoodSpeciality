@@ -59,6 +59,7 @@ class ApiUrls {
   static const getonGoingChallenge = _base + "admin/challanges/ongoing";
   static const getTrendingRecipe = _base + "recipe/trending";
   static const getChallengeData = _base + "user/challenges";
+  static const getSimilarRecipe = _base + "recipe/similar";
   
 
 
