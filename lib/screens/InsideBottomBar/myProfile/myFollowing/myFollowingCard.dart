@@ -9,7 +9,10 @@ import 'package:get/get.dart';
 import '../../../../Model/FollowesModel.dart';
 import '../../../../common files/global.dart';
 import '../../../../common files/sized_box.dart';
+import '../../../../controllers/user_data_controller.dart';
+import '../../../../services/follow_service.dart';
 import '../../../../services/follower_following_service.dart';
+import '../../explore/controller/explore_controller.dart';
 
 class myFollowingCard extends StatefulWidget {
   const myFollowingCard({
@@ -26,12 +29,39 @@ class _myFollowingState extends State<myFollowingCard> {
   var futureData;
   List<Followers>? followers;
   final FollowerFollowing followerFollowing = FollowerFollowing();
+  // ExploreController controllerExplore = Get.put(ExploreController());
+
+  UserDataController userDataController = Get.put(UserDataController());
 
   // List<>? followings;
 
 
 
   // int index = 0;
+
+  void _removeFollower({required String userId}) async {
+    try {
+      var resp = await FollowService.removeFollower(userId);
+      print("remove $resp");
+      if (resp) {
+        setState(() {
+          futureData = followerFollowing.getfollowfollowing();
+          userDataController.getUserProfile();
+
+        });
+
+        // followings
+        // print(object)sest
+        // setState(() {
+        //   followings![index].following!.isFollowing = !followings![index].following!.isFollowing;
+        // });
+      }
+      Get.back();
+    } catch (e) {
+      // Handle error here
+      print('Error Following user: $e');
+    }
+  }
 
   @override
   void initState() {
@@ -229,10 +259,12 @@ class _myFollowingState extends State<myFollowingCard> {
             const Spacer(),
             InkWell(
               onTap: () {
-                // removeDailog(
-                //   // userName: userNamepub,
+                removeDailog(
+                  userName: userName,
+                  profileImage: profileImage,
+                  userId: userId
 
-                // );
+                );
                 // removeDailog( 
                   
                 // );
@@ -269,7 +301,8 @@ class _myFollowingState extends State<myFollowingCard> {
   }
 
   removeDailog({String? profileImage,
-    required String userName
+    required String userName,
+    required String userId
   }) {
     return showDialog(
       context: context,
@@ -309,12 +342,14 @@ class _myFollowingState extends State<myFollowingCard> {
 
             sizedBoxWidth(10.w),
              
-            Text(
-              "Are you sure you want to remove @$userName",
-              style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 16.sp,
-                  color: const Color(0xff54595F)),
+            Flexible(
+              child: Text(
+                "Are you sure you want to remove @$userName",
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16.sp,
+                    color: const Color(0xff54595F)),
+              ),
             ),
           ],
         ),
@@ -335,9 +370,10 @@ class _myFollowingState extends State<myFollowingCard> {
           sizedBoxWidth(15.sp),
           InkWell(
             onTap: () async {
+              _removeFollower(userId: userId);
             },
             child: Text(
-              "Sign out",
+              "Remove",
               style: TextStyle(
                   fontFamily: "Roboto",
                   fontWeight: FontWeight.w500,

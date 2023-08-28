@@ -60,7 +60,12 @@ class ApiUrls {
   static const getTrendingRecipe = _base + "recipe/trending";
   static const getChallengeData = _base + "user/challenges";
   static const getSimilarRecipe = _base + "recipe/similar";
+
   static const viewuser = _base + "inspiration/user-profile";
+
+  static const removeFollower = _base + "user/remove-follower";
+  
+
 
   // static const commentReplies = _base + "recipe/get-replies";
 }

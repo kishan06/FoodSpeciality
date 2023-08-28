@@ -90,6 +90,7 @@ class _ExploreState extends State<Explore> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
@@ -105,13 +106,13 @@ class _ExploreState extends State<Explore> {
                           ? Center(child: CircularProgressIndicator()) 
                           : controllerExplore.onGoingChallenges == null 
                             ? Padding(
-                              padding: EdgeInsets.only(top: 30),
-                              child: textgrey18BoldSP("Something went wrong"),
+                              padding: EdgeInsets.only(top: 15.h),
+                              child: Center(child: textgrey18BoldSP("Something went wrong")),
                             )
                               : controllerExplore.onGoingChallenges!.data.isEmpty 
                                 ? Padding(
-                                  padding: EdgeInsets.only(top: 30),
-                                  child: textgrey18BoldSP("No challenges"),
+                                  padding: EdgeInsets.only(top: 15.h),
+                                  child: Center(child: textgrey18BoldSP("No challenges")),
                                 )
                                 : Column(
                                 children: [
@@ -191,202 +192,6 @@ class _ExploreState extends State<Explore> {
                         
                         }),
 
-                      //   Obx(() => 
-                      //   Column(
-                      //     children: [
-                      //       CarouselSlider.builder(
-                      //           carouselController: CarouselController(),
-                      //           itemCount: 3,
-                      //           itemBuilder: (context, index, realIndex) {
-                      //             return Padding(
-                      //               padding: EdgeInsets.all(5.w),
-                      //               child: mainChallengesCard(),
-                      //             );
-                      //             // final sliderInfo = sliderData[index];
-                      //             // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                      //           },
-                      //           options: CarouselOptions(
-                      //             height: 260.h,
-                      //             // initialPage: sliderPage.value,
-                      //             // aspectRatio: 3 / 1,
-                      //             autoPlay: true,
-                      //             autoPlayAnimationDuration:
-                      //                 const Duration(seconds: 3),
-                      //             // enlargeCenterPage: true,
-                      //             viewportFraction: 1,
-                      //             onPageChanged: (index, reason) {
-                      //               // setState(() {
-                      //                 // sliderPage.value = index;
-                      //                 // controllerExplore.sliderPage = index;
-                      //                 controllerExplore.changeSliderPage(index);
-                      //               // });
-                      //             },
-                      //           )),
-                            
-                      //       sizedBoxHeight(12.h),
-                        
-                      //       Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: List.generate(
-                      //           3,
-                      //           (index) => GestureDetector(
-                      //             onTap: () =>
-                      //                 carouselController.animateToPage(index),
-                      //             child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   color: Colors.grey,
-                      //                   borderRadius: BorderRadius.circular(25.r)),
-                      //               width: 12.w,
-                      //               height: controllerExplore.sliderPage == index ? 3.h : 2.h,
-                      //               margin: const EdgeInsets.symmetric(
-                      //                 horizontal: 3.0,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      
-                      //     ],
-                      //   ),
-                    
-                      // ),
-
-                        // Column(
-                        //   children: [
-                        //     CarouselSlider.builder(
-                        //         carouselController: CarouselController(),
-                        //         itemCount: 3,
-                        //         itemBuilder: (context, index, realIndex) {
-                        //           return Padding(
-                        //             padding: EdgeInsets.all(5.w),
-                        //             child: mainChallengesCard(),
-                        //           );
-                        //           // final sliderInfo = sliderData[index];
-                        //           // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //         },
-                        //         options: CarouselOptions(
-                        //           height: 260.h,
-                        //           // initialPage: sliderPage.value,
-                        //           // aspectRatio: 3 / 1,
-                        //           autoPlay: true,
-                        //           autoPlayAnimationDuration:
-                        //               const Duration(seconds: 3),
-                        //           // enlargeCenterPage: true,
-                        //           viewportFraction: 1,
-                        //           onPageChanged: (index, reason) {
-                        //             // setState(() {
-                        //             //   sliderPage.value = index;
-                        //             // });
-                        //           },
-                        //         )),
-                            
-                        //     sizedBoxHeight(12.h),
-                        
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: List.generate(
-                        //         3,
-                        //         (index) => GestureDetector(
-                        //           onTap: () =>
-                        //               carouselController.animateToPage(index),
-                        //           child: Container(
-                        //             decoration: BoxDecoration(
-                        //                 color: Colors.grey,
-                        //                 borderRadius: BorderRadius.circular(25.r)),
-                        //             width: 12.w,
-                        //             height: sliderPage.value == index ? 3.h : 2.h,
-                        //             margin: const EdgeInsets.symmetric(
-                        //               horizontal: 3.0,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                      
-                        //   ],
-                        // ),
-                      
-                        // sizedBoxHeight(12.h),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: List.generate(
-                        //     3,
-                        //     (index) => GestureDetector(
-                        //       onTap: () =>
-                        //           carouselController.animateToPage(index),
-                        //       child: Container(
-                        //         decoration: BoxDecoration(
-                        //             color: Colors.grey,
-                        //             borderRadius: BorderRadius.circular(25.r)),
-                        //         width: 12.w,
-                        //         height: sliderPage.value == index ? 3.h : 2.h,
-                        //         margin: const EdgeInsets.symmetric(
-                        //           horizontal: 3.0,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      
-                        // GetBuilder<ExploreController>(builder: (_){
-                        //   return CarouselSlider.builder(
-                        //     itemCount: 3,
-                        //     itemBuilder: (context, index, realIndex) {
-                        //       return Padding(
-                        //         padding: EdgeInsets.all(5.w),
-                        //         child: mainChallengesCard(),
-                        //       );
-                        //       // final sliderInfo = sliderData[index];
-                        //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //     },
-                        //     options: CarouselOptions(
-
-                        //       height: 260.h,
-                        //       initialPage: sliderPage.value,
-                        //       // aspectRatio: 3 / 1,
-                        //       autoPlay: true,
-                        //       autoPlayAnimationDuration: const Duration(seconds: 3),
-                        //       // enlargeCenterPage: true,
-                        //       viewportFraction: 1,
-                        //       onPageChanged: (index, reason) {
-                        //         // setState(() {
-                        //         sliderPage.value = index;
-
-                        //         // });
-                        //       },
-                        //     )
-                        //   );
-                        // }),
-
-                        //   Obx(() => CarouselSlider.builder(
-                        //     itemCount: 3,
-                        //     itemBuilder: (context, index, realIndex) {
-                        //       return Padding(
-                        //         padding: EdgeInsets.all(5.w),
-                        //         child: mainChallengesCard(),
-                        //       );
-                        //       // final sliderInfo = sliderData[index];
-                        //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //     },
-                        //     options: CarouselOptions(
-
-                        //       height: 260.h,
-                        //       initialPage: 0,
-                        //       // aspectRatio: 3 / 1,
-                        //       autoPlay: true,
-                        //       autoPlayAnimationDuration: const Duration(seconds: 3),
-                        //       // enlargeCenterPage: true,
-                        //       viewportFraction: 1,
-                        //       onPageChanged: (index, reason) {
-                        //         // setState(() {
-                        //         sliderPage.value = index;
-
-                        //         // });
-                        //       },
-                        //     )
-                        //   ),
-                        //  ),
-                        // mainChallengesCard(),
                         sizedBoxHeight(25.h),
                         textgreyM20BoldSP("Trending Recipes")
                       ],
