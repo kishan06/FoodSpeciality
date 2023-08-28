@@ -51,7 +51,7 @@ class ApiUrls {
 
   static const exitcommunity = _base + "user/community/exit";
   static const deletecommunity = _base + "user/community/delete";
-  static const updatecommunity = _base + "user/community/update";
+  static const updatecommunity = _base + "community/update";
   static const addparticipants = _base + "community/members/add";
 
   static const addReply = _base + "recipe/add-reply";
@@ -60,8 +60,7 @@ class ApiUrls {
   static const getTrendingRecipe = _base + "recipe/trending";
   static const getChallengeData = _base + "user/challenges";
   static const getSimilarRecipe = _base + "recipe/similar";
-  
-
+  static const viewuser = _base + "inspiration/user-profile";
 
   // static const commentReplies = _base + "recipe/get-replies";
 }
