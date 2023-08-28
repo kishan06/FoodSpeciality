@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowers/myFollowerContent.dart';
 import 'package:foodspeciality/utils/colors.dart';
+import 'package:get/get.dart';
 
 import '../../../../Model/FollowesModel.dart';
+import '../../../../controllers/user_data_controller.dart';
 import '../../../../services/follow_service.dart';
 import '../../../../services/follower_following_service.dart';
 import '../../../../utils/texts.dart';
@@ -37,6 +39,8 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
   List<Followings>? followings;
   // var 
   var futureData;
+  UserDataController userDataController = Get.put(UserDataController());
+
   // extension StringCasingExtension on String {
   //   String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
   //   String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
@@ -52,6 +56,8 @@ class _myFollowerCardState extends State<MyfollowingCardNew> {
         // print(object)sest
         setState(() {
           followings![index].following!.isFollowing = !followings![index].following!.isFollowing;
+          userDataController.getUserProfile();
+          
         });
       }
     } catch (e) {
