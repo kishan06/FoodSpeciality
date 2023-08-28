@@ -37,13 +37,11 @@ class _HomeState extends State<Home> {
 
   final createcommunitykey = GlobalKey<FormState>();
 
-
   // onback(){
   //   setState(() {
-      
+
   //   });
   // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -350,14 +348,12 @@ class _IngridentsState extends State<Ingridents> {
   var isReply = false.obs;
   String? commentIdForReply;
 
-
   // _focusNode.addListener(() { });
 
   Future<T?> commentbottomSheet<T>(String recipeId) {
     isReply.value = false;
     // String? commentIdForReply;
-    
-    
+
     // FocusNode _focusNode = FocusNode();
     // _focusNode.addListener(() { });
     // GetCommentsController commentsContoller = Get.put(GetCommentsController());
@@ -366,109 +362,109 @@ class _IngridentsState extends State<Ingridents> {
     commentsContoller.emptyComments();
     commentsContoller.getCommentsData(recipeId);
 
-
     // focusForReply(){
     //   if (_focusNode.hasFocus) {
     //     _focusNode.requestFocus();
     //   }
     // }
 
-
     return Get.bottomSheet(
-      // commentsContoller.getCommentsData(recipeId);
-      GetBuilder<GetCommentsController>(builder: (context) {
-        return GestureDetector(
-          onTap: (){
-            isReply.value = false;
-            _focusNode.unfocus();
-          },
-          child: Container(
-            // height: 375.h,
-            // color: AppColors.white,
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.h),
-                    topRight: Radius.circular(20.h))),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
-        
-              // padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  // tileForlist()
-                  Expanded(child: GetBuilder<HomeController>(builder: (_) {
-                    return commentsContoller.comments == null
-                        ? Center(child: CircularProgressIndicator())
-                        : commentsContoller.comments!.data.isEmpty
-                            ? Center(child: textBlack14Robo("No comments"))
-                            : ListView.builder(
-                                // physics: const NeverScrollableScrollPhysics(),
-                                // shrinkWrap: true,
-                                // itemCount: controllerHome.commentLike.length,
-                                itemCount: commentsContoller.comments!.data.length,
-        
-                                itemBuilder: (context, index) {
-                                  final commentData =
-                                      commentsContoller.comments!.data[index];
-                                  String originalDate = commentData.createdAt;
-                                  DateTime parsedDate =
-                                      DateTime.parse(originalDate);
-                                  String formattedDate =
-                                      DateFormat('dd/mm/yyyy').format(parsedDate);
-                                  return Column(
-                                    children: [
-                                      tileForlist(
-                                          profileImage:
-                                              commentData.user.profileImage,
-                                          userName: commentData.user.firstName +
-                                              " " +
-                                              commentData.user.lastName,
-                                          comment: commentData.comment,
-                                          likedStatus: commentData.liked,
-                                          likeNo: commentData.likedComments.length,
-                                          commentId: commentData.id,
-                                          recipeId: recipeId,
-                                          numReplies: commentData.repliesLength,
-                                          dateTime: formattedDate),
-                                      // tileForlist(
-                                      //     // controllerHome.commentLike[index]["comment"],
-                                      //     commentData.comment,
-                                      //     // commentData.likedComments.length,
-                                      //     controllerHome.commentLike[index]["like"],
-                                      //     ),
-                                      sizedBoxHeight(13.h)
-                                    ],
-                                  );
-                                },
-                              );
-                  })
-                      // ListView.builder(
-                      //   // physics: const NeverScrollableScrollPhysics(),
-                      //   // shrinkWrap: true,
-                      //   itemCount: 5,
-                      //   itemBuilder: (context, index) {
-                      //     return Column(
-                      //       children: [
-                      //         tileForlist(
-                      //             controllerHome.commentLike[index]["comment"],
-                      //             controllerHome.commentLike[index]["like"],
-                      //             index),
-                      //         sizedBoxHeight(13.h)
-                      //       ],
-                      //     );
-                      //   },
-                      // ),
-        
-                      ),
-        
-                  sizedBoxHeight(15.h),
-        
-                  Obx(() => CustomSearchTextFormField(
+        // commentsContoller.getCommentsData(recipeId);
+        GetBuilder<GetCommentsController>(builder: (context) {
+      return GestureDetector(
+        onTap: () {
+          isReply.value = false;
+          _focusNode.unfocus();
+        },
+        child: Container(
+          // height: 375.h,
+          // color: AppColors.white,
+          decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.h),
+                  topRight: Radius.circular(20.h))),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+
+            // padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                // tileForlist()
+                Expanded(child: GetBuilder<HomeController>(builder: (_) {
+                  return commentsContoller.comments == null
+                      ? Center(child: CircularProgressIndicator())
+                      : commentsContoller.comments!.data.isEmpty
+                          ? Center(child: textBlack14Robo("No comments"))
+                          : ListView.builder(
+                              // physics: const NeverScrollableScrollPhysics(),
+                              // shrinkWrap: true,
+                              // itemCount: controllerHome.commentLike.length,
+                              itemCount:
+                                  commentsContoller.comments!.data.length,
+
+                              itemBuilder: (context, index) {
+                                final commentData =
+                                    commentsContoller.comments!.data[index];
+                                String originalDate = commentData.createdAt;
+                                DateTime parsedDate =
+                                    DateTime.parse(originalDate);
+                                String formattedDate =
+                                    DateFormat('dd/mm/yyyy').format(parsedDate);
+                                return Column(
+                                  children: [
+                                    tileForlist(
+                                        profileImage:
+                                            commentData.user.profileImage,
+                                        userName: commentData.user.firstName +
+                                            " " +
+                                            commentData.user.lastName,
+                                        comment: commentData.comment,
+                                        likedStatus: commentData.liked,
+                                        likeNo:
+                                            commentData.likedComments.length,
+                                        commentId: commentData.id,
+                                        recipeId: recipeId,
+                                        numReplies: commentData.repliesLength,
+                                        dateTime: formattedDate),
+                                    // tileForlist(
+                                    //     // controllerHome.commentLike[index]["comment"],
+                                    //     commentData.comment,
+                                    //     // commentData.likedComments.length,
+                                    //     controllerHome.commentLike[index]["like"],
+                                    //     ),
+                                    sizedBoxHeight(13.h)
+                                  ],
+                                );
+                              },
+                            );
+                })
+                    // ListView.builder(
+                    //   // physics: const NeverScrollableScrollPhysics(),
+                    //   // shrinkWrap: true,
+                    //   itemCount: 5,
+                    //   itemBuilder: (context, index) {
+                    //     return Column(
+                    //       children: [
+                    //         tileForlist(
+                    //             controllerHome.commentLike[index]["comment"],
+                    //             controllerHome.commentLike[index]["like"],
+                    //             index),
+                    //         sizedBoxHeight(13.h)
+                    //       ],
+                    //     );
+                    //   },
+                    // ),
+
+                    ),
+
+                sizedBoxHeight(15.h),
+
+                Obx(() => CustomSearchTextFormField(
                     textEditingController: tecComment,
                     autofocus: false,
                     focusNode: _focusNode,
-                    hintText: isReply.value ? "Add a reply" :"Add a comment",
+                    hintText: isReply.value ? "Add a reply" : "Add a comment",
                     validatorText: '',
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(right: 15.w),
@@ -482,41 +478,35 @@ class _IngridentsState extends State<Ingridents> {
                                       // print(tecComment.text);
                                       // controllerHome
                                       //     .commentMethod(tecComment.text);
-                                      if (isReply.value) { //for reply
+                                      if (isReply.value) {
+                                        //for reply
                                         commentsContoller.addReplyApi(
-                                          reply: tecComment.text, 
-                                          commentId: commentIdForReply!,
-                                          recipeId: recipeId
-                                        );
+                                            reply: tecComment.text,
+                                            commentId: commentIdForReply!,
+                                            recipeId: recipeId);
                                         tecComment.clear();
                                         isReply.value = false;
-
-                                      } else { // for comment
-                                        var resp = await commentsContoller.addCommentApi(
-                                            commment: tecComment.text,
-                                            recipeId: recipeId);
+                                      } else {
+                                        // for comment
+                                        var resp = await commentsContoller
+                                            .addCommentApi(
+                                                commment: tecComment.text,
+                                                recipeId: recipeId);
                                         if (resp!) {
-                                          setState(() {
-                                            
-                                          });
+                                          setState(() {});
                                         }
                                         tecComment.clear();
                                       }
-                                      
                                     }
                                   },
                                   child: textgreyM14Sp("Send")))),
                     )))
-                  
-                ],
-              ),
+              ],
             ),
           ),
-     
-        );
-      })
-   
-    );
+        ),
+      );
+    }));
   }
 
   // focusForReply(){
@@ -550,31 +540,28 @@ class _IngridentsState extends State<Ingridents> {
           height: 35.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.h),
-              image: 
-                profileImage == null 
-                ? DecorationImage(
-                    image: 
-                    // recipeData.user.profileImage == null 
-                    // ? 
-                    AssetImage("assets/default_profile.webp"),
-                    // :
-                    //  NetworkImage(
-                    //     ApiUrls.base + "${recipeData.user!.profileImage}"),
-                    fit: BoxFit.fill)
-                :
-                DecorationImage(
-                    image: 
-                    // recipeData.user.profileImage == null 
-                    // ? 
-                    // AssetImage("assetName")
-                    // :
-                      NetworkImage(
-                        ApiUrls.base + profileImage),
-                    fit: BoxFit.fill)
+              image: profileImage == null
+                  ? DecorationImage(
+                      image:
+                          // recipeData.user.profileImage == null
+                          // ?
+                          AssetImage("assets/default_profile.webp"),
+                      // :
+                      //  NetworkImage(
+                      //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                      fit: BoxFit.fill)
+                  : DecorationImage(
+                      image:
+                          // recipeData.user.profileImage == null
+                          // ?
+                          // AssetImage("assetName")
+                          // :
+                          NetworkImage(ApiUrls.base + profileImage),
+                      fit: BoxFit.fill)
               // image: const DecorationImage(
               //     image: AssetImage("assets/home/profile.png"),
               //     fit: BoxFit.fill)
-                ),
+              ),
         ),
         sizedBoxWidth(10.w),
         Column(
@@ -644,18 +631,17 @@ class _IngridentsState extends State<Ingridents> {
             sizedBoxHeight(5.h),
 
             InkWell(
-              onTap: (){
-                print("reply");
-                isReply.value = true;
-                _focusNode.requestFocus();
-                commentIdForReply = commentId;
-                print(commentIdForReply);
-                
-                // focusForReply();
-                // FocusScope.of(context).requestFocus(_focusNode);
-              },
-              child: textgreyM14Sp("Reply")
-            ),
+                onTap: () {
+                  print("reply");
+                  isReply.value = true;
+                  _focusNode.requestFocus();
+                  commentIdForReply = commentId;
+                  print(commentIdForReply);
+
+                  // focusForReply();
+                  // FocusScope.of(context).requestFocus(_focusNode);
+                },
+                child: textgreyM14Sp("Reply")),
 
             sizedBoxHeight(5.h),
 
@@ -665,365 +651,372 @@ class _IngridentsState extends State<Ingridents> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   Visibility(
 
-              
                       //one
-                    visible: viewReply.value,
-                    child: 
-                    viewReply.value ? 
-                    // GetBuilder(builder: (context){
-                    //   return SizedBox();
-                    // })
-                      replies != null
-                        ? 
-                        SizedBox(
-                          // height: 100.h,
-              
-                          width: 290.w,
-                          // width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                            physics:
-                                const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: replies!.data.length,
-                            itemBuilder: (context, index) {
-                              // print("sdf" +
-                              //     repliesData.length.toString());
-                              final reply = replies!.data[index];
+                      visible: viewReply.value,
+                      child: viewReply.value
+                          ?
+                          // GetBuilder(builder: (context){
+                          //   return SizedBox();
+                          // })
+                          replies != null
+                              ? SizedBox(
+                                  // height: 100.h,
 
-                              String originalDate = reply.createdAt;
-                              DateTime parsedDate =
-                                  DateTime.parse(originalDate);
-                              String formattedDateReply =
-                                  DateFormat('dd/MM/yyyy')
-                                      .format(parsedDate);
+                                  width: 290.w,
+                                  // width: MediaQuery.of(context).size.width,
+                                  child: ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: replies!.data.length,
+                                    itemBuilder: (context, index) {
+                                      // print("sdf" +
+                                      //     repliesData.length.toString());
+                                      final reply = replies!.data[index];
 
-                              // return Icon(Icons.sd);
+                                      String originalDate = reply.createdAt;
+                                      DateTime parsedDate =
+                                          DateTime.parse(originalDate);
+                                      String formattedDateReply =
+                                          DateFormat('dd/MM/yyyy')
+                                              .format(parsedDate);
 
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 5.h),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 30.h,
-                                      height: 30.h,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15.h),
-                                          image: 
-                                            reply.user.profileImage == null 
-                                            ? DecorationImage(
-                                                image: 
-                                                // recipeData.user.profileImage == null 
-                                                // ? 
-                                                AssetImage("assets/default_profile.webp"),
-                                                // :
-                                                //  NetworkImage(
-                                                //     ApiUrls.base + "${recipeData.user!.profileImage}"),
-                                                fit: BoxFit.fill)
-                                            :
-                                            DecorationImage(
-                                                image: 
-                                                // recipeData.user.profileImage == null 
-                                                // ? 
-                                                // AssetImage("assetName")
-                                                // :
-                                                  NetworkImage(
-                                                    ApiUrls.base + reply.user.profileImage!),
-                                                fit: BoxFit.fill)
-                                          // image: DecorationImage(
-                                          //     image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
-                                          //     // AssetImage("assets/home/profile.png"),
-                                          //     fit: BoxFit.fill)
+                                      // return Icon(Icons.sd);
+
+                                      return Padding(
+                                        padding: EdgeInsets.only(bottom: 5.h),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 30.h,
+                                              height: 30.h,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.h),
+                                                  image: reply.user
+                                                              .profileImage ==
+                                                          null
+                                                      ? DecorationImage(
+                                                          image:
+                                                              // recipeData.user.profileImage == null
+                                                              // ?
+                                                              AssetImage(
+                                                                  "assets/default_profile.webp"),
+                                                          // :
+                                                          //  NetworkImage(
+                                                          //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                          fit: BoxFit.fill)
+                                                      : DecorationImage(
+                                                          image:
+                                                              // recipeData.user.profileImage == null
+                                                              // ?
+                                                              // AssetImage("assetName")
+                                                              // :
+                                                              NetworkImage(ApiUrls
+                                                                      .base +
+                                                                  reply.user
+                                                                      .profileImage!),
+                                                          fit: BoxFit.fill)
+                                                  // image: DecorationImage(
+                                                  //     image: NetworkImage(ApiUrls.base + reply.user.profileImage!),
+                                                  //     // AssetImage("assets/home/profile.png"),
+                                                  //     fit: BoxFit.fill)
+                                                  ),
                                             ),
-                                    ),
-                                    sizedBoxWidth(10.w),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        // textWhite17w500("George Smith"),
-                                        // e=
-                                        // textBlack16SP("Chaitali tatkare"),
-                                        textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
-                              
-                                        sizedBoxHeight(5.h),
-                              
-                                        // textgreyD12Robo("2 Days ago")
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15.h),
-                                              color: AppColors.greyLtEBEBEB),
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                                            // child: textgreyD10Robo("11:36"),
-                                            child: textgreyD10Robo(formattedDateReply),
-                              
-                                          ),
-                                        ),
-                              
-                                        sizedBoxHeight(5.h),
-                              
-                                        textBlack15Robo(reply.comment),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              );
+                                            sizedBoxWidth(10.w),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // textWhite17w500("George Smith"),
+                                                // e=
+                                                // textBlack16SP("Chaitali tatkare"),
+                                                textBlack16SP(
+                                                    reply.user.firstName +
+                                                        " " +
+                                                        reply.user.lastName),
 
-                              // final follower = followers[index].follower;
-                              // return invite(
-                              //   firstname: follower!.firstName!,
-                              //   username: follower.username!,
-                              //   profileimage: follower.profileImage,
-                              //   userId: follower.id!,
-                              //   index: index,
-                              //   selectedIds: selectedIds,
-                              //   onInvitePressed: (id) {
-                              //     // Handle invite button pressed
-                              //     print('Invite button pressed for: $id');
-                              //   },
-                              // );
-                            },
-                          ),
-                        )
-                        // Text("sd")
-                        // Expanded(
-                        //   child: ListView.builder(
-                        //     physics: const NeverScrollableScrollPhysics(),
-                        //     // shrinkWrap: true,
-                        //     scrollDirection: Axis.vertical,
-                        //     itemCount: replies!.data.length,
-                        //     itemBuilder: (context, index) {
-                        //       print(replies!.data.length);
-                        //       // print("sdf" + repliesData.length.toString());
-                        //       final reply = replies!.data[index];
-                                      
-                        //       String originalDate = reply.createdAt;
-                        //       DateTime parsedDate = DateTime.parse(originalDate);
-                        //       String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
-                          
-                        //       return Text("fgvhbjn");
-                        //       // Icon(Icons.ac_unit);
-                          
-                              
-                        //     },
-                        //   ),
-                        // )
-                        
-                          : 
-                          textBlack10Robo("could not load replies")
-                      
-              
-                    // FutureBuilder<Replies>(
-                    //   future: commentsContoller.getReplies(commentId: commentId),
-                    //   builder: (BuildContext context, AsyncSnapshot snapshot){
-                    //     // print()
-                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                    //       return const Center(child: CircularProgressIndicator());
-                    //     } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                    //       // print(" main wid");
-                    //       final data = snapshot.data;
-                    //       final repliesData = data;
-                    //       // return Icon(Icons.safety_check);
-                    //       // return ListView()
-                    //       return SizedBox(
-                    //         height: 200.h,
-                    //         child: ListView.builder(
-                    //           physics: const NeverScrollableScrollPhysics(),
-                    //           shrinkWrap: true,
-                    //           itemCount: repliesData.length,
-                    //           itemBuilder: (context, index) {
-                    //             print("sdf" + repliesData.length.toString());
-                    //             final reply = repliesData[index];
-                                        
-                    //             String originalDate = reply.createdAt;
-                    //             DateTime parsedDate = DateTime.parse(originalDate);
-                    //             String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
-                            
-                    //             return Icon(Icons.sd);
-                            
-                                
-                    //           },
-                    //         ),
-                    //       );
-                      
-                    //     } else if (snapshot.hasError) {
-                    //       return const Center(child: Text('Failed to load replies'));
-                    //     } else {
-                          
-                    //       return Container();
-                    //     }
-                    //   }) 
-                   
-                      : SizedBox()
-                    
-                          ),
-              
-              
+                                                sizedBoxHeight(5.h),
+
+                                                // textgreyD12Robo("2 Days ago")
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.h),
+                                                      color: AppColors
+                                                          .greyLtEBEBEB),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 7.w,
+                                                            vertical: 1.h),
+                                                    // child: textgreyD10Robo("11:36"),
+                                                    child: textgreyD10Robo(
+                                                        formattedDateReply),
+                                                  ),
+                                                ),
+
+                                                sizedBoxHeight(5.h),
+
+                                                textBlack15Robo(reply.comment),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+
+                                      // final follower = followers[index].follower;
+                                      // return invite(
+                                      //   firstname: follower!.firstName!,
+                                      //   username: follower.username!,
+                                      //   profileimage: follower.profileImage,
+                                      //   userId: follower.id!,
+                                      //   index: index,
+                                      //   selectedIds: selectedIds,
+                                      //   onInvitePressed: (id) {
+                                      //     // Handle invite button pressed
+                                      //     print('Invite button pressed for: $id');
+                                      //   },
+                                      // );
+                                    },
+                                  ),
+                                )
+                              // Text("sd")
+                              // Expanded(
+                              //   child: ListView.builder(
+                              //     physics: const NeverScrollableScrollPhysics(),
+                              //     // shrinkWrap: true,
+                              //     scrollDirection: Axis.vertical,
+                              //     itemCount: replies!.data.length,
+                              //     itemBuilder: (context, index) {
+                              //       print(replies!.data.length);
+                              //       // print("sdf" + repliesData.length.toString());
+                              //       final reply = replies!.data[index];
+
+                              //       String originalDate = reply.createdAt;
+                              //       DateTime parsedDate = DateTime.parse(originalDate);
+                              //       String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+
+                              //       return Text("fgvhbjn");
+                              //       // Icon(Icons.ac_unit);
+
+                              //     },
+                              //   ),
+                              // )
+
+                              : textBlack10Robo("could not load replies")
+
+                          // FutureBuilder<Replies>(
+                          //   future: commentsContoller.getReplies(commentId: commentId),
+                          //   builder: (BuildContext context, AsyncSnapshot snapshot){
+                          //     // print()
+                          //     if (snapshot.connectionState == ConnectionState.waiting) {
+                          //       return const Center(child: CircularProgressIndicator());
+                          //     } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                          //       // print(" main wid");
+                          //       final data = snapshot.data;
+                          //       final repliesData = data;
+                          //       // return Icon(Icons.safety_check);
+                          //       // return ListView()
+                          //       return SizedBox(
+                          //         height: 200.h,
+                          //         child: ListView.builder(
+                          //           physics: const NeverScrollableScrollPhysics(),
+                          //           shrinkWrap: true,
+                          //           itemCount: repliesData.length,
+                          //           itemBuilder: (context, index) {
+                          //             print("sdf" + repliesData.length.toString());
+                          //             final reply = repliesData[index];
+
+                          //             String originalDate = reply.createdAt;
+                          //             DateTime parsedDate = DateTime.parse(originalDate);
+                          //             String formattedDateReply = DateFormat('dd/MM/yyyy').format(parsedDate);
+
+                          //             return Icon(Icons.sd);
+
+                          //           },
+                          //         ),
+                          //       );
+
+                          //     } else if (snapshot.hasError) {
+                          //       return const Center(child: Text('Failed to load replies'));
+                          //     } else {
+
+                          //       return Container();
+                          //     }
+                          //   })
+
+                          : SizedBox()),
+
                   //two
-                      // visible: viewReply.value,
-                      // child: viewReply.value
-                      //     ? FutureBuilder<Replies>(
-                      //         future: commentsContoller.getReplies(
-                      //             commentId: commentId),
-                      //         builder: (context, snapshot) {
-                      //           // print()
-                      //           if (snapshot.connectionState ==
-                      //               ConnectionState.waiting) {
-                      //             return const Center(
-                      //                 child: CircularProgressIndicator());
-                      //           } else if (snapshot.hasData) {
-                      //             // print(" main wid");
-                      //             final repliesData = snapshot.data!.data;
-                      //             // return Icon(Icons.safety_check);
-                      //             // return ListView()
-                      //             return SizedBox(
-                      //               height: 200.h,
-                      //               child: ListView.builder(
-                      //                 physics:
-                      //                     const NeverScrollableScrollPhysics(),
-                      //                 shrinkWrap: true,
-                      //                 itemCount: repliesData.length,
-                      //                 itemBuilder: (context, index) {
-                      //                   print("sdf" +
-                      //                       repliesData.length.toString());
-                      //                   final reply = repliesData[index];
-              
-                      //                   String originalDate = reply.createdAt;
-                      //                   DateTime parsedDate =
-                      //                       DateTime.parse(originalDate);
-                      //                   String formattedDateReply =
-                      //                       DateFormat('dd/MM/yyyy')
-                      //                           .format(parsedDate);
-              
-                      //                   return Icon(Icons.sd);
-              
-                      //                   // return Row(
-                      //                   //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //                   //   children: [
-                      //                   //     Container(
-                      //                   //       width: 30.h,
-                      //                   //       height: 30.h,
-                      //                   //       decoration: BoxDecoration(
-                      //                   //           borderRadius: BorderRadius.circular(15.h),
-                      //                   //           image: const DecorationImage(
-                      //                   //               image: AssetImage("assets/home/profile.png"),
-                      //                   //               fit: BoxFit.fill)),
-                      //                   //     ),
-                      //                   //     sizedBoxWidth(10.w),
-                      //                   //     Column(
-                      //                   //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //                   //       mainAxisAlignment: MainAxisAlignment.center,
-                      //                   //       children: [
-                      //                   //         // textWhite17w500("George Smith"),
-                      //                   //         // e=
-                      //                   //         // textBlack16SP("Chaitali tatkare"),
-                      //                   //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
-              
-                      //                   //         sizedBoxHeight(5.h),
-              
-                      //                   //         // textgreyD12Robo("2 Days ago")
-                      //                   //         Container(
-                      //                   //           decoration: BoxDecoration(
-                      //                   //               borderRadius: BorderRadius.circular(15.h),
-                      //                   //               color: AppColors.greyLtEBEBEB),
-                      //                   //           child: Padding(
-                      //                   //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                      //                   //             // child: textgreyD10Robo("11:36"),
-                      //                   //             child: textgreyD10Robo(formattedDateReply),
-              
-                      //                   //           ),
-                      //                   //         ),
-              
-                      //                   //         sizedBoxHeight(5.h),
-              
-                      //                   //         textBlack15Robo(reply.comment),
-                      //                   //       ],
-                      //                   //     )
-                      //                   //   ],
-                      //                   // );
-              
-                      //                   // final follower = followers[index].follower;
-                      //                   // return invite(
-                      //                   //   firstname: follower!.firstName!,
-                      //                   //   username: follower.username!,
-                      //                   //   profileimage: follower.profileImage,
-                      //                   //   userId: follower.id!,
-                      //                   //   index: index,
-                      //                   //   selectedIds: selectedIds,
-                      //                   //   onInvitePressed: (id) {
-                      //                   //     // Handle invite button pressed
-                      //                   //     print('Invite button pressed for: $id');
-                      //                   //   },
-                      //                   // );
-                      //                 },
-                      //               ),
-                      //             );
-                      //           } else if (snapshot.hasError) {
-                      //             return const Center(
-                      //                 child: Text('Failed to load followers'));
-                      //           } else {
-                      //             return Container();
-                      //           }
-                      //         })
-                      //     : SizedBox()
-                      // // Row(
-                      // //   crossAxisAlignment: CrossAxisAlignment.start,
-                      // //   children: [
-                      // //     Container(
-                      // //       width: 30.h,
-                      // //       height: 30.h,
-                      // //       decoration: BoxDecoration(
-                      // //           borderRadius: BorderRadius.circular(15.h),
-                      // //           image: const DecorationImage(
-                      // //               image: AssetImage("assets/home/profile.png"),
-                      // //               fit: BoxFit.fill)),
-                      // //     ),
-                      // //     sizedBoxWidth(10.w),
-                      // //     Column(
-                      // //       crossAxisAlignment: CrossAxisAlignment.start,
-                      // //       mainAxisAlignment: MainAxisAlignment.center,
-                      // //       children: [
-                      // //         // textWhite17w500("George Smith"),
-                      // //         // e=
-                      // //         // textBlack16SP("Chaitali tatkare"),
-                      // //         textBlack16SP(userName),
-              
-                      // //         sizedBoxHeight(5.h),
-              
-                      // //         // textgreyD12Robo("2 Days ago")
-                      // //         Container(
-                      // //           decoration: BoxDecoration(
-                      // //               borderRadius: BorderRadius.circular(15.h),
-                      // //               color: AppColors.greyLtEBEBEB),
-                      // //           child: Padding(
-                      // //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                      // //             // child: textgreyD10Robo("11:36"),
-                      // //             child: textgreyD10Robo(dateTime),
-              
-                      // //           ),
-                      // //         ),
-              
-                      // //         sizedBoxHeight(5.h),
-              
-                      // //         textBlack15Robo(comment),
-                      // //       ],
-                      // //     )
-                      // //   ],
-                      // // ),
-              
-                      // ),
-              
+                  // visible: viewReply.value,
+                  // child: viewReply.value
+                  //     ? FutureBuilder<Replies>(
+                  //         future: commentsContoller.getReplies(
+                  //             commentId: commentId),
+                  //         builder: (context, snapshot) {
+                  //           // print()
+                  //           if (snapshot.connectionState ==
+                  //               ConnectionState.waiting) {
+                  //             return const Center(
+                  //                 child: CircularProgressIndicator());
+                  //           } else if (snapshot.hasData) {
+                  //             // print(" main wid");
+                  //             final repliesData = snapshot.data!.data;
+                  //             // return Icon(Icons.safety_check);
+                  //             // return ListView()
+                  //             return SizedBox(
+                  //               height: 200.h,
+                  //               child: ListView.builder(
+                  //                 physics:
+                  //                     const NeverScrollableScrollPhysics(),
+                  //                 shrinkWrap: true,
+                  //                 itemCount: repliesData.length,
+                  //                 itemBuilder: (context, index) {
+                  //                   print("sdf" +
+                  //                       repliesData.length.toString());
+                  //                   final reply = repliesData[index];
+
+                  //                   String originalDate = reply.createdAt;
+                  //                   DateTime parsedDate =
+                  //                       DateTime.parse(originalDate);
+                  //                   String formattedDateReply =
+                  //                       DateFormat('dd/MM/yyyy')
+                  //                           .format(parsedDate);
+
+                  //                   return Icon(Icons.sd);
+
+                  //                   // return Row(
+                  //                   //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   //   children: [
+                  //                   //     Container(
+                  //                   //       width: 30.h,
+                  //                   //       height: 30.h,
+                  //                   //       decoration: BoxDecoration(
+                  //                   //           borderRadius: BorderRadius.circular(15.h),
+                  //                   //           image: const DecorationImage(
+                  //                   //               image: AssetImage("assets/home/profile.png"),
+                  //                   //               fit: BoxFit.fill)),
+                  //                   //     ),
+                  //                   //     sizedBoxWidth(10.w),
+                  //                   //     Column(
+                  //                   //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   //       mainAxisAlignment: MainAxisAlignment.center,
+                  //                   //       children: [
+                  //                   //         // textWhite17w500("George Smith"),
+                  //                   //         // e=
+                  //                   //         // textBlack16SP("Chaitali tatkare"),
+                  //                   //         textBlack16SP(reply.user.firstName + " " + reply.user.lastName),
+
+                  //                   //         sizedBoxHeight(5.h),
+
+                  //                   //         // textgreyD12Robo("2 Days ago")
+                  //                   //         Container(
+                  //                   //           decoration: BoxDecoration(
+                  //                   //               borderRadius: BorderRadius.circular(15.h),
+                  //                   //               color: AppColors.greyLtEBEBEB),
+                  //                   //           child: Padding(
+                  //                   //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                  //                   //             // child: textgreyD10Robo("11:36"),
+                  //                   //             child: textgreyD10Robo(formattedDateReply),
+
+                  //                   //           ),
+                  //                   //         ),
+
+                  //                   //         sizedBoxHeight(5.h),
+
+                  //                   //         textBlack15Robo(reply.comment),
+                  //                   //       ],
+                  //                   //     )
+                  //                   //   ],
+                  //                   // );
+
+                  //                   // final follower = followers[index].follower;
+                  //                   // return invite(
+                  //                   //   firstname: follower!.firstName!,
+                  //                   //   username: follower.username!,
+                  //                   //   profileimage: follower.profileImage,
+                  //                   //   userId: follower.id!,
+                  //                   //   index: index,
+                  //                   //   selectedIds: selectedIds,
+                  //                   //   onInvitePressed: (id) {
+                  //                   //     // Handle invite button pressed
+                  //                   //     print('Invite button pressed for: $id');
+                  //                   //   },
+                  //                   // );
+                  //                 },
+                  //               ),
+                  //             );
+                  //           } else if (snapshot.hasError) {
+                  //             return const Center(
+                  //                 child: Text('Failed to load followers'));
+                  //           } else {
+                  //             return Container();
+                  //           }
+                  //         })
+                  //     : SizedBox()
+                  // // Row(
+                  // //   crossAxisAlignment: CrossAxisAlignment.start,
+                  // //   children: [
+                  // //     Container(
+                  // //       width: 30.h,
+                  // //       height: 30.h,
+                  // //       decoration: BoxDecoration(
+                  // //           borderRadius: BorderRadius.circular(15.h),
+                  // //           image: const DecorationImage(
+                  // //               image: AssetImage("assets/home/profile.png"),
+                  // //               fit: BoxFit.fill)),
+                  // //     ),
+                  // //     sizedBoxWidth(10.w),
+                  // //     Column(
+                  // //       crossAxisAlignment: CrossAxisAlignment.start,
+                  // //       mainAxisAlignment: MainAxisAlignment.center,
+                  // //       children: [
+                  // //         // textWhite17w500("George Smith"),
+                  // //         // e=
+                  // //         // textBlack16SP("Chaitali tatkare"),
+                  // //         textBlack16SP(userName),
+
+                  // //         sizedBoxHeight(5.h),
+
+                  // //         // textgreyD12Robo("2 Days ago")
+                  // //         Container(
+                  // //           decoration: BoxDecoration(
+                  // //               borderRadius: BorderRadius.circular(15.h),
+                  // //               color: AppColors.greyLtEBEBEB),
+                  // //           child: Padding(
+                  // //             padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
+                  // //             // child: textgreyD10Robo("11:36"),
+                  // //             child: textgreyD10Robo(dateTime),
+
+                  // //           ),
+                  // //         ),
+
+                  // //         sizedBoxHeight(5.h),
+
+                  // //         textBlack15Robo(comment),
+                  // //       ],
+                  // //     )
+                  // //   ],
+                  // // ),
+
+                  // ),
 
                   //three
                   sizedBoxHeight(5.h),
                   numReplies > 0
                       ? InkWell(
                           onTap: () async {
-                            replies = await commentsContoller.getReplies(commentId: commentId);
+                            replies = await commentsContoller.getReplies(
+                                commentId: commentId);
                             viewReply.value = !viewReply.value;
                           },
                           child: Row(
@@ -1188,28 +1181,29 @@ class _IngridentsState extends State<Ingridents> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           25.h),
-                                                  image: 
-                                                  recipeData.user!.profileImage == null 
-                                                  ? DecorationImage(
-                                                      image: 
-                                                      // recipeData.user.profileImage == null 
-                                                      // ? 
-                                                      AssetImage("assets/default_profile.webp"),
-                                                      // :
-                                                      //  NetworkImage(
-                                                      //     ApiUrls.base + "${recipeData.user!.profileImage}"),
-                                                      fit: BoxFit.fill)
-                                                  :
-                                                  DecorationImage(
-                                                      image: 
-                                                      // recipeData.user.profileImage == null 
-                                                      // ? 
-                                                      // AssetImage("assetName")
-                                                      // :
-                                                       NetworkImage(
-                                                          ApiUrls.base + "${recipeData.user!.profileImage}"),
-                                                      fit: BoxFit.fill)
-                                                      ),
+                                                  image: recipeData.user!
+                                                              .profileImage ==
+                                                          null
+                                                      ? DecorationImage(
+                                                          image:
+                                                              // recipeData.user.profileImage == null
+                                                              // ?
+                                                              AssetImage(
+                                                                  "assets/default_profile.webp"),
+                                                          // :
+                                                          //  NetworkImage(
+                                                          //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                          fit: BoxFit.fill)
+                                                      : DecorationImage(
+                                                          image:
+                                                              // recipeData.user.profileImage == null
+                                                              // ?
+                                                              // AssetImage("assetName")
+                                                              // :
+                                                              NetworkImage(ApiUrls
+                                                                      .base +
+                                                                  "${recipeData.user!.profileImage}"),
+                                                          fit: BoxFit.fill)),
                                             ),
                                             Positioned(
                                               bottom: -15.h,
@@ -1233,7 +1227,11 @@ class _IngridentsState extends State<Ingridents> {
                                             // e=
                                             GestureDetector(
                                               onTap: () {
-                                                Get.toNamed("/viewuser");
+                                                Get.toNamed("/viewuser",
+                                                    arguments: {
+                                                      "userid":
+                                                          recipeData.userId
+                                                    });
                                               },
                                               child: textgreyD16BoldSP(
                                                   recipeData.user?.username ??
@@ -1252,12 +1250,11 @@ class _IngridentsState extends State<Ingridents> {
 
                                     Row(
                                       children: [
-
                                         recipeData.userId == myUserId
                                             ? SizedBox()
                                             : Row(
-                                              children: [
-                                                GestureDetector(
+                                                children: [
+                                                  GestureDetector(
                                                     onTap: () {
                                                       print("pressed");
                                                       _handleFollowButton(
@@ -1269,24 +1266,25 @@ class _IngridentsState extends State<Ingridents> {
                                                             // height: 30,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           8.r),
-                                                              border: Border.all(
+                                                              border:
+                                                                  Border.all(
                                                                 color: const Color(
                                                                     0xFF3B3F43),
                                                               ),
                                                             ),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      5.h),
+                                                                  EdgeInsets
+                                                                      .all(5.h),
                                                               child: Center(
-                                                                child:
-                                                                    textgreyD14Robo(
-                                                                        "Following"),
+                                                                child: textgreyD14Robo(
+                                                                    "Following"),
                                                               ),
                                                             ),
                                                           )
@@ -1301,13 +1299,14 @@ class _IngridentsState extends State<Ingridents> {
                                                                       .circular(
                                                                           8.r),
                                                               border: Border.all(
-                                                                  color: Colors.grey
+                                                                  color: Colors
+                                                                      .grey
                                                                       .shade700),
                                                             ),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      5.h),
+                                                                  EdgeInsets
+                                                                      .all(5.h),
                                                               child: Center(
                                                                 child:
                                                                     textWhite14Robo(
@@ -1316,197 +1315,192 @@ class _IngridentsState extends State<Ingridents> {
                                                             ),
                                                           ),
                                                   ),
-
-                                                Container(
-                                          child: recipeData.following!
-                                              ? PopupMenuButton(
-                                                  offset: const Offset(0, 50),
-                                                  color:
-                                                      const Color(0xFFFFFFFF),
-                                                  tooltip: '',
-                                                  child: const Icon(
-                                                    Icons.more_vert,
-                                                    color: Color(0xFF3B3F43),
+                                                  Container(
+                                                    child: recipeData.following!
+                                                        ? PopupMenuButton(
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 50),
+                                                            color: const Color(
+                                                                0xFFFFFFFF),
+                                                            tooltip: '',
+                                                            child: const Icon(
+                                                              Icons.more_vert,
+                                                              color: Color(
+                                                                  0xFF3B3F43),
+                                                            ),
+                                                            onSelected:
+                                                                (value) {
+                                                              if (value ==
+                                                                  "Report") {
+                                                                Get.toNamed(
+                                                                    '/Report',
+                                                                    arguments: {
+                                                                      "recipeid":
+                                                                          recipeData
+                                                                              .id
+                                                                    });
+                                                              } else if (value ==
+                                                                  "block") {
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          Padding(
+                                                                    padding: EdgeInsets
+                                                                        .all(15
+                                                                            .w),
+                                                                    child:
+                                                                        AlertDialog(
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10.r)),
+                                                                      insetPadding: const EdgeInsets
+                                                                              .symmetric(
+                                                                          vertical:
+                                                                              10),
+                                                                      title:
+                                                                          Text(
+                                                                        "Block User",
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'Studio Pro',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 18.sp,
+                                                                            color: const Color(0xff3B3F43)),
+                                                                      ),
+                                                                      content:
+                                                                          SizedBox(
+                                                                        // margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        child:
+                                                                            Text(
+                                                                          "Are you sure you want to Block @${recipeData.user!.username}?",
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'Roboto',
+                                                                              fontSize: 16.sp,
+                                                                              color: const Color(0xff54595F)),
+                                                                        ),
+                                                                      ),
+                                                                      actions: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () {
+                                                                            Get.back();
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            "Cancel",
+                                                                            style: TextStyle(
+                                                                                fontFamily: "Roboto",
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontSize: 16.sp,
+                                                                                color: const Color(0xff000000)),
+                                                                          ),
+                                                                        ),
+                                                                        sizedBoxWidth(
+                                                                            15.sp),
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            Get.back();
+                                                                            _handleBlockButton(recipeData.userId,
+                                                                                recipeData.user!.username);
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            "Block User",
+                                                                            style: TextStyle(
+                                                                                fontFamily: "Roboto",
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontSize: 16.sp,
+                                                                                color: const Color(0xffB90101)),
+                                                                          ),
+                                                                        ),
+                                                                        sizedBoxWidth(
+                                                                            15.sp),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                            },
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                    bc) {
+                                                              return [
+                                                                PopupMenuItem(
+                                                                  value:
+                                                                      'Report',
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          SvgPicture
+                                                                              .asset(
+                                                                            "assets/question-circle-svgrepo-com.svg",
+                                                                            height:
+                                                                                20.h,
+                                                                            width:
+                                                                                20.w,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                15.w,
+                                                                          ),
+                                                                          Text(
+                                                                            "Report",
+                                                                            style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontFamily: "Roboto",
+                                                                                fontSize: 16.sp),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                PopupMenuItem(
+                                                                  value:
+                                                                      'block',
+                                                                  child: Row(
+                                                                    children: [
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                        "assets/block-svgrepo-com.svg",
+                                                                        height:
+                                                                            20.h,
+                                                                        width:
+                                                                            20.w,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            15.w,
+                                                                      ),
+                                                                      Text(
+                                                                        "Block",
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontFamily:
+                                                                                "Roboto",
+                                                                            fontSize:
+                                                                                16.sp),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ];
+                                                            },
+                                                          )
+                                                        : const SizedBox(),
                                                   ),
-                                                  onSelected: (value) {
-                                                    if (value == "Report") {
-                                                      Get.toNamed('/Report',
-                                                          arguments: {
-                                                            "recipeid":
-                                                                recipeData.id
-                                                          });
-                                                    } else if (value ==
-                                                        "block") {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  15.w),
-                                                          child: AlertDialog(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.r)),
-                                                            insetPadding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical:
-                                                                        10),
-                                                            title: Text(
-                                                              "Block User",
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'Studio Pro',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      18.sp,
-                                                                  color: const Color(
-                                                                      0xff3B3F43)),
-                                                            ),
-                                                            content: SizedBox(
-                                                              // margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                                              width:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                              child: Text(
-                                                                "Are you sure you want to Block @${recipeData.user!.username}?",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    fontSize:
-                                                                        16.sp,
-                                                                    color: const Color(
-                                                                        0xff54595F)),
-                                                              ),
-                                                            ),
-                                                            actions: [
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },
-                                                                child: Text(
-                                                                  "Cancel",
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          "Roboto",
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontSize:
-                                                                          16.sp,
-                                                                      color: const Color(
-                                                                          0xff000000)),
-                                                                ),
-                                                              ),
-                                                              sizedBoxWidth(
-                                                                  15.sp),
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                  _handleBlockButton(
-                                                                      recipeData
-                                                                          .userId,
-                                                                      recipeData
-                                                                          .user!
-                                                                          .username);
-                                                                },
-                                                                child: Text(
-                                                                  "Block User",
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          "Roboto",
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontSize:
-                                                                          16.sp,
-                                                                      color: const Color(
-                                                                          0xffB90101)),
-                                                                ),
-                                                              ),
-                                                              sizedBoxWidth(
-                                                                  15.sp),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  itemBuilder:
-                                                      (BuildContext bc) {
-                                                    return [
-                                                      PopupMenuItem(
-                                                        value: 'Report',
-                                                        child: Column(
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                SvgPicture
-                                                                    .asset(
-                                                                  "assets/question-circle-svgrepo-com.svg",
-                                                                  height: 20.h,
-                                                                  width: 20.w,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 15.w,
-                                                                ),
-                                                                Text(
-                                                                  "Report",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontFamily:
-                                                                          "Roboto",
-                                                                      fontSize:
-                                                                          16.sp),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      PopupMenuItem(
-                                                        value: 'block',
-                                                        child: Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              "assets/block-svgrepo-com.svg",
-                                                              height: 20.h,
-                                                              width: 20.w,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 15.w,
-                                                            ),
-                                                            Text(
-                                                              "Block",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontFamily:
-                                                                      "Roboto",
-                                                                  fontSize:
-                                                                      16.sp),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ];
-                                                  },
-                                                )
-                                              : const SizedBox(),
-                                        ),
-                                      
-                                              ],
-                                            ),
-
-                                          
+                                                ],
+                                              ),
                                       ],
                                     ),
 
@@ -1751,8 +1745,10 @@ class _IngridentsState extends State<Ingridents> {
                                         : textgreyD12Robo(
                                             "${recipeData.likes.toString()} likes"),
                                     textgreyD20BoldSP(recipeData.name!),
-                                    recipeData.comments! > 0 ? textgreyL12Robo(
-                                        "View all ${recipeData.comments} comments"): SizedBox(),
+                                    recipeData.comments! > 0
+                                        ? textgreyL12Robo(
+                                            "View all ${recipeData.comments} comments")
+                                        : SizedBox(),
                                     SizedBox(height: 5.w),
                                   ],
                                 ),
@@ -1771,28 +1767,29 @@ class _IngridentsState extends State<Ingridents> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(14.h),
-                                              image: 
-                                                  recipeData.user!.profileImage == null 
+                                              image: recipeData
+                                                          .user!.profileImage ==
+                                                      null
                                                   ? DecorationImage(
-                                                      image: 
-                                                      // recipeData.user.profileImage == null 
-                                                      // ? 
-                                                      AssetImage("assets/default_profile.webp"),
+                                                      image:
+                                                          // recipeData.user.profileImage == null
+                                                          // ?
+                                                          AssetImage(
+                                                              "assets/default_profile.webp"),
                                                       // :
                                                       //  NetworkImage(
                                                       //     ApiUrls.base + "${recipeData.user!.profileImage}"),
                                                       fit: BoxFit.fill)
-                                                  :
-                                                  DecorationImage(
-                                                      image: 
-                                                      // recipeData.user.profileImage == null 
-                                                      // ? 
-                                                      // AssetImage("assetName")
-                                                      // :
-                                                       NetworkImage(
-                                                          ApiUrls.base + "${recipeData.user!.profileImage}"),
-                                                      fit: BoxFit.fill)
-                                                ),
+                                                  : DecorationImage(
+                                                      image:
+                                                          // recipeData.user.profileImage == null
+                                                          // ?
+                                                          // AssetImage("assetName")
+                                                          // :
+                                                          NetworkImage(ApiUrls
+                                                                  .base +
+                                                              "${recipeData.user!.profileImage}"),
+                                                      fit: BoxFit.fill)),
                                         ),
                                         sizedBoxWidth(5.w),
                                         InkWell(
@@ -1806,16 +1803,14 @@ class _IngridentsState extends State<Ingridents> {
                                     ),
                                     InkWell(
                                         onTap: () {
-
                                           print(recipeData.id);
-                                          Get.toNamed("/InspirationRecipeComment",
-                                            arguments:recipeData.id
-                                          );
+                                          Get.toNamed(
+                                              "/InspirationRecipeComment",
+                                              arguments: recipeData.id);
                                           // .then((value) {
                                           //   onback();
                                           //   return true;
                                           // });
-
                                         },
                                         child: textgreyD12Robo("View Recipe >"))
                                   ],
@@ -1864,9 +1859,7 @@ class _IngridentsState extends State<Ingridents> {
     );
   }
 
-  onback(){
-    setState(() {
-      
-    });
+  onback() {
+    setState(() {});
   }
 }

@@ -133,13 +133,14 @@ class _EditCommunityState extends State<EditCommunity> {
     );
   }
 
-  void _handleEditButton(communityId, name, description, image) async {
+  void _handleEditButton(communityId, name, description, File? image) async {
     try {
       var resp = await EditCommunityService.editCommunity(
-          communityId, name ?? "", description ?? "", image);
-      if (resp) {
-        Get.snackbar("Successful", "Community Details Changed successfully");
-      }
+          communityId, name ?? "", description ?? "", image!.path);
+      // if (resp) {
+      //   Get.snackbar("Successful", "Community Details Changed successfully");
+
+      // }
     } catch (e) {
       // Handle error here
       print('Error Editing Community: $e');
