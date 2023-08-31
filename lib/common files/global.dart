@@ -64,6 +64,9 @@ class ApiUrls {
   static const viewuser = _base + "inspiration/user-profile";
 
   static const removeFollower = _base + "user/remove-follower";
+  static const getJoinedChallenge = _base + "user/challenge/joined";
+  static const getCompletedChallenge = _base + "user/challenge/completed";
+  static const getMyChallenge = _base + "user/challenge/mychallenges";
   
 
 
