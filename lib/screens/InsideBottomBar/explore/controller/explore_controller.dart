@@ -22,11 +22,11 @@ class ExploreController extends GetxController {
   ExploreModel? _exploreJson;
   ExploreModel? get exploreJson => _exploreJson;
 
-  bool _isLoadingOngoingChallenge = true; 
-  bool get isLoadingOngoingChallenge => _isLoadingOngoingChallenge;
+  // bool _isLoadingOngoingChallenge = true; 
+  // bool get isLoadingOngoingChallenge => _isLoadingOngoingChallenge;
   
-  OnGoingChallenges? _onGoingChallenges;
-  OnGoingChallenges? get onGoingChallenges => _onGoingChallenges;
+  // OnGoingChallenges? _onGoingChallenges;
+  // OnGoingChallenges? get onGoingChallenges => _onGoingChallenges;
 
   bool _isLoadingTrending = true; 
   bool get isLoadingTrending => _isLoadingTrending;
@@ -96,38 +96,38 @@ class ExploreController extends GetxController {
   }
 
   
-  getOnGoingChallenge() async {
-    try {
-      var request = http.Request('GET', Uri.parse(ApiUrls.getonGoingChallenge));
-      request.body = '''''';
+  // getOnGoingChallenge() async {
+  //   try {
+  //     var request = http.Request('GET', Uri.parse(ApiUrls.getonGoingChallenge));
+  //     request.body = '''''';
 
-      http.StreamedResponse response = await request.send();
+  //     http.StreamedResponse response = await request.send();
 
-      var resp = await response.stream.bytesToString();
-      var jsonResp = jsonDecode(resp);
+  //     var resp = await response.stream.bytesToString();
+  //     var jsonResp = jsonDecode(resp);
 
-      if (response.statusCode == 200) {
-        // print(await response.stream.bytesToString());
-        // _exploreJson = ExploreModel.fromJson(jsonResp);
-        // _isLoadingExplore = false;
-        _onGoingChallenges = OnGoingChallenges.fromJson(jsonResp);
-        _isLoadingOngoingChallenge = false;
-        update();
-      }
-      else {
-        print(response.reasonPhrase);
-        // _isLoadingExplore = false;
-        _isLoadingOngoingChallenge = false;
-        update();
-      }
+  //     if (response.statusCode == 200) {
+  //       // print(await response.stream.bytesToString());
+  //       // _exploreJson = ExploreModel.fromJson(jsonResp);
+  //       // _isLoadingExplore = false;
+  //       _onGoingChallenges = OnGoingChallenges.fromJson(jsonResp);
+  //       _isLoadingOngoingChallenge = false;
+  //       update();
+  //     }
+  //     else {
+  //       print(response.reasonPhrase);
+  //       // _isLoadingExplore = false;
+  //       _isLoadingOngoingChallenge = false;
+  //       update();
+  //     }
 
-    } catch (e) {
-      print(e);
-      // _isLoadingExplore = false;
-      _isLoadingOngoingChallenge = false;
-      update();
-    }
-  }
+  //   } catch (e) {
+  //     print(e);
+  //     // _isLoadingExplore = false;
+  //     _isLoadingOngoingChallenge = false;
+  //     update();
+  //   }
+  // }
 
   getTrendingRecipe() async {
     try {

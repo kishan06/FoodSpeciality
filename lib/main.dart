@@ -19,6 +19,9 @@ import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/followUser.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
+import 'package:foodspeciality/screens/more_challenges.dart';
+import 'package:foodspeciality/screens/more_joined_challenges.dart';
+import 'package:foodspeciality/screens/more_my_challenges.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/otpScreen.dart';
 import 'package:foodspeciality/screens/preview.dart';
@@ -165,8 +168,11 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/CompletedChallenge",
                 page: () => const CompletedChallenge()),
-            GetPage(
-                name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
+            GetPage(name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
+            GetPage(name: "/MoreCompletedChallenges", page: () => MoreCompletedChallenges()),
+            GetPage(name: "/MoreMyChallenges", page: () => MoreMyChallenges()),
+            GetPage(name: "/MoreJoinedChallenges", page: () => MoreJoinedChallenges()),
+          
           ],
         ),
       ),

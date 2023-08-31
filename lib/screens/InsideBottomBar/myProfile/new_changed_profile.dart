@@ -2,8 +2,13 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodspeciality/Model/my_challenge.dart';
 import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/screens/more_challenges.dart';
+import 'package:foodspeciality/screens/more_joined_challenges.dart';
+import 'package:foodspeciality/screens/more_my_challenges.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common files/common_view_rules.dart';
 import '../../../common files/sized_box.dart';
@@ -33,8 +38,11 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
     userDataController.getUserProfile();
     userDataController.getUserSaved();
     userDataController.getUserRecipe();
+    userDataController.getJoinedChallenge();
+    userDataController.getCompletedChallenge();
+    userDataController.getMyChallenge();
     
-
+    
   }
 
   @override
@@ -372,11 +380,17 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                         ),
                         sizedBoxHeight(5.h),
                         SizedBox(
-                          height: 250.h,
+                          height: 270.h,
                           child: TabBarView(children: [
-                            mainChallengesCard(1),
-                            mainChallengesCard(2),
-                            mainChallengesCard(3),
+                            // mainChallengesCard(1),
+                            // mainChallengesCard(2),
+                            // joinedChallenge(),
+                            myChallengesCard(),
+                            joinedChallenge(),
+                            // joinedChallenge(),
+
+                            // mainChallengesCard(3),
+                            completedChallenge()
                           ]),
                         ),
                       ],
@@ -559,150 +573,520 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
   }
 
 
-  Widget mainChallengesCard(int? tabNum) {
-    return Padding(
-      padding: EdgeInsets.all(5.w),
-      child: InkWell(
-        onTap: () {
-          if (tabNum == 3) {
-            Get.toNamed("/CompletedChallenge");
-          } else {
-            Get.toNamed("/joinchallenge");
-          }
-          // Get.toNamed("/joinchallenge");
-        },
-        child: Container(
-          // height: 200.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.h),
-            color: AppColors.lightBlueF2F2F2,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.greyL979797,
-                blurRadius: 2.h,
-                spreadRadius: 1.h,
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        textBlack18SP_Bold('The "Biryani" Challenge'),
-                        textgreyD12Robo("10 Oct - 16 Oct")
+  Widget myChallengesCard() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingMyChallenges 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.myChallenges == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.myChallenges!.data.isEmpty 
+        ? textgrey18BoldSP("No challenges available")
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                  //   Get.toNamed("/CompletedChallenge");
+                  // } else {
+                    Get.toNamed("/joinchallenge");
+                  // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final myChallengesData = userDataController.myChallenges!.data[0];
+                  final recipesShared = userDataController.myChallenges!.data[0].challengeRecipe;
+                  String startDate = myChallengesData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+            
+                  String endDate = myChallengesData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
                       ],
                     ),
-                    Image.asset(
-                      "assets/icons/trophy.png",
-                      height: 38.h,
-                      width: 39.w,
-                    ),
-                  ],
-                ),
-                sizedBoxHeight(12.h),
-                // textgreyM10Robo("17 recipes shared so for!"),
-                // sizedBoxHeight(5.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(3, (index) => sharedRecipeCard()),
-                ),
-
-                sizedBoxHeight(15.h),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    tabNum == 3
-                        ? SizedBox()
-                        : Row(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              textBlack14SP_Med(tabNum == 1
-                                  ? "Join Challenge"
-                                  : "Joined Challenge"),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: AppColors.black,
-                                size: 15.h,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(myChallengesData.title),
+            
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+            
+                                ],
                               ),
-                              sizedBoxWidth(15.w),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
                             ],
                           ),
-                    GestureDetector(
-                        onTap: () {
-                          getViewRulesDailog();
-                        },
-                        child: textBlack14SP_Med("View Rules")),
-                  ],
-                ),
-
-                // tabNum == 3 ?SizedBox() : Center(
-                //   child: SizedBox(
-                //     height: 40.h,
-                //     width: 100.w,
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         // Get.to(DiscoveryRecipesScreen(),
-                //         //     duration: Duration(milliseconds: 500),
-                //         //     transition: Transition.rightToLeft);
-                //         // //Get.toNamed("/discoveryRecipes");
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(8.r),
-                //           side: BorderSide(
-                //               color: Color(0xFF54595F), width: 1.w),
-                //         ),
-                //         elevation: 0,
-                //         primary: Color(0xFF54595F),
-                //         onPrimary: Colors.grey,
-                //       ),
-                //       child: Text(
-                //         tabNum == 1 ? 'Join': "Joined",
-                //         style: TextStyle(
-                //             color: Color(0xFFFFFFFF),
-                //             fontWeight: FontWeight.w500,
-                //             fontSize: 18.h,
-                //             fontFamily: "StudioProR"),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
-                // SizedBox(
-                //   height: 119.h,
-                //   child: ListView.separated(
-                //     separatorBuilder: (context, index) {
-                //       return index == 2 ? SizedBox() : SizedBox(width: 7.w);
-                //     },
-                //     scrollDirection: Axis.horizontal,
-                //     physics: const BouncingScrollPhysics(),
-                //     shrinkWrap: true,
-                //     itemCount: 4,
-                //     itemBuilder: (context, index) {
-                //       return sharedRecipeCard();
-                //     },
-                //   ),
-                // ),
-                // sizedBoxHeight(16.h),
-                // Spacer(),
-              ],
+            
+                          sizedBoxHeight(12.h),
+            
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+            
+                          recipesShared.isEmpty 
+                          ? textgrey18BoldSP("No recipes shared")
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
+            
+                          sizedBoxHeight(15.h),
+            
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  Row(
+                                      children: [
+                                        textBlack14SP_Med(
+                                          // tabNum == 1
+                                          //   ? "Join Challenge"
+                                          //   : 
+                                            "Join Challenge"),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.black,
+                                          size: 15.h,
+                                        ),
+                                        sizedBoxWidth(15.w),
+                                      ],
+                                    ),
+                              GestureDetector(
+                                  onTap: () {
+                                    getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("View Rules")),
+                            ],
+                          ),
+            
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+         
+            userDataController.joinedChallenge!.data.length > 1 
+            ? InkWell(
+              onTap: () {
+                // Get.to(MoreMyChallenges);
+                Get.toNamed("/MoreMyChallenges");
+              },
+              child: textBlack14SP_Med("View more challenges")
+            )
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+
   }
 
-  Widget sharedRecipeCard() {
+  Widget joinedChallenge() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingJoinedChallenge 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.joinedChallenge == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.joinedChallenge!.data.isEmpty 
+        ? textgrey18BoldSP("No challenges available")
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                  //   Get.toNamed("/CompletedChallenge");
+                  // } else {
+                    Get.toNamed("/joinchallenge");
+                  // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final joinedChallengeData = userDataController.joinedChallenge!.data[0];
+                  final recipesShared = userDataController.joinedChallenge!.data[0].challengeRecipe;
+                  String startDate = joinedChallengeData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+            
+                  String endDate = joinedChallengeData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(joinedChallengeData.title),
+            
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+            
+                                ],
+                              ),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
+                            ],
+                          ),
+            
+                          sizedBoxHeight(12.h),
+            
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+            
+                          recipesShared.isEmpty 
+                          ? textgrey18BoldSP("No recipes shared")
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
+            
+                          sizedBoxHeight(15.h),
+            
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  Row(
+                                      children: [
+                                        textBlack14SP_Med(
+                                          // tabNum == 1
+                                          //   ? "Join Challenge"
+                                          //   : 
+                                            "Joined Challenge"),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.black,
+                                          size: 15.h,
+                                        ),
+                                        sizedBoxWidth(15.w),
+                                      ],
+                                    ),
+                              GestureDetector(
+                                  onTap: () {
+                                    getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("View Rules")),
+                            ],
+                          ),
+            
+                          // tabNum == 3 ?SizedBox() : Center(
+                          //   child: SizedBox(
+                          //     height: 40.h,
+                          //     width: 100.w,
+                          //     child: ElevatedButton(
+                          //       onPressed: () {
+                          //         // Get.to(DiscoveryRecipesScreen(),
+                          //         //     duration: Duration(milliseconds: 500),
+                          //         //     transition: Transition.rightToLeft);
+                          //         // //Get.toNamed("/discoveryRecipes");
+                          //       },
+                          //       style: ElevatedButton.styleFrom(
+                          //         shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           side: BorderSide(
+                          //               color: Color(0xFF54595F), width: 1.w),
+                          //         ),
+                          //         elevation: 0,
+                          //         primary: Color(0xFF54595F),
+                          //         onPrimary: Colors.grey,
+                          //       ),
+                          //       child: Text(
+                          //         tabNum == 1 ? 'Join': "Joined",
+                          //         style: TextStyle(
+                          //             color: Color(0xFFFFFFFF),
+                          //             fontWeight: FontWeight.w500,
+                          //             fontSize: 18.h,
+                          //             fontFamily: "StudioProR"),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+            
+                          // SizedBox(
+                          //   height: 119.h,
+                          //   child: ListView.separated(
+                          //     separatorBuilder: (context, index) {
+                          //       return index == 2 ? SizedBox() : SizedBox(width: 7.w);
+                          //     },
+                          //     scrollDirection: Axis.horizontal,
+                          //     physics: const BouncingScrollPhysics(),
+                          //     shrinkWrap: true,
+                          //     itemCount: 4,
+                          //     itemBuilder: (context, index) {
+                          //       return sharedRecipeCard();
+                          //     },
+                          //   ),
+                          // ),
+                          // sizedBoxHeight(16.h),
+                          // Spacer(),
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
+            ),
+          
+            userDataController.joinedChallenge!.data.length > 1 
+            ? InkWell(
+              onTap: (){
+                Get.toNamed("/MoreJoinedChallenges");
+              },
+              child: textBlack14SP_Med("View more challenges"))
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+  }
+
+  Widget completedChallenge() {
+  return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingCompletedChallenge 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.completedChallenge == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.completedChallenge!.data.isEmpty 
+        ? textgrey18BoldSP("No challenges available")
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                    Get.toNamed("/CompletedChallenge");
+                  // } else {
+                  //   Get.toNamed("/joinchallenge");
+                  // // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final completedChallengeData = userDataController.completedChallenge!.data[0];
+                  final recipesShared = userDataController.completedChallenge!.data[0].challengeRecipe;
+                  String startDate = completedChallengeData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+
+                  String endDate = completedChallengeData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(completedChallengeData.title),
+
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+
+                                ],
+                              ),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
+                            ],
+                          ),
+
+                          sizedBoxHeight(12.h),
+
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+
+                          recipesShared.isEmpty 
+                          ? textgrey18BoldSP("No recipes shared")
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
+
+                          sizedBoxHeight(15.h),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  // Row(
+                                  //     children: [
+                                  //       textBlack14SP_Med(
+                                  //         // tabNum == 1
+                                  //         //   ? "Join Challenge"
+                                  //         //   : 
+                                  //           "Joined Challenge"),
+                                  //       Icon(
+                                  //         Icons.arrow_forward_ios,
+                                  //         color: AppColors.black,
+                                  //         size: 15.h,
+                                  //       ),
+                                  //       sizedBoxWidth(15.w),
+                                  //     ],
+                                  //   ),
+                              GestureDetector(
+                                  onTap: () {
+                                    getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("View Rules")),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
+            ),
+          
+            userDataController.completedChallenge!.data.length > 1 
+            ? InkWell(
+              onTap: (){
+                Get.toNamed("/MoreCompletedChallenges");
+                // Get.to(MoreCompletedChallenges())
+              },
+              child: textBlack14SP_Med("View more challenges"))
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+  }
+
+
+
+  Widget sharedRecipeCard({
+    required String recipeImage,
+    required String recipeName,
+    
+  }) {
     return Container(
       height: 114.h,
       decoration: BoxDecoration(
@@ -724,14 +1108,18 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
               height: 85.h,
               width: 110.w,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.h),
-                  image: DecorationImage(
-                      image: AssetImage("assets/home/food_bowl.png"),
-                      fit: BoxFit.fill)),
+                borderRadius: BorderRadius.circular(16.h),
+                image: DecorationImage(
+                    image: NetworkImage(ApiUrls.base + recipeImage),
+                    // AssetImage("assets/home/food_bowl.png"),
+                    fit: BoxFit.fill)
+              ),
             ),
             // sizedBoxHeight(5.h),
             Spacer(),
-            textgreyD10Robo("Slappappoffer Recipe"),
+            // textgreyD10Robo("Slappappoffer Recipe"),
+            textgreyD10Robo(recipeName),
+
             // sizedBoxHeight(5.h),
             Spacer()
           ],
@@ -739,6 +1127,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       ),
     );
   }
+
 }
 
 class MyHomePageWithNestedScrollViewAndFloatingAppBar extends StatelessWidget {
