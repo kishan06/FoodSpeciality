@@ -17,14 +17,14 @@ import '../common files/sized_box.dart';
 import '../services/like_service.dart';
 import '../services/save_recipe.dart';
 
-class JoinChallenge extends StatefulWidget {
-  const JoinChallenge({super.key});
+class CompletedChallengeView extends StatefulWidget {
+  const CompletedChallengeView({super.key});
 
   @override
-  State<JoinChallenge> createState() => _JoinChallengeState();
+  State<CompletedChallengeView> createState() => _JoinChallengeState();
 }
 
-class _JoinChallengeState extends State<JoinChallenge> {
+class _JoinChallengeState extends State<CompletedChallengeView> {
   ExploreController controllerExplore = Get.put(ExploreController());
   HomeController controllerHome = Get.put(HomeController());
   final tecComment = TextEditingController();
@@ -100,96 +100,97 @@ class _JoinChallengeState extends State<JoinChallenge> {
                       // shape: Border.all(color: Colors.white),
                       color: Colors.white,
                       elevation: 0,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        height: 86.h,
-                        child: challengeType == 2 ? SizedBox() : Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            sizedBoxWidth(9.w),
-                            CircularPercentIndicator(
-                              radius: 28.r,
-                              percent: 0.72,
-                              startAngle: 320,
-                              progressColor: const Color(0xff3B3F43),
-                              lineWidth: 2,
-                              center: const Icon(
-                                Icons.calendar_today_outlined,
-                                size: 18,
-                              ),
-                            ),
-                            sizedBoxWidth(10.w),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GetBuilder<JoinChallengeController>(builder: (builder){
-                                  final daysLeft = joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days;
+                      // child: Container(
+                      //   width: double.infinity,
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      //   height: 86.h,
+                      //   child: challengeType == 2 ? SizedBox() : Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       sizedBoxWidth(9.w),
+                      //       CircularPercentIndicator(
+                      //         radius: 28.r,
+                      //         percent: 0.72,
+                      //         startAngle: 320,
+                      //         progressColor: const Color(0xff3B3F43),
+                      //         lineWidth: 2,
+                      //         center: const Icon(
+                      //           Icons.calendar_today_outlined,
+                      //           size: 18,
+                      //         ),
+                      //       ),
+                      //       sizedBoxWidth(10.w),
+                      //       Column(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           GetBuilder<JoinChallengeController>(builder: (builder){
+                      //             final daysLeft = joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days;
 
-                                  return Text(
+                      //             return Text(
                                     
-                                    // '2 Days Left',
-                                    daysLeft > 0 ? "${(daysLeft + 1).toString()} Days Left" : "Ends Today",
-                                    // joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
+                      //               // '2 Days Left',
+                      //               daysLeft > 0 ? "${(daysLeft + 1).toString()} Days Left" : "Ends Today",
+                      //               // joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
 
-                                    style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontFamily: 'StudioProM',
-                                        color: const Color(0xff3B3F43)),
-                                  );
+                      //               style: TextStyle(
+                      //                   fontSize: 10.sp,
+                      //                   fontFamily: 'StudioProM',
+                      //                   color: const Color(0xff3B3F43)),
+                      //             );
 
-                                }), 
-                                // Text(
+                      //           }), 
+                      //           // Text(
                                   
-                                //   // '2 Days Left',
-                                //   joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
+                      //           //   // '2 Days Left',
+                      //           //   joinChallengeController.challengeModel!.data.challengeDetails.timeLeft.days.toString(),
 
-                                //   style: TextStyle(
-                                //       fontSize: 10.sp,
-                                //       fontFamily: 'StudioProM',
-                                //       color: const Color(0xff3B3F43)),
-                                // ),
-                                sizedBoxHeight(5.h),
-                                LinearPercentIndicator(
-                                  barRadius: Radius.circular(5.r),
-                                  padding: const EdgeInsets.all(0),
-                                  width: 186.w,
-                                  percent: 0.4,
-                                  progressColor: const Color(0xff979797),
-                                  backgroundColor: const Color(0xffF2F2F2),
-                                ),
-                                // sizedBoxHeight(10.h)
-                              ],
-                            ),
-                            sizedBoxWidth(27.w),
-                            challengeType == 0 ? InkWell(
-                              onTap: () {
-                                Get.toNamed("/RecipeIng",
-                                  arguments: challengeId
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Submit recipe',
-                                    style: TextStyle(
-                                      fontFamily: 'StudioProM',
-                                      fontSize: 14.sp,
-                                      color: const Color(0xff3B3F43),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    size: 16.sp,
-                                  )
-                                ],
-                              ),
-                            ): SizedBox(),
-                          ],
-                        ),
+                      //           //   style: TextStyle(
+                      //           //       fontSize: 10.sp,
+                      //           //       fontFamily: 'StudioProM',
+                      //           //       color: const Color(0xff3B3F43)),
+                      //           // ),
+                      //           sizedBoxHeight(5.h),
+                      //           LinearPercentIndicator(
+                      //             barRadius: Radius.circular(5.r),
+                      //             padding: const EdgeInsets.all(0),
+                      //             width: 186.w,
+                      //             percent: 0.4,
+                      //             progressColor: const Color(0xff979797),
+                      //             backgroundColor: const Color(0xffF2F2F2),
+                      //           ),
+                      //           // sizedBoxHeight(10.h)
+                      //         ],
+                      //       ),
+                      //       sizedBoxWidth(27.w),
+                      //       challengeType == 0 ? InkWell(
+                      //         onTap: () {
+                      //           Get.toNamed("/RecipeIng",
+                      //             arguments: challengeId
+                      //           );
+                      //         },
+                      //         child: Row(
+                      //           children: [
+                      //             Text(
+                      //               'Submit recipe',
+                      //               style: TextStyle(
+                      //                 fontFamily: 'StudioProM',
+                      //                 fontSize: 14.sp,
+                      //                 color: const Color(0xff3B3F43),
+                      //               ),
+                      //             ),
+                      //             Icon(
+                      //               Icons.arrow_forward_ios_rounded,
+                      //               size: 16.sp,
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ): SizedBox(),
+                      //     ],
+                      //   ),
                      
-                      ),
+                      // ),
+                 
                     ),
                   ),
                   automaticallyImplyLeading: false,

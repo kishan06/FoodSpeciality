@@ -940,7 +940,14 @@ class _ExploreState extends State<Explore> {
               numRecipeShared > 0  ? ("$numRecipeShared recipes shared so for!") : ""
             ),
             sizedBoxHeight(5.h),
-            Row(
+            recipesData.isEmpty 
+            // ? 
+            ? Padding(
+              padding:  EdgeInsets.symmetric(vertical: 30.h),
+              child: Center(child: textgrey18BoldSP("No Recipe shared")),
+            )
+
+            : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 recipesData.length, 

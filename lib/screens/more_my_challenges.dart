@@ -37,7 +37,7 @@ class _FollowingState extends State<MoreMyChallenges> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(titleTxt: "Completed Challenges"),
+      appBar: const CustomAppBar(titleTxt: "My Challenges"),
       body: Padding(
         padding: EdgeInsets.fromLTRB(16.w,20.h,16.w,0),
         child: ListView.builder(
@@ -50,7 +50,15 @@ class _FollowingState extends State<MoreMyChallenges> {
                       child: InkWell(
                         onTap: () {
                           // if (tabNum == 3) {
-                            Get.toNamed("/CompletedChallenge");
+                            // Get.toNamed("/CompletedChallenge");
+                            Get.toNamed("/joinchallenge",
+                              arguments: {
+                                "challengeId": "${userDataController.myChallenges!.data[index].id}",
+                                "challengeType": 0
+                              }
+                              // arguments: 
+                              // userDataController.myChallenges!.data[0].id
+                            );
                           // } else {
                           //   Get.toNamed("/joinchallenge");
                           // // }
@@ -114,7 +122,10 @@ class _FollowingState extends State<MoreMyChallenges> {
                                   // sizedBoxHeight(5.h),
       
                                   recipesShared.isEmpty 
-                                  ? textgrey18BoldSP("No recipes shared")
+                                  ? Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 20.h),
+                                    child: Center(child: textgrey18BoldSP("No recipes shared")),
+                                  )
                                   : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children:
@@ -138,21 +149,21 @@ class _FollowingState extends State<MoreMyChallenges> {
                                       // tabNum == 3
                                       //     ? SizedBox()
                                       //     :
-                                          // Row(
-                                          //     children: [
-                                          //       textBlack14SP_Med(
-                                          //         // tabNum == 1
-                                          //         //   ? "Join Challenge"
-                                          //         //   : 
-                                          //           "Joined Challenge"),
-                                          //       Icon(
-                                          //         Icons.arrow_forward_ios,
-                                          //         color: AppColors.black,
-                                          //         size: 15.h,
-                                          //       ),
-                                          //       sizedBoxWidth(15.w),
-                                          //     ],
-                                          //   ),
+                                          Row(
+                                              children: [
+                                                textBlack14SP_Med(
+                                                  // tabNum == 1
+                                                  //   ? "Join Challenge"
+                                                  //   : 
+                                                    "Join Challenge"),
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: AppColors.black,
+                                                  size: 15.h,
+                                                ),
+                                                sizedBoxWidth(15.w),
+                                              ],
+                                            ),
                                       GestureDetector(
                                           onTap: () {
                                             getViewRulesDailog();
@@ -160,7 +171,7 @@ class _FollowingState extends State<MoreMyChallenges> {
                                           child: textBlack14SP_Med("View Rules")),
                                     ],
                                   ),
-      
+                    
                                 ],
                               ),
                             ),
