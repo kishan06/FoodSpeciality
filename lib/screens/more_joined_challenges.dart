@@ -37,7 +37,7 @@ class _FollowingState extends State<MoreJoinedChallenges> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(titleTxt: "Completed Challenges"),
+      appBar: const CustomAppBar(titleTxt: "Joined Challenges"),
       body: Padding(
         padding: EdgeInsets.fromLTRB(16.w,20.h,16.w,0),
         child: ListView.builder(
@@ -50,7 +50,15 @@ class _FollowingState extends State<MoreJoinedChallenges> {
                       child: InkWell(
                         onTap: () {
                           // if (tabNum == 3) {
-                            Get.toNamed("/CompletedChallenge");
+                            // Get.toNamed("/CompletedChallenge");
+                            Get.toNamed("/joinchallenge",
+                              arguments: {
+                                "challengeId": "${userDataController.joinedChallenge!.data[index].id}",
+                                "challengeType": 1
+                              }
+                              // arguments: 
+                              // userDataController.myChallenges!.data[0].id
+                            );
                           // } else {
                           //   Get.toNamed("/joinchallenge");
                           // // }
@@ -155,9 +163,9 @@ class _FollowingState extends State<MoreJoinedChallenges> {
                                           //   ),
                                       GestureDetector(
                                           onTap: () {
-                                            getViewRulesDailog();
+                                            // getViewRulesDailog();
                                           },
-                                          child: textBlack14SP_Med("View Rules")),
+                                          child: textBlack14SP_Med("Joined challenges")),
                                     ],
                                   ),
       

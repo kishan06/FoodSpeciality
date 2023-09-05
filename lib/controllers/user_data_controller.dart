@@ -13,6 +13,7 @@ import '../Model/completed_challenge.dart';
 import '../Model/my_challenge.dart';
 import '../Model/user_recipes.dart';
 import '../api_common/response_handling.dart';
+import '../common files/common_sucess_dailog.dart';
 import '../common files/global.dart';
 import 'package:http/http.dart' as http;
 import '../constants/base_manager.dart';
@@ -322,6 +323,53 @@ class UserDataController extends GetxController{
       print(e);
       update();
     }
+  }
+
+  editProfile({
+    required Map<String, String> body,
+    String? profileImage
+  }) async {
+    print(body);
+    var headers = {
+      'x-auth-token': accessToken!
+    };
+    var request = http.MultipartRequest('PATCH', Uri.parse(ApiUrls.editProfile));
+    request.fields.addAll(
+      body
+    //   {
+    //   'bio': 'qwertyuiopasdfghjklzxcvbnm',
+    //   'location': 'Mumbai',
+    //   'social_links': 'asdf',
+    //   'twitter_link': 'twitt',
+    //   'instagram_link': 'int',
+    //   'pinterest_link': 'pinr',
+    //   'facebook_link': 'face'
+    // }
+    );
+    if (profileImage != null) {
+      request.files.add(await http.MultipartFile.fromPath('profile_image', profileImage));
+    }
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      getUserProfile();
+      commonSucessDailog(
+        msg: "Profile updated successfully",
+        onPressed: () {
+          // Get.offAllNamed("/bottomBar");
+          Get.back();
+        }
+      );
+      // print(await response.stream.bytesToString());
+      // print("profile updated successfully");
+    }
+    else {
+      print(response.reasonPhrase);
+      Get.snackbar("Error", "Something went wrong");
+    }
+
   }
   
 }

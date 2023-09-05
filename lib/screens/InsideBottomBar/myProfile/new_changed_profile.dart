@@ -68,10 +68,10 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
           InkWell(
             onTap: () {
               // Get.to(EditProfile());
-              // Get.toNamed("/EditProfile");
-              Get.to(EditProfile(),
-                  duration: const Duration(milliseconds: 500),
-                  transition: Transition.downToUp);
+              Get.toNamed("/EditProfile");
+              // Get.to(EditProfile(),
+              //     duration: const Duration(milliseconds: 500),
+              //     transition: Transition.downToUp);
             },
             child: Icon(
               Icons.edit,
@@ -150,9 +150,28 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                                           // offset: Offset(0, 3), // changes the position of the shadow
                                         ),
                                       ],
-                                      image: DecorationImage(
-                                          image: AssetImage("assets/profile.png"),
-                                          fit: BoxFit.cover)),
+                                      image: userDataController.userData!.data.profileImage == null
+                                        ? DecorationImage(
+                                            image:
+                                                // recipeData.user.profileImage == null
+                                                // ?
+                                                AssetImage("assets/default_profile.webp"),
+                                            // :
+                                            //  NetworkImage(
+                                            //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                            fit: BoxFit.fill)
+                                        : DecorationImage(
+                                            image:
+                                                // recipeData.user.profileImage == null
+                                                // ?
+                                                // AssetImage("assetName")
+                                                // :
+                                                NetworkImage(ApiUrls.base + userDataController.userData!.data.firstName),
+                                            fit: BoxFit.fill)
+                                      // image: DecorationImage(
+                                      //     image: AssetImage("assets/profile.png"),
+                                      //     fit: BoxFit.cover)
+                                          ),
                                   // child: YourChildWidget(),
                                 ),
                                 SizedBox(
@@ -580,7 +599,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       : userDataController.myChallenges == null 
         ? textgrey18BoldSP("Something went wrong")
         : userDataController.myChallenges!.data.isEmpty 
-        ? textgrey18BoldSP("No challenges available")
+        ? Center(child: textgrey18BoldSP("No challenges available"))
         : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -591,7 +610,14 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                   // if (tabNum == 3) {
                   //   Get.toNamed("/CompletedChallenge");
                   // } else {
-                    Get.toNamed("/joinchallenge");
+                    Get.toNamed("/joinchallenge",
+                      arguments: {
+                        "challengeId": "${userDataController.myChallenges!.data[0].id}",
+                        "challengeType": 0
+                      }
+                      // arguments: 
+                      // userDataController.myChallenges!.data[0].id
+                    );
                   // }
                   // Get.toNamed("/joinchallenge");
                 },
@@ -651,9 +677,13 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
             
                           // textgreyM10Robo("17 recipes shared so for!"),
                           // sizedBoxHeight(5.h),
+                          // Spacer(),
             
                           recipesShared.isEmpty 
-                          ? textgrey18BoldSP("No recipes shared")
+                          ? Padding(
+                            padding: EdgeInsets.symmetric(vertical: 30.h),
+                            child: Center(child: textgrey18BoldSP("No recipes shared")),
+                          )
                           : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children:
@@ -668,6 +698,9 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                               )
                             ),
                           ),
+
+                          // Spacer(),
+
             
                           sizedBoxHeight(15.h),
             
@@ -710,7 +743,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
               ),
             ),
          
-            userDataController.joinedChallenge!.data.length > 1 
+            userDataController.myChallenges!.data.length > 1 
             ? InkWell(
               onTap: () {
                 // Get.to(MoreMyChallenges);
@@ -734,7 +767,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       : userDataController.joinedChallenge == null 
         ? textgrey18BoldSP("Something went wrong")
         : userDataController.joinedChallenge!.data.isEmpty 
-        ? textgrey18BoldSP("No challenges available")
+        ? Center(child: textgrey18BoldSP("No challenges available"))
         : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -745,7 +778,13 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                   // if (tabNum == 3) {
                   //   Get.toNamed("/CompletedChallenge");
                   // } else {
-                    Get.toNamed("/joinchallenge");
+                    Get.toNamed("/joinchallenge",
+                      arguments: {
+                        "challengeId": "${userDataController.joinedChallenge!.data[0].id}",
+                        "challengeType": 1
+                      }
+                    
+                    );
                   // }
                   // Get.toNamed("/joinchallenge");
                 },
@@ -935,7 +974,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       : userDataController.completedChallenge == null 
         ? textgrey18BoldSP("Something went wrong")
         : userDataController.completedChallenge!.data.isEmpty 
-        ? textgrey18BoldSP("No challenges available")
+        ? Center(child: textgrey18BoldSP("No challenges available"))
         : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -944,7 +983,14 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
               child: InkWell(
                 onTap: () {
                   // if (tabNum == 3) {
-                    Get.toNamed("/CompletedChallenge");
+                    // Get.toNamed("/CompletedChallenge");
+                    Get.toNamed("/CompletedChallengeView",
+                      arguments: {
+                        "challengeId": "${userDataController.completedChallenge!.data[0].id}",
+                        "challengeType": 2
+                      }
+                    
+                    );
                   // } else {
                   //   Get.toNamed("/joinchallenge");
                   // // }
@@ -956,7 +1002,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                   String startDate = completedChallengeData.startDate;
                   DateTime parsedStartDate = DateTime.parse(startDate);
                   String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
-
+            
                   String endDate = completedChallengeData.endDate;
                   DateTime parsedEndDate = DateTime.parse(endDate);
                   String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
@@ -988,10 +1034,10 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                                 children: [
                                   // textBlack18SP_Bold('The "Biryani" Challenge'),
                                   textBlack18SP_Bold(completedChallengeData.title),
-
+                  
                                   // textgreyD12Robo("10 Oct - 16 Oct")
                                   textgreyD12Robo("$formattedStartDate - $formattedEndDate")
-
+                  
                                 ],
                               ),
                               Image.asset(
@@ -1001,12 +1047,12 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                               ),
                             ],
                           ),
-
+                  
                           sizedBoxHeight(12.h),
-
+                  
                           // textgreyM10Robo("17 recipes shared so for!"),
                           // sizedBoxHeight(5.h),
-
+                  
                           recipesShared.isEmpty 
                           ? textgrey18BoldSP("No recipes shared")
                           : Row(
@@ -1023,9 +1069,9 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                               )
                             ),
                           ),
-
+                  
                           sizedBoxHeight(15.h),
-
+                  
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -1049,12 +1095,12 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                                   //   ),
                               GestureDetector(
                                   onTap: () {
-                                    getViewRulesDailog();
+                                    // getViewRulesDailog();
                                   },
-                                  child: textBlack14SP_Med("View Rules")),
+                                  child: textBlack14SP_Med("Completed Challenge")),
                             ],
                           ),
-
+                  
                         ],
                       ),
                     ),

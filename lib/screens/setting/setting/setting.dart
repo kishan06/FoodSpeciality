@@ -75,7 +75,8 @@ class _SettingState extends State<Setting> {
                           Get.to(AboutFoodSpeciality());
                           break;
                         default:
-                          Get.to(const BlogsNewsArticles());
+                          Get.toNamed("/BlogsNewsArticles");
+                          // Get.to(const BlogsNewsArticles());
                       }
                     },
                     child: Container(
