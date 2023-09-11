@@ -172,6 +172,7 @@ class _AddParticipantExistingCommunityState
                       );
                     },
                   );
+              
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Failed to load followers'));
                 } else {

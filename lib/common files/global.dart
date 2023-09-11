@@ -68,6 +68,7 @@ class ApiUrls {
   static const getCompletedChallenge = _base + "user/challenge/completed";
   static const getMyChallenge = _base + "user/challenge/mychallenges";
   static const editProfile = _base + "user/profile/update";
+  static const getBlogsData = _base + "blog/all";
   
 
 

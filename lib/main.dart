@@ -31,6 +31,7 @@ import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/setting/setting/accordion.dart';
 import 'package:foodspeciality/screens/setting/setting/blocklist_full.dart';
 import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
+import 'package:foodspeciality/screens/setting/setting/view_blog.dart';
 // import 'packa+ge:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
@@ -176,6 +177,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/MoreJoinedChallenges", page: () => MoreJoinedChallenges()),
             GetPage(name: "/CompletedChallengeView", page: () => CompletedChallengeView()),
             GetPage(name: "/BlogsNewsArticles", page: () => BlogsNewsArticles()),
+            GetPage(name: "/ViewBlogs", page: () => ViewBlogs()),
             
           ],
         ),
