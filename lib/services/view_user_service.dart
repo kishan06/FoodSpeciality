@@ -6,9 +6,9 @@ import 'dart:convert';
 class ViewUserService {
   final String apiUrl = ApiUrls.viewuser;
 
-  Future fetchUserProfile(String userId) async {
+  Future<ViewUserModel> fetchUserProfile(String userId) async {
     try {
-      final headers = {'x-auth': "$accessToken"};
+      final headers = {'x-auth-token': accessToken!};
       final body = {'id': userId};
 
       final response = await http.post(
