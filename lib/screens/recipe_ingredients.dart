@@ -42,14 +42,14 @@ class _RecipeIngState extends State<RecipeIng>
   // bool? _visible = false;
   // TabController? tabController;
 
-  HomeController controllerHome = HomeController();
+  HomeController controllerHome = Get.put(HomeController());
   // int currentIndex = 0;
   SampleItem? selectedMenu;
 
   RecipeIngreController recipeIngreController =
       Get.put(RecipeIngreController());
   final ImagePicker _picker = ImagePicker();
-  final List _textList = [];
+  final List _textList = []; 
   GlobalKey _popupMenuKey = GlobalKey();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool editChip = false;
@@ -916,6 +916,8 @@ class _RecipeIngState extends State<RecipeIng>
             ),
             sizedBoxHeight(20.h),
 
+            // start
+//
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -1320,6 +1322,8 @@ class _RecipeIngState extends State<RecipeIng>
                 // const CommonChip(text: "Hard"),
               ],
             ),
+
+            // /
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -2468,4 +2472,5 @@ class _RecipeIngState extends State<RecipeIng>
       ],
     );
   }
+
 }

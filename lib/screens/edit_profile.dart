@@ -247,7 +247,7 @@ class _EditProfileState extends State<EditProfile> {
                                               )
                                             : userDataController.userData!.data.profileImage == null
                                             ? Image.asset('assets/default_profile.webp')
-                                            : Image.network(ApiUrls.base + userDataController.userData!.data.profileImage)
+                                            : Image.network(ApiUrls.base + userDataController.userData!.data.profileImage!)
                                             ),
                                   ),
                                   Positioned(

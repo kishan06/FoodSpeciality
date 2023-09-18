@@ -69,6 +69,8 @@ class ApiUrls {
   static const getMyChallenge = _base + "user/challenge/mychallenges";
   static const editProfile = _base + "user/profile/update";
   static const getBlogsData = _base + "blog/all";
+  static const getDefaultSearchData = _base + "recipe-category/quick-search";
+  static const getSearchRecipe = _base + "recipe/search?search=";
   
 
 
