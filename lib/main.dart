@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                 name: "/discoveryRecipes",
                 page: () => const DiscoveryRecipesScreen()),
             GetPage(name: "/viewuser", page: () => const viewUser()),
-            GetPage(name: "/followuser", page: () => const followUser()),
+            // GetPage(name: "/followuser", page: () => const followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
             GetPage(name: "/Preview", page: () => Preview()),
 
