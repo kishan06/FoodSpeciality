@@ -15,7 +15,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../Model/my_challenge.dart';
 import '../../../common files/common_view_rules.dart';
+import '../../../controllers/user_data_controller.dart';
 import '../../../services/like_service.dart';
 import '../../../services/save_recipe.dart';
 
@@ -35,6 +37,8 @@ class _ExploreState extends State<Explore> {
   HomeController controllerHome = Get.put(HomeController());
   final CarouselController carouselController = CarouselController();
   final tecComment = TextEditingController();
+  UserDataController userDataController = Get.put(UserDataController());
+
   // ExploreController exploreController = Get.put(ExploreController());
   // ExploreController controllerExplore = Get.put(ExploreController());
 
@@ -75,8 +79,9 @@ class _ExploreState extends State<Explore> {
     super.initState();
     // exploreController.get
     controllerExplore.getExplore();
-    controllerExplore.getOnGoingChallenge();
+    // controllerExplore.getOnGoingChallenge();
     controllerExplore.getTrendingRecipe();
+    userDataController.getMyChallenge();
     
   }
 
@@ -90,6 +95,7 @@ class _ExploreState extends State<Explore> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
@@ -100,27 +106,27 @@ class _ExploreState extends State<Explore> {
                         textgreyM20BoldSP("Join a cooking challenge"),
                         sizedBoxHeight(7.h),
 
-                        GetBuilder<ExploreController>(builder: (builder){
-                          return controllerExplore.isLoadingOngoingChallenge 
+                        GetBuilder<UserDataController>(builder: (builder){
+                          return userDataController.isLoadingMyChallenges 
                           ? Center(child: CircularProgressIndicator()) 
-                          : controllerExplore.onGoingChallenges == null 
+                          : userDataController.myChallenges == null 
                             ? Padding(
-                              padding: EdgeInsets.only(top: 30),
-                              child: textgrey18BoldSP("Something went wrong"),
+                              padding: EdgeInsets.only(top: 15.h),
+                              child: Center(child: textgrey18BoldSP("Something went wrong")),
                             )
-                              : controllerExplore.onGoingChallenges!.data.isEmpty 
+                              : userDataController.myChallenges!.data.isEmpty 
                                 ? Padding(
-                                  padding: EdgeInsets.only(top: 30),
-                                  child: textgrey18BoldSP("No challenges"),
+                                  padding: EdgeInsets.only(top: 15.h),
+                                  child: Center(child: textgrey18BoldSP("No challenges")),
                                 )
                                 : Column(
                                 children: [
                                   CarouselSlider.builder(
                                       carouselController: CarouselController(),
-                                      itemCount: controllerExplore.onGoingChallenges!.data.length,
+                                      itemCount: userDataController.myChallenges!.data.length,
                                       // 3,
                                       itemBuilder: (context, index, realIndex) {
-                                        final sliderData = controllerExplore.onGoingChallenges!.data[index];
+                                        final sliderData = userDataController.myChallenges!.data[index];
                                         // final commentData =
                                         //   commentsContoller.comments!.data[index];
                                         String startDate = sliderData.startDate;
@@ -137,7 +143,8 @@ class _ExploreState extends State<Explore> {
                                             title: sliderData.title,
                                             startDate: formattedStartDate,
                                             endDate: formattedEndDate,
-                                            numRecipeShared: sliderData.recipeCount
+                                            numRecipeShared: sliderData.challengeRecipe.length,
+                                            recipesData: sliderData.challengeRecipe
                                           ),
                                         );
                                         // final sliderInfo = sliderData[index];
@@ -166,7 +173,7 @@ class _ExploreState extends State<Explore> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: List.generate(
-                                      controllerExplore.onGoingChallenges!.data.length,
+                                      userDataController.myChallenges!.data.length,
 
 
                                       (index) => GestureDetector(
@@ -191,202 +198,6 @@ class _ExploreState extends State<Explore> {
                         
                         }),
 
-                      //   Obx(() => 
-                      //   Column(
-                      //     children: [
-                      //       CarouselSlider.builder(
-                      //           carouselController: CarouselController(),
-                      //           itemCount: 3,
-                      //           itemBuilder: (context, index, realIndex) {
-                      //             return Padding(
-                      //               padding: EdgeInsets.all(5.w),
-                      //               child: mainChallengesCard(),
-                      //             );
-                      //             // final sliderInfo = sliderData[index];
-                      //             // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                      //           },
-                      //           options: CarouselOptions(
-                      //             height: 260.h,
-                      //             // initialPage: sliderPage.value,
-                      //             // aspectRatio: 3 / 1,
-                      //             autoPlay: true,
-                      //             autoPlayAnimationDuration:
-                      //                 const Duration(seconds: 3),
-                      //             // enlargeCenterPage: true,
-                      //             viewportFraction: 1,
-                      //             onPageChanged: (index, reason) {
-                      //               // setState(() {
-                      //                 // sliderPage.value = index;
-                      //                 // controllerExplore.sliderPage = index;
-                      //                 controllerExplore.changeSliderPage(index);
-                      //               // });
-                      //             },
-                      //           )),
-                            
-                      //       sizedBoxHeight(12.h),
-                        
-                      //       Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: List.generate(
-                      //           3,
-                      //           (index) => GestureDetector(
-                      //             onTap: () =>
-                      //                 carouselController.animateToPage(index),
-                      //             child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   color: Colors.grey,
-                      //                   borderRadius: BorderRadius.circular(25.r)),
-                      //               width: 12.w,
-                      //               height: controllerExplore.sliderPage == index ? 3.h : 2.h,
-                      //               margin: const EdgeInsets.symmetric(
-                      //                 horizontal: 3.0,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      
-                      //     ],
-                      //   ),
-                    
-                      // ),
-
-                        // Column(
-                        //   children: [
-                        //     CarouselSlider.builder(
-                        //         carouselController: CarouselController(),
-                        //         itemCount: 3,
-                        //         itemBuilder: (context, index, realIndex) {
-                        //           return Padding(
-                        //             padding: EdgeInsets.all(5.w),
-                        //             child: mainChallengesCard(),
-                        //           );
-                        //           // final sliderInfo = sliderData[index];
-                        //           // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //         },
-                        //         options: CarouselOptions(
-                        //           height: 260.h,
-                        //           // initialPage: sliderPage.value,
-                        //           // aspectRatio: 3 / 1,
-                        //           autoPlay: true,
-                        //           autoPlayAnimationDuration:
-                        //               const Duration(seconds: 3),
-                        //           // enlargeCenterPage: true,
-                        //           viewportFraction: 1,
-                        //           onPageChanged: (index, reason) {
-                        //             // setState(() {
-                        //             //   sliderPage.value = index;
-                        //             // });
-                        //           },
-                        //         )),
-                            
-                        //     sizedBoxHeight(12.h),
-                        
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: List.generate(
-                        //         3,
-                        //         (index) => GestureDetector(
-                        //           onTap: () =>
-                        //               carouselController.animateToPage(index),
-                        //           child: Container(
-                        //             decoration: BoxDecoration(
-                        //                 color: Colors.grey,
-                        //                 borderRadius: BorderRadius.circular(25.r)),
-                        //             width: 12.w,
-                        //             height: sliderPage.value == index ? 3.h : 2.h,
-                        //             margin: const EdgeInsets.symmetric(
-                        //               horizontal: 3.0,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                      
-                        //   ],
-                        // ),
-                      
-                        // sizedBoxHeight(12.h),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: List.generate(
-                        //     3,
-                        //     (index) => GestureDetector(
-                        //       onTap: () =>
-                        //           carouselController.animateToPage(index),
-                        //       child: Container(
-                        //         decoration: BoxDecoration(
-                        //             color: Colors.grey,
-                        //             borderRadius: BorderRadius.circular(25.r)),
-                        //         width: 12.w,
-                        //         height: sliderPage.value == index ? 3.h : 2.h,
-                        //         margin: const EdgeInsets.symmetric(
-                        //           horizontal: 3.0,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      
-                        // GetBuilder<ExploreController>(builder: (_){
-                        //   return CarouselSlider.builder(
-                        //     itemCount: 3,
-                        //     itemBuilder: (context, index, realIndex) {
-                        //       return Padding(
-                        //         padding: EdgeInsets.all(5.w),
-                        //         child: mainChallengesCard(),
-                        //       );
-                        //       // final sliderInfo = sliderData[index];
-                        //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //     },
-                        //     options: CarouselOptions(
-
-                        //       height: 260.h,
-                        //       initialPage: sliderPage.value,
-                        //       // aspectRatio: 3 / 1,
-                        //       autoPlay: true,
-                        //       autoPlayAnimationDuration: const Duration(seconds: 3),
-                        //       // enlargeCenterPage: true,
-                        //       viewportFraction: 1,
-                        //       onPageChanged: (index, reason) {
-                        //         // setState(() {
-                        //         sliderPage.value = index;
-
-                        //         // });
-                        //       },
-                        //     )
-                        //   );
-                        // }),
-
-                        //   Obx(() => CarouselSlider.builder(
-                        //     itemCount: 3,
-                        //     itemBuilder: (context, index, realIndex) {
-                        //       return Padding(
-                        //         padding: EdgeInsets.all(5.w),
-                        //         child: mainChallengesCard(),
-                        //       );
-                        //       // final sliderInfo = sliderData[index];
-                        //       // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                        //     },
-                        //     options: CarouselOptions(
-
-                        //       height: 260.h,
-                        //       initialPage: 0,
-                        //       // aspectRatio: 3 / 1,
-                        //       autoPlay: true,
-                        //       autoPlayAnimationDuration: const Duration(seconds: 3),
-                        //       // enlargeCenterPage: true,
-                        //       viewportFraction: 1,
-                        //       onPageChanged: (index, reason) {
-                        //         // setState(() {
-                        //         sliderPage.value = index;
-
-                        //         // });
-                        //       },
-                        //     )
-                        //   ),
-                        //  ),
-                        // mainChallengesCard(),
                         sizedBoxHeight(25.h),
                         textgreyM20BoldSP("Trending Recipes")
                       ],
@@ -1081,7 +892,8 @@ class _ExploreState extends State<Explore> {
     required String title,
     required String startDate,
     required String endDate,
-    required int numRecipeShared
+    required int numRecipeShared,
+    required List<ChallengeRecipe> recipesData
   }) {
     return Container(
       // height: 200.h,
@@ -1128,9 +940,25 @@ class _ExploreState extends State<Explore> {
               numRecipeShared > 0  ? ("$numRecipeShared recipes shared so for!") : ""
             ),
             sizedBoxHeight(5.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(3, (index) => sharedRecipeCard()),
+            recipesData.isEmpty 
+            // ? 
+            ? Padding(
+              padding:  EdgeInsets.symmetric(vertical: 30.h),
+              child: Center(child: textgrey18BoldSP("No Recipe shared")),
+            )
+
+            : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                recipesData.length, 
+                (index) => Padding(
+                  padding: EdgeInsets.only(right: 5.w),
+                  child: sharedRecipeCard(
+                    recipeImage: recipesData[index].receipe.coverImage,
+                    recipeName: recipesData[index].receipe.name,
+                  ),
+                ),
+              ),
             ),
 
             // SizedBox(
@@ -1182,7 +1010,11 @@ class _ExploreState extends State<Explore> {
     );
   }
 
-  Widget sharedRecipeCard() {
+Widget sharedRecipeCard({
+    required String recipeImage,
+    required String recipeName,
+    
+  }) {
     return Container(
       height: 114.h,
       decoration: BoxDecoration(
@@ -1204,19 +1036,24 @@ class _ExploreState extends State<Explore> {
               height: 85.h,
               width: 110.w,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.h),
-                  image: const DecorationImage(
-                      image: AssetImage("assets/home/food_bowl.png"),
-                      fit: BoxFit.fill)),
+                borderRadius: BorderRadius.circular(16.h),
+                image: DecorationImage(
+                    image: NetworkImage(ApiUrls.base + recipeImage),
+                    // AssetImage("assets/home/food_bowl.png"),
+                    fit: BoxFit.fill)
+              ),
             ),
             // sizedBoxHeight(5.h),
-            const Spacer(),
-            textgreyD10Robo("Slappappoffer Recipe"),
+            Spacer(),
+            // textgreyD10Robo("Slappappoffer Recipe"),
+            textgreyD10Robo(recipeName),
+
             // sizedBoxHeight(5.h),
-            const Spacer()
+            Spacer()
           ],
         ),
       ),
     );
   }
+
 }

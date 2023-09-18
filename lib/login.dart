@@ -266,7 +266,7 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           // Get.toNamed("/bottomBar");
 
-                          googleAuthService().handleGoogleSignIn();
+                          // googleAuthService().handleGoogleSignIn();
 
                         },
                         child: Row(

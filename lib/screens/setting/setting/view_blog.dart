@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:get/get.dart';
 
-class Dessert extends StatefulWidget {
-  const Dessert({super.key});
+class ViewBlogs extends StatefulWidget {
+  const ViewBlogs({super.key});
 
   @override
-  State<Dessert> createState() => _DessertState();
+  State<ViewBlogs> createState() => _ViewBlogsState();
 }
 
-class _DessertState extends State<Dessert> {
+class _ViewBlogsState extends State<ViewBlogs> {
+
+  var data;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    data = Get.arguments;
+    // arguments: {
+    //                       "readTime": readTime,
+    //                       "imageUrl": imageUrl,
+    //                       "name": name,
+    //                       "date": date,
+    //                       "title": title,
+    //                       "description": description
+    //                     }
+    print(data["readTime"]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +66,7 @@ class _DessertState extends State<Dessert> {
               //   ),
               //   child: Center(
               //     child: Text(
-              //       "Dessert",
+              //       "ViewBlogs",
               //       style: TextStyle(
               //           color: const Color(0xffffffff),
               //           fontFamily: "Studio Pro",
@@ -58,11 +79,13 @@ class _DessertState extends State<Dessert> {
                 background: Container(
                   height: 263,
                   width: double.infinity,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       color: Colors.white,
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/Chocolate 2.png'))),
+                          image: NetworkImage(ApiUrls.base + data["imageUrl"])
+                          // AssetImage('assets/Chocolate 2.png')
+                      )),
                   child: Container(
                     height: 38.h,
                     width: 135.w,
@@ -74,7 +97,8 @@ class _DessertState extends State<Dessert> {
                     ),
                     child: Center(
                       child: Text(
-                        "Dessert",
+                        // qw
+                        " ${data["readTime"]} min read",
                         style: TextStyle(
                             color: const Color(0xffffffff),
                             fontFamily: "Studio Pro",
@@ -110,19 +134,22 @@ class _DessertState extends State<Dessert> {
                         children: [
                           // sizedBoxHeight(17.h),
                           Text(
-                            "Kartikey Gautam",
+                            // "Kartikey Gautam",
+                            "${data["name"]}",
                             style: TextStyle(
                                 fontFamily: "Roboto", fontSize: 16.sp),
                           ),
                           sizedBoxHeight(7.h),
                           Text(
-                            "14 October, 2022",
+                            // "14 October, 2022",
+                            "${data["date"]}",
                             style: TextStyle(
                                 fontFamily: "Roboto", fontSize: 10.sp),
                           ),
                           sizedBoxHeight(22.h),
                           Text(
-                            "Glutten free pumpkin cookies",
+                            // "Glutten free pumpkin cookies",
+                            "${data["title"]}",
                             style: TextStyle(
                                 fontFamily: "Studio Pro",
                                 fontSize: 18.sp,
@@ -130,7 +157,8 @@ class _DessertState extends State<Dessert> {
                           ),
                           sizedBoxHeight(10.h),
                           Text(
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an \nunknown \nprinter took a galley of type and scrambled it to make a type specimen book. \n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It \nwas popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more \nrecently \nwith desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. \n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some \nform, by injected humour, or randomised words which don't\n look even slightly believable. If you are going to use a \npassage of Lorem Ipsum, you need to be sure there isn't \nanything embarrassing hidden in the middle of text.",
+                            "${data["description"]}",
+                            // "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an \nunknown \nprinter took a galley of type and scrambled it to make a type specimen book. \n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It \nwas popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more \nrecently \nwith desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. \n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some \nform, by injected humour, or randomised words which don't\n look even slightly believable. If you are going to use a \npassage of Lorem Ipsum, you need to be sure there isn't \nanything embarrassing hidden in the middle of text.",
                             style: TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 14.sp,

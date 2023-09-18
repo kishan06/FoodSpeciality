@@ -249,7 +249,7 @@ class _RecipeIngState extends State<RecipeIng>
                           child: GestureDetector(
                             onTap: () {
                               // Get.to(const Preview());
-                              // Get.toNamed("/Preview");
+                              Get.toNamed("/Preview");
                             },
                             child: Text(
                               "Preview",

@@ -19,6 +19,9 @@ import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/followUser.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
+import 'package:foodspeciality/screens/more_challenges.dart';
+import 'package:foodspeciality/screens/more_joined_challenges.dart';
+import 'package:foodspeciality/screens/more_my_challenges.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/otpScreen.dart';
 import 'package:foodspeciality/screens/preview.dart';
@@ -27,6 +30,8 @@ import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/setting/setting/accordion.dart';
 import 'package:foodspeciality/screens/setting/setting/blocklist_full.dart';
+import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
+import 'package:foodspeciality/screens/setting/setting/view_blog.dart';
 // import 'packa+ge:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
@@ -40,6 +45,7 @@ import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
+import 'screens/completed_challenge_view.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -165,8 +171,14 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/CompletedChallenge",
                 page: () => const CompletedChallenge()),
-            GetPage(
-                name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
+            GetPage(name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
+            GetPage(name: "/MoreCompletedChallenges", page: () => MoreCompletedChallenges()),
+            GetPage(name: "/MoreMyChallenges", page: () => MoreMyChallenges()),
+            GetPage(name: "/MoreJoinedChallenges", page: () => MoreJoinedChallenges()),
+            GetPage(name: "/CompletedChallengeView", page: () => CompletedChallengeView()),
+            GetPage(name: "/BlogsNewsArticles", page: () => BlogsNewsArticles()),
+            GetPage(name: "/ViewBlogs", page: () => ViewBlogs()),
+            
           ],
         ),
       ),
