@@ -17,6 +17,7 @@ class CustomSearchTextFormField extends StatefulWidget {
     this.outlineColor = const Color(0xFFFFB600),
     // this.keyboardType,
     this.suffixIconConstraints,
+    this.onChanged,
     this.autofocus,
     this.texttype,
     this.focusNode
@@ -35,7 +36,7 @@ class CustomSearchTextFormField extends StatefulWidget {
   final dynamic inputFormatters;
   final Color outlineColor;
   final BoxConstraints? suffixIconConstraints;
-
+  void Function(String)? onChanged;
   final TextInputType? texttype;
   final FocusNode? focusNode;
 
@@ -60,6 +61,7 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
         style: TextStyle(
           fontSize: 16.sp,
         ),
+        onChanged: widget.onChanged,
         focusNode: widget.focusNode,
         // onTap: ontap,
         readOnly: widget.readonly,

@@ -557,6 +557,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       GestureDetector(
                         onTap: () {
                           Get.toNamed("/login");
+                          // Get.to(page)
                         },
                         child: Text(
                           "Login",

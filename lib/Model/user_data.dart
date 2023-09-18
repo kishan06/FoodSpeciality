@@ -48,7 +48,7 @@ class Data {
   late final String id;
   late final String createdAt;
   late final String updatedAt;
-  late final String profileImage;
+  late final String? profileImage;
   late final String username;
   late final String firstName;
   late final String lastName;

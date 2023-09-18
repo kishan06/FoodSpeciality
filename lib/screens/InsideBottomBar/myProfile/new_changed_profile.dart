@@ -166,7 +166,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                                                 // ?
                                                 // AssetImage("assetName")
                                                 // :
-                                                NetworkImage(ApiUrls.base + userDataController.userData!.data.profileImage),
+                                                NetworkImage(ApiUrls.base + userDataController.userData!.data.profileImage!),
                                             fit: BoxFit.fill)
                                       // image: DecorationImage(
                                       //     image: AssetImage("assets/profile.png"),
