@@ -9,7 +9,6 @@ import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
-
 import 'common_chip.dart';
 
 class SearchPage extends StatefulWidget {

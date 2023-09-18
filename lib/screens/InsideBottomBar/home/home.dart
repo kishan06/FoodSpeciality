@@ -10,6 +10,7 @@ import 'package:foodspeciality/common%20files/search_noti.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/services/block_service.dart';
 import 'package:foodspeciality/services/follow_service.dart';
 import 'package:foodspeciality/services/get_comments.dart';
@@ -1227,11 +1228,15 @@ class _IngridentsState extends State<Ingridents> {
                                             // e=
                                             GestureDetector(
                                               onTap: () {
-                                                Get.toNamed("/viewuser",
-                                                    arguments: {
-                                                      "userid":
-                                                          recipeData.userId
-                                                    });
+                                                myUserId == recipeData.userId
+                                                    ? Get.to(() => BottomBar(
+                                                          selectedIndex: 4,
+                                                        ))
+                                                    : Get.toNamed("/viewuser",
+                                                        arguments: {
+                                                            "userid": recipeData
+                                                                .userId
+                                                          });
                                               },
                                               child: textgreyD16BoldSP(
                                                   recipeData.user?.username ??

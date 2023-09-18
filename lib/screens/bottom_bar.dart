@@ -7,7 +7,6 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/new_chat_tab.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/explore/explore.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/myProfile/new_profile.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 

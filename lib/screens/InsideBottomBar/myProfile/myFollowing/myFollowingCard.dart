@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/myProfile/myFollowing/myFollowingContent.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -27,20 +26,10 @@ class _myFollowingState extends State<myFollowingCard> {
   List<Followers>? followers;
   final FollowerFollowing followerFollowing = FollowerFollowing();
 
-  // List<>? followings;
-
-
-
-  // int index = 0;
-
   @override
   void initState() {
-    // ignore: todo
-    // TODO: implement initState
-
     super.initState();
     futureData = followerFollowing.getfollowfollowing();
-
   }
 
   @override
@@ -64,49 +53,12 @@ class _myFollowingState extends State<myFollowingCard> {
                     itemBuilder: (context, index) {
                       final follower = followers![index].follower;
                       return followinglistCard(
-                        profileImage: follower!.profileImage,
-                        name: follower.firstName! + " " + follower.lastName!,
-                        userName: follower.username!, 
-                        userId: follower.id!, 
-                        index: index, 
-                        isFollower: follower.isFollowing
-                      );
-                      // return followinglistCard(
-                      //   // followingData[index]["recipeimage"],
-                      //   // follower.profileImage,
-                      //   // followingData[index]["title"],
-                      //   // followingData[index]["name"],
-                      //   // index,
-                      //   // followingData[index]["isFollowedByMe"],
-                      // );
-
-                      // return followerlistCard(
-                      //   // followerData[index]["recipeimage"],
-                      //   following.profileImage,
-
-                      //   // followerData[index]["title"],
-                      //   following.firstName! + " " + following.lastName!,
-                      //   // followerData[index]["name"],
-                      //   following.username,
-                      //   index,
-                      //   isFollowing: following.isFollowing,
-                      //   userId: following.id!
-
-                      //   // followerData[index]["isFollowedByMe"],
-                      // );
-                      // final follower = followers[index].follower;
-                      // return invite(
-                      //   firstname: follower!.firstName!,
-                      //   username: follower.username!,
-                      //   profileimage: follower.profileImage,
-                      //   userId: follower.id!,
-                      //   index: index,
-                      //   selectedIds: selectedIds,
-                      //   onInvitePressed: (id) {
-                      //     // Handle invite button pressed
-                      //     print('Invite button pressed for: $id');
-                      //   },
-                      // );
+                          profileImage: follower!.profileImage,
+                          name: follower.firstName! + " " + follower.lastName!,
+                          userName: follower.username!,
+                          userId: follower.id!,
+                          index: index,
+                          isFollower: follower.isFollowing);
                     },
                   );
                 } else if (snapshot.hasError) {
@@ -116,26 +68,6 @@ class _myFollowingState extends State<myFollowingCard> {
                 }
               },
             ),
-
-
-            // ListView.builder(
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     shrinkWrap: true,
-            //     itemCount: followingData.length,
-            //     itemBuilder: (context, index) {
-            //       return Column(
-            //         children: [
-            //           followinglistCard(
-            //             followingData[index]["recipeimage"],
-            //             followingData[index]["title"],
-            //             followingData[index]["name"],
-            //             index,
-            //             followingData[index]["isFollowedByMe"],
-            //           )
-            //         ],
-            //       );
-            //     })
-       
           ],
         ),
       ),
@@ -147,14 +79,10 @@ class _myFollowingState extends State<myFollowingCard> {
     required String name,
     required String userName,
     required String userId,
-
-    // dynamic title, 
-    // dynamic name,
-    required int index, 
+    required int index,
     required bool isFollower,
-    }
-    ) {
-    // bool like = false;
+  }) {
+
 
     return Column(
       children: [
@@ -171,19 +99,15 @@ class _myFollowingState extends State<myFollowingCard> {
                   width: 50.h,
                   height: 50.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.h),
-                    image: profileImage == null 
-                      ? DecorationImage(
-                        image: AssetImage("assets/default_profile.webp"),
-                        fit: BoxFit.fill
-                      )
-                      : DecorationImage(
-                        image: NetworkImage(
-                          ApiUrls.base + "${profileImage}"
-                        ),
-                        fit: BoxFit.fill
-                      )
-                  ),
+                      borderRadius: BorderRadius.circular(25.h),
+                      image: profileImage == null
+                          ? DecorationImage(
+                              image: AssetImage("assets/default_profile.webp"),
+                              fit: BoxFit.fill)
+                          : DecorationImage(
+                              image: NetworkImage(
+                                  ApiUrls.base + "${profileImage}"),
+                              fit: BoxFit.fill)),
                 ),
                 Positioned(
                   bottom: 0.h,
@@ -228,30 +152,29 @@ class _myFollowingState extends State<myFollowingCard> {
             ),
             const Spacer(),
             InkWell(
-              onTap: () {
-                // removeDailog(
-                //   // userName: userNamepub,
+                onTap: () {
+                  // removeDailog(
+                  //   // userName: userNamepub,
 
-                // );
-                // removeDailog( 
-                  
-                // );
-              },
-              child: Container(
-                width: 80.w,
-                decoration: BoxDecoration(
-                  color: AppColors.greyD3B3F43,
-                  borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: Colors.grey.shade700),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(5.h),
-                  child: Center(
-                    child: textWhite14Robo("Remove"),
+                  // );
+                  // removeDailog(
+
+                  // );
+                },
+                child: Container(
+                  width: 80.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyD3B3F43,
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: Colors.grey.shade700),
                   ),
-                ),
-              )
-            ),
+                  child: Padding(
+                    padding: EdgeInsets.all(5.h),
+                    child: Center(
+                      child: textWhite14Robo("Remove"),
+                    ),
+                  ),
+                )),
             SizedBox(
               width: 16.w,
             )
@@ -268,23 +191,13 @@ class _myFollowingState extends State<myFollowingCard> {
     );
   }
 
-  removeDailog({String? profileImage,
-    required String userName
-  }) {
+  removeDailog({String? profileImage, required String userName}) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
         insetPadding: const EdgeInsets.symmetric(vertical: 10),
-        // title: Text(
-        //   "Sign Out",
-        //   style: TextStyle(
-        //       fontFamily: 'Studio Pro',
-        //       fontWeight: FontWeight.bold,
-        //       fontSize: 18.sp,
-        //       color: const Color(0xff3B3F43)),
-        // ),
         content: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -292,23 +205,16 @@ class _myFollowingState extends State<myFollowingCard> {
               width: 50.h,
               height: 50.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.h),
-                image: profileImage == null 
-                  ? DecorationImage(
-                    image: AssetImage("assets/default_profile.webp"),
-                    fit: BoxFit.fill
-                  )
-                  : DecorationImage(
-                    image: NetworkImage(
-                      ApiUrls.base + "${profileImage}"
-                    ),
-                    fit: BoxFit.fill
-                  )
-              ),
+                  borderRadius: BorderRadius.circular(25.h),
+                  image: profileImage == null
+                      ? DecorationImage(
+                          image: AssetImage("assets/default_profile.webp"),
+                          fit: BoxFit.fill)
+                      : DecorationImage(
+                          image: NetworkImage(ApiUrls.base + "${profileImage}"),
+                          fit: BoxFit.fill)),
             ),
-
             sizedBoxWidth(10.w),
-             
             Text(
               "Are you sure you want to remove @$userName",
               style: TextStyle(
@@ -334,8 +240,7 @@ class _myFollowingState extends State<myFollowingCard> {
           ),
           sizedBoxWidth(15.sp),
           InkWell(
-            onTap: () async {
-            },
+            onTap: () async {},
             child: Text(
               "Sign out",
               style: TextStyle(
@@ -350,5 +255,7 @@ class _myFollowingState extends State<myFollowingCard> {
       ),
     );
   }
+
+
 
 }
