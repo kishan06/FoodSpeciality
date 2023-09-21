@@ -1,6 +1,3 @@
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -67,9 +64,7 @@ class _ViewCommunityState extends State<ViewCommunity> {
                       ),
                     ],
                   ),
-
                   sizedBoxHeight(10.h),
-
                   Container(
                     width: 120.h,
                     height: 120.h,
@@ -87,15 +82,18 @@ class _ViewCommunityState extends State<ViewCommunity> {
                             // offset: Offset(0, 3), // changes the position of the shadow
                           ),
                         ],
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "http://77.68.102.23:8000/${communityProfileImage}"),
-                            fit: BoxFit.cover)),
+                        image: communityProfileImage == null
+                            ? DecorationImage(
+                                image:
+                                    AssetImage("assets/default_profile.webp"),
+                                fit: BoxFit.fill)
+                            : DecorationImage(
+                                image: NetworkImage(
+                                    "http://77.68.102.23:8000/${communityProfileImage}"),
+                                fit: BoxFit.cover)),
                     // child: YourChildWidget(),
                   ),
-
                   sizedBoxHeight(10.h),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -124,46 +122,6 @@ class _ViewCommunityState extends State<ViewCommunity> {
                       ),
                     ],
                   ),
-
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(10.0),
-                  //   child: Container(
-                  //     // height: 100.0,
-                  //     margin: const EdgeInsets.only(top: 6.0),
-                  //     decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
-                  //       color: Colors.white,
-                  //       boxShadow: [
-                  //         BoxShadow(
-                  //           color: Colors.grey,
-                  //           offset: Offset(0.0, 1.0), //(x,y)
-                  //           blurRadius: 5.0,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // Container(
-                  //   // height: 375.h,
-                  //   // color: AppColors.white,
-                  //   decoration: BoxDecoration(
-                  //       color: AppColors.white,
-                  //       boxShadow: [
-                  //         BoxShadow(
-                  //           color: AppColors.greyLtEBEBEB,
-                  //           blurRadius: 1.h,
-                  //           spreadRadius: 1.h,
-                  //           offset: Offset(0, -5.h)
-                  //         ),
-                  //       ],
-
-                  //       borderRadius: BorderRadius.only(
-                  //         topLeft: Radius.circular(20.h),
-                  //         topRight: Radius.circular(20.h)
-                  //       )
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -171,7 +129,6 @@ class _ViewCommunityState extends State<ViewCommunity> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.h),
                 child: Container(
-                  // height: 100.0,
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 6.h),
                   decoration: const BoxDecoration(
@@ -238,10 +195,17 @@ class _ViewCommunityState extends State<ViewCommunity> {
                                   width: 60.h,
                                   height: 60.h,
                                   decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(image: NetworkImage(
-                                          // "http://77.68.102.23:8000/${membersProfileImage[index] ?? ""}"),
-                                          ""), fit: BoxFit.cover)),
+                                    shape: BoxShape.circle,
+                                    image: membersProfileImage == null
+                                        ? DecorationImage(
+                                            image: AssetImage(
+                                                "assets/default_profile.webp"),
+                                            fit: BoxFit.fill)
+                                        : DecorationImage(
+                                            image: NetworkImage(
+                                                "http://77.68.102.23:8000/${membersProfileImage[index]}"),
+                                            fit: BoxFit.cover),
+                                  ),
                                 ),
                                 sizedBoxWidth(10.w),
                                 textBlack18bold(membersName[index]),
