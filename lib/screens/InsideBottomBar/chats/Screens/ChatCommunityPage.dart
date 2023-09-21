@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/Model/CommunityChatListModel.dart';
@@ -192,11 +191,20 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                              "http://77.68.102.23:8000/${filteredCommunityChatRooms[index].profileImage}"),
-                                          maxRadius: 30.r,
-                                        ),
+                                        filteredCommunityChatRooms[index]
+                                                    .profileImage ==
+                                                null
+                                            ? CircleAvatar(
+                                                child: SvgPicture.asset(
+                                                    "assets/community.svg"),
+                                                maxRadius: 30.r,
+                                              )
+                                            : CircleAvatar(
+                                                foregroundColor: Colors.white,
+                                                maxRadius: 30.r,
+                                                child: Image.network(
+                                                    "http://77.68.102.23:8000/${filteredCommunityChatRooms[index].profileImage}"),
+                                              ),
                                         SizedBox(
                                           width: 16.w,
                                         ),
@@ -316,7 +324,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                 onPressed: () {
                   showDialog(
                       context: context,
-                      builder: (context) => addCommunityDailog());
+                      builder: (context) => addCommunityDailog(communitykey));
                 },
               ),
             ),
@@ -327,7 +335,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
     );
   }
 
-  Widget addCommunityDailog() {
+  Widget addCommunityDailog(communitykey) {
     TextEditingController communityName = TextEditingController();
     TextEditingController description = TextEditingController();
     return Dialog(
@@ -369,7 +377,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                       width: 200.w,
                       // height: 30.h,
                       child: TextFormField(
-                        //    controller: communityName,
+                        controller: communityName,
                         style: TextStyle(
                             color: const Color(0xFF979797),
                             fontSize: 20.sp,
@@ -389,7 +397,7 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                     ),
                     sizedBoxHeight(15.h),
                     TextFormField(
-                      //     controller: description,
+                      controller: description,
                       style: TextStyle(
                           color: const Color(0xFF979797),
                           fontSize: 20.sp,
