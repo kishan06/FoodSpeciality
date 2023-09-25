@@ -144,11 +144,31 @@ class _ChatPageState extends State<ChatPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                            "http://77.68.102.23:8000/${filteredChatRooms[index].user!.profileImage}"),
-                                        maxRadius: 30.r,
+                                      Container(
+                                        width: 50.h,
+                                        height: 50.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(25.h),
+                                            image: filteredChatRooms[index]
+                                                        .user!
+                                                        .profileImage ==
+                                                    null
+                                                ? DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/default_profile.webp"),
+                                                    fit: BoxFit.fill)
+                                                : DecorationImage(
+                                                    image: NetworkImage(ApiUrls
+                                                            .base +
+                                                        "${filteredChatRooms[index].user!.profileImage}"),
+                                                    fit: BoxFit.fill)),
                                       ),
+                                      // CircleAvatar(
+                                      //   backgroundImage: NetworkImage(
+                                      //       "http://77.68.102.23:8000/${filteredChatRooms[index].user!.profileImage}"),
+                                      //   maxRadius: 30.r,
+                                      // ),
                                       SizedBox(
                                         width: 16.w,
                                       ),

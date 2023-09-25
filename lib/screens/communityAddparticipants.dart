@@ -119,7 +119,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
             ),
           ]),
           Container(
-            height: 670.h,
+            height: 668.h,
             child: FutureBuilder<Followes>(
               future: followerFollowing.getfollowfollowing(),
               builder: (context, snapshot) {
@@ -152,7 +152,6 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                 }
               },
             ),
-        
           ),
           SizedBox(
             height: 50.h,
@@ -184,7 +183,6 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
                   //     members: selectedIds);
                   createCommunity(
                       accessToken!, selectedIds, revname!, revdesp!);
-               
                 },
               ),
             ),

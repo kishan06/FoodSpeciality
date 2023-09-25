@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
@@ -84,8 +85,7 @@ class _ViewCommunityState extends State<ViewCommunity> {
                         ],
                         image: communityProfileImage == null
                             ? DecorationImage(
-                                image:
-                                    AssetImage("assets/default_profile.webp"),
+                                image: AssetImage("assets/defaultGroup2.png"),
                                 fit: BoxFit.fill)
                             : DecorationImage(
                                 image: NetworkImage(
@@ -192,21 +192,36 @@ class _ViewCommunityState extends State<ViewCommunity> {
                             return Row(
                               children: [
                                 Container(
-                                  width: 60.h,
-                                  height: 60.h,
+                                  width: 40.h,
+                                  height: 40.h,
                                   decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: membersProfileImage == null
-                                        ? DecorationImage(
-                                            image: AssetImage(
-                                                "assets/default_profile.webp"),
-                                            fit: BoxFit.fill)
-                                        : DecorationImage(
-                                            image: NetworkImage(
-                                                "http://77.68.102.23:8000/${membersProfileImage[index]}"),
-                                            fit: BoxFit.cover),
-                                  ),
+                                      borderRadius: BorderRadius.circular(25.h),
+                                      image: communityProfileImage == null
+                                          ? DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/default_profile.webp"),
+                                              fit: BoxFit.fill)
+                                          : DecorationImage(
+                                              image: NetworkImage(ApiUrls.base +
+                                                  "${membersProfileImage[index]}"),
+                                              fit: BoxFit.fill)),
                                 ),
+                                // Container(
+                                //   width: 60.h,
+                                //   height: 60.h,
+                                //   decoration: BoxDecoration(
+                                //     shape: BoxShape.circle,
+                                //     image: membersProfileImage == null
+                                //         ? DecorationImage(
+                                //             image: AssetImage(
+                                //                 "assets/default_profile.webp"),
+                                //             fit: BoxFit.fill)
+                                //         : DecorationImage(
+                                //             image: NetworkImage(
+                                //                 "http://77.68.102.23:8000/${membersProfileImage[index]}"),
+                                //             fit: BoxFit.cover),
+                                //   ),
+                                // ),
                                 sizedBoxWidth(10.w),
                                 textBlack18bold(membersName[index]),
                               ],

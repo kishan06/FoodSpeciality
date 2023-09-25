@@ -193,11 +193,25 @@ class _ChatCommunityDetailState extends State<ChatCommunityDetail> {
                   SizedBox(
                     width: 2.w,
                   ),
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "http://77.68.102.23:8000/${communityProfileImage}"),
-                    maxRadius: 20.r,
+                  Container(
+                    width: 30.h,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25.h),
+                        image: communityProfileImage == null
+                            ? DecorationImage(
+                                image: AssetImage("assets/defaultGroup2.png"),
+                                fit: BoxFit.fill)
+                            : DecorationImage(
+                                image: NetworkImage(
+                                    ApiUrls.base + "${communityProfileImage}"),
+                                fit: BoxFit.fill)),
                   ),
+                  // CircleAvatar(
+                  //   backgroundImage: NetworkImage(
+                  //       "http://77.68.102.23:8000/${communityProfileImage}"),
+                  //   maxRadius: 20.r,
+                  // ),
                   // SizedBox(
                   //   width: 12,
                   // ),

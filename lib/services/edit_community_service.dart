@@ -15,7 +15,7 @@ class EditCommunityService {
     try {
       print(body);
       var headers = {'x-auth-token': '$accessToken'};
-      var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
+      var request = http.MultipartRequest('PUT', Uri.parse(apiUrl));
       request.fields.addAll({
         "communityId": communityId,
         'name': name,
