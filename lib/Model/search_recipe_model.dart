@@ -55,7 +55,7 @@ class Data {
   
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    video = json['video'];
+video = json['video'];
     coverImage = json['cover_image'];
     name = json['name'];
     description = json['description'];
@@ -160,20 +160,20 @@ class User {
   late final String id;
   late final String createdAt;
   late final String updatedAt;
-  late final String profileImage;
+  late final String? profileImage;
   late final String username;
   late final String firstName;
   late final String lastName;
   late final String email;
   late final String phone;
   late final String password;
-  late final String bio;
-  late final String location;
-  late final String socialLinks;
-  late final String twitterLink;
-  late final String instagramLink;
-  late final String pinterestLink;
-  late final String facebookLink;
+  late final String? bio;
+  late final String? location;
+  late final String? socialLinks;
+  late final String? twitterLink;
+  late final String? instagramLink;
+  late final String? pinterestLink;
+  late final String? facebookLink;
   late final Null lastLogin;
   late final bool online;
   late final String role;

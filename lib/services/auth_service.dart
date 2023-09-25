@@ -11,6 +11,7 @@ import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common files/common_sucess_dailog.dart';
@@ -24,9 +25,17 @@ class AuthService {
   }) async {
     try {
       print("calling signInUser");
+      print("playerIdGlobal $playerIdGlobal");
+      final status = await OneSignal.shared.getDeviceState();
+      final String? playerId = status!.userId;
+      print("playerId $playerId");
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.login));
-      request.body = json.encode({"email": email, "password": password});
+      request.body = json.encode({
+        "email": email, 
+        "password": password,
+        "playerId": playerId
+      });
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

@@ -16,6 +16,9 @@ class RecipeIngreController extends GetxController{
   List<String> _tags = [];
   List<String> get tags => _tags;
 
+  List<String> _tagsSearch = [];
+  List<String> get tagsSearch => _tagsSearch;
+
   addTags(String text){
     // _tags = [];
     _tags.add('"$text"');
@@ -25,6 +28,22 @@ class RecipeIngreController extends GetxController{
   removeTags(String text){
     _tags.remove('"$text"');
     update();
+  }
+
+  addTagsSearch(String text){
+    // _tags = [];
+    _tagsSearch.add(text);
+    update();
+  }
+
+  removeTagsSearch(String text){
+    _tagsSearch.remove(text);
+    print(_tagsSearch);
+    update();
+  }
+
+  emptyTags(){
+    _tagsSearch.clear();
   }
   
   changeVideoFile(XFile? receivedFile){

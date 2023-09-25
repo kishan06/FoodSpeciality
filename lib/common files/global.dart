@@ -1,13 +1,18 @@
 String? accessToken;
 String? myUserId;
 String? myImage;
+String? playerIdGlobal;
 
 bool? onboard;
 // String uri = 'http://<yourip>:3000';
 
 class ApiUrls {
   static const _base = "http://77.68.102.23:8000/";
+  // static const _base = "http://192.168.1.13:8000/";
+  
   static const base = "http://77.68.102.23:8000/";
+  // static const base = "http://192.168.1.13:8000/";
+
   static const login = _base + "auth/login";
   static const signUp = _base + "auth/register";
   static const addRecipe = _base + "recipe/create";
@@ -71,6 +76,9 @@ class ApiUrls {
   static const getBlogsData = _base + "blog/all";
   static const getDefaultSearchData = _base + "recipe-category/quick-search";
   static const getSearchRecipe = _base + "recipe/search?search=";
+  static const getDefaultCommunitySearch = _base + "community/getcommunity";
+  static const getCommunitySearch = _base + "community/searchCommunity?search=";
+  static const getNotification = _base + "user/notification";
   
 
 

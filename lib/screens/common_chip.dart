@@ -67,11 +67,11 @@ class _CommonChipState extends State<CommonChip> {
               setState(() {
                 _colorchange = !_colorchange;
                 if (_colorchange) {
-                  recipeIngreController.removeTags(widget.text);
+                  recipeIngreController.removeTagsSearch(widget.text);
                 } else {
-                  recipeIngreController.addTags(widget.text);
+                  recipeIngreController.addTagsSearch(widget.text);
                 }
-                print(recipeIngreController.tags);
+                print(recipeIngreController.tagsSearch);
                 // _colorchange = _colorchange ? _colorchange = false : true;
               });
             },

@@ -37,6 +37,8 @@ class _ExploreState extends State<Explore> {
   HomeController controllerHome = Get.put(HomeController());
   final CarouselController carouselController = CarouselController();
   final tecComment = TextEditingController();
+  HomeController homeController = Get.put(HomeController());
+
   UserDataController userDataController = Get.put(UserDataController());
 
   // ExploreController exploreController = Get.put(ExploreController());
@@ -78,6 +80,8 @@ class _ExploreState extends State<Explore> {
     // TODO: implement initState
     super.initState();
     // exploreController.get
+    homeController.getNotificationCount();
+
     controllerExplore.getExplore();
     // controllerExplore.getOnGoingChallenge();
     controllerExplore.getTrendingRecipe();
@@ -89,254 +93,267 @@ class _ExploreState extends State<Explore> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Column(
-        children: [
-          searchNotification(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+      body: GetBuilder<HomeController>(builder: (builder){
+            return homeController.isLoading 
+            // ?
+            ? Center(child: CircularProgressIndicator()) 
+            : homeController.notificationCount == null 
+            ? Center(child: textgrey18BoldSP("Something went wrong"))
+            : Column(
+              children: [
+                // searchNotification(),
+                searchNotification(notificationCount: homeController.notificationCount!),
+
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        textgreyM20BoldSP("Join a cooking challenge"),
-                        sizedBoxHeight(7.h),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textgreyM20BoldSP("Join a cooking challenge"),
+                              sizedBoxHeight(7.h),
 
-                        GetBuilder<UserDataController>(builder: (builder){
-                          return userDataController.isLoadingMyChallenges 
-                          ? Center(child: CircularProgressIndicator()) 
-                          : userDataController.myChallenges == null 
-                            ? Padding(
-                              padding: EdgeInsets.only(top: 15.h),
-                              child: Center(child: textgrey18BoldSP("Something went wrong")),
-                            )
-                              : userDataController.myChallenges!.data.isEmpty 
-                                ? Padding(
-                                  padding: EdgeInsets.only(top: 15.h),
-                                  child: Center(child: textgrey18BoldSP("No challenges")),
-                                )
-                                : Column(
-                                children: [
-                                  CarouselSlider.builder(
-                                      carouselController: CarouselController(),
-                                      itemCount: userDataController.myChallenges!.data.length,
-                                      // 3,
-                                      itemBuilder: (context, index, realIndex) {
-                                        final sliderData = userDataController.myChallenges!.data[index];
-                                        // final commentData =
-                                        //   commentsContoller.comments!.data[index];
-                                        String startDate = sliderData.startDate;
-                                        DateTime parsedStartDate = DateTime.parse(startDate);
-                                        String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+                              GetBuilder<UserDataController>(builder: (builder){
+                                return userDataController.isLoadingMyChallenges 
+                                ? Center(child: CircularProgressIndicator()) 
+                                : userDataController.myChallenges == null 
+                                  ? Padding(
+                                    padding: EdgeInsets.only(top: 15.h),
+                                    child: Center(child: textgrey18BoldSP("Something went wrong")),
+                                  )
+                                    : userDataController.myChallenges!.data.isEmpty 
+                                      ? Padding(
+                                        padding: EdgeInsets.only(top: 15.h),
+                                        child: Center(child: textgrey18BoldSP("No challenges")),
+                                      )
+                                      : Column(
+                                      children: [
+                                        CarouselSlider.builder(
+                                            carouselController: CarouselController(),
+                                            itemCount: userDataController.myChallenges!.data.length,
+                                            // 3,
+                                            itemBuilder: (context, index, realIndex) {
+                                              final sliderData = userDataController.myChallenges!.data[index];
+                                              // final commentData =
+                                              //   commentsContoller.comments!.data[index];
+                                              String startDate = sliderData.startDate;
+                                              DateTime parsedStartDate = DateTime.parse(startDate);
+                                              String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
 
-                                        String endDate = sliderData.endDate;
-                                        DateTime parsedEndDate = DateTime.parse(endDate);
-                                        String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
-                                        return Padding(
-                                          padding: EdgeInsets.all(5.w),
-                                          child: mainChallengesCard(
-                                            challengeId: sliderData.id,
-                                            title: sliderData.title,
-                                            startDate: formattedStartDate,
-                                            endDate: formattedEndDate,
-                                            numRecipeShared: sliderData.challengeRecipe.length,
-                                            recipesData: sliderData.challengeRecipe
-                                          ),
-                                        );
-                                        // final sliderInfo = sliderData[index];
-                                        // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
-                                      },
-                                      options: CarouselOptions(
-                                        height: 260.h,
-                                        // initialPage: sliderPage.value,
-                                        // aspectRatio: 3 / 1,
-                                        autoPlay: true,
-                                        autoPlayAnimationDuration:
-                                            const Duration(seconds: 3),
-                                        // enlargeCenterPage: true,
-                                        viewportFraction: 1,
-                                        onPageChanged: (index, reason) {
-                                          // setState(() {
-                                            // sliderPage.value = index;
-                                            // controllerExplore.sliderPage = index;
-                                            controllerExplore.changeSliderPage(index);
-                                          // });
-                                        },
-                                      )),
-                                  
-                                  sizedBoxHeight(12.h),
-                              
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(
-                                      userDataController.myChallenges!.data.length,
+                                              String endDate = sliderData.endDate;
+                                              DateTime parsedEndDate = DateTime.parse(endDate);
+                                              String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                                              return Padding(
+                                                padding: EdgeInsets.all(5.w),
+                                                child: mainChallengesCard(
+                                                  challengeId: sliderData.id,
+                                                  title: sliderData.title,
+                                                  startDate: formattedStartDate,
+                                                  endDate: formattedEndDate,
+                                                  numRecipeShared: sliderData.challengeRecipe.length,
+                                                  recipesData: sliderData.challengeRecipe
+                                                ),
+                                              );
+                                              // final sliderInfo = sliderData[index];
+                                              // return buildSlider(sliderInfo["imageUrl"], index , sliderInfo["title1"], sliderInfo["title2"], sliderInfo["videoUrl"]);
+                                            },
+                                            options: CarouselOptions(
+                                              height: 260.h,
+                                              // initialPage: sliderPage.value,
+                                              // aspectRatio: 3 / 1,
+                                              autoPlay: true,
+                                              autoPlayAnimationDuration:
+                                                  const Duration(seconds: 3),
+                                              // enlargeCenterPage: true,
+                                              viewportFraction: 1,
+                                              onPageChanged: (index, reason) {
+                                                // setState(() {
+                                                  // sliderPage.value = index;
+                                                  // controllerExplore.sliderPage = index;
+                                                  controllerExplore.changeSliderPage(index);
+                                                // });
+                                              },
+                                            )),
+                                        
+                                        sizedBoxHeight(12.h),
+                                    
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: List.generate(
+                                            userDataController.myChallenges!.data.length,
 
 
-                                      (index) => GestureDetector(
-                                        onTap: () =>
-                                            carouselController.animateToPage(index),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius: BorderRadius.circular(25.r)),
-                                          width: 12.w,
-                                          height: controllerExplore.sliderPage == index ? 3.h : 2.h,
-                                          margin: const EdgeInsets.symmetric(
-                                            horizontal: 3.0,
+                                            (index) => GestureDetector(
+                                              onTap: () =>
+                                                  carouselController.animateToPage(index),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey,
+                                                    borderRadius: BorderRadius.circular(25.r)),
+                                                width: 12.w,
+                                                height: controllerExplore.sliderPage == index ? 3.h : 2.h,
+                                                margin: const EdgeInsets.symmetric(
+                                                  horizontal: 3.0,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                            
-                                ],
-                              );
-                        
-                        }),
-
-                        sizedBoxHeight(25.h),
-                        textgreyM20BoldSP("Trending Recipes")
-                      ],
-                    ),
-                  ),
-                  sizedBoxHeight(11.h),
-                  Padding(
-                    padding: EdgeInsets.only(left: 16.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                            height: 98.h,
-                            child: GetBuilder<ExploreController>(builder: (_) {
-                              return controllerExplore.isLoadingTrending 
-                              ? Center(child: CircularProgressIndicator()) 
-                              : controllerExplore.trendingRecipe == null 
-                                ? Padding(
-                                  padding: EdgeInsets.only(top: 30),
-                                  child: textgrey18BoldSP("Something went wrong"),
-                                )
-                                : ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(width: 9.w);
-                                  },
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: controllerExplore.trendingRecipe!.data.length,
-                                  itemBuilder: (context, index) {
-                                    final recipeData = controllerExplore.trendingRecipe!.data[index];
-                                    // controllerExplore.likeSave[index]
-                                    return trendingRecipeCard(
-                                        // controllerExplore.likeSave[index]["like"],
-                                        // controllerExplore.likeSave[index]["save"],
-                                        // index,
-                                        recipeId: recipeData.id,
-                                        recipeImage: recipeData.coverImage,
-                                        recipeName: recipeData.name,
-                                        userName: recipeData.user.username,
-                                        liked: recipeData.liked,
-                                        numLike: recipeData.likes,
-                                        numComment: recipeData.comments,
-                                        saved: recipeData.saved,
-                                        cookingTime: recipeData.cookingTime
+                                  
+                                      ],
                                     );
-                                  },
-                                );
+                              
+                              }),
+
+                              sizedBoxHeight(25.h),
+                              textgreyM20BoldSP("Trending Recipes")
+                            ],
+                          ),
+                        ),
+                        sizedBoxHeight(11.h),
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  height: 98.h,
+                                  child: GetBuilder<ExploreController>(builder: (_) {
+                                    return controllerExplore.isLoadingTrending 
+                                    ? Center(child: CircularProgressIndicator()) 
+                                    : controllerExplore.trendingRecipe == null 
+                                      ? Padding(
+                                        padding: EdgeInsets.only(top: 30),
+                                        child: textgrey18BoldSP("Something went wrong"),
+                                      )
+                                      : ListView.separated(
+                                        separatorBuilder: (context, index) {
+                                          return SizedBox(width: 9.w);
+                                        },
+                                        scrollDirection: Axis.horizontal,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: controllerExplore.trendingRecipe!.data.length,
+                                        itemBuilder: (context, index) {
+                                          final recipeData = controllerExplore.trendingRecipe!.data[index];
+                                          // controllerExplore.likeSave[index]
+                                          return trendingRecipeCard(
+                                              // controllerExplore.likeSave[index]["like"],
+                                              // controllerExplore.likeSave[index]["save"],
+                                              // index,
+                                              recipeId: recipeData.id,
+                                              recipeImage: recipeData.coverImage,
+                                              recipeName: recipeData.name,
+                                              userName: recipeData.user.username,
+                                              liked: recipeData.liked,
+                                              numLike: recipeData.likes,
+                                              numComment: recipeData.comments,
+                                              saved: recipeData.saved,
+                                              cookingTime: recipeData.cookingTime
+                                          );
+                                        },
+                                      );
+                                
+                                  })),
+                              sizedBoxHeight(20.h),
+                              textgreyM20BoldSP("Explore"),
+                              sizedBoxHeight(15.h),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: GetBuilder<ExploreController>(builder: (context){
+                            return controllerExplore.isLoadingExplore 
+                            ? Center(child: CircularProgressIndicator()) 
+                            : controllerExplore.exploreJson == null 
+                              ? Padding(
+                                padding: EdgeInsets.only(top: 30),
+                                child: textgrey18BoldSP("Something went wrong"),
+                              )
+                              : GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: controllerExplore.exploreJson!.recipes.length,
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 7.w,
+                                  mainAxisSpacing: 7.w,
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  final recipeData = controllerExplore.exploreJson!.recipes[index];
+                                  // print(index);
+                                  // print(ApiUrls.base + "${controllerExplore.exploreJson!.recipes[index].coverImage}");
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.toNamed("/InspirationRecipeComment",
+                                        arguments: recipeData.id
+                                      );
+                                      print(recipeData.id);
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(ApiUrls.base + "${controllerExplore.exploreJson!.recipes[index].coverImage}"),
+                                              // index.isEven
+                                              //     ? const AssetImage("assets/home/17.png")
+                                              //     : const AssetImage(
+                                              //         "assets/home/12.png"),
+                                              fit: BoxFit.cover
+                                              // Image.asset("name")
+                                              )),
+                                    ),
+                                  );
+                                },
+                              );
                           
-                            })),
-                        sizedBoxHeight(20.h),
-                        textgreyM20BoldSP("Explore"),
-                        sizedBoxHeight(15.h),
+                          })
+                          // GridView.builder(
+                          //   shrinkWrap: true,
+                          //   physics: const NeverScrollableScrollPhysics(),
+                          //   itemCount: 13,
+                          //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 3,
+                          //     crossAxisSpacing: 7.w,
+                          //     mainAxisSpacing: 7.w,
+                          //   ),
+                          //   itemBuilder: (BuildContext context, int index) {
+                          //     return InkWell(
+                          //       onTap: () {
+                          //         Get.toNamed("/InspirationRecipeComment");
+                          //       },
+                          //       child: Container(
+                          //         decoration: BoxDecoration(
+                          //             image: DecorationImage(
+                          //                 image: index.isEven
+                          //                     ? const AssetImage("assets/home/17.png")
+                          //                     : const AssetImage(
+                          //                         "assets/home/12.png"),
+                          //                 fit: BoxFit.cover
+                          //                 // Image.asset("name")
+                          //                 )),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                      
+                        )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: GetBuilder<ExploreController>(builder: (context){
-                      return controllerExplore.isLoadingExplore 
-                      ? Center(child: CircularProgressIndicator()) 
-                      : controllerExplore.exploreJson == null 
-                        ? Padding(
-                          padding: EdgeInsets.only(top: 30),
-                          child: textgrey18BoldSP("Something went wrong"),
-                        )
-                        : GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controllerExplore.exploreJson!.recipes.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 7.w,
-                            mainAxisSpacing: 7.w,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            final recipeData = controllerExplore.exploreJson!.recipes[index];
-                            // print(index);
-                            // print(ApiUrls.base + "${controllerExplore.exploreJson!.recipes[index].coverImage}");
-                            return InkWell(
-                              onTap: () {
-                                Get.toNamed("/InspirationRecipeComment",
-                                  arguments: recipeData.id
-                                );
-                                print(recipeData.id);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(ApiUrls.base + "${controllerExplore.exploreJson!.recipes[index].coverImage}"),
-                                        // index.isEven
-                                        //     ? const AssetImage("assets/home/17.png")
-                                        //     : const AssetImage(
-                                        //         "assets/home/12.png"),
-                                        fit: BoxFit.cover
-                                        // Image.asset("name")
-                                        )),
-                              ),
-                            );
-                          },
-                        );
-                    
-                    })
-                    // GridView.builder(
-                    //   shrinkWrap: true,
-                    //   physics: const NeverScrollableScrollPhysics(),
-                    //   itemCount: 13,
-                    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //     crossAxisCount: 3,
-                    //     crossAxisSpacing: 7.w,
-                    //     mainAxisSpacing: 7.w,
-                    //   ),
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return InkWell(
-                    //       onTap: () {
-                    //         Get.toNamed("/InspirationRecipeComment");
-                    //       },
-                    //       child: Container(
-                    //         decoration: BoxDecoration(
-                    //             image: DecorationImage(
-                    //                 image: index.isEven
-                    //                     ? const AssetImage("assets/home/17.png")
-                    //                     : const AssetImage(
-                    //                         "assets/home/12.png"),
-                    //                 fit: BoxFit.cover
-                    //                 // Image.asset("name")
-                    //                 )),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+                ),
+              ],
+            );
+          
+          })
+             
+      
+      
     );
   }
 

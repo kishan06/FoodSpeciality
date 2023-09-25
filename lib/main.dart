@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,6 +42,7 @@ import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/sucessfully_blocked.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
@@ -60,11 +63,27 @@ Future<void> main() async {
   myUserId = prefs.getString('userId');
   myImage = prefs.getString('myImage');
   print("acs to ${accessToken}");
+  await OneSignal.shared.setAppId("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
+  // final status = await OneSignal.shared.getDeviceState();
+  // final String? playerId = status!.userId;
+  // print("playerId $playerId");
+  // playerIdGlobal = playerId;
+
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(const MyApp());
   });
+}
+
+Future<void> initPlatform() async{
+  // OneSignal.initialize("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
+  // final playerId = await OneSignal.User.pushSubscription.id;
+  // print("playerId $playerId");
+  
+  // OneSignalS\\
+
+
 }
 
 // checkToken(){
