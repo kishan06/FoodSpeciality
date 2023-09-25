@@ -45,7 +45,7 @@ class Data {
     required this.followers,
     required this.following,
   });
-  late final String id;
+  late final String? id;
   late final String createdAt;
   late final String updatedAt;
   late final String? profileImage;
@@ -55,13 +55,13 @@ class Data {
   late final String email;
   late final String phone;
   late final String password;
-  late final String bio;
-  late final String location;
-  late final String socialLinks;
-  late final String twitterLink;
-  late final String instagramLink;
-  late final String pinterestLink;
-  late final String facebookLink;
+  late final String? bio;
+  late final String? location;
+  late final String? socialLinks;
+  late final String? twitterLink;
+  late final String? instagramLink;
+  late final String? pinterestLink;
+  late final String? facebookLink;
   late final Null lastLogin;
   late final bool online;
   late final String role;

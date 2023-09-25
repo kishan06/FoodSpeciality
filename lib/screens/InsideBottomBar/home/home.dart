@@ -11,6 +11,7 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
+import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/services/block_service.dart';
 import 'package:foodspeciality/services/follow_service.dart';
 import 'package:foodspeciality/services/get_comments.dart';
@@ -23,6 +24,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Model/RecipeModel.dart';
+import '../../../controllers/home_controller.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -37,12 +39,18 @@ class _HomeState extends State<Home> {
   // GetCommentsController commentsContoller = Get.put(GetCommentsController());
 
   final createcommunitykey = GlobalKey<FormState>();
-
+  HomeController homeController = Get.put(HomeController());
   // onback(){
   //   setState(() {
 
   //   });
   // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.getNotificationCount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,27 +59,38 @@ class _HomeState extends State<Home> {
       child: Scaffold(
           // extendBody: true,
           backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              Column(
-                children: [
-                  searchNotification(),
-                  CommanTabbar("My Community", "Inspiration"),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  color: AppColors.greyLtEBEBEB,
-                  // color: Colors.red,
-
-                  child: TabBarView(children: [
-                    tabbarView1(createcommunitykey),
-                    Ingridents()
-                  ]),
+          body: GetBuilder<HomeController>(builder: (builder){
+            return homeController.isLoading 
+            // ?
+            ? Center(child: CircularProgressIndicator()) 
+            : homeController.notificationCount == null 
+            ? Center(child: textgrey18BoldSP("Something went wrong"))
+            : Column(
+              children: [
+                Column(
+                  children: [
+                    searchNotification(notificationCount: homeController.notificationCount!),
+                    CommanTabbar("My Community", "Inspiration"),
+                  ],
                 ),
-              )
-            ],
-          )),
+                Expanded(
+                  child: Container(
+                    color: AppColors.greyLtEBEBEB,
+                    // color: Colors.red,
+
+                    child: TabBarView(children: [
+                      tabbarView1(createcommunitykey),
+                      Ingridents()
+                    ]),
+                  ),
+                )
+              ],
+            );
+
+          })
+               
+        ),
+    
     );
   }
 

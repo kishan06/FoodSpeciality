@@ -52,6 +52,7 @@ class RecipeService {
         'challengeId': challengeId??""
       };
       request.fields.addAll(other);
+      print(other);
       print({
         'name': name,
         'description': description,

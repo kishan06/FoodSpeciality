@@ -10,6 +10,7 @@ import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../common files/search_common_card.dart';
 import '../controllers/recipe_ingre_controller.dart';
@@ -23,8 +24,8 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  bool editChip = false;
+class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateMixin {
+  // bool editChip = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // final List<String> _textList = [];
   // final List _textList = []; 
@@ -32,34 +33,35 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController tecSearch = TextEditingController();
 
-  bool textFieldVisibile = false;
+  // bool textFieldVisibile = false;
   bool _colorchange = true;
   RecipeIngreController recipeIngreController =
       Get.put(RecipeIngreController());
   List difficultyList = ["Easy", "Medium", "Hard"];
   var difficultyIndex = 4.obs;
   String? selectedDifficultyText;
-
-
-  
+  late TabController _tabController;
+  int? currentTabIndex;
   SearchPageController controllerSearch = Get.put(SearchPageController());
-
-  // Future<void> share() async {
-  //   await FlutterShare.share(
-  //     title: 'Example share',
-  //     text: 'Example share text',
-  //     linkUrl: 'https://flutter.dev/',
-  //     chooserTitle: 'Example Chooser Title'
-  //   );
-  // }
-
-  
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _tabController = TabController(length: 2, vsync: this); // Number of tabs
+    _tabController.addListener(() {
+      // print("Current Tab Index: ${_tabController.index}");
+      setState(() {
+        currentTabIndex = _tabController.index;
+        tecSearch.clear();
+      });
+
+      print("currentTabIndex $currentTabIndex");
+
+    });
     controllerSearch.getDefaultSearchData();
+    controllerSearch.getDefaultCommunitySearch();
+
   }
 
   @override
@@ -97,7 +99,7 @@ class _SearchPageState extends State<SearchPage> {
                           Expanded(
                             child: CustomSearchTextFormField(
                               textEditingController: tecSearch,
-                              autofocus: true,
+                              autofocus: false,
                               hintText: "search recipes, ingredients or tips",
                               validatorText: "",
                               leadingIcon: Icon(
@@ -108,17 +110,29 @@ class _SearchPageState extends State<SearchPage> {
                               // on
                               
                               onChanged: (p0) {
-                                setState(() {
+                                // setState(() {if
+                                if (currentTabIndex == 1) {
+                                  setState(() {
+                                    controllerSearch.getSearchCommunityData(
+                                      searchText: tecSearch.text
+                                    );
+                                    
+                                  });
+                                } else {
                                   controllerSearch.getSearchRecipeData(
-                                    tags: "", 
+                                    tags: [], 
                                     difficulty: "",
                                     searchText: tecSearch.text
                                   );
-                                });
+                                  
+                                }
+                                // });
                               },
                               suffixIconConstraints: BoxConstraints(
                                   maxWidth: 24.h, maxHeight: 24.h),
-                              suffixIcon: Padding(
+                              suffixIcon: currentTabIndex == 1 
+                              ? SizedBox()
+                              : Padding(
                                 padding: EdgeInsets.only(right: 17.w),
                                 child: InkWell(
                                   onTap: () {
@@ -139,11 +153,15 @@ class _SearchPageState extends State<SearchPage> {
                         ],
                       ),
                     ),
-                    CommanTabbar("Recipes", "Community"),
+                    CommanTabbar("Recipes", "Community",
+                      controller: _tabController
+                    ),
                   ],
                 ),
                 Expanded(
-                  child: TabBarView(children: [tabbarView1(), tabbarView2()]),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [tabbarView1(), tabbarView2()]),
                 )
               ],
             )),
@@ -298,7 +316,7 @@ class _SearchPageState extends State<SearchPage> {
                               tecSearch.text = popularSearchData.name;
                               tecSearch.selection = TextSelection.collapsed(offset: tecSearch.text.length);
                               controllerSearch.getSearchRecipeData(
-                                tags: "", 
+                                tags: [], 
                                 difficulty: "",
                                 searchText: tecSearch.text
                               );
@@ -402,60 +420,60 @@ class _SearchPageState extends State<SearchPage> {
 
               ],
             )
-            : Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              child: GetBuilder<SearchPageController>(builder: (builder){
-                return controllerSearch.isLoadingSearchRecipe 
-                ? Center(child: CircularProgressIndicator())
-                : controllerSearch.searchRecipeData == null 
-                ? Center(child: textgrey18BoldSP("Something went wrong"))
-                : controllerSearch.searchRecipeData!.data.isEmpty 
-                ? Center(child: textgrey18BoldSP("Nothing found"))
-                : GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: controllerSearch.searchRecipeData!.data.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 200/200,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 10.w,
-                    //  maxCrossAxisExtent: 200,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    final searchRecipe = controllerSearch.searchRecipeData!.data[index];
-                    return OtherRecipeCard(
-                      coverImage: searchRecipe.coverImage,
-                      recipeName: searchRecipe.name,
-                      userName: searchRecipe.user.username
-                    );
-                  },
-                );
-           
-              })
-              // GridView.builder(
-              //   shrinkWrap: true,
-              //   physics: NeverScrollableScrollPhysics(),
-              //   itemCount: controllerSearch.searchDefaultData!.pularSearch.length,
-              //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //     crossAxisCount: 2,
-              //     childAspectRatio: 200/200,
-              //     crossAxisSpacing: 10.w,
-              //     mainAxisSpacing: 10.w,
-              //     //  maxCrossAxisExtent: 200,
-              //   ),
-              //   itemBuilder: (BuildContext context, int index) {
-              //     final popularSearchData = controllerSearch.searchDefaultData!.pularSearch[index];
-              //     return OtherRecipeCard(
-              //       coverImage: "public\\Breackfast\\Breakfast.jpg", 
-              //       recipeName: "food", 
-              //       userName: "raj"
-              //     );
-              //   },
-              // ),
-           
-            );
+          : Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+            child: GetBuilder<SearchPageController>(builder: (builder){
+              return controllerSearch.isLoadingSearchRecipe 
+              ? Center(child: CircularProgressIndicator())
+              : controllerSearch.searchRecipeData == null 
+              ? Center(child: textgrey18BoldSP("Something went wrong"))
+              : controllerSearch.searchRecipeData!.data.isEmpty 
+              ? Center(child: textgrey18BoldSP("Nothing found"))
+              : GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: controllerSearch.searchRecipeData!.data.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 200/200,
+                  crossAxisSpacing: 10.w,
+                  mainAxisSpacing: 10.w,
+                  //  maxCrossAxisExtent: 200,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  final searchRecipe = controllerSearch.searchRecipeData!.data[index];
+                  return OtherRecipeCard(
+                    coverImage: searchRecipe.coverImage,
+                    recipeName: searchRecipe.name,
+                    userName: searchRecipe.user.username
+                  );
+                },
+              );
           
+            })
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   physics: NeverScrollableScrollPhysics(),
+            //   itemCount: controllerSearch.searchDefaultData!.pularSearch.length,
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 2,
+            //     childAspectRatio: 200/200,
+            //     crossAxisSpacing: 10.w,
+            //     mainAxisSpacing: 10.w,
+            //     //  maxCrossAxisExtent: 200,
+            //   ),
+            //   itemBuilder: (BuildContext context, int index) {
+            //     final popularSearchData = controllerSearch.searchDefaultData!.pularSearch[index];
+            //     return OtherRecipeCard(
+            //       coverImage: "public\\Breackfast\\Breakfast.jpg", 
+            //       recipeName: "food", 
+            //       userName: "raj"
+            //     );
+            //   },
+            // ),
+          
+          );
+        
       })
       
     );
@@ -465,11 +483,195 @@ class _SearchPageState extends State<SearchPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          myFollowingCard(),
+          // myFollowingCard(),
+          tecSearch.text.isEmpty 
+          ? GetBuilder<SearchPageController>(builder: (builder){
+            return controllerSearch.loadingDefaultCommunitySearch 
+                ? Center(child: CircularProgressIndicator())
+                : controllerSearch.defaultCommunitySearch == null 
+                ? Center(child: textgrey18BoldSP("Something went wrong"))
+                : ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controllerSearch.defaultCommunitySearch!.communities.length,
+                  itemBuilder: (context, index) {
+                    final communityData = controllerSearch.defaultCommunitySearch!.communities[index];
+                    return communityCard(
+                      coverImage: communityData.profileImage,
+                      name: communityData.name, 
+                      memberCount: communityData.memberCount, 
+                      communityId: communityData.id
+                    );
+                  },
+                )
+              
+              ;
+           
+          })
+          : GetBuilder<SearchPageController>(builder: (builder){
+            return controllerSearch.loadingSearchCommunity 
+                ? Center(child: CircularProgressIndicator())
+                : controllerSearch.communitySearch == null
+                ? Center(child: textgrey18BoldSP("Something went wrong"))
+                : controllerSearch.communitySearch!.data.isEmpty 
+                // ?
+                ? Padding(
+                  padding: EdgeInsets.only(top: 40.h),
+                  child: Center(child: textgrey18BoldSP("Nothing found")),
+                )
+
+                : ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controllerSearch.communitySearch!.data.length,
+                  itemBuilder: (context, index) {
+                    final communityData = controllerSearch.communitySearch!.data[index];
+                    return communityCard(
+                      coverImage: communityData.profileImage,
+                      name: communityData.name, 
+                      memberCount: communityData.members.length, 
+                      communityId: communityData.id
+                    );
+                  },
+                )
+              
+              ;
+           
+          })
+          
         ],
       ),
     );
   }
+
+  Widget communityCard({
+    String? coverImage,
+    required String name,
+    required int memberCount,
+    required String communityId,
+
+    // dynamic title, 
+    // dynamic name,
+    // required int index, 
+    // required bool isFollower,
+    }
+    ) {
+    // bool like = false;
+
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 16.w,
+            ),
+            Stack(
+              children: [
+                Container(
+                  width: 50.h,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.h),
+                    image: coverImage == null 
+                      ? DecorationImage(
+                        image: AssetImage("assets/defaultGroup2.png"),
+                        fit: BoxFit.cover
+                      )
+                      : DecorationImage(
+                        image: NetworkImage(
+                          ApiUrls.base + coverImage
+                        ),
+                        fit: BoxFit.fill
+                      )
+                  ),
+                ),
+                Positioned(
+                  bottom: 0.h,
+                  left: 35.w,
+                  child: SvgPicture.asset(
+                    "assets/rating-svgrepo-com.svg",
+                    height: 22.h,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  // title,
+                  name,
+                  // "Priyanka Joshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF54595F)),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  // name,
+                  "$memberCount members",
+                  //    "@priyujoshi",
+                  style: TextStyle(
+                      fontFamily: "StudioProR",
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(59, 63, 67, 0.49)),
+                ),
+              ],
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                // removeDailog(
+                //   userName: userName,
+                //   profileImage: profileImage,
+                //   userId: userId
+
+                // );
+                // removeDailog( 
+                  
+                // );
+              },
+              child: Container(
+                width: 80.w,
+                decoration: BoxDecoration(
+                  color: AppColors.greyD3B3F43,
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: Colors.grey.shade700),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(5.h),
+                  child: Center(
+                    child: textWhite14Robo("Join"),
+                  ),
+                ),
+              )
+            ),
+            SizedBox(
+              width: 16.w,
+            )
+          ],
+        ),
+        Divider(
+          endIndent: 20.w,
+          indent: 20.w,
+        ),
+        SizedBox(
+          height: 15.h,
+        ),
+      ],
+    );
+  }
+
 
   Widget communityTile() {
     return Padding(
@@ -574,7 +776,7 @@ class _SearchPageState extends State<SearchPage> {
         tecSearch.text = title;
         tecSearch.selection = TextSelection.collapsed(offset: tecSearch.text.length);
         controllerSearch.getSearchRecipeData(
-          tags: "", 
+          tags: [], 
           difficulty: "",
           searchText: tecSearch.text
         );
@@ -633,7 +835,7 @@ class _SearchPageState extends State<SearchPage> {
         tecSearch.text = title;
         tecSearch.selection = TextSelection.collapsed(offset: tecSearch.text.length);
         controllerSearch.getSearchRecipeData(
-          tags: "", 
+          tags: [], 
           difficulty: "",
           searchText: tecSearch.text
         );
@@ -807,6 +1009,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<T?> filterBottomSheet<T>() {
     return Get.bottomSheet(
+        
         Container(
             // height: double.infinity - 50,
             decoration: BoxDecoration(
@@ -817,386 +1020,426 @@ class _SearchPageState extends State<SearchPage> {
             child: Padding(
               padding: EdgeInsets.only(left: 16, top: 35.h),
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 13.w, right: 29.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontFamily: 'StudioProB',
-                                  color: const Color(0xff3B3F43)),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              const Icon(Icons.filter_list_sharp),
-                              Text(
-                                'Filters',
+                child: GetBuilder<SearchPageController>(builder: (builder){
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 13.w, right: 29.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                difficultyIndex.value = 4;
+                                selectedDifficultyText = null;
+                                recipeIngreController.emptyTags();
+                                Get.back();
+                              },
+                              child: Text(
+                                'Cancel',
                                 style: TextStyle(
                                     fontSize: 18.sp,
-                                    fontFamily: 'StudioProM',
-                                    color: const Color(0xff6B6B6B)),
-                              )
-                            ],
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Get.back();
-                              controllerSearch.textList.clear();
-                              filterBottomSheet();
-                            },
-                            child: Text(
-                              'Clear All',
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontFamily: 'StudioProB',
-                                  color: const Color(0xff3B3F43)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    sizedBoxHeight(36.h),
-                    Text(
-                      'Add Tags',
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontFamily: 'StudioProM',
-                          color: const Color(0xff54595F)),
-                    ),
-                    sizedBoxHeight(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Wrap(
-                          spacing: 11.w,
-                          runSpacing: 7.h,
-                          children: [
-                            ...controllerSearch.textList
-                                .map((text) => Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CommonChip(text: text),
-                                        Visibility(
-                                          visible: editChip,
-                                          child: Row(
-                                            children: [
-                                              sizedBoxWidth(3.w),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    controllerSearch.textList.remove(text);
-                                                    // Get.back();
-                                                    // filterBottomSheet();
-                                                  });
-                                                },
-                                                child: const Icon(
-                                                  Icons.cancel,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ))
-                                .toList(),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        sizedBoxHeight(6.h),
-                        Visibility(
-                          visible: !textFieldVisibile,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    textFieldVisibile = true;
-                                    Get.back();
-                                    filterBottomSheet();
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.sp),
-                                    color: AppColors.buttonGrey54595F,
-                                  ),
-                                  height: 27.h,
-                                  width: 70.w,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      sizedBoxWidth(6.w),
-                                      SvgPicture.asset(
-                                        "assets/svg/add-circle-svgrepo-com.svg",
-                                        // height: 15.h,
-                                        // width: 15.w,
-                                      ),
-                                      Text(
-                                        "  Custom",
-                                        style: TextStyle(
-                                            color: const Color(0xffffffff),
-                                            fontFamily: "Studio Pro",
-                                            fontSize: 10.sp),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    fontFamily: 'StudioProB',
+                                    color: const Color(0xff3B3F43)),
                               ),
-                              InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      editChip = !editChip;
-                                      Get.back();
-                                      filterBottomSheet();
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 10.w),
-                                    child: Icon(
-                                      Icons.edit,
-                                      color: editChip
-                                          ? const Color(0xFFE1E1E1)
-                                          : const Color.fromRGBO(84, 89, 95, 1),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: textFieldVisibile,
-                          child: Form(
-                            key: _formKey,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            Row(
                               children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 2 -
-                                      10.w,
-                                  child: TextFormField(
-                                    maxLength: 20,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Text';
-                                      } else if (value.length < 2) {
-                                        return 'Please enter atleast 2 characters';
-                                      }
-                                      return null;
-                                    },
-                                    autofocus: true,
-                                    textAlignVertical: TextAlignVertical.center,
-                                    style: TextStyle(
-                                      fontSize: 10.sp,
-                                    ),
-                                    decoration: InputDecoration(
-                                      isCollapsed: true,
-                                      suffixIconConstraints:
-                                          const BoxConstraints(),
-                                      contentPadding: EdgeInsets.all(17.h),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: InputBorder.none,
-                                      hintStyle: TextStyle(
-                                          color: const Color(0xff54595f),
-                                          fontSize: 10.sp,
-                                          fontFamily: "Roboto"),
-                                      hintText: 'Enter text here',
-                                    ),
-                                    cursorColor: const Color(0xFF3B3F43),
-                                    onFieldSubmitted: (String value) {
-                                      setState(() {
-                                        final FormState? form =
-                                            _formKey.currentState;
-
-                                        if (form != null && form.validate()) {
-                                          textFieldVisibile =
-                                              !textFieldVisibile;
-                                          _textController.clear();
-                                          controllerSearch.textList.add(value);
-                                          // Get.back();
-                                          // filterBottomSheet();
-                                        }
-                                      });
-                                    },
-                                    controller: _textController,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10.w),
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                const Color(0xff54595f)),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          textFieldVisibile =
-                                              !textFieldVisibile;
-                                          // Get.back();
-                                          // filterBottomSheet();
-                                        });
-                                      },
-                                      child: const Text('Cancel')),
+                                const Icon(Icons.filter_list_sharp),
+                                Text(
+                                  'Filters',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontFamily: 'StudioProM',
+                                      color: const Color(0xff6B6B6B)),
                                 )
                               ],
                             ),
+                            InkWell(
+                              onTap: () {
+                                controllerSearch.textList.clear();
+                                difficultyIndex.value = 4;
+                                selectedDifficultyText = null;
+                                recipeIngreController.emptyTags();
+
+                                Get.back();
+
+                                filterBottomSheet();
+                              },
+                              child: Text(
+                                'Clear All',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontFamily: 'StudioProB',
+                                    color: const Color(0xff3B3F43)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      sizedBoxHeight(36.h),
+                      Text(
+                        'Add Tags',
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontFamily: 'StudioProM',
+                            color: const Color(0xff54595F)),
+                      ),
+                      sizedBoxHeight(10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            spacing: 11.w,
+                            runSpacing: 7.h,
+                            children: [
+                              ...controllerSearch.textList
+                                  .map((text) => Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CommonChip(text: text),
+                                          Visibility(
+                                            visible: controllerSearch.editChip,
+                                            child: Row(
+                                              children: [
+                                                sizedBoxWidth(3.w),
+                                                InkWell(
+                                                  onTap: () {
+                                                    controllerSearch.removeTags(text);
+                                                    recipeIngreController.removeTagsSearch(text);
+                                                    // setState(() {
+                                                    //   controllerSearch.textList.remove(text);
+                                                    //   // Get.back();
+                                                    //   // filterBottomSheet();
+                                                    // });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.cancel,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ))
+                                  .toList(),
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          sizedBoxHeight(6.h),
+                          Visibility(
+                            visible: !controllerSearch.textFieldVisibile,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    // controllerSearch.addTags(value)
+                                    controllerSearch.updateTextfieldVisible(true);
+                                    // setState(() {
+                                    //   textFieldVisibile = true;
+                                    //   Get.back();
+                                    //   filterBottomSheet();
+                                    // });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.sp),
+                                      color: AppColors.buttonGrey54595F,
+                                    ),
+                                    height: 27.h,
+                                    width: 70.w,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        sizedBoxWidth(6.w),
+                                        SvgPicture.asset(
+                                          "assets/svg/add-circle-svgrepo-com.svg",
+                                          // height: 15.h,
+                                          // width: 15.w,
+                                        ),
+                                        Text(
+                                          "  Custom",
+                                          style: TextStyle(
+                                              color: const Color(0xffffffff),
+                                              fontFamily: "Studio Pro",
+                                              fontSize: 10.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                    onTap: () {
+                                      controllerSearch.updateEditChip();
+                                      // setState(() {
+                                      //   editChip = !editChip;
+                                      //   Get.back();
+                                      //   filterBottomSheet();
+                                      // });
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 10.w),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: controllerSearch.editChip
+                                            ? const Color(0xFFE1E1E1)
+                                            : const Color.fromRGBO(84, 89, 95, 1),
+                                      ),
+                                    ))
+                              ],
+                            ),
                           ),
-                        ),
-                        sizedBoxHeight(20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Select Tags",
-                              style: TextStyle(
-                                fontFamily: "Studio Pro",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.spMin,
-                                color: const Color(0xFF3E3D3D),
-                              ),
-                            ),
-                          ],
-                        ),
-                        sizedBoxHeight(13.h),
-                        Wrap(
-                          spacing: 11.w,
-                          runSpacing: 7.h,
-                          children: [
-                            const CommonChip(text: "Savoury moments"),
-                            const CommonChip(text: "Quarter to quick"),
-                            const CommonChip(text: "Juicy Mondays"),
-                            const CommonChip(text: "The healthy way"),
-                            const CommonChip(text: "Fry-day!!"),
-                            const CommonChip(text: "Simple greens"),
-                            const CommonChip(text: "Flavour explosions"),
-                            const CommonChip(text: "The healthy way"),
-                            SizedBox(
-                              height: 18.h,
-                              width: double.infinity,
-                            ),
-                            Text(
-                              "South Africa Cuisine",
-                              style: TextStyle(
-                                fontFamily: "Studio Pro",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.spMin,
-                                color: const Color(0xFF3E3D3D),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                              width: double.infinity,
-                            ),
-                            const CommonChip(text: "Limpopo"),
-                            const CommonChip(text: "Easy"),
-                            const CommonChip(text: "Food"),
-                            const CommonChip(text: "Carrot"),
-                            const CommonChip(text: "Quick"),
-                            const CommonChip(text: "Yoghurt"),
-                            const CommonChip(text: "Breakfast"),
-                            const CommonChip(text: "Quick"),
-                            const CommonChip(text: "Yoghurt"),
-                            SizedBox(
-                              width: double.infinity,
-                              height: 13.h,
-                            ),
-                            Text(
-                              "International Cuisine",
-                              style: TextStyle(
-                                fontFamily: "Studio Pro",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.spMin,
-                                color: const Color(0xFF3E3D3D),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                              width: double.infinity,
-                            ),
-                            const CommonChip(text: "Limpopo"),
-                            const CommonChip(text: "Easy"),
-                            const CommonChip(text: "Food"),
-                            const CommonChip(text: "Carrot"),
-                            const CommonChip(text: "Quick"),
-                            const CommonChip(text: "Yoghurt"),
-                            const CommonChip(text: "Breakfast"),
-                            const CommonChip(text: "Quick"),
-                            const CommonChip(text: "Yoghurt"),
-                            SizedBox(
-                              height: 13.h,
-                              width: double.infinity,
-                            ),
-                            Text(
-                              "Select Difficulty",
-                              style: TextStyle(
-                                fontFamily: "Studio Pro",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.spMin,
-                                color: const Color(0xFF3E3D3D),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                              width: double.infinity,
-                            ),
-                            const CommonChip(text: "Easy"),
-                            const CommonChip(text: "Medium"),
-                            const CommonChip(text: "Hard"),
-                          ],
-                        ),
-                        sizedBoxHeight(32.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 39.h,
-                              width: 113.w,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff54595F),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    side: BorderSide.none,
+                          Visibility(
+                            visible: controllerSearch.textFieldVisibile,
+                            child: Form(
+                              key: _formKey,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width / 2 -
+                                        10.w,
+                                    child: TextFormField(
+                                      maxLength: 20,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Text';
+                                        } else if (value.length < 2) {
+                                          return 'Please enter atleast 2 characters';
+                                        }
+                                        return null;
+                                      },
+                                      autofocus: true,
+                                      textAlignVertical: TextAlignVertical.center,
+                                      style: TextStyle(
+                                        fontSize: 10.sp,
+                                      ),
+                                      decoration: InputDecoration(
+                                        isCollapsed: true,
+                                        suffixIconConstraints:
+                                            const BoxConstraints(),
+                                        contentPadding: EdgeInsets.all(17.h),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        border: InputBorder.none,
+                                        hintStyle: TextStyle(
+                                            color: const Color(0xff54595f),
+                                            fontSize: 10.sp,
+                                            fontFamily: "Roboto"),
+                                        hintText: 'Enter text here',
+                                      ),
+                                      cursorColor: const Color(0xFF3B3F43),
+                                      onFieldSubmitted: (String value) {
+                                        setState(() {
+                                          final FormState? form =
+                                              _formKey.currentState;
+
+                                          if (form != null && form.validate()) {
+                                            // textFieldVisibile =
+                                            //     !textFieldVisibile;
+                                            controllerSearch.updateTextfieldVisible(false);
+                                            _textController.clear();
+                                            
+                                            // controllerSearch.textList.add(value);
+                                            controllerSearch.addTags(value);
+                                            // Get.back();
+                                            // filterBottomSheet();
+                                          }
+                                        });
+                                      },
+                                      controller: _textController,
+                                    ),
                                   ),
-                                  elevation: 0,
-                                ),
-                                child: Text(
-                                  "Search",
-                                  style: TextStyle(
-                                    fontFamily: "StudioProR",
-                                    fontSize: 16.sp,
-                                    color: const Color(0xFFFFFFFF),
-                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.w),
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  const Color(0xff54595f)),
+                                        ),
+                                        onPressed: () {
+                                          controllerSearch.updateTextfieldVisible(false);
+                                          // setState(() {
+                                          //   textFieldVisibile =
+                                          //       !textFieldVisibile;
+                                          //   // Get.back();
+                                          //   // filterBottomSheet();
+                                          // });
+                                        },
+                                        child: const Text('Cancel')),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          sizedBoxHeight(20.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Select Tags",
+                                style: TextStyle(
+                                  fontFamily: "Studio Pro",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.spMin,
+                                  color: const Color(0xFF3E3D3D),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        sizedBoxHeight(23.h)
-                      ],
-                    ),
-                  ],
-                ),
+                            ],
+                          ),
+                          sizedBoxHeight(13.h),
+                          Wrap(
+                            spacing: 11.w,
+                            runSpacing: 7.h,
+                            children: [
+                              const CommonChip(text: "Savoury moments"),
+                              const CommonChip(text: "Quarter to quick"),
+                              const CommonChip(text: "Juicy Mondays"),
+                              const CommonChip(text: "The healthy way"),
+                              const CommonChip(text: "Fry-day!!"),
+                              const CommonChip(text: "Simple greens"),
+                              const CommonChip(text: "Flavour explosions"),
+                              const CommonChip(text: "The healthy way"),
+                              SizedBox(
+                                height: 18.h,
+                                width: double.infinity,
+                              ),
+                              Text(
+                                "South Africa Cuisine",
+                                style: TextStyle(
+                                  fontFamily: "Studio Pro",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.spMin,
+                                  color: const Color(0xFF3E3D3D),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                                width: double.infinity,
+                              ),
+                              const CommonChip(text: "Limpopo"),
+                              const CommonChip(text: "Easy"),
+                              const CommonChip(text: "Food"),
+                              const CommonChip(text: "Carrot"),
+                              const CommonChip(text: "Quick"),
+                              const CommonChip(text: "Yoghurt"),
+                              const CommonChip(text: "Breakfast"),
+                              const CommonChip(text: "Quick"),
+                              const CommonChip(text: "Yoghurt"),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 13.h,
+                              ),
+                              Text(
+                                "International Cuisine",
+                                style: TextStyle(
+                                  fontFamily: "Studio Pro",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.spMin,
+                                  color: const Color(0xFF3E3D3D),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                                width: double.infinity,
+                              ),
+                              const CommonChip(text: "Limpopo"),
+                              const CommonChip(text: "Easy"),
+                              const CommonChip(text: "Food"),
+                              const CommonChip(text: "Carrot"),
+                              const CommonChip(text: "Quick"),
+                              const CommonChip(text: "Yoghurt"),
+                              const CommonChip(text: "Breakfast"),
+                              const CommonChip(text: "Quick"),
+                              const CommonChip(text: "Yoghurt"),
+                              SizedBox(
+                                height: 13.h,
+                                width: double.infinity,
+                              ),
+                              Text(
+                                "Select Difficulty",
+                                style: TextStyle(
+                                  fontFamily: "Studio Pro",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.spMin,
+                                  color: const Color(0xFF3E3D3D),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                                width: double.infinity,
+                              ),
+                              Obx(() => Wrap(
+                                spacing: 11.w,
+                                runSpacing: 7.h,
+                                children: List.generate(
+                                    difficultyList.length,
+                                    (index) =>
+                                        commomChipToggle(index, difficultyList[index])),
+                              ))
+                              // const CommonChip(text: "Easy"),
+                              // const CommonChip(text: "Medium"),
+                              // const CommonChip(text: "Hard"),
+                            ],
+                          ),
+                          sizedBoxHeight(32.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 39.h,
+                                width: 113.w,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    tecSearch.text = " ";
+                                    controllerSearch.getSearchRecipeData(
+                                      tags: recipeIngreController.tagsSearch,
+                                      // tags: recipeIngreController.tags, 
+                                      difficulty: selectedDifficultyText?.toLowerCase()??"",
+                                      searchText: ""
+                                    );
+                                    Get.back();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff54595F),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      side: BorderSide.none,
+                                    ),
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    "Search",
+                                    style: TextStyle(
+                                      fontFamily: "StudioProR",
+                                      fontSize: 16.sp,
+                                      color: const Color(0xFFFFFFFF),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          sizedBoxHeight(23.h)
+                        ],
+                      ),
+                    ],
+                  );
+              
+                })
+                
               ),
             )),
-        isScrollControlled: true);
+        isScrollControlled: true,
+        isDismissible: false
+        );
   }
 
 }
