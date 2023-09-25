@@ -137,10 +137,10 @@ class _EditCommunityState extends State<EditCommunity> {
     try {
       var resp = await EditCommunityService.editCommunity(
           communityId, name ?? "", description ?? "", image!.path);
-      // if (resp) {
-      //   Get.snackbar("Successful", "Community Details Changed successfully");
-
-      // }
+      if (resp) {
+        Get.snackbar("Successful", "Community Details Changed successfully");
+        Get.to("");
+      }
     } catch (e) {
       // Handle error here
       print('Error Editing Community: $e');
@@ -203,10 +203,15 @@ class _EditCommunityState extends State<EditCommunity> {
                                         // offset: Offset(0, 3), // changes the position of the shadow
                                       ),
                                     ],
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            '$communityProfileImage'),
-                                        fit: BoxFit.cover)),
+                                    image: communityProfileImage == null
+                                        ? DecorationImage(
+                                            image: AssetImage(
+                                                'assets/defaultGroup2.png'),
+                                            fit: BoxFit.cover)
+                                        : DecorationImage(
+                                            image: NetworkImage(
+                                                "http://77.68.102.23:8000/${communityProfileImage}"),
+                                            fit: BoxFit.cover)),
 
                                 // child: YourChildWidget(),
                               ),

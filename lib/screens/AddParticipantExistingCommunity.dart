@@ -6,7 +6,6 @@ import 'package:foodspeciality/Model/FollowesModel.dart';
 import 'package:foodspeciality/common%20files/commonInviteButton.dart';
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/services/addparticipant_service.dart';
-import 'package:foodspeciality/services/create_community_service.dart';
 import 'package:foodspeciality/services/follower_following_service.dart';
 import 'package:get/get.dart';
 
@@ -108,7 +107,8 @@ class _AddParticipantExistingCommunityState
           ),
           Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
+              padding: const EdgeInsets.only(
+                  top: 10, left: 16, right: 16, bottom: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Search...",
@@ -138,12 +138,9 @@ class _AddParticipantExistingCommunityState
                 ),
               ),
             ),
-            SizedBox(
-              height: 15.h,
-            ),
           ]),
           Container(
-            height: 670.h,
+            height: 668.h,
             child: FutureBuilder<Followes>(
               future: followerFollowing.getfollowfollowing(),
               builder: (context, snapshot) {
@@ -155,9 +152,9 @@ class _AddParticipantExistingCommunityState
                   // }).toList();
                   sortFollowers(snapshot.data!.data!.followers!);
                   return ListView.builder(
-                    itemCount: followersList!.length,
+                    itemCount: followersList.length,
                     itemBuilder: (context, index) {
-                      final follower = followersList[index]!.follower;
+                      final follower = followersList[index].follower;
                       return invite(
                         firstname: follower!.firstName!,
                         username: follower.username!,
@@ -172,7 +169,6 @@ class _AddParticipantExistingCommunityState
                       );
                     },
                   );
-              
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Failed to load followers'));
                 } else {

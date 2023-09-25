@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/Model/CommunityChatListModel.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/services/community_chatdetails_service.dart';
 import 'package:foodspeciality/services/community_chatlist_service.dart';
@@ -191,20 +192,25 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        filteredCommunityChatRooms[index]
-                                                    .profileImage ==
-                                                null
-                                            ? CircleAvatar(
-                                                child: SvgPicture.asset(
-                                                    "assets/community.svg"),
-                                                maxRadius: 30.r,
-                                              )
-                                            : CircleAvatar(
-                                                foregroundColor: Colors.white,
-                                                maxRadius: 30.r,
-                                                child: Image.network(
-                                                    "http://77.68.102.23:8000/${filteredCommunityChatRooms[index].profileImage}"),
-                                              ),
+                                        Container(
+                                          width: 50.h,
+                                          height: 50.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25.h),
+                                              image: filteredCommunityChatRooms[index]
+                                                          .profileImage ==
+                                                      null
+                                                  ? DecorationImage(
+                                                      image: AssetImage(
+                                                          "assets/defaultGroup2.png"),
+                                                      fit: BoxFit.fill)
+                                                  : DecorationImage(
+                                                      image: NetworkImage(ApiUrls
+                                                              .base +
+                                                          "${filteredCommunityChatRooms[index].profileImage}"),
+                                                      fit: BoxFit.fill)),
+                                        ),
                                         SizedBox(
                                           width: 16.w,
                                         ),

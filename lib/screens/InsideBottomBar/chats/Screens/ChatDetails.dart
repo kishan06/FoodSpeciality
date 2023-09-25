@@ -149,11 +149,26 @@ class _ChatPrivateDetailState extends State<ChatPrivateDetail> {
                     SizedBox(
                       width: 2.w,
                     ),
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "http://77.68.102.23:8000/${profileimage}"),
-                      maxRadius: 20.r,
+                    Container(
+                      width: 30.h,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.h),
+                          image: profileimage == null
+                              ? DecorationImage(
+                                  image:
+                                      AssetImage("assets/default_profile.webp"),
+                                  fit: BoxFit.fill)
+                              : DecorationImage(
+                                  image: NetworkImage(
+                                      ApiUrls.base + "${profileimage}"),
+                                  fit: BoxFit.fill)),
                     ),
+                    // CircleAvatar(
+                    //   backgroundImage: NetworkImage(
+                    //       "http://77.68.102.23:8000/${profileimage}"),
+                    //   maxRadius: 20.r,
+                    // ),
                     SizedBox(
                       width: 12.w,
                     ),

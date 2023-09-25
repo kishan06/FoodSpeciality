@@ -11,7 +11,6 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/common/list_card.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/home/controller/home_controller.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
-import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/services/block_service.dart';
 import 'package:foodspeciality/services/follow_service.dart';
 import 'package:foodspeciality/services/get_comments.dart';
@@ -24,7 +23,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Model/RecipeModel.dart';
-import '../../../controllers/home_controller.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -59,38 +57,36 @@ class _HomeState extends State<Home> {
       child: Scaffold(
           // extendBody: true,
           backgroundColor: Colors.white,
-          body: GetBuilder<HomeController>(builder: (builder){
-            return homeController.isLoading 
-            // ?
-            ? Center(child: CircularProgressIndicator()) 
-            : homeController.notificationCount == null 
-            ? Center(child: textgrey18BoldSP("Something went wrong"))
-            : Column(
-              children: [
-                Column(
-                  children: [
-                    searchNotification(notificationCount: homeController.notificationCount!),
-                    CommanTabbar("My Community", "Inspiration"),
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    color: AppColors.greyLtEBEBEB,
-                    // color: Colors.red,
+          body: GetBuilder<HomeController>(builder: (builder) {
+            return homeController.isLoading
+                // ?
+                ? Center(child: CircularProgressIndicator())
+                : homeController.notificationCount == null
+                    ? Center(child: textgrey18BoldSP("Something went wrong"))
+                    : Column(
+                        children: [
+                          Column(
+                            children: [
+                              searchNotification(
+                                  notificationCount:
+                                      homeController.notificationCount!),
+                              CommanTabbar("My Community", "Inspiration"),
+                            ],
+                          ),
+                          Expanded(
+                            child: Container(
+                              color: AppColors.greyLtEBEBEB,
+                              // color: Colors.red,
 
-                    child: TabBarView(children: [
-                      tabbarView1(createcommunitykey),
-                      Ingridents()
-                    ]),
-                  ),
-                )
-              ],
-            );
-
-          })
-               
-        ),
-    
+                              child: TabBarView(children: [
+                                tabbarView1(createcommunitykey),
+                                Ingridents()
+                              ]),
+                            ),
+                          )
+                        ],
+                      );
+          })),
     );
   }
 
@@ -112,20 +108,14 @@ class _HomeState extends State<Home> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // sizedBoxHeight(500.h),
-
                   textgrey22BoldSP("Let's Build Your Community."),
-
                   sizedBoxHeight(7.h),
-
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 38.w),
                     child: textL_grey14Robo(
                         "Create your community and connect with your friends, family, chefs and other aspiring cooks."),
                   ),
-
                   sizedBoxHeight(50.h),
-
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: customButtonWithBorder("Build Your Community",
@@ -136,7 +126,6 @@ class _HomeState extends State<Home> {
                               addCommunityDailog(createcommunitykey));
                     }),
                   ),
-
                   sizedBoxHeight(100.h),
                 ],
               )
@@ -1205,23 +1194,12 @@ class _IngridentsState extends State<Ingridents> {
                                                               .profileImage ==
                                                           null
                                                       ? DecorationImage(
-                                                          image:
-                                                              // recipeData.user.profileImage == null
-                                                              // ?
-                                                              AssetImage(
-                                                                  "assets/default_profile.webp"),
-                                                          // :
-                                                          //  NetworkImage(
-                                                          //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                                          image: AssetImage(
+                                                              "assets/default_profile.webp"),
                                                           fit: BoxFit.fill)
                                                       : DecorationImage(
-                                                          image:
-                                                              // recipeData.user.profileImage == null
-                                                              // ?
-                                                              // AssetImage("assetName")
-                                                              // :
-                                                              NetworkImage(ApiUrls
-                                                                      .base +
+                                                          image: NetworkImage(
+                                                              ApiUrls.base +
                                                                   "${recipeData.user!.profileImage}"),
                                                           fit: BoxFit.fill)),
                                             ),
@@ -1878,7 +1856,6 @@ class _IngridentsState extends State<Ingridents> {
                   ;
             },
           );
-       
         },
       ),
     );
