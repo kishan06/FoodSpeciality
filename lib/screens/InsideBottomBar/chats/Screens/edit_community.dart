@@ -1,14 +1,15 @@
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/services/edit_community_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../../../common files/customtextformfield.dart';
 
 class EditCommunity extends StatefulWidget {
@@ -19,7 +20,132 @@ class EditCommunity extends StatefulWidget {
 }
 
 class _EditCommunityState extends State<EditCommunity> {
-  TextEditingController tecSubject = TextEditingController(text: "WDIPL");
+  final communityId = Get.arguments["communityId"];
+  final communityProfileImage = Get.arguments["communityProfileImage"];
+
+  TextEditingController tecSubject = TextEditingController();
+  TextEditingController tecDescription = TextEditingController();
+
+  File? _image;
+
+  @override
+  void initState() {
+    tecSubject.text = Get.arguments["communityName"] ?? "";
+    tecDescription.text = Get.arguments["communityDescription"] ?? "";
+    super.initState();
+  }
+
+  Future getImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      // final imagePermanent = await saveFilePermanently(image.path);
+
+      setState(() {
+        this._image = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveFilePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File(imagePath).copy(imagePath);
+  }
+
+  builduploadprofile() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.camera);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Camera',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getImage(ImageSource.gallery);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.image,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Gallery',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _handleEditButton(communityId, name, description, File? image) async {
+    try {
+      var resp = await EditCommunityService.editCommunity(
+          communityId, name ?? "", description ?? "", image!.path);
+      if (resp) {
+        Get.snackbar("Successful", "Community Details Changed successfully");
+        Get.to("");
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error Editing Community: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,38 +179,49 @@ class _EditCommunityState extends State<EditCommunity> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
-                          width: 120.h,
-                          height: 120.h,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.white,
-                                width: 3.h,
+                        _image != null
+                            ? Image.file(
+                                _image!,
+                                width: 150.w,
+                                height: 150.h,
+                                fit: BoxFit.cover,
+                              )
+                            : Container(
+                                width: 120.h,
+                                height: 120.h,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.white,
+                                      width: 3.h,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        // offset: Offset(0, 3), // changes the position of the shadow
+                                      ),
+                                    ],
+                                    image: communityProfileImage == null
+                                        ? DecorationImage(
+                                            image: AssetImage(
+                                                'assets/defaultGroup2.png'),
+                                            fit: BoxFit.cover)
+                                        : DecorationImage(
+                                            image: NetworkImage(
+                                                "http://77.68.102.23:8000/${communityProfileImage}"),
+                                            fit: BoxFit.cover)),
+
+                                // child: YourChildWidget(),
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  // offset: Offset(0, 3), // changes the position of the shadow
-                                ),
-                              ],
-                              image: const DecorationImage(
-                                  image: AssetImage("assets/community.png"),
-                                  fit: BoxFit.cover)),
-                          // child: YourChildWidget(),
-                        ),
                         sizedBoxWidth(20.w),
                         SizedBox(
                           height: 40.h,
                           width: 130.w,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Get.to(DiscoveryRecipesScreen(),
-                              //     duration: Duration(milliseconds: 500),
-                              //     transition: Transition.rightToLeft);
-                              // //Get.toNamed("/discoveryRecipes");
+                              builduploadprofile();
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -125,7 +262,7 @@ class _EditCommunityState extends State<EditCommunity> {
                         //     fontSize: 14.sp,
                         //   ),
                         // ),
-                        textBlack18bold("Add new subject")
+                        textBlack18bold("Community Name")
                       ],
                     ),
                     SizedBox(
@@ -153,9 +290,71 @@ class _EditCommunityState extends State<EditCommunity> {
                       //   fit: BoxFit.contain,
                       // ),
                     ),
-
-                    sizedBoxHeight(100.h),
-
+                    sizedBoxHeight(25.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //   "Enter Your Email",
+                        //   style: textformstyle(""),
+                        // ),
+                        // Text(
+                        //   "Enter Your Email",
+                        //   style: TextStyle(
+                        //     color: const Color.fromRGBO(112, 112, 112, 1),
+                        //     fontSize: 14.sp,
+                        //   ),
+                        // ),
+                        textBlack18bold("Community Description")
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextFormField(
+                      controller: tecDescription,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
+                      cursorColor: const Color(0xFFFFB600),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(14.sp),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: const Color(0xFF979797), width: 0.5.w),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide(color: Colors.red, width: 1.w),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide(color: Colors.red, width: 1.w),
+                        ),
+                        hintStyle: TextStyle(
+                            fontFamily: "StudioProR",
+                            color: const Color(0x80000000),
+                            fontSize: 17.sp),
+                        hintText: "Community Description",
+                      ),
+                      minLines: 4,
+                      maxLines: null,
+                    ),
+                    sizedBoxHeight(60.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -164,10 +363,8 @@ class _EditCommunityState extends State<EditCommunity> {
                           width: MediaQuery.of(context).size.width / 2 - 30.w,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Get.to(DiscoveryRecipesScreen(),
-                              //     duration: Duration(milliseconds: 500),
-                              //     transition: Transition.rightToLeft);
-                              //Get.toNamed("/discoveryRecipes");
+                              _handleEditButton(communityId, tecSubject.text,
+                                  tecDescription.text, _image);
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

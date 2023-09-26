@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:foodspeciality/api_common/network_api.dart';
 import 'package:foodspeciality/constants/base_manager.dart';
-import 'package:foodspeciality/constants/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../common files/global.dart';
 
 class GoogleSigninApi {
   GoogleSigninApi();

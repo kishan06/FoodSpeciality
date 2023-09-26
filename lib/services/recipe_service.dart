@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:foodspeciality/api_common/response_handling.dart';
@@ -7,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_common/network_api.dart';
-import '../constants/global.dart';
+import '../common files/global.dart';
 import '../constants/base_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,9 +28,13 @@ class RecipeService {
     required String ingredients,
     required String instructions,
     required String publish_status,
-    required List<File?> instructionsImages
+    required List<File?> instructionsImages,
+    String? challengeId
   }) async {
     print("addRecipe");
+    print("imagePath- $imagePath");
+    print("instructionsImages $instructionsImages");
+    
     try {
       var headers = {
         'x-auth-token': accessToken!
@@ -49,9 +52,11 @@ class RecipeService {
         'ingredients': ingredients,
         'instructions': instructions,
 
-        'publish_status': publish_status,
+        'published_status': publish_status,
+        'challengeId': challengeId??""
       };
       request.fields.addAll(other);
+      print(other);
       print({
         'name': name,
         'description': description,
@@ -63,11 +68,14 @@ class RecipeService {
 
         // 'ingredients': '[{"name": "rice", "quantity": "1cup"}]',
         'instructions': instructions,
-        'publish_status': 'draft'
+        'published_status': publish_status
       });
       request.files.add(await http.MultipartFile.fromPath('video', videoPath));
       request.files.add(await http.MultipartFile.fromPath('cover_image', imagePath));
-      request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
+      // request.files.add(await http.MultipartFile.fromPath('inCover_image', imagePath));
+      for (var i = 0; i < instructionsImages.length; i++) {
+        request.files.add(await http.MultipartFile.fromPath('inCover_image', instructionsImages[i]!.path));
+      }
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

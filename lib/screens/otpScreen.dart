@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
 
 class otpVerification extends StatefulWidget {
@@ -12,13 +13,23 @@ class otpVerification extends StatefulWidget {
 class _otpVerificationState extends State<otpVerification> {
 
   String? id;
+  String? email;
+  
+  // String strPin = "";
+  // AuthService authService = AuthService();
+
+  
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    id = Get.arguments;
+    List<String> list = Get.arguments;
+    id = list[0];
+    email = list[1];
     print(id);
+    print(email);
   }
 
   @override
@@ -28,20 +39,24 @@ class _otpVerificationState extends State<otpVerification> {
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: const OtpScreen(),
+        child: OtpScreen(id: id!,email: email!,),
       ),
     );
   }
 }
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  String id;
+  String email;
+  OtpScreen({Key? key, required this.id, required this.email}) : super(key: key);
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  String strPin = "";
+
   List<String> currentPin = ["", "", "", ""];
   TextEditingController pinOneController = TextEditingController();
   TextEditingController pinTwoController = TextEditingController();
@@ -54,6 +69,9 @@ class _OtpScreenState extends State<OtpScreen> {
   );
 
   int pinIndex = 0;
+
+  AuthService authService = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,10 +125,19 @@ class _OtpScreenState extends State<OtpScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
+
                   if (pinFourController.text == null || pinFourController.text.isEmpty) {
                     Get.snackbar("Error", "Please enter 4 digit pin");
                   } else {
-                    
+                    // print("currentPin $currentPin");
+                    strPin = "";
+                    currentPin.forEach((e) {
+                      strPin += e;
+                    });
+                    print(strPin);
+
+                    // AuthService authService = AuthService();
+                    authService.verifyOtp(otp: strPin, id: widget.id);
                   }
                   // print(currentPin);
                   // Get.toNamed("/resetPass");
@@ -168,12 +195,18 @@ class _OtpScreenState extends State<OtpScreen> {
                 "Didn't receive code?",
                 style: TextStyle(fontFamily: "Roboto", fontSize: 16.sp),
               ),
-              Text(
-                " Resend code",
-                style: TextStyle(
-                    fontFamily: "Roboto",
-                    fontSize: 16.sp,
-                    color: const Color(0xFFCB0A0A)),
+              InkWell(
+                onTap: () {
+                  // AuthService 
+                  authService.resendOtp(email: widget.email);
+                },
+                child: Text(
+                  " Resend code",
+                  style: TextStyle(
+                      fontFamily: "Roboto",
+                      fontSize: 16.sp,
+                      color: const Color(0xFFCB0A0A)),
+                ),
               )
             ],
           ),
@@ -318,11 +351,11 @@ class _OtpScreenState extends State<OtpScreen> {
     }
     setPin(pinIndex, text);
     currentPin[(pinIndex - 1)] = text;
-    String strPin = "";
-    currentPin.forEach((e) {
-      strPin += e;
-    });
-    if (pinIndex == 4) print(strPin);
+    // strPin = "";
+    // currentPin.forEach((e) {
+    //   strPin += e;
+    // });
+    // if (pinIndex == 4) print(strPin);
   }
 
   setPin(int n, String text) {

@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/constants/global.dart';
+import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/common%20files/video_player.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
+import 'package:foodspeciality/screens/AddParticipantExistingCommunity.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Follower.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/myProfile/Following.dart';
 import 'package:foodspeciality/screens/Inspiration_recipe_comment.dart';
-import 'package:foodspeciality/screens/blocklist_full.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:foodspeciality/screens/communityAddparticipants.dart';
 import 'package:foodspeciality/screens/completed_challenge.dart';
@@ -18,12 +21,19 @@ import 'package:foodspeciality/screens/edit_profile.dart';
 import 'package:foodspeciality/screens/followUser.dart';
 import 'package:foodspeciality/screens/forgot_password.dart';
 import 'package:foodspeciality/screens/join_challenge.dart';
+import 'package:foodspeciality/screens/more_challenges.dart';
+import 'package:foodspeciality/screens/more_joined_challenges.dart';
+import 'package:foodspeciality/screens/more_my_challenges.dart';
 import 'package:foodspeciality/screens/onboarding/onboarding.dart';
 import 'package:foodspeciality/screens/otpScreen.dart';
+import 'package:foodspeciality/screens/preview.dart';
 import 'package:foodspeciality/screens/recipe_ingredients.dart';
 import 'package:foodspeciality/screens/reset_password.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/setting/setting/accordion.dart';
+import 'package:foodspeciality/screens/setting/setting/blocklist_full.dart';
+import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
+import 'package:foodspeciality/screens/setting/setting/view_blog.dart';
 // import 'packa+ge:foodspeciality/screens/setting/setting/setting.dart';
 import 'package:foodspeciality/screens/signup_profile.dart';
 import 'package:foodspeciality/screens/splash_screen2.dart';
@@ -32,11 +42,13 @@ import 'package:foodspeciality/screens/viewUser.dart';
 import 'package:foodspeciality/sucessfully_blocked.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
+import 'screens/completed_challenge_view.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
@@ -51,12 +63,31 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');
+  onboard = prefs.getBool("OnBoard");
+  myUserId = prefs.getString('userId');
+  myImage = prefs.getString('myImage');
   print("acs to ${accessToken}");
+  await OneSignal.shared.setAppId("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
+  // final status = await OneSignal.shared.getDeviceState();
+  // final String? playerId = status!.userId;
+  // print("playerId $playerId");
+  // playerIdGlobal = playerId;
+
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(const MyApp());
   });
+}
+
+Future<void> initPlatform() async{
+  // OneSignal.initialize("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
+  // final playerId = await OneSignal.User.pushSubscription.id;
+  // print("playerId $playerId");
+  
+  // OneSignalS\\
+
+
 }
 
 // checkToken(){
@@ -98,7 +129,12 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(scaffoldBackgroundColor: AppColors.white),
           debugShowCheckedModeBanner: false,
           // home: LoginScreen(),  title: 'FreeU',
-          initialRoute: accessToken == null ? '/' : '/bottomBar',
+          // initialRoute: (accessToken == null || accessToken == "") ? '/' : '/bottomBar',
+          initialRoute: onboard != true
+              ? '/'
+              : (accessToken == null || accessToken == "")
+                  ? '/login'
+                  : '/bottomBar',
           // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()
@@ -115,11 +151,16 @@ class _MyAppState extends State<MyApp> {
                 name: "/discoveryRecipes",
                 page: () => const DiscoveryRecipesScreen()),
             GetPage(name: "/viewuser", page: () => const viewUser()),
-            GetPage(name: "/followuser", page: () => const followUser()),
+            // GetPage(name: "/followuser", page: () => const followUser()),
             GetPage(name: "/bottomBar", page: () => BottomBar()),
+            GetPage(name: "/Preview", page: () => Preview()),
+
             GetPage(
                 name: "/communityaddparticipants",
                 page: () => const CommunityAddParticipants()),
+            GetPage(
+                name: "/addparticipantsexistingcommunity",
+                page: () => const AddParticipantExistingCommunity()),
             GetPage(
                 name: "/chatcommunitydetail",
                 page: () => const ChatCommunityDetail()),
@@ -137,8 +178,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: "/ReportSuccess", page: () => const ReportSuccess()),
             GetPage(name: "/blocklistfull", page: () => const BlockListFull()),
             GetPage(
-                name: "/sucessfullyblocked",
-                page: () => const SucessfullyBlocked()),
+                name: "/sucessfullyblocked", page: () => SucessfullyBlocked()),
             GetPage(
                 name: "/InspirationRecipeComment",
                 page: () => const InspirationRecipeComment()),
@@ -154,6 +194,14 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: "/CompletedChallenge",
                 page: () => const CompletedChallenge()),
+            GetPage(name: "/assetplayerwidget", page: () => AssetPlayerWidget()),
+            GetPage(name: "/MoreCompletedChallenges", page: () => MoreCompletedChallenges()),
+            GetPage(name: "/MoreMyChallenges", page: () => MoreMyChallenges()),
+            GetPage(name: "/MoreJoinedChallenges", page: () => MoreJoinedChallenges()),
+            GetPage(name: "/CompletedChallengeView", page: () => CompletedChallengeView()),
+            GetPage(name: "/BlogsNewsArticles", page: () => BlogsNewsArticles()),
+            GetPage(name: "/ViewBlogs", page: () => ViewBlogs()),
+            
           ],
         ),
       ),

@@ -1,4 +1,8 @@
-import 'package:foodspeciality/constants/global.dart';
+import '../common files/global.dart';
+
+import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/screens/bottom_bar.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -27,6 +31,9 @@ void createCommunity(
     if (response.statusCode == 200) {
       // Request successful, do something with the response
       print('Community created successfully');
+      Get.to(() => BottomBar(
+            selectedIndex: 3,
+          ));
       print(response.body);
     } else {
       // Request failed, handle the error

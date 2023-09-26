@@ -17,8 +17,10 @@ class CustomSearchTextFormField extends StatefulWidget {
     this.outlineColor = const Color(0xFFFFB600),
     // this.keyboardType,
     this.suffixIconConstraints,
+    this.onChanged,
     this.autofocus,
     this.texttype,
+    this.focusNode
   }) : super(key: key);
 
   final dynamic validator;
@@ -29,13 +31,14 @@ class CustomSearchTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final bool isInputPassword;
   void Function()? onTap;
-  bool? autofocus;
+  final bool? autofocus;
   final bool readonly;
   final dynamic inputFormatters;
   final Color outlineColor;
   final BoxConstraints? suffixIconConstraints;
-
+  void Function(String)? onChanged;
   final TextInputType? texttype;
+  final FocusNode? focusNode;
 
   @override
   State<CustomSearchTextFormField> createState() =>
@@ -58,6 +61,8 @@ class _CustomSearchtextFormFieldState extends State<CustomSearchTextFormField> {
         style: TextStyle(
           fontSize: 16.sp,
         ),
+        onChanged: widget.onChanged,
+        focusNode: widget.focusNode,
         // onTap: ontap,
         readOnly: widget.readonly,
         cursorColor: const Color(0xFF3B3F43),

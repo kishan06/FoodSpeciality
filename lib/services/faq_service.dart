@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:foodspeciality/Model/FaqModel.dart';
-import 'package:foodspeciality/constants/global.dart';
+import '../common files/global.dart';
+
 import 'package:http/http.dart' as http;
 
 class FaqService {

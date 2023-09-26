@@ -5,12 +5,13 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/screens/search_page.dart';
 import 'package:foodspeciality/screens/user_notification.dart';
 import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 
 import '../screens/InsideBottomBar/home/Rewards/challenges_rewards.dart';
 import 'customSearchTextfield.dart';
 
-Widget searchNotification() {
+Widget searchNotification({required int notificationCount}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
     child: Row(
@@ -25,10 +26,14 @@ Widget searchNotification() {
           child: CustomSearchTextFormField(
             autofocus: true,
             onTap: () {
-              //Get.toNamed("/SearchPage");
-              Get.to(const SearchPage(),
-                  duration: const Duration(milliseconds: 500),
-                  transition: Transition.downToUp);
+              Get.toNamed("/SearchPage",
+                
+              
+              );
+              // Get.toNamed(page)
+              // Get.to(const SearchPage(),
+              //     duration: const Duration(milliseconds: 500),
+              //     transition: Transition.downToUp);
             },
             readonly: true,
             hintText: "search recipes, ingredients or tips",
@@ -44,15 +49,31 @@ Widget searchNotification() {
         sizedBoxWidth(10.w),
         GestureDetector(
           onTap: () {
-            //Get.toNamed("/notification");
-            Get.to(const UserNotifications(),
-                duration: const Duration(milliseconds: 500),
-                transition: Transition.downToUp);
+            Get.toNamed("/notification");
+            // Get.to(const UserNotifications(),
+            //     duration: const Duration(milliseconds: 500),
+            //     transition: Transition.downToUp);
           },
-          child: Image.asset(
-            "assets/icons/notification.png",
-            width: 28.w,
-            height: 28.w,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Image.asset(
+                "assets/icons/notification.png",
+                width: 28.w,
+                height: 28.w,
+              ),
+              notificationCount > 0 
+              ? Positioned(
+                right: -3.w,
+                top: -3.w,
+                child: CircleAvatar(
+                  backgroundColor: AppColors.red,
+                  radius: 9.w,
+                  child: textWhite12Robo(notificationCount.toString()),
+                ),
+              ) 
+              : SizedBox()
+            ],
           ),
         ),
         sizedBoxWidth(15.w),

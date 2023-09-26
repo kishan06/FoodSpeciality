@@ -35,14 +35,14 @@ class googleAuthService extends GetxController {
       // This will show the Google Sign-In popup and allow the user to select an account.
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
-      if (googleUser == null) {
-        // The user canceled the sign-in process.
-        return;
-      }
+//       if (googleUser == null) {
+//         // The user canceled the sign-in process.
+//         return;
+//       }
 
-      // If the user signed in successfully, we can get their user information.
+//       // If the user signed in successfully, we can get their user information.
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+          await googleUser!.authentication;
       final String? accessToken = googleAuth.accessToken;
       final String? idToken = googleAuth.idToken;
 

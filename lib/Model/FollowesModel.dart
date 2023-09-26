@@ -88,6 +88,7 @@ class Following {
   String? socialLinks;
   String? lastLogin;
   bool? online;
+  bool isFollowing = true;
 
   Following(
       {this.id,

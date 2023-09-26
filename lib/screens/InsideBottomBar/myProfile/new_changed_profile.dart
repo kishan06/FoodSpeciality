@@ -2,10 +2,17 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodspeciality/Model/my_challenge.dart';
+import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/screens/more_challenges.dart';
+import 'package:foodspeciality/screens/more_joined_challenges.dart';
+import 'package:foodspeciality/screens/more_my_challenges.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common files/common_view_rules.dart';
 import '../../../common files/sized_box.dart';
+import '../../../controllers/user_data_controller.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/texts.dart';
 import '../../edit_profile.dart';
@@ -20,7 +27,30 @@ class NewChangedProfile extends StatefulWidget {
 
 class _NewChangedProfileState extends State<NewChangedProfile> {
   double? profileCompleted = 0.7;
-  ScrollController? _scrollviewcontroller;
+  // ScrollController? _scrollviewcontroller;
+  UserDataController userDataController = Get.put(UserDataController());
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userDataController.getUserProfile();
+    userDataController.getUserSaved();
+    userDataController.getUserRecipe();
+    userDataController.getJoinedChallenge();
+    userDataController.getCompletedChallenge();
+    userDataController.getMyChallenge();
+    
+    
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // userDataController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +68,10 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
           InkWell(
             onTap: () {
               // Get.to(EditProfile());
-              // Get.toNamed("/EditProfile");
-              Get.to(EditProfile(),
-                  duration: const Duration(milliseconds: 500),
-                  transition: Transition.downToUp);
+              Get.toNamed("/EditProfile");
+              // Get.to(EditProfile(),
+              //     duration: const Duration(milliseconds: 500),
+              //     transition: Transition.downToUp);
             },
             child: Icon(
               Icons.edit,
@@ -66,183 +96,185 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
           sizedBoxWidth(18.w)
         ],
       ),
-      body: NestedScrollView(
-        // controller: _scrollviewcontroller,
-        headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
-          return <Widget>[
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-              childCount: 1,
-              (context, index) => DefaultTabController(
-                length: 3,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          // SizedBox(
-                          //   // height: 200.w,
-                          //   // width: 200.w,
-                          //   child: CircularProgressIndicator(
-                          //     value: 0.42,
-                          //     strokeWidth: 5.w,
-                          //     // semanticsValue: "df",
-                          //     // color: AppColors.redFA5658,
-                          //     backgroundColor: AppColors.lightBlueF2F2F2,
-                          //     valueColor: AlwaysStoppedAnimation(Colors.red),
-                          //   ),
-                          // ),
+      body: GetBuilder<UserDataController>(builder: (context){
+        return userDataController.isLoading 
+        ? Center(child: CircularProgressIndicator())
+        : NestedScrollView(
+          // controller: _scrollviewcontroller,
+          headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
+            return <Widget>[
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                childCount: 1,
+                (context, index) => DefaultTabController(
+                  length: 3,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            // SizedBox(
+                            //   // height: 200.w,
+                            //   // width: 200.w,
+                            //   child: CircularProgressIndicator(
+                            //     value: 0.42,
+                            //     strokeWidth: 5.w,
+                            //     // semanticsValue: "df",
+                            //     // color: AppColors.redFA5658,
+                            //     backgroundColor: AppColors.lightBlueF2F2F2,
+                            //     valueColor: AlwaysStoppedAnimation(Colors.red),
+                            //   ),
+                            // ),
 
-                          sizedBoxWidth(10.w),
+                            sizedBoxWidth(10.w),
 
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                width: 80.h,
-                                height: 80.h,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: AppColors.white,
-                                      width: 3.h,
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                        // offset: Offset(0, 3), // changes the position of the shadow
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  width: 80.h,
+                                  height: 80.h,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: AppColors.white,
+                                        width: 3.h,
                                       ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          // offset: Offset(0, 3), // changes the position of the shadow
+                                        ),
+                                      ],
+                                      image: userDataController.userData!.data.profileImage == null
+                                        ? DecorationImage(
+                                            image:
+                                                // recipeData.user.profileImage == null
+                                                // ?
+                                                AssetImage("assets/default_profile.webp"),
+                                            // :
+                                            //  NetworkImage(
+                                            //     ApiUrls.base + "${recipeData.user!.profileImage}"),
+                                            fit: BoxFit.fill)
+                                        : DecorationImage(
+                                            image:
+                                                // recipeData.user.profileImage == null
+                                                // ?
+                                                // AssetImage("assetName")
+                                                // :
+                                                NetworkImage(ApiUrls.base + userDataController.userData!.data.profileImage!),
+                                            fit: BoxFit.fill)
+                                      // image: DecorationImage(
+                                      //     image: AssetImage("assets/profile.png"),
+                                      //     fit: BoxFit.cover)
+                                          ),
+                                  // child: YourChildWidget(),
+                                ),
+                                SizedBox(
+                                  height: 75.h,
+                                  width: 75.h,
+                                  child: CircularProgressIndicator(
+                                    value: 0.7,
+                                    strokeWidth: 4.w,
+                                    // semanticsValue: "df",
+                                    // color: AppColors.redFA5658,
+                                    backgroundColor: AppColors.lightBlueF2F2F2,
+                                    valueColor: AlwaysStoppedAnimation(
+                                        AppColors.grey54595F),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            sizedBoxWidth(5.w),
+
+                            textgreyM14Robo(
+                                (profileCompleted! * 100).toStringAsFixed(0) +
+                                    " %"),
+
+                            sizedBoxWidth(10.w),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //   Text(
+                                //   "Namrata Burondkar",
+                                //   style: TextStyle(
+                                //       fontFamily: "Roboto",
+                                //       fontSize: 18.sp,
+                                //       fontWeight: FontWeight.w500,
+                                //       color: const Color(0xFF54595F)),
+                                // ),
+                                // textBlack18bold("Namrata Burondkar"),
+                                textBlack18bold(userDataController.userData!.data.firstName + " " + userDataController.userData!.data.lastName),
+
+
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                
+                                Text(
+                                  // "@Namrata07",
+                                  "@" + userDataController.userData!.data.username,
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          const Color.fromRGBO(59, 63, 67, 0.49)),
+                                ),
+                              ],
+                            ),
+
+                            Spacer(),
+
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
+                              decoration: BoxDecoration(
+                                  color: AppColors.lightBlueF2F2F2,
+                                  borderRadius: BorderRadius.circular(8.r)),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/svg/Coin.png'),
+                                  Column(
+                                    children: [
+                                      textgreyM16Robo("500"),
+                                      // Obx(
+                                      //   () => Text(
+                                      //     totalCoins.string,
+                                      //     style: TextStyle(
+                                      //         fontSize: 17.sp,
+                                      //         fontWeight: FontWeight.w600),
+                                      //   ),
+                                      // ),
+                                      sizedBoxHeight(5.h)
                                     ],
-                                    image: DecorationImage(
-                                        image: AssetImage("assets/profile.png"),
-                                        fit: BoxFit.cover)),
-                                // child: YourChildWidget(),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 75.h,
-                                width: 75.h,
-                                child: CircularProgressIndicator(
-                                  value: 0.7,
-                                  strokeWidth: 4.w,
-                                  // semanticsValue: "df",
-                                  // color: AppColors.redFA5658,
-                                  backgroundColor: AppColors.lightBlueF2F2F2,
-                                  valueColor: AlwaysStoppedAnimation(
-                                      AppColors.grey54595F),
-                                ),
-                              ),
-                            ],
-                          ),
-                          sizedBoxWidth(5.w),
-
-                          textgreyM14Robo(
-                              (profileCompleted! * 100).toStringAsFixed(0) +
-                                  " %"),
-
-                          sizedBoxWidth(10.w),
-
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //   Text(
-                              //   "Namrata Burondkar",
-                              //   style: TextStyle(
-                              //       fontFamily: "Roboto",
-                              //       fontSize: 18.sp,
-                              //       fontWeight: FontWeight.w500,
-                              //       color: const Color(0xFF54595F)),
-                              // ),
-                              textBlack18bold("Namrata Burondkar"),
-
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                "@Namrata07",
-                                style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        const Color.fromRGBO(59, 63, 67, 0.49)),
-                              ),
-                            ],
-                          ),
-
-                          Spacer(),
-
-                          Container(
-                            padding: EdgeInsets.fromLTRB(20.w, 7.h, 20.w, 0),
-                            decoration: BoxDecoration(
-                                color: AppColors.lightBlueF2F2F2,
-                                borderRadius: BorderRadius.circular(8.r)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/svg/Coin.png'),
-                                Column(
-                                  children: [
-                                    textgreyM16Robo("500"),
-                                    // Obx(
-                                    //   () => Text(
-                                    //     totalCoins.string,
-                                    //     style: TextStyle(
-                                    //         fontSize: 17.sp,
-                                    //         fontWeight: FontWeight.w600),
-                                    //   ),
-                                    // ),
-                                    sizedBoxHeight(5.h)
-                                  ],
-                                ),
-                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 30.h,
-                                width: 20.h,
-                                child: Image.asset(
-                                  "assets/svg/rankTag.png",
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              textBlack18bold("Level : Bronze")
-                              // Text(
-                              //   "Level : Bronze",
-                              //   style: TextStyle(
-                              //       fontSize: 16.sp,
-                              //       // fontFamily: "StudioProR",
-                              //       fontWeight: FontWeight.w500),
-                              // )
-                            ],
-                          ),
-                          SizedBox(
-                              height: 60.h,
-                              child: VerticalDivider(
-                                thickness: 3.w,
-                              )),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed("/following");
-                            },
-                            child: Column(
+                          ],
+                        ),
+                        SizedBox(height: 30.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                textBlack18bold("20"),
-                                textBlack18bold("Following")
-
+                                Container(
+                                  height: 30.h,
+                                  width: 20.h,
+                                  child: Image.asset(
+                                    "assets/svg/rankTag.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                textBlack18bold("Level : Bronze")
                                 // Text(
                                 //   "Level : Bronze",
                                 //   style: TextStyle(
@@ -252,354 +284,855 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
                                 // )
                               ],
                             ),
-                          ),
-                          SizedBox(
-                              height: 60.h,
-                              child: VerticalDivider(
-                                thickness: 3.w,
-                              )),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed("/follower");
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                textBlack18bold("30"),
-                                textBlack18bold("Followers")
-
-                                // Text(
-                                //   "Level : Bronze",
-                                //   style: TextStyle(
-                                //       fontSize: 16.sp,
-                                //       // fontFamily: "StudioProR",
-                                //       fontWeight: FontWeight.w500),
-                                // )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      sizedBoxHeight(15.h),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/svg/dart.svg",
-                            height: 40.h,
-                            width: 40.h,
-                          ),
-                          Expanded(
-                            // height: 20.h,
-                            child: TabBar(
-                                // indicatorSize: i,
-                                indicatorSize: TabBarIndicatorSize.label,
-                                indicatorColor: const Color(0xFF3B3F43),
-                                // unselectedLabelStyle: const TextStyle(color: AppColors.grey),
-                                labelColor: AppColors.black,
-                                unselectedLabelStyle: const TextStyle(
-                                    color: Color(
-                                  0xFF6B6B6B,
+                            SizedBox(
+                                height: 60.h,
+                                child: VerticalDivider(
+                                  thickness: 3.w,
                                 )),
-                                // labelStyle: TextStyle(color: Color(0xFF6B6B6B),fontSize: 12),
-                                tabs: [
-                                  Tab(
-                                    child: Text(
-                                      'MY CHALLENGES',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: "StudioProR",
-                                          fontWeight: FontWeight.bold,
-                                          // color: const Color(0xff000000),
-                                          fontSize: 12.sp),
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Text(
-                                      'JOINED',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: "StudioProR",
-                                          fontWeight: FontWeight.bold,
-                                          // color: const Color(0xff000000),
-                                          fontSize: 12.sp),
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Text(
-                                      'COMPLETED',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: "StudioProR",
-                                          fontWeight: FontWeight.bold,
-                                          // color: const Color(0xff000000),
-                                          fontSize: 12.sp),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),
-                      sizedBoxHeight(5.h),
-                      SizedBox(
-                        height: 250.h,
-                        child: TabBarView(children: [
-                          mainChallengesCard(1),
-                          mainChallengesCard(2),
-                          mainChallengesCard(3),
-                        ]),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ))
-          ];
-        },
-        body: DefaultTabController(
-          initialIndex: 0,
-          length: 2,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 10.h,
-              ),
-              SizedBox(
-                height: 35.h,
-                // width: MediaQuery.of(context).size.width,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.h),
-                      border:
-                          Border.all(color: AppColors.grey54595F, width: 1)),
-                  child: ButtonsTabBar(
-                    buttonMargin: EdgeInsets.zero,
-                    contentPadding: EdgeInsets.only(left: 70.w, right: 70.w),
-                    radius: 20.h,
-                    backgroundColor: AppColors.grey54595F,
-                    unselectedBorderColor: Colors.white,
-                    //borderWidth: 1,
-                    //borderColor: Color(0XFf0E5F02),
-                    unselectedBackgroundColor: Color(0xFFFFFFFF),
-                    unselectedLabelStyle:
-                        TextStyle(color: AppColors.grey54595F),
-                    labelStyle: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                    ),
-                    tabs: [
-                      Tab(
-                        text: "Recipes",
-                        // child: textBlack10Robo("sd"),
-                      ),
-                      Tab(
-                        text: "Saved ",
-                        // child: textBlack10Robo("sdf"),
-                      ),
-                      // Tab(
-                      //   text: "Repairmen",
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-              sizedBoxHeight(10.h),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: TabBarView(
-                    children: [
-                      tab1(),
-                      tab1(),
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed("/following");
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // textBlack18bold("20"),
+                                  textBlack18bold(userDataController.userData!.data.following.toString()),
+                                  textBlack18bold("Following")
 
-                      // FirstTab(),
-                      // SecondTab(),
-                      // ThirdTab(),
-                    ],
+                                  // Text(
+                                  //   "Level : Bronze",
+                                  //   style: TextStyle(
+                                  //       fontSize: 16.sp,
+                                  //       // fontFamily: "StudioProR",
+                                  //       fontWeight: FontWeight.w500),
+                                  // )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                height: 60.h,
+                                child: VerticalDivider(
+                                  thickness: 3.w,
+                                )),
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed("/follower");
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // textBlack18bold("30"),
+                                  textBlack18bold(userDataController.userData!.data.followers.toString()),
+                                  textBlack18bold("Followers")
+
+                                  // Text(
+                                  //   "Level : Bronze",
+                                  //   style: TextStyle(
+                                  //       fontSize: 16.sp,
+                                  //       // fontFamily: "StudioProR",
+                                  //       fontWeight: FontWeight.w500),
+                                  // )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        sizedBoxHeight(15.h),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/svg/dart.svg",
+                              height: 40.h,
+                              width: 40.h,
+                            ),
+                            Expanded(
+                              // height: 20.h,
+                              child: TabBar(
+                                  // indicatorSize: i,
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  indicatorColor: const Color(0xFF3B3F43),
+                                  // unselectedLabelStyle: const TextStyle(color: AppColors.grey),
+                                  labelColor: AppColors.black,
+                                  unselectedLabelStyle: const TextStyle(
+                                      color: Color(
+                                    0xFF6B6B6B,
+                                  )),
+                                  // labelStyle: TextStyle(color: Color(0xFF6B6B6B),fontSize: 12),
+                                  tabs: [
+                                    Tab(
+                                      child: Text(
+                                        'MY CHALLENGES',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: "StudioProR",
+                                            fontWeight: FontWeight.bold,
+                                            // color: const Color(0xff000000),
+                                            fontSize: 12.sp),
+                                      ),
+                                    ),
+                                    Tab(
+                                      child: Text(
+                                        'JOINED',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: "StudioProR",
+                                            fontWeight: FontWeight.bold,
+                                            // color: const Color(0xff000000),
+                                            fontSize: 12.sp),
+                                      ),
+                                    ),
+                                    Tab(
+                                      child: Text(
+                                        'COMPLETED',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: "StudioProR",
+                                            fontWeight: FontWeight.bold,
+                                            // color: const Color(0xff000000),
+                                            fontSize: 12.sp),
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ],
+                        ),
+                        sizedBoxHeight(5.h),
+                        SizedBox(
+                          height: 270.h,
+                          child: TabBarView(children: [
+                            // mainChallengesCard(1),
+                            // mainChallengesCard(2),
+                            // joinedChallenge(),
+                            myChallengesCard(),
+                            joinedChallenge(),
+                            // joinedChallenge(),
+
+                            // mainChallengesCard(3),
+                            completedChallenge()
+                          ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ))
+            ];
+          },
+          body: DefaultTabController(
+            initialIndex: 0,
+            length: 2,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10.h,
+                ),
+                SizedBox(
+                  height: 35.h,
+                  // width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.h),
+                        border:
+                            Border.all(color: AppColors.grey54595F, width: 1)),
+                    child: ButtonsTabBar(
+                      buttonMargin: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.only(left: 70.w, right: 70.w),
+                      radius: 20.h,
+                      backgroundColor: AppColors.grey54595F,
+                      unselectedBorderColor: Colors.white,
+                      //borderWidth: 1,
+                      //borderColor: Color(0XFf0E5F02),
+                      unselectedBackgroundColor: Color(0xFFFFFFFF),
+                      unselectedLabelStyle:
+                          TextStyle(color: AppColors.grey54595F),
+                      labelStyle: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                      ),
+                      tabs: [
+                        Tab(
+                          text: "Recipes",
+                          // child: textBlack10Robo("sd"),
+                        ),
+                        Tab(
+                          text: "Saved ",
+                          // child: textBlack10Robo("sdf"),
+                        ),
+                        // Tab(
+                        //   text: "Repairmen",
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBoxHeight(10.h),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: TabBarView(
+                      children: [
+                        tab1(),
+                        tab2(),
+
+                        // FirstTab(),
+                        // SecondTab(),
+                        // ThirdTab(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+    
+      })
+      
     );
   }
 
   Widget tab1() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: 13,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 7.w,
-        mainAxisSpacing: 7.w,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            Get.toNamed("/InspirationRecipeComment");
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: index.isEven
-                        ? AssetImage("assets/home/17.png")
-                        : AssetImage("assets/home/12.png"),
-                    fit: BoxFit.cover
-                    // Image.asset("name")
-                    )),
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingUserRecipe 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.userRecipes == null 
+        ? Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: textgrey18BoldSP("Something went wrong"),
+        )
+        : userDataController.userRecipes!.data.isEmpty 
+          ? Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: textgrey18BoldSP("No recipes uploaded"),
+          )
+          : GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: userDataController.userRecipes!.data.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 7.w,
+            mainAxisSpacing: 7.w,
           ),
+          itemBuilder: (BuildContext context, int index) {
+            final recipeData = userDataController.userRecipes!.data[index];
+            return InkWell(
+              onTap: () {
+                Get.toNamed("/InspirationRecipeComment");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: 
+                        // index.isEven
+                        //     ? AssetImage("assets/home/17.png")
+                        //     :
+                            NetworkImage(ApiUrls.base + "${recipeData.coverImage}"),
+                        fit: BoxFit.cover
+                        // Image.asset("name")
+                        )),
+              ),
+            );
+          },
         );
-      },
-    );
+    
+    });
+    
   }
 
-  Widget mainChallengesCard(int? tabNum) {
-    return Padding(
-      padding: EdgeInsets.all(5.w),
-      child: InkWell(
-        onTap: () {
-          if (tabNum == 3) {
-            Get.toNamed("/CompletedChallenge");
-          } else {
-            Get.toNamed("/joinchallenge");
-          }
-          // Get.toNamed("/joinchallenge");
-        },
-        child: Container(
-          // height: 200.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.h),
-            color: AppColors.lightBlueF2F2F2,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.greyL979797,
-                blurRadius: 2.h,
-                spreadRadius: 1.h,
-              ),
-            ],
+  Widget tab2() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingSaved 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.userSaved == null 
+        ? Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: textgrey18BoldSP("Something went wrong"),
+        )
+        : userDataController.userSaved!.data.isEmpty 
+          ? Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: textgrey18BoldSP("No saved recipes"),
+          )
+          : GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: userDataController.userSaved!.data.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 7.w,
+            mainAxisSpacing: 7.w,
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        textBlack18SP_Bold('The "Biryani" Challenge'),
-                        textgreyD12Robo("10 Oct - 16 Oct")
+          itemBuilder: (BuildContext context, int index) {
+            final savedRecipeData = userDataController.userSaved!.data[index];
+            return InkWell(
+              onTap: () {
+                Get.toNamed("/InspirationRecipeComment");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: 
+                        // index.isEven
+                        //     ? AssetImage("assets/home/17.png")
+                        //     :
+                            NetworkImage(ApiUrls.base + "${savedRecipeData.coverImage}"),
+                        fit: BoxFit.cover
+                        // Image.asset("name")
+                        )),
+              ),
+            );
+          },
+        );
+    
+    });
+    
+  }
+
+
+  Widget myChallengesCard() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingMyChallenges 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.myChallenges == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.myChallenges!.data.isEmpty 
+        ? Center(child: textgrey18BoldSP("No challenges available"))
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                  //   Get.toNamed("/CompletedChallenge");
+                  // } else {
+                    Get.toNamed("/joinchallenge",
+                      arguments: {
+                        "challengeId": "${userDataController.myChallenges!.data[0].id}",
+                        "challengeType": 0
+                      }
+                      // arguments: 
+                      // userDataController.myChallenges!.data[0].id
+                    );
+                  // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final myChallengesData = userDataController.myChallenges!.data[0];
+                  final recipesShared = userDataController.myChallenges!.data[0].challengeRecipe;
+                  String startDate = myChallengesData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+            
+                  String endDate = myChallengesData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
                       ],
                     ),
-                    Image.asset(
-                      "assets/icons/trophy.png",
-                      height: 38.h,
-                      width: 39.w,
-                    ),
-                  ],
-                ),
-                sizedBoxHeight(12.h),
-                // textgreyM10Robo("17 recipes shared so for!"),
-                // sizedBoxHeight(5.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(3, (index) => sharedRecipeCard()),
-                ),
-
-                sizedBoxHeight(15.h),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    tabNum == 3
-                        ? SizedBox()
-                        : Row(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              textBlack14SP_Med(tabNum == 1
-                                  ? "Join Challenge"
-                                  : "Joined Challenge"),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: AppColors.black,
-                                size: 15.h,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(myChallengesData.title),
+            
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+            
+                                ],
                               ),
-                              sizedBoxWidth(15.w),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
                             ],
                           ),
-                    GestureDetector(
-                        onTap: () {
-                          getViewRulesDailog();
-                        },
-                        child: textBlack14SP_Med("View Rules")),
-                  ],
-                ),
+            
+                          sizedBoxHeight(12.h),
+            
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+                          // Spacer(),
+            
+                          recipesShared.isEmpty 
+                          ? Padding(
+                            padding: EdgeInsets.symmetric(vertical: 30.h),
+                            child: Center(child: textgrey18BoldSP("No recipes shared")),
+                          )
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
 
-                // tabNum == 3 ?SizedBox() : Center(
-                //   child: SizedBox(
-                //     height: 40.h,
-                //     width: 100.w,
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         // Get.to(DiscoveryRecipesScreen(),
-                //         //     duration: Duration(milliseconds: 500),
-                //         //     transition: Transition.rightToLeft);
-                //         // //Get.toNamed("/discoveryRecipes");
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(8.r),
-                //           side: BorderSide(
-                //               color: Color(0xFF54595F), width: 1.w),
-                //         ),
-                //         elevation: 0,
-                //         primary: Color(0xFF54595F),
-                //         onPrimary: Colors.grey,
-                //       ),
-                //       child: Text(
-                //         tabNum == 1 ? 'Join': "Joined",
-                //         style: TextStyle(
-                //             color: Color(0xFFFFFFFF),
-                //             fontWeight: FontWeight.w500,
-                //             fontSize: 18.h,
-                //             fontFamily: "StudioProR"),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                          // Spacer(),
 
-                // SizedBox(
-                //   height: 119.h,
-                //   child: ListView.separated(
-                //     separatorBuilder: (context, index) {
-                //       return index == 2 ? SizedBox() : SizedBox(width: 7.w);
-                //     },
-                //     scrollDirection: Axis.horizontal,
-                //     physics: const BouncingScrollPhysics(),
-                //     shrinkWrap: true,
-                //     itemCount: 4,
-                //     itemBuilder: (context, index) {
-                //       return sharedRecipeCard();
-                //     },
-                //   ),
-                // ),
-                // sizedBoxHeight(16.h),
-                // Spacer(),
-              ],
+            
+                          sizedBoxHeight(15.h),
+            
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  Row(
+                                      children: [
+                                        textBlack14SP_Med(
+                                          // tabNum == 1
+                                          //   ? "Join Challenge"
+                                          //   : 
+                                            "Join Challenge"),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.black,
+                                          size: 15.h,
+                                        ),
+                                        sizedBoxWidth(15.w),
+                                      ],
+                                    ),
+                              GestureDetector(
+                                  onTap: () {
+                                    getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("View Rules")),
+                            ],
+                          ),
+            
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+         
+            userDataController.myChallenges!.data.length > 1 
+            ? InkWell(
+              onTap: () {
+                // Get.to(MoreMyChallenges);
+                Get.toNamed("/MoreMyChallenges");
+              },
+              child: textBlack14SP_Med("View more challenges")
+            )
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+
   }
 
-  Widget sharedRecipeCard() {
+  Widget joinedChallenge() {
+    return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingJoinedChallenge 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.joinedChallenge == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.joinedChallenge!.data.isEmpty 
+        ? Center(child: textgrey18BoldSP("No challenges available"))
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                  //   Get.toNamed("/CompletedChallenge");
+                  // } else {
+                    Get.toNamed("/joinchallenge",
+                      arguments: {
+                        "challengeId": "${userDataController.joinedChallenge!.data[0].id}",
+                        "challengeType": 1
+                      }
+                    
+                    );
+                  // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final joinedChallengeData = userDataController.joinedChallenge!.data[0];
+                  final recipesShared = userDataController.joinedChallenge!.data[0].challengeRecipe;
+                  String startDate = joinedChallengeData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+            
+                  String endDate = joinedChallengeData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(joinedChallengeData.title),
+            
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+            
+                                ],
+                              ),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
+                            ],
+                          ),
+            
+                          sizedBoxHeight(12.h),
+            
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+            
+                          recipesShared.isEmpty 
+                          ? textgrey18BoldSP("No recipes shared")
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
+            
+                          sizedBoxHeight(15.h),
+            
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  Row(
+                                      children: [
+                                        textBlack14SP_Med(
+                                          // tabNum == 1
+                                          //   ? "Join Challenge"
+                                          //   : 
+                                            "Joined Challenge"),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.black,
+                                          size: 15.h,
+                                        ),
+                                        sizedBoxWidth(15.w),
+                                      ],
+                                    ),
+                              GestureDetector(
+                                  onTap: () {
+                                    getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("View Rules")),
+                            ],
+                          ),
+            
+                          // tabNum == 3 ?SizedBox() : Center(
+                          //   child: SizedBox(
+                          //     height: 40.h,
+                          //     width: 100.w,
+                          //     child: ElevatedButton(
+                          //       onPressed: () {
+                          //         // Get.to(DiscoveryRecipesScreen(),
+                          //         //     duration: Duration(milliseconds: 500),
+                          //         //     transition: Transition.rightToLeft);
+                          //         // //Get.toNamed("/discoveryRecipes");
+                          //       },
+                          //       style: ElevatedButton.styleFrom(
+                          //         shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           side: BorderSide(
+                          //               color: Color(0xFF54595F), width: 1.w),
+                          //         ),
+                          //         elevation: 0,
+                          //         primary: Color(0xFF54595F),
+                          //         onPrimary: Colors.grey,
+                          //       ),
+                          //       child: Text(
+                          //         tabNum == 1 ? 'Join': "Joined",
+                          //         style: TextStyle(
+                          //             color: Color(0xFFFFFFFF),
+                          //             fontWeight: FontWeight.w500,
+                          //             fontSize: 18.h,
+                          //             fontFamily: "StudioProR"),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+            
+                          // SizedBox(
+                          //   height: 119.h,
+                          //   child: ListView.separated(
+                          //     separatorBuilder: (context, index) {
+                          //       return index == 2 ? SizedBox() : SizedBox(width: 7.w);
+                          //     },
+                          //     scrollDirection: Axis.horizontal,
+                          //     physics: const BouncingScrollPhysics(),
+                          //     shrinkWrap: true,
+                          //     itemCount: 4,
+                          //     itemBuilder: (context, index) {
+                          //       return sharedRecipeCard();
+                          //     },
+                          //   ),
+                          // ),
+                          // sizedBoxHeight(16.h),
+                          // Spacer(),
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
+            ),
+          
+            userDataController.joinedChallenge!.data.length > 1 
+            ? InkWell(
+              onTap: (){
+                Get.toNamed("/MoreJoinedChallenges");
+              },
+              child: textBlack14SP_Med("View more challenges"))
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+  }
+
+  Widget completedChallenge() {
+  return GetBuilder<UserDataController>(builder: (context){
+      return userDataController.isLoadingCompletedChallenge 
+      ? Center(child: CircularProgressIndicator()) 
+      : userDataController.completedChallenge == null 
+        ? textgrey18BoldSP("Something went wrong")
+        : userDataController.completedChallenge!.data.isEmpty 
+        ? Center(child: textgrey18BoldSP("No challenges available"))
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: InkWell(
+                onTap: () {
+                  // if (tabNum == 3) {
+                    // Get.toNamed("/CompletedChallenge");
+                    Get.toNamed("/CompletedChallengeView",
+                      arguments: {
+                        "challengeId": "${userDataController.completedChallenge!.data[0].id}",
+                        "challengeType": 2
+                      }
+                    
+                    );
+                  // } else {
+                  //   Get.toNamed("/joinchallenge");
+                  // // }
+                  // Get.toNamed("/joinchallenge");
+                },
+                child: GetBuilder<UserDataController>(builder: (context){
+                  final completedChallengeData = userDataController.completedChallenge!.data[0];
+                  final recipesShared = userDataController.completedChallenge!.data[0].challengeRecipe;
+                  String startDate = completedChallengeData.startDate;
+                  DateTime parsedStartDate = DateTime.parse(startDate);
+                  String formattedStartDate = DateFormat('d MMMM').format(parsedStartDate);
+            
+                  String endDate = completedChallengeData.endDate;
+                  DateTime parsedEndDate = DateTime.parse(endDate);
+                  String formattedEndDate = DateFormat('d MMMM').format(parsedEndDate);
+                  return Container(
+                    // height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      color: AppColors.lightBlueF2F2F2,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greyL979797,
+                          blurRadius: 2.h,
+                          spreadRadius: 1.h,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 19.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // textBlack18SP_Bold('The "Biryani" Challenge'),
+                                  textBlack18SP_Bold(completedChallengeData.title),
+                  
+                                  // textgreyD12Robo("10 Oct - 16 Oct")
+                                  textgreyD12Robo("$formattedStartDate - $formattedEndDate")
+                  
+                                ],
+                              ),
+                              Image.asset(
+                                "assets/icons/trophy.png",
+                                height: 38.h,
+                                width: 39.w,
+                              ),
+                            ],
+                          ),
+                  
+                          sizedBoxHeight(12.h),
+                  
+                          // textgreyM10Robo("17 recipes shared so for!"),
+                          // sizedBoxHeight(5.h),
+                  
+                          recipesShared.isEmpty 
+                          ? textgrey18BoldSP("No recipes shared")
+                          : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                            List.generate(
+                              recipesShared.length, 
+                              (index) => Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: sharedRecipeCard(
+                                  recipeImage: recipesShared[index].receipe.coverImage,
+                                  recipeName: recipesShared[index].receipe.name,
+                                ),
+                              )
+                            ),
+                          ),
+                  
+                          sizedBoxHeight(15.h),
+                  
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // tabNum == 3
+                              //     ? SizedBox()
+                              //     :
+                                  // Row(
+                                  //     children: [
+                                  //       textBlack14SP_Med(
+                                  //         // tabNum == 1
+                                  //         //   ? "Join Challenge"
+                                  //         //   : 
+                                  //           "Joined Challenge"),
+                                  //       Icon(
+                                  //         Icons.arrow_forward_ios,
+                                  //         color: AppColors.black,
+                                  //         size: 15.h,
+                                  //       ),
+                                  //       sizedBoxWidth(15.w),
+                                  //     ],
+                                  //   ),
+                              GestureDetector(
+                                  onTap: () {
+                                    // getViewRulesDailog();
+                                  },
+                                  child: textBlack14SP_Med("Completed Challenge")),
+                            ],
+                          ),
+                  
+                        ],
+                      ),
+                    ),
+                  );
+              
+                })
+                
+              ),
+            ),
+          
+            userDataController.completedChallenge!.data.length > 1 
+            ? InkWell(
+              onTap: (){
+                Get.toNamed("/MoreCompletedChallenges");
+                // Get.to(MoreCompletedChallenges())
+              },
+              child: textBlack14SP_Med("View more challenges"))
+            : SizedBox()
+          ],
+        );
+    
+    });
+    
+  }
+
+
+
+  Widget sharedRecipeCard({
+    required String recipeImage,
+    required String recipeName,
+    
+  }) {
     return Container(
       height: 114.h,
       decoration: BoxDecoration(
@@ -621,14 +1154,18 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
               height: 85.h,
               width: 110.w,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.h),
-                  image: DecorationImage(
-                      image: AssetImage("assets/home/food_bowl.png"),
-                      fit: BoxFit.fill)),
+                borderRadius: BorderRadius.circular(16.h),
+                image: DecorationImage(
+                    image: NetworkImage(ApiUrls.base + recipeImage),
+                    // AssetImage("assets/home/food_bowl.png"),
+                    fit: BoxFit.fill)
+              ),
             ),
             // sizedBoxHeight(5.h),
             Spacer(),
-            textgreyD10Robo("Slappappoffer Recipe"),
+            // textgreyD10Robo("Slappappoffer Recipe"),
+            textgreyD10Robo(recipeName),
+
             // sizedBoxHeight(5.h),
             Spacer()
           ],
@@ -636,6 +1173,7 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
       ),
     );
   }
+
 }
 
 class MyHomePageWithNestedScrollViewAndFloatingAppBar extends StatelessWidget {

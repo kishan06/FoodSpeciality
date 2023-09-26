@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import '../common files/common_sucess_dailog.dart';
 import '../common files/sized_box.dart';
 // import 'common_chip.dart';
 // import 'dropdownList.dart';
@@ -41,14 +42,14 @@ class _RecipeIngState extends State<RecipeIng>
   // bool? _visible = false;
   // TabController? tabController;
 
-  HomeController controllerHome = HomeController();
+  HomeController controllerHome = Get.put(HomeController());
   // int currentIndex = 0;
   SampleItem? selectedMenu;
 
   RecipeIngreController recipeIngreController =
       Get.put(RecipeIngreController());
   final ImagePicker _picker = ImagePicker();
-  final List _textList = [];
+  final List _textList = []; 
   GlobalKey _popupMenuKey = GlobalKey();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool editChip = false;
@@ -129,9 +130,14 @@ class _RecipeIngState extends State<RecipeIng>
 
   var _newFormKey = GlobalKey<FormState>();
 
+  var challengeId;
+
   @override
   void initState() {
     super.initState();
+    challengeId = Get.arguments ?? null;
+    print("challengeId $challengeId");
+
     _controllers.add(TextEditingController());
     //_controllers2.add(TextEditingController());
 
@@ -242,7 +248,8 @@ class _RecipeIngState extends State<RecipeIng>
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(const Preview());
+                              // Get.to(const Preview());
+                              Get.toNamed("/Preview");
                             },
                             child: Text(
                               "Preview",
@@ -266,15 +273,17 @@ class _RecipeIngState extends State<RecipeIng>
                               publish_status_value = "published";
                               if (recipeIngreController.file == null) {
                                 Get.snackbar("Error", "Select a video");
-                              } else if(recipeIngreController.image == null){
+                              } else if (recipeIngreController.image == null) {
                                 Get.snackbar("Error", "Select a Cover Image");
-                              } else if (tecRecipeName.text.isEmpty || tecDescription.text.isEmpty){
-                                Get.snackbar("Error", "Enter recipe name and description");
-                              } else if (selectedDifficultyText == null){
+                              } else if (tecRecipeName.text.isEmpty ||
+                                  tecDescription.text.isEmpty) {
+                                Get.snackbar("Error",
+                                    "Enter recipe name and description");
+                              } else if (selectedDifficultyText == null) {
                                 Get.snackbar("Error", "Select difficulty");
-                              }
-                              else {
-                                final isValid = _newFormKey.currentState!.validate();
+                              } else {
+                                final isValid =
+                                    _newFormKey.currentState!.validate();
                                 print("isValid $isValid");
                                 if (isValid) {
                                   return callAddRecipeApi();
@@ -283,13 +292,11 @@ class _RecipeIngState extends State<RecipeIng>
 
                               // final isValid = _newFormKey.currentState!.validate();
                               // if (!isValid) {
-                                
+
                               //   // return callAddRecipeApi();
                               // }
 
-
                               // callAddRecipeApi();
-
                             },
                             child: Text(
                               "Publish",
@@ -374,8 +381,7 @@ class _RecipeIngState extends State<RecipeIng>
     for (var i = 0; i < dropdownData.length; i++) {
       ingredients.add({
         '"name"': '"${_controllers[i].text}"',
-        '"quantity"':
-            '"${_controllers2[i].text + " " + dropdownData[i]!}"'
+        '"quantity"': '"${_controllers2[i].text + " " + dropdownData[i]!}"'
       });
     }
     instructions = [];
@@ -385,8 +391,6 @@ class _RecipeIngState extends State<RecipeIng>
 
       // instructionsImages.add()
     }
-
-
 
     var resp = await recipeService.addRecipe(
         // int cookingTime = _selectedHour * 60 + _selectedMinute,
@@ -401,37 +405,40 @@ class _RecipeIngState extends State<RecipeIng>
         ingredients: ingredients.toString(),
         // instructions: instructions.toString(),
         instructions: jsonEncode(instructions),
-        
         publish_status: publish_status_value!,
-        instructionsImages: imageInstructionList
-        );
-        
+        instructionsImages: imageInstructionList,
+        challengeId: challengeId ?? null);
 
     if (resp.status == ResponseStatus.PRIVATE) {
       callAddRecipeApi();
-    } else if(resp.status == ResponseStatus.SUCCESS){
-      getRecipePublishSuccess();
+    } else if (resp.status == ResponseStatus.SUCCESS) {
+      if (challengeId != null) {
+        commonSucessDailog(
+            msg: "Recipe shared for challenge successfully",
+            onPressed: () {
+              Get.offAllNamed("/bottomBar");
+            });
+      } else {
+        getRecipePublishSuccess();
+      }
     }
   }
 
-  getRecipePublishSuccess(){
+  getRecipePublishSuccess() {
     Get.defaultDialog(
-      titleStyle: TextStyle(
-        fontSize: 0
-      ),
-      titlePadding: EdgeInsets.all(0),
-      contentPadding: EdgeInsets.all(10.h),
-      title: "",
-      barrierDismissible: false,
-      content: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        titleStyle: TextStyle(fontSize: 0),
+        titlePadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.all(10.h),
+        title: "",
+        barrierDismissible: false,
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 children: [
-
                   // Align(
                   //   alignment: Alignment.centerRight,
                   //   child: GestureDetector(
@@ -447,13 +454,20 @@ class _RecipeIngState extends State<RecipeIng>
                   // ),
                   // const SizedBox(height: 30),
 
-                  LottieBuilder.network("https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
-                    // height: ,
+                  // LottieBuilder.network("https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
+                  //   // height: ,
+                  //   height: 200.h,
+                  //   width: 250.w,
+                  // ),
+
+                  LottieBuilder.asset(
+                    "assets/sucess_lottie.json",
                     height: 200.h,
                     width: 250.w,
                   ),
 
-                  Text("Congratulations",
+                  Text(
+                    "Congratulations",
                     style: TextStyle(
                       fontSize: 25.sp,
                       color: AppColors.greyD3B3F43,
@@ -462,7 +476,9 @@ class _RecipeIngState extends State<RecipeIng>
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
 
                   Text(
                     "Recipe added successfully",
@@ -504,7 +520,6 @@ class _RecipeIngState extends State<RecipeIng>
                       },
                     ),
                   ),
-               
 
                   // custom
 
@@ -519,19 +534,13 @@ class _RecipeIngState extends State<RecipeIng>
 
                   // custom
 
-
                   // const SizedBox(height: 34),
-
-
                 ],
               ),
             ],
           ),
-        )
-
-    );
+        ));
   }
-
 
   recipeTab() {
     return Padding(
@@ -836,7 +845,7 @@ class _RecipeIngState extends State<RecipeIng>
                 //   if (value == null || value.isEmpty) {
                 //     return 'Please enter Recipe Name';
                 //   }
-                  
+
                 //   // v2 = true;
                 //   return null;
                 // },
@@ -851,7 +860,6 @@ class _RecipeIngState extends State<RecipeIng>
                     borderSide: const BorderSide(color: Color(0xFF707070)),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
-                  
                   hintText: "Recipe's name",
                   hintStyle: TextStyle(
                       fontFamily: "Roboto",
@@ -884,7 +892,7 @@ class _RecipeIngState extends State<RecipeIng>
                 //   if (value == null || value.isEmpty) {
                 //     return 'Please enter Description';
                 //   }
-                  
+
                 //   // v2 = true;
                 //   return null;
                 // },
@@ -908,7 +916,8 @@ class _RecipeIngState extends State<RecipeIng>
             ),
             sizedBoxHeight(20.h),
 
-
+            // start
+//
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -940,7 +949,7 @@ class _RecipeIngState extends State<RecipeIng>
             //     Wrap(
             //       spacing: 11.w,
             //       runSpacing: 7.h,
-            //       children: 
+            //       children:
             //       [
             //         ..._textList
             //             .map((text) => Row(
@@ -982,25 +991,24 @@ class _RecipeIngState extends State<RecipeIng>
             //     ),
             //   ],
             // ),
-          
+
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Wrap(
-                  spacing: 11.w,
-                  runSpacing: 7.h,
-                  children: List.generate(
-                    _textList.length, 
-                    (index) => Row(
+                    spacing: 11.w,
+                    runSpacing: 7.h,
+                    children: List.generate(
+                        _textList.length,
+                        (index) => Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 // CommonChip(text: text),
                                 CommonChip(
-                                  text: _textList[index]["text"],
-                                  colorchange: _textList[index]["colorBool"],
-                                  index: index,
-                                  listName: "_textList"
-                                ),
+                                    text: _textList[index]["text"],
+                                    colorchange: _textList[index]["colorBool"],
+                                    index: index,
+                                    listName: "_textList"),
                                 Visibility(
                                   visible: editChip,
                                   child: Row(
@@ -1010,9 +1018,11 @@ class _RecipeIngState extends State<RecipeIng>
                                         onTap: () {
                                           setState(() {
                                             // _textList.remove(_textList[index]["text"]);
-                                            recipeIngreController
-                                                .removeTags(_textList[index]["text"]);
-                                            _textList.removeWhere((element) => element["text"] == _textList[index]["text"]);
+                                            recipeIngreController.removeTags(
+                                                _textList[index]["text"]);
+                                            _textList.removeWhere((element) =>
+                                                element["text"] ==
+                                                _textList[index]["text"]);
                                             print(recipeIngreController.tags);
                                             print(_textList);
                                           });
@@ -1026,13 +1036,10 @@ class _RecipeIngState extends State<RecipeIng>
                                   ),
                                 )
                               ],
-                            )
-                  )
-                  
-                ),
+                            ))),
               ],
             ),
-          
+
             sizedBoxHeight(18.h),
             Visibility(
               visible: !textFieldVisibile,
@@ -1185,7 +1192,7 @@ class _RecipeIngState extends State<RecipeIng>
                 // CommonChip(text: "Flavour explosions"),
                 // CommonChip(text: "The healthy way"),
                 // List.generate(
-                //   selectTags.length, 
+                //   selectTags.length,
                 //   (index) => null
                 // ),
                 // List.
@@ -1193,16 +1200,14 @@ class _RecipeIngState extends State<RecipeIng>
                   spacing: 11.w,
                   runSpacing: 7.h,
                   children: List.generate(
-                    selectTags.length, 
-                    (index) => CommonChip(
-                      text: selectTags[index]["text"],
-                      colorchange: selectTags[index]["colorBool"],
-                      index: index,
-                      listName: "selectTags"
-                    )
-                  ),
+                      selectTags.length,
+                      (index) => CommonChip(
+                          text: selectTags[index]["text"],
+                          colorchange: selectTags[index]["colorBool"],
+                          index: index,
+                          listName: "selectTags")),
                 ),
-                
+
                 SizedBox(
                   height: 18.h,
                   width: double.infinity,
@@ -1233,14 +1238,12 @@ class _RecipeIngState extends State<RecipeIng>
                   spacing: 11.w,
                   runSpacing: 7.h,
                   children: List.generate(
-                    southAfricaCuisine.length, 
-                    (index) => CommonChip(
-                      text: southAfricaCuisine[index]["text"],
-                      colorchange: southAfricaCuisine[index]["colorBool"],
-                      index: index,
-                      listName: "southAfricaCuisine"
-                    )
-                  ),
+                      southAfricaCuisine.length,
+                      (index) => CommonChip(
+                          text: southAfricaCuisine[index]["text"],
+                          colorchange: southAfricaCuisine[index]["colorBool"],
+                          index: index,
+                          listName: "southAfricaCuisine")),
                 ),
 
                 SizedBox(
@@ -1264,14 +1267,12 @@ class _RecipeIngState extends State<RecipeIng>
                   spacing: 11.w,
                   runSpacing: 7.h,
                   children: List.generate(
-                    internationalCuisine.length, 
-                    (index) => CommonChip(
-                      text: internationalCuisine[index]["text"],
-                      colorchange: internationalCuisine[index]["colorBool"],
-                      index: index,
-                      listName: "internationalCuisine"
-                    )
-                  ),
+                      internationalCuisine.length,
+                      (index) => CommonChip(
+                          text: internationalCuisine[index]["text"],
+                          colorchange: internationalCuisine[index]["colorBool"],
+                          index: index,
+                          listName: "internationalCuisine")),
                 ),
                 // CommonChip(text: "Limpopo"),
                 // CommonChip(text: "Easy"),
@@ -1321,6 +1322,8 @@ class _RecipeIngState extends State<RecipeIng>
                 // const CommonChip(text: "Hard"),
               ],
             ),
+
+            // /
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -1422,8 +1425,8 @@ class _RecipeIngState extends State<RecipeIng>
                         child: Container(
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
-                                  side:
-                                      const BorderSide(color: Color(0xff707070)),
+                                  side: const BorderSide(
+                                      color: Color(0xff707070)),
                                   borderRadius: BorderRadius.circular(8.r)),
                             ),
                             height: 45.h,
@@ -1490,7 +1493,8 @@ class _RecipeIngState extends State<RecipeIng>
                         child: Container(
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
-                                side: const BorderSide(color: Color(0xff707070)),
+                                side:
+                                    const BorderSide(color: Color(0xff707070)),
                                 borderRadius: BorderRadius.circular(8)),
                           ),
                           height: 45.h,
@@ -1528,7 +1532,7 @@ class _RecipeIngState extends State<RecipeIng>
                 ],
               ),
               sizedBoxHeight(15.h),
-    
+
               //_recipeDetails(_tec, _tbsController),
               ListView.builder(
                   shrinkWrap: true,
@@ -1537,9 +1541,9 @@ class _RecipeIngState extends State<RecipeIng>
                   itemBuilder: (BuildContext context, int index) {
                     return _recipeDetails(_tec, _tbsController, index);
                   }),
-    
+
               sizedBoxHeight(13.h),
-    
+
               SizedBox(
                 height: 40.h,
                 width: 150.w,
@@ -1574,7 +1578,7 @@ class _RecipeIngState extends State<RecipeIng>
                     // units.add("");
                     textControllerNumber++;
                     print("bvg");
-    
+
                     // if (_tec.text.isEmpty) {
                     //   return;
                     // } else {
@@ -1605,7 +1609,7 @@ class _RecipeIngState extends State<RecipeIng>
                 ],
               ),
               sizedBoxHeight(20.h),
-    
+
               // _instructionSteps(1),
               // Column(
               //   children: stepsInColumn,
@@ -1617,7 +1621,7 @@ class _RecipeIngState extends State<RecipeIng>
                   itemBuilder: (BuildContext context, int index) {
                     return _instructionSteps(index);
                   }),
-    
+
               sizedBoxHeight(14.h),
               SizedBox(
                 height: 40.h,
@@ -1640,20 +1644,20 @@ class _RecipeIngState extends State<RecipeIng>
                       fontSize: 16.sp,
                     ),
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     // if (number < 5) {
-                    setState(()  {
+                    setState(() {
                       tecInstructionList.add(TextEditingController());
                       imageInstructionList.add(null);
                       stepsInColumn.add(_instructionSteps(0));
                       print(tecInstructionList.length);
                       print(imageInstructionList.length);
                     });
-                    // } 
+                    // }
                   },
                 ),
               ),
-    
+
               // ElevatedButton(onPressed: (){
               //   Get.to(PopupMenuExample());
               // }, child: Text("dropdown")),
@@ -1691,12 +1695,11 @@ class _RecipeIngState extends State<RecipeIng>
                 // }
                 return null;
               },
-              
+
               // validatorText: ""
               controller: _controllers[index!],
               decoration: InputDecoration(
                 isDense: true,
-                
                 contentPadding: EdgeInsets.all(8.h),
                 isCollapsed: true,
                 focusedBorder: OutlineInputBorder(
@@ -1716,7 +1719,7 @@ class _RecipeIngState extends State<RecipeIng>
             ),
           ),
           // sizedBoxWidth(20.w),
-    
+
           Spacer(),
           GestureDetector(
             onTap: () {
@@ -1744,7 +1747,7 @@ class _RecipeIngState extends State<RecipeIng>
               ),
             ),
           ),
-    
+
           sizedBoxWidth(10.w),
           SizedBox(
             // height: 45.h,
@@ -1780,11 +1783,10 @@ class _RecipeIngState extends State<RecipeIng>
               //     openPopupMenu(index);
               //   }
               // },
-    
+
               decoration: InputDecoration(
                   isCollapsed: true,
                   isDense: true,
-                
                   contentPadding: EdgeInsets.all(8.h),
                   // content÷Padding: EdgeInsets.all(15.h),
                   focusedBorder: OutlineInputBorder(
@@ -1803,14 +1805,13 @@ class _RecipeIngState extends State<RecipeIng>
                   counterText: ''),
             ),
           ),
-    
+
           sizedBoxWidth(10.w),
           GestureDetector(
             onTap: () {
               setState(() {
                 _controllers2[index].text =
-                    ((double.tryParse(_controllers2[index].text) ?? 0.1) +
-                            0.1)
+                    ((double.tryParse(_controllers2[index].text) ?? 0.1) + 0.1)
                         .toStringAsFixed(2);
               });
             },
@@ -1827,7 +1828,7 @@ class _RecipeIngState extends State<RecipeIng>
               ),
             ),
           ),
-    
+
           Spacer(),
           SizedBox(
             width: 100.w,
@@ -1911,15 +1912,14 @@ class _RecipeIngState extends State<RecipeIng>
   //     print(value);
   //     });
   // }
-  // Widget 
+  // Widget
 
-  Widget CommonChip({
-    required String text, 
-    bool colorchange = true,
-    int? index,
-    String? listName
-  }){
-  // late bool _colorchange = true;
+  Widget CommonChip(
+      {required String text,
+      bool colorchange = true,
+      int? index,
+      String? listName}) {
+    // late bool _colorchange = true;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -1956,8 +1956,7 @@ class _RecipeIngState extends State<RecipeIng>
                 Text(
                   text,
                   style: TextStyle(
-                    color:
-                        colorchange ? const Color(0xFF303030) : Colors.white,
+                    color: colorchange ? const Color(0xFF303030) : Colors.white,
                     fontSize: 11.sp,
                     fontFamily: 'StudioProR',
                   ),
@@ -1971,13 +1970,17 @@ class _RecipeIngState extends State<RecipeIng>
 
                 print(colorchange);
                 if (listName == "selectTags") {
-                  selectTags[index!]["colorBool"] = !selectTags[index]["colorBool"];
-                } else if(listName == "southAfricaCuisine"){
-                  southAfricaCuisine[index!]["colorBool"] = !southAfricaCuisine[index]["colorBool"];
-                } else if (listName == "internationalCuisine"){
-                  internationalCuisine[index!]["colorBool"] = !internationalCuisine[index]["colorBool"];
+                  selectTags[index!]["colorBool"] =
+                      !selectTags[index]["colorBool"];
+                } else if (listName == "southAfricaCuisine") {
+                  southAfricaCuisine[index!]["colorBool"] =
+                      !southAfricaCuisine[index]["colorBool"];
+                } else if (listName == "internationalCuisine") {
+                  internationalCuisine[index!]["colorBool"] =
+                      !internationalCuisine[index]["colorBool"];
                 } else {
-                  _textList[index!]["colorBool"] = !_textList[index]["colorBool"];
+                  _textList[index!]["colorBool"] =
+                      !_textList[index]["colorBool"];
                 }
                 if (colorchange) {
                   recipeIngreController.removeTags(text);
@@ -1993,7 +1996,6 @@ class _RecipeIngState extends State<RecipeIng>
         ),
       ],
     );
-  
   }
 
   Widget _servings() {
@@ -2129,7 +2131,7 @@ class _RecipeIngState extends State<RecipeIng>
                   children: [
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.camera,index: index);
+                        getImage(ImageSource.camera, index: index);
                         Get.back();
                         print("dsf");
                         if (_image != null) {
@@ -2155,7 +2157,7 @@ class _RecipeIngState extends State<RecipeIng>
                     ),
                     GestureDetector(
                       onTap: () {
-                        getImage(ImageSource.gallery,index: index);
+                        getImage(ImageSource.gallery, index: index);
                         Get.back();
                       },
                       child: Column(
@@ -2332,7 +2334,8 @@ class _RecipeIngState extends State<RecipeIng>
             decoration: InputDecoration(
               isDense: true,
 
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
               // contentPadding: const EdgeInsets.only(top: 8, left: 12),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Color(0xff707070)),
@@ -2355,15 +2358,17 @@ class _RecipeIngState extends State<RecipeIng>
                   child: imageInstructionList[index] != null
                       ?
                       //  Image.asset("assets/camera.png")
-                      Icon(Icons.check,
-                        size: 40.h,
-                        color: AppColors.grey54595F,
-                      )
+                      Icon(
+                          Icons.check,
+                          size: 40.h,
+                          color: AppColors.grey54595F,
+                        )
                       : GestureDetector(
                           onTap: () {
                             builduploadprofileImage(index);
                           },
-                          child: Image.asset("assets/camera.png",
+                          child: Image.asset(
+                            "assets/camera.png",
                             // height: ,
                             // fit: BoxFit.fill,
                           ),
@@ -2378,10 +2383,7 @@ class _RecipeIngState extends State<RecipeIng>
     );
   }
 
-  Future getImage(
-    ImageSource source,
-    {int? index}
-  ) async {
+  Future getImage(ImageSource source, {int? index}) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
@@ -2470,4 +2472,5 @@ class _RecipeIngState extends State<RecipeIng>
       ],
     );
   }
+
 }

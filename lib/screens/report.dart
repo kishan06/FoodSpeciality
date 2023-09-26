@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/comman_app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/services/report_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,20 @@ class Report extends StatefulWidget {
 }
 
 class _ReportState extends State<Report> {
+  final recipeId = Get.arguments["recipeid"];
+
+  void _handleSaveButton(id, description) async {
+    try {
+      var resp = await ReportService.reportRecipe(id ?? "", description);
+      if (resp) {
+        Get.toNamed("/ReportSuccess");
+      }
+    } catch (e) {
+      // Handle error here
+      print('Error reporting recipe: $e');
+    }
+  }
+
   List text = [
     {"title": "It's spam", "image": "assets/Report svg/notification.svg"},
     {
@@ -54,7 +69,7 @@ class _ReportState extends State<Report> {
         // appBar: const CustomAppBar(titleTxt: "Report"),
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,18 +89,18 @@ class _ReportState extends State<Report> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    _handleSaveButton(
+                                        recipeId, text[index]["title"]);
+                                  },
                                   child: Padding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 12.h),
                                     child: Row(
                                       children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              Get.toNamed("/ReportSuccess");
-                                            },
-                                            child: textgreyM16Robo(
-                                                text[index]['title'])),
+                                        textgreyM16Robo(
+                                          text[index]['title'],
+                                        ),
                                       ],
                                     ),
                                   )
@@ -109,9 +124,13 @@ class _ReportState extends State<Report> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 100.h,
+              ),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 34.w, vertical: 100.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 34.w,
+                ),
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

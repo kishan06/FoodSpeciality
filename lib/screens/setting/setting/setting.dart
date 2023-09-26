@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/setting/setting/about.dart';
-import 'package:foodspeciality/screens/setting/setting/blocked_list.dart';
 import 'package:foodspeciality/screens/setting/setting/blog_news_article.dart';
 import 'package:foodspeciality/screens/setting/setting/privacypolicy.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'CommunityGuidelines.dart';
 import 'Notificationscreen.dart';
@@ -62,7 +63,7 @@ class _SettingState extends State<Setting> {
                           Get.to(PrivacyPolicy());
                           break;
                         case 2:
-                          Get.to(BlockedList());
+                          Get.toNamed("/blocklistfull");
                           break;
                         case 3:
                           Get.toNamed("/faq");
@@ -74,7 +75,8 @@ class _SettingState extends State<Setting> {
                           Get.to(AboutFoodSpeciality());
                           break;
                         default:
-                          Get.to(const BlogsNewsArticles());
+                          Get.toNamed("/BlogsNewsArticles");
+                          // Get.to(const BlogsNewsArticles());
                       }
                     },
                     child: Container(
@@ -179,7 +181,15 @@ class _SettingState extends State<Setting> {
           ),
           sizedBoxWidth(15.sp),
           InkWell(
-            onTap: () {
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              // print("token " + jsonResp["data"]["accessToken"]);
+              await prefs.setString('accessToken', "");
+              await prefs.setString('refreshToken', "");
+              await prefs.setString('userId', "");
+              await prefs.setString('myImage', "");
+              // myImage
+
               Get.offAll(Login());
               
             },

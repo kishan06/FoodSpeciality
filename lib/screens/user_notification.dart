@@ -4,6 +4,9 @@ import 'package:foodspeciality/common%20files/app_bar.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:get/get.dart';
 
+import '../controllers/notification_controller.dart';
+import '../utils/texts.dart';
+
 class UserNotifications extends StatefulWidget {
   const UserNotifications({super.key});
 
@@ -12,373 +15,413 @@ class UserNotifications extends StatefulWidget {
 }
 
 class _UserNotificationsState extends State<UserNotifications> {
+
+  NotificationController notificationController = Get.put(NotificationController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notificationController.getNotificationData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(titleTxt: "Notifications"),
-      body: Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(
-                    //   "Notifications",
-                    //   style: TextStyle(
-                    //       fontFamily: 'Studio Pro',
-                    //       fontSize: 20.sp,
-                    //       fontWeight: FontWeight.w500,
-                    //       color: const Color(0xff54595F)),
-                    // ),
-                    sizedBoxHeight(18.h),
-                    Text(
-                      "Today",
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14.sp,
-                          color: const Color(0xff979797)),
-                    ),
-                  ],
-                ),
-              ),
-              // sizedBoxHeight(22.h),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user notification/p1.png'),
-                ),
-                title: Text(
-                  "Mokshada Kesarkar started Following you",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff000000)),
-                ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff3B3F43)),
-                ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          side: BorderSide(
-                              width: 1.sp, color: const Color(0xff3B3F43)),
-                          elevation: 0,
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {},
-                      child: Text(
-                        "Following",
+      body: GetBuilder<NotificationController>(builder: (builder){
+        return notificationController.isLoading 
+        ? Center(child: CircularProgressIndicator()) 
+        : notificationController.notificationData == null 
+        ? Center(child: textgrey18BoldSP("Something went wrong"))
+        : Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ListView.builder(itemBuilder: (){
+
+                      // })
+                      // Text(
+                      //   "Notifications",
+                      //   style: TextStyle(
+                      //       fontFamily: 'Studio Pro',
+                      //       fontSize: 20.sp,
+                      //       fontWeight: FontWeight.w500,
+                      //       color: const Color(0xff54595F)),
+                      // ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: notificationController.notificationData!.data.userNotification.length,
+                        itemBuilder: (context, index) {
+                          return SizedBox();
+                          // return Column(
+                          //   children: [
+                          //     tileForlist(
+                          //         controllerHome.commentLike[index]["comment"],
+                          //         controllerHome.commentLike[index]["like"],
+                          //         index,
+                          //         controllerHome
+                          //         ),
+                          //     sizedBoxHeight(13.h)
+                          //   ],
+                          // );
+                        },
+                      ),
+                      sizedBoxHeight(18.h),
+                      Text(
+                        "Today",
                         style: TextStyle(
-                            fontFamily: 'Studio Pro',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
-                            color: const Color(0xff3B3F43)),
-                      )),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage:
-                      AssetImage('assets/user notification/p2.png'),
-                ),
-                title: Text(
-                  "You are invited to join WDIPL Community",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff000000)),
-                ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff3B3F43)),
-                ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user notification/p3.png'),
-                ),
-                title: Text(
-                  'Priyanka Joshi liked your comment on her post "Nice"',
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      color: const Color(0xff000000)),
-                ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      color: const Color(0xff979797)),
-                ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  "Yesterday",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    color: const Color(0xff979797),
+                            color: const Color(0xff979797)),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user notification/p4.png'),
+                // sizedBoxHeight(22.h),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/user notification/p1.png'),
+                  ),
+                  title: Text(
+                    "Mokshada Kesarkar started Following you",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff3B3F43)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            side: BorderSide(
+                                width: 1.sp, color: const Color(0xff3B3F43)),
+                            elevation: 0,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {},
+                        child: Text(
+                          "Following",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: const Color(0xff3B3F43)),
+                        )),
+                  ),
                 ),
-                title: Text(
-                  "Priyanka Joshi replied to your comment on her post",
-                  style: TextStyle(
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
+                ),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage:
+                        AssetImage('assets/user notification/p2.png'),
+                  ),
+                  title: Text(
+                    "You are invited to join WDIPL Community",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff3B3F43)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
+                ),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
+                ),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/user notification/p3.png'),
+                  ),
+                  title: Text(
+                    'Priyanka Joshi liked your comment on her post "Nice"',
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        color: const Color(0xff979797)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
+                ),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    "Yesterday",
+                    style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 14.sp,
-                      color: const Color(0xff000000)),
+                      color: const Color(0xff979797),
+                    ),
+                  ),
                 ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      color: const Color(0xff979797)),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/user notification/p4.png'),
+                  ),
+                  title: Text(
+                    "Priyanka Joshi replied to your comment on her post",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        color: const Color(0xff979797)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
                 ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
                 ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user notification/p5.png'),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/user notification/p5.png'),
+                  ),
+                  title: Text(
+                    'Priyanka Joshi liked your comment on her post "Nice"',
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        color: const Color(0xff979797)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
                 ),
-                title: Text(
-                  'Priyanka Joshi liked your comment on her post "Nice"',
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      color: const Color(0xff000000)),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
                 ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      color: const Color(0xff979797)),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage:
+                        AssetImage('assets/user notification/p2.png'),
+                  ),
+                  title: Text(
+                    "You are invited to join WDIPL Community",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        color: const Color(0xff979797)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
                 ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
                 ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage:
-                      AssetImage('assets/user notification/p2.png'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    "This Weekend",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff979797)),
+                  ),
                 ),
-                title: Text(
-                  "You are invited to join WDIPL Community",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      color: const Color(0xff000000)),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/user notification/p7.png'),
+                  ),
+                  title: Text(
+                    "Priyanka Joshi replied to your comment on her post",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        color: const Color(0xff000000)),
+                  ),
+                  subtitle: Text(
+                    "\n09.20 AM",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        color: const Color(0xff979797)),
+                  ),
+                  trailing: SizedBox(
+                    height: 31.h,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.sp))),
+                        onPressed: () {
+                          buildSubscriptionPlan();
+                        },
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontFamily: 'Studio Pro',
+                              fontSize: 14.sp,
+                              color: Colors.white),
+                        )),
+                  ),
                 ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      color: const Color(0xff979797)),
+                const Divider(
+                  color: Color(0xff7070707a),
+                  thickness: 0.2,
                 ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  "This Weekend",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      color: const Color(0xff979797)),
-                ),
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user notification/p7.png'),
-                ),
-                title: Text(
-                  "Priyanka Joshi replied to your comment on her post",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      color: const Color(0xff000000)),
-                ),
-                subtitle: Text(
-                  "\n09.20 AM",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      color: const Color(0xff979797)),
-                ),
-                trailing: SizedBox(
-                  height: 31.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.sp))),
-                      onPressed: () {
-                        buildSubscriptionPlan();
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                            fontFamily: 'Studio Pro',
-                            fontSize: 14.sp,
-                            color: Colors.white),
-                      )),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff7070707a),
-                thickness: 0.2,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      
+      })
+      
     );
   }
 

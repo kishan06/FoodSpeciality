@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/Widgets/ConversationList.dart';
-import 'package:foodspeciality/screens/InsideBottomBar/chats/controller/chat_controller.dart';
+import 'package:foodspeciality/Model/PrivateChatListModel.dart';
+import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/common%20files/sized_box.dart';
+import 'package:foodspeciality/services/private_chatdetail_service.dart';
+import 'package:foodspeciality/services/private_chatlist_service.dart';
+import 'package:foodspeciality/utils/colors.dart';
+import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -13,65 +19,14 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  // List<ChatPrivate> chatPrivate = [
-  //   ChatPrivate(
-  //     name: "Priyanka Joshi",
-  //     messageText: "Awesome Setup",
-  //     imageURL: "assets/chef.png",
-  //     time: "Now",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Mokshada Kesarkar",
-  //     messageText: "That's Great",
-  //     imageURL: "assets/ladychef.png",
-  //     time: "Yesterday",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Sandeep Kanojia",
-  //     messageText: "Hey where are you?",
-  //     imageURL: "assets/boychef.png",
-  //     time: "31 Mar",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Priyanka Joshi",
-  //     messageText: "Busy! Call me in 20 mins",
-  //     imageURL: "assets/chef.png",
-  //     time: "28 Mar",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Mokshada Kesarkar",
-  //     messageText: "Thankyou, It's awesome",
-  //     imageURL: "assets/ladychef.png",
-  //     time: "23 Mar",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Sandeep Kanojia",
-  //     messageText: "will update you in evening",
-  //     imageURL: "assets/boychef.png",
-  //     time: "17 Mar",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Priyanka Joshi",
-  //     messageText: "Can you please share the file?",
-  //     imageURL: "assets/chef.png",
-  //     time: "24 Feb",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Mokshada Kesarkar",
-  //     messageText: "How are you?",
-  //     imageURL: "assets/ladychef.png",
-  //     time: "18 Feb",
-  //   ),
-  //   ChatPrivate(
-  //     name: "Sandeep Kanojia",
-  //     messageText: "Where are you?",
-  //     imageURL: "assets/boychef.png",
-  //     time: "20 Feb",
-  //   ),
-  // ];
+  final TextEditingController _filterController = TextEditingController();
+  String _filterUsername = '';
 
-  TextEditingController textcontroller = TextEditingController();
-  final controllerChat = Get.put(ChatController());
+  @override
+  void dispose() {
+    _filterController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,22 +36,21 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // CustomAppBarWithNotification(titleTxt: "Chats"),
           Padding(
-            // height: 50.h,
+            // height: 50.h,++
             padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
             child: TextField(
               style: TextStyle(fontSize: 16.sp),
-              controller: textcontroller,
-              onChanged: (text) {
-                text = text.toLowerCase();
-                controllerChat.searchFunction(text);
+              controller: _filterController,
+              onChanged: (value) {
+                setState(() {
+                  _filterUsername = value;
+                });
                 // marketTickerList = marketTickerListStore.where((tName) {
                 //     var tNameTitle = tName["pair"].toLowerCase();
                 //     return tNameTitle.contains(text);
                 //   }).toSet().toList();
                 // setState(() {
-
                 // });
               },
               decoration: InputDecoration(
@@ -133,31 +87,161 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(top: 10.h, bottom: 0.h),
-              child: SingleChildScrollView(
-                child: GetBuilder<ChatController>(
-                  builder: (_) {
+              child: StreamBuilder<PrivateChatListModel>(
+                stream: ChatRoomService().getChatRoomsStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    ); // Loading indicator
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final chatRooms = snapshot.data!.data;
+                    final filteredChatRooms = chatRooms!
+                        .where((chatRoom) =>
+                            chatRoom.user!.username!.toLowerCase().contains(
+                                  _filterUsername.toLowerCase(),
+                                ) &&
+                            chatRoom.user?.id != myUserId &&
+                            chatRoom.user != null)
+                        .toList();
                     return ListView.builder(
-                      itemCount: controllerChat.chatPrivate.length,
+                      itemCount: filteredChatRooms.length,
                       shrinkWrap: true,
-                      // padding: EdgeInsets.only(top: 16.h),
+                      // padding: EdgeInsets.only(top:  16.h),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return ConversationList(
-                          name: controllerChat.chatPrivate[index].name,
-                          messageText:
-                              controllerChat.chatPrivate[index].messageText,
-                          imageUrl: controllerChat.chatPrivate[index].imageURL,
-                          time: controllerChat.chatPrivate[index].time,
-                          isMessageRead:
-                              (index == 0 || index == 3 || index == 2)
-                                  ? true
-                                  : false,
-                          index: index,
+                        String originalDate =
+                            filteredChatRooms[index].user!.createdAt!;
+                        DateTime parsedDate = DateTime.parse(originalDate);
+                        String formattedDate =
+                            DateFormat("MMMMd").format(parsedDate);
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/chatdetail", arguments: {
+                              "userid": filteredChatRooms[index].user!.id,
+                              "username":
+                                  filteredChatRooms[index].user!.username,
+                              "profileimage":
+                                  filteredChatRooms[index].user!.profileImage,
+                              "targetUserId": filteredChatRooms[index].user!.id
+                            });
+                            PrivateChatDetailService().getPrivateChatDetailData(
+                                filteredChatRooms[index].user!.id ?? "");
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                left: 16.w,
+                                right: 16.w,
+                                top: 10.h,
+                                bottom: 10.w),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 50.h,
+                                        height: 50.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(25.h),
+                                            image: filteredChatRooms[index]
+                                                        .user!
+                                                        .profileImage ==
+                                                    null
+                                                ? DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/default_profile.webp"),
+                                                    fit: BoxFit.fill)
+                                                : DecorationImage(
+                                                    image: NetworkImage(ApiUrls
+                                                            .base +
+                                                        "${filteredChatRooms[index].user!.profileImage}"),
+                                                    fit: BoxFit.fill)),
+                                      ),
+                                      // CircleAvatar(
+                                      //   backgroundImage: NetworkImage(
+                                      //       "http://77.68.102.23:8000/${filteredChatRooms[index].user!.profileImage}"),
+                                      //   maxRadius: 30.r,
+                                      // ),
+                                      SizedBox(
+                                        width: 16.w,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                filteredChatRooms[index]
+                                                    .user!
+                                                    .username!,
+                                                style: TextStyle(
+                                                    fontSize: 18.sp,
+                                                    fontFamily: "Roboto",
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              SizedBox(
+                                                height: 7.h,
+                                              ),
+                                              Text(
+                                                filteredChatRooms[index]
+                                                    .message!,
+                                                style: TextStyle(
+                                                    fontFamily: "Roboto",
+                                                    fontSize: 15.sp,
+                                                    color: Colors.grey.shade800,
+                                                    fontWeight: (index == 0 ||
+                                                            index == 3 ||
+                                                            index == 2)
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    (index == 0 || index == 1)
+                                        ? CircleAvatar(
+                                            backgroundColor:
+                                                AppColors.greyD3B3F43,
+                                            radius: 11.h,
+                                            child: Center(
+                                                child: textWhite12Robo("2")),
+                                          )
+                                        : const SizedBox(),
+                                    sizedBoxHeight(
+                                        (index == 0 || index == 1) ? 5.h : 0),
+                                    textgreyD10Robo(formattedDate)
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         );
                       },
                     );
-                  },
-                ),
+                  } else {
+                    return const Center(
+                      child: Text('No data available'),
+                    );
+                  }
+                },
               ),
             ),
           ),

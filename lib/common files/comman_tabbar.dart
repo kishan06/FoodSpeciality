@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/utils/colors.dart';
 
-Widget CommanTabbar(String label1, String label2) {
+Widget CommanTabbar(String label1, String label2,{TabController? controller}) {
   return TabBar(
+    controller: controller,
     indicatorSize: TabBarIndicatorSize.label,
     indicatorWeight: 4.h,
     indicatorColor: AppColors.greyD3B3F43,
