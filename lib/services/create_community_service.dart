@@ -1,3 +1,5 @@
+import '../common files/global.dart';
+
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/screens/bottom_bar.dart';
 import 'package:get/get.dart';

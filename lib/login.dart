@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,9 @@ import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'screens/CreateAccountScreenViaOAuth.dart';
+import 'services/appleAuthService.dart';
 import 'services/googleAuthService.dart';
 
 class Login extends StatefulWidget {
@@ -22,6 +25,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController tecEmail = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
+  googleAuthService googleSigninController = Get.put(googleAuthService());
 
   // bool v1 = false;
   // bool v2 = false;
@@ -250,6 +254,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 30.h,
                     ),
+
                     SizedBox(
                       height: 50.h,
                       width: double.infinity,
@@ -263,11 +268,19 @@ class _LoginState extends State<Login> {
                           ),
                           elevation: 0,
                         ),
-                        onPressed: () {
-                          // Get.toNamed("/bottomBar");
-
-                          // googleAuthService().handleGoogleSignIn();
-
+                        onPressed: () async {
+                          //   Get.to(() => CreateAccountScreenViaOAuth());
+                          await googleAuthService().handleGoogleSignIn();
+                          if (googleSigninController.user.value == null) {
+                            // User is not signed in.
+                            // Display a login button or navigate to the login screen.
+                            print('Not Logged In');
+                          } else {
+                            // User is signed in.
+                            // Display user-specific content or a logout button.
+                            Get.to(() => CreateAccountScreenViaOAuth());
+                          }
+                          // //appleAuthService().signInWithApple();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -293,41 +306,45 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    SizedBox(
-                      height: 50.h,
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            side: BorderSide(
-                                color: const Color(0xFF3B3F43), width: 1.w),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/Apple-Logo.png",
-                              height: 50.h,
-                              width: 50.w,
-                            ),
-                            // SizedBox(
-                            //   width: 10.w,
-                            // ),
-                            Text(
-                              "Continue with Apple",
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  color: const Color(0xFF3B3F43)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    if (Platform.isIOS)
+                      SignInWithAppleButton(onPressed: () async {
+                        appleAuthService().signInWithApple();
+                      }),
+                    // SizedBox(
+                    //   height: 50.h,
+                    //   width: double.infinity,
+                    //   child: OutlinedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.white,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(8.r),
+                    //         side: BorderSide(
+                    //             color: const Color(0xFF3B3F43), width: 1.w),
+                    //       ),
+                    //       elevation: 0,
+                    //     ),
+                    //     onPressed: () {},
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Image.asset(
+                    //           "assets/Apple-Logo.png",
+                    //           height: 50.h,
+                    //           width: 50.w,
+                    //         ),
+                    //         // SizedBox(
+                    //         //   width: 10.w,
+                    //         // ),
+                    //         Text(
+                    //           "Continue with Apple",
+                    //           style: TextStyle(
+                    //               fontSize: 18.sp,
+                    //               color: const Color(0xFF3B3F43)),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 16.h,
                     ),

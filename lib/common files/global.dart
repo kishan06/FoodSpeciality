@@ -9,7 +9,7 @@ bool? onboard;
 class ApiUrls {
   static const _base = "http://77.68.102.23:8000/";
   // static const _base = "http://192.168.1.13:8000/";
-  
+
   static const base = "http://77.68.102.23:8000/";
   // static const base = "http://192.168.1.13:8000/";
 
@@ -79,8 +79,7 @@ class ApiUrls {
   static const getDefaultCommunitySearch = _base + "community/getcommunity";
   static const getCommunitySearch = _base + "community/searchCommunity?search=";
   static const getNotification = _base + "user/notification";
-  
-
+  static const storeGoogleSigninDetails = _base + "auth/register-auth";
 
   // static const commentReplies = _base + "recipe/get-replies";
 }

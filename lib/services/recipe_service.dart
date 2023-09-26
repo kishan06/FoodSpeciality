@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:foodspeciality/api_common/response_handling.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../api_common/network_api.dart';
 import '../common files/global.dart';
 import '../constants/base_manager.dart';
 import 'package:http/http.dart' as http;

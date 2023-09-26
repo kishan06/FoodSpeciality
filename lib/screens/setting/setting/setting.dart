@@ -191,6 +191,7 @@ class _SettingState extends State<Setting> {
               // myImage
 
               Get.offAll(Login());
+              
             },
             child: Text(
               "Sign out",

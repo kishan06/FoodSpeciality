@@ -3,11 +3,15 @@ import 'dart:convert';
 // import 'package:dio/dio.dart';
 // import 'base_manager.dart';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/base_manager.dart';
 
 class NetworkApi {
+   Dio dio = Dio();
   Future<ResponseData<dynamic>> postApiHttp(
       String token, String url, Map<String, String> body) async {
     var headers = {
@@ -50,4 +54,42 @@ class NetworkApi {
       );
     }
   }
+
+  Future<ResponseData> postApiDio(data, String url) async {
+    if (kDebugMode) { 
+      print("data >>> $data");
+      print("api url is >>> $url");
+    }
+    Response response;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // ignore: unused_local_variable
+    String? token = prefs.getString('token').toString();
+
+    response = await dio.post(
+      url,
+      data: data,
+    );
+    // print("succ");
+    if (kDebugMode) {
+      print(response);
+    }
+
+    print("resp in post $response");
+
+    if (response.statusCode == 200) {
+      // print(response.data);
+
+      return ResponseData<dynamic>("success", ResponseStatus.SUCCESS,
+          data: response.data);
+    } else {
+      try {
+        return ResponseData<dynamic>(
+            response.data['message'].toString(), ResponseStatus.FAILED);
+      } catch (_) {
+        return ResponseData<dynamic>(
+            response.statusMessage!, ResponseStatus.FAILED);
+      }
+    }
+  }
+
 }

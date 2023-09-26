@@ -1,4 +1,4 @@
-package com.example.foodspeciality
+package com.foodspeciality.foodspecialityapp
 
 import io.flutter.embedding.android.FlutterActivity
 

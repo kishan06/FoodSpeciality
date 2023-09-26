@@ -8,7 +8,7 @@
 PRODUCT_NAME = foodspeciality
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.foodspeciality
+PRODUCT_BUNDLE_IDENTIFIER = com.foodspeciality.foodspecialityapp;
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.

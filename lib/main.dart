@@ -52,10 +52,14 @@ import 'screens/completed_challenge_view.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');

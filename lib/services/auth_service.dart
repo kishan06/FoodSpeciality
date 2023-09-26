@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import '../common files/global.dart';
+
 import 'package:foodspeciality/controllers/auth_controller.dart';
 
 import 'package:foodspeciality/screens/create_account.dart';
@@ -31,11 +32,8 @@ class AuthService {
       print("playerId $playerId");
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.login));
-      request.body = json.encode({
-        "email": email, 
-        "password": password,
-        "playerId": playerId
-      });
+      request.body = json
+          .encode({"email": email, "password": password, "playerId": playerId});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -50,8 +48,8 @@ class AuthService {
 
         await prefs.setString('refreshToken', jsonResp["data"]["refreshToken"]);
         await prefs.setString('userId', jsonResp["data"]["user"]["id"]);
-        await prefs.setString('myImage', jsonResp["data"]["user"]["profile_image"]??"");
-        
+        await prefs.setString(
+            'myImage', jsonResp["data"]["user"]["profile_image"] ?? "");
 
         accessToken = jsonResp["data"]["accessToken"];
         myUserId = jsonResp["data"]["user"]["id"];
@@ -59,9 +57,7 @@ class AuthService {
         // print(await response.stream.bytesToString());
 
         Get.offAndToNamed("/bottomBar");
-
-      } else if(response.statusCode == 400) {
-
+      } else if (response.statusCode == 400) {
         Get.snackbar("Error", jsonResp["message"]);
       } else {
         Get.snackbar("Error", response.reasonPhrase!);
@@ -72,7 +68,6 @@ class AuthService {
       Get.snackbar("Error", e.toString());
     }
   }
-
 
   Future<bool> signUpUser({
     required String username,
@@ -119,46 +114,33 @@ class AuthService {
     }
   }
 
-
   Future<void> forgotPassword({
     required String email,
     // required String password,
   }) async {
     try {
       print("calling signInUser");
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.forgotPassword));
-      request.body = json.encode({
-        "email_address": email
-      });
+      request.body = json.encode({"email_address": email});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-
-      
-
 
       var resp = await response.stream.bytesToString();
       print(resp);
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
         var id = jsonResp["id"];
-        Get.toNamed("/otpverification",
-          arguments: <String>[id,email]
-        );
+        Get.toNamed("/otpverification", arguments: <String>[id, email]);
         // Get.offAll("bh");
-        
-      } else if(response.statusCode == 404) {
+      } else if (response.statusCode == 404) {
         Get.snackbar("Error", jsonResp["message"]);
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
 
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
@@ -170,17 +152,12 @@ class AuthService {
   }) async {
     try {
       // print("calling signInUser");
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       // var url = ApiUrls.verifyOtp + "/"  + id;
       print(otp);
       // print(url);
       var request = http.Request('POST', Uri.parse(ApiUrls.verifyOtp));
-      request.body = json.encode({
-        "otp": otp,
-        "id": id
-      });
+      request.body = json.encode({"otp": otp, "id": id});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -192,56 +169,40 @@ class AuthService {
       //   print(response.reasonPhrase);
       // }
 
-
-      
-
-
       var resp = await response.stream.bytesToString();
       print(response.statusCode);
       print(resp);
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
-        Get.toNamed("/resetPass",
-          arguments: id
-        );
+        Get.toNamed("/resetPass", arguments: id);
         // var id = jsonResp["id"];
         // Get.toNamed("/otpverification",
         //   arguments: id
         // );
-        
-      } else if(response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         Get.snackbar("Error", jsonResp["message"]);
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
 
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
   }
-  
+
   Future<void> resendOtp({
     required String email,
     // required String password,
   }) async {
     try {
       print("calling signInUser");
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiUrls.resendOtp));
-      request.body = json.encode({
-        "email_address": email
-      });
+      request.body = json.encode({"email_address": email});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-
-      
-
 
       var resp = await response.stream.bytesToString();
       print(resp);
@@ -253,16 +214,13 @@ class AuthService {
         // Get.toNamed("/otpverification",
         //   arguments: id
         // );
-        
-      } else if(response.statusCode == 404) {
+      } else if (response.statusCode == 404) {
         Get.snackbar("Error", jsonResp["message"]);
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
 
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
@@ -275,9 +233,7 @@ class AuthService {
   }) async {
     try {
       // print("calling signInUser");
-      var headers = {
-        'Content-Type': 'application/json'
-      };
+      var headers = {'Content-Type': 'application/json'};
       // var url = ApiUrls.setNewPassword + "/"  + id;
       // print(otp);
       // print(url);
@@ -298,22 +254,17 @@ class AuthService {
       //   print(response.reasonPhrase);
       // }
 
-
-      
-
-
       var resp = await response.stream.bytesToString();
       print(response.statusCode);
       print(resp);
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
         commonSucessDailog(
-          msg: "Password changed Successfully", 
-          onPressed: (){
-            Get.offAllNamed("/login");
-            // Get.back();
-          }
-        );
+            msg: "Password changed Successfully",
+            onPressed: () {
+              Get.offAllNamed("/login");
+              // Get.back();
+            });
         // Get.toNamed("/resetPass",
         //   arguments: id
         // );
@@ -321,22 +272,17 @@ class AuthService {
         // // Get.toNamed("/otpverification",
         // //   arguments: id
         // // );
-        
-      } else if(response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         Get.snackbar("Error", jsonResp["message"]);
-      }
-      else {
+      } else {
         Get.snackbar("Error", response.reasonPhrase!);
 
         // print(response.reasonPhrase);
       }
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
   }
-  
-
 }
 
 // class NewDailog extends StatefulWidget {

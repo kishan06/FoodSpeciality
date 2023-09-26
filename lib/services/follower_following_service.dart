@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:foodspeciality/Model/FollowesModel.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import '../common files/global.dart';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
