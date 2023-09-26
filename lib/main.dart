@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/constants/global.dart';
 import 'package:foodspeciality/common%20files/video_player_file.dart';
 import 'package:foodspeciality/login.dart';
 import 'package:foodspeciality/screens/InsideBottomBar/chats/Screens/ChatDetails.dart';
@@ -40,10 +40,14 @@ import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
 import 'screens/report.dart';
 import 'screens/report_successfull.dart';
 import 'screens/setting/setting/setting.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');
@@ -51,7 +55,6 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-
     runApp(const MyApp());
   });
 }

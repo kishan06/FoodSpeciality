@@ -1,48 +1,49 @@
 {
   "project_info": {
-    "project_number": "453554444598",
-    "project_id": "foodspeciality-211c4",
-    "storage_bucket": "foodspeciality-211c4.appspot.com"
+    "project_number": "260589185970",
+    "project_id": "food-specialities-app",
+    "storage_bucket": "food-specialities-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453554444598:android:74af66ec276dc5332ebb97",
+        "mobilesdk_app_id": "1:260589185970:android:b3b21979f61b4f5fa8d2ab",
         "android_client_info": {
-          "package_name": "com.example.foodspeciality"
+          "package_name": "com.foodspeciality.foodspecialityapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "453554444598-6b2995hamjkp2lq1sij2uc8cdcaal8gu.apps.googleusercontent.com",
+          "client_id": "260589185970-1e8j4lnub87c7gcdhb20qsjm1c72lbvp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.foodspeciality",
-            "certificate_hash": "c14fd025dc0c16c628193e5e4aa2f9aa52264c42"
+            "package_name": "com.foodspeciality.foodspecialityapp",
+            "certificate_hash": "f660dba730a50f6c722b70751992cee4d99f57a0"
           }
         },
         {
-          "client_id": "453554444598-ru7q3b9c995sc4rrass67sri7uhq1g9t.apps.googleusercontent.com",
+          "client_id": "260589185970-tde50ln7hnbtrv3lvbpb3b796ncko11c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0y27O-NP14lNTz67ZVlmNDfy6R1MUuIQ"
+          "current_key": "AIzaSyBbJQFP3wUHPo1GtQIxmiKly2oPuuRs-cc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "453554444598-5i7vb9qr38lnhsefj4eqjh6kbh8l5knm.apps.googleusercontent.com",
+              "client_id": "260589185970-2d7v4v39pr1mjlg0bd7i842p5t77ncvn.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "453554444598-s9gn49qbq8a8fkkkq78t7rsi33jn4i85.apps.googleusercontent.com",
+              "client_id": "260589185970-4p0fg720gjovaa90v3mrmnjvsq42ue5u.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.foodspeciality"
+                "bundle_id": "com.foodspeciality.in",
+                "app_store_id": "6453161387"
               }
             }
           ]

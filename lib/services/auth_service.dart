@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/constants/global.dart';
 import 'package:foodspeciality/controllers/auth_controller.dart';
 
 import 'package:foodspeciality/screens/create_account.dart';

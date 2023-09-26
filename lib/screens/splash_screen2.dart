@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/CustomNextButton.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/constants/global.dart';
 import 'package:foodspeciality/common%20files/logo_with_name.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/utils/texts.dart';

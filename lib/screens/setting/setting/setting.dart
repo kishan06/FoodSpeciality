@@ -181,6 +181,7 @@ class _SettingState extends State<Setting> {
           InkWell(
             onTap: () {
               Get.offAll(Login());
+              
             },
             child: Text(
               "Sign out",

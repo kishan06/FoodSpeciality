@@ -1,4 +1,4 @@
-import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/constants/global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../api_common/response_handling.dart';
-import '../common files/global.dart';
+import '../constants/global.dart';
 import 'package:http/http.dart' as http;
 import '../constants/base_manager.dart';
 

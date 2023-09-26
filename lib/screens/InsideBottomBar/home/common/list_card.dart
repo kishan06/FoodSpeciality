@@ -1,5 +1,4 @@
-import 'package:flutter_share/flutter_share.dart';
-
+import 'package:share_plus/share_plus.dart';
 // var commentLike = [
 //   {
 //     "like": 0,
@@ -35,13 +34,12 @@ import 'package:flutter_share/flutter_share.dart';
 // ];
 
 Future<void> share() async {
-  await FlutterShare.share(
-    title: 'Example share',
+  await Share.share(
+    "Example share",
+    subject: 'https://flutter.dev/',
     // text: 'Example share text',
-    linkUrl: 'https://flutter.dev/',
     // chooserTitle: 'Example Chooser Title'
   );
-}
 
 // Widget tileForlist(String comment, int like) {
 //   return Row(
@@ -101,7 +99,7 @@ Future<void> share() async {
 //                 //           // sdf
 //                 //         });
 //                 //       },
-//                     child: like == 0 
+//                     child: like == 0
 //                     ? Image.asset(
 //                       "assets/icons/like.png",
 //                       width: 20.w,
@@ -368,7 +366,7 @@ Future<void> share() async {
 //                         onTap: (){
 //                           // sets
 //                           // like = !like;
-                          
+
 //                           listCardData[index]["like"] = like == 0 ? 1 : 0;
 //                         },
 //                         child: Image.asset(
@@ -483,3 +481,4 @@ Future<void> share() async {
 //         ),
 //       ));
 // }
+}

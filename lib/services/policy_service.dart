@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:foodspeciality/Model/PolicyModel.dart';
-import 'package:foodspeciality/common%20files/global.dart';
+import 'package:foodspeciality/constants/global.dart';
 import 'package:http/http.dart' as http;
 
 class PolicyService {

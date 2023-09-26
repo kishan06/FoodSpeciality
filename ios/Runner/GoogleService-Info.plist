@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>453554444598-s9gn49qbq8a8fkkkq78t7rsi33jn4i85.apps.googleusercontent.com</string>
+	<string>260589185970-d662mil8kkfrblcf5ntlntiigrlgsfie.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.453554444598-s9gn49qbq8a8fkkkq78t7rsi33jn4i85</string>
+	<string>com.googleusercontent.apps.260589185970-d662mil8kkfrblcf5ntlntiigrlgsfie</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>453554444598-70j1cgbeo12tko0lggvlbfdsi9ve74bf.apps.googleusercontent.com</string>
+	<string>260589185970-1e8j4lnub87c7gcdhb20qsjm1c72lbvp.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD83Wz6d00a0IywypjTi-4a4G0D2CQ3uZQ</string>
+	<string>AIzaSyDMF4kS9vTy1iujOUZ-xU8L-bs01osxJVI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>453554444598</string>
+	<string>260589185970</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.foodspeciality</string>
+	<string>com.foodspeciality.foodspecialityapp</string>
 	<key>PROJECT_ID</key>
-	<string>foodspeciality-211c4</string>
+	<string>food-specialities-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>foodspeciality-211c4.appspot.com</string>
+	<string>food-specialities-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:453554444598:ios:8d66e3eec4e682392ebb97</string>
+	<string>1:260589185970:ios:1c573ff528ffb122a8d2ab</string>
 </dict>
 </plist>
