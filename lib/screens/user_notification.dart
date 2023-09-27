@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/app_bar.dart';
+import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/notification_controller.dart';
+import '../utils/colors.dart';
 import '../utils/texts.dart';
 
 class UserNotifications extends StatefulWidget {
@@ -32,9 +35,12 @@ class _UserNotificationsState extends State<UserNotifications> {
       body: GetBuilder<NotificationController>(builder: (builder){
         return notificationController.isLoading 
         ? Center(child: CircularProgressIndicator()) 
-        : notificationController.notificationData == null 
+        : notificationController.notificationData == null
         ? Center(child: textgrey18BoldSP("Something went wrong"))
-        : Container(
+        : notificationController.notificationData!.data.userNotification.isEmpty 
+        ? Center(child: textgrey18BoldSP("No notifications"))
+        // ? /
+        :Container(
           color: Colors.white,
           child: SingleChildScrollView(
             child: Column(
@@ -61,7 +67,54 @@ class _UserNotificationsState extends State<UserNotifications> {
                         shrinkWrap: true,
                         itemCount: notificationController.notificationData!.data.userNotification.length,
                         itemBuilder: (context, index) {
-                          return SizedBox();
+                          // print("length");
+                          // print(notificationController.notificationData!.data.userNotification.length);
+                          final data = notificationController.notificationData!.data.userNotification[index];
+                          final type  = data.type;
+                          // print(type);
+                          print(index);
+                          String originalDate = data.createdAt;
+                          DateTime parsedDate = DateTime.parse(originalDate);
+                          String formattedDate = DateFormat('dd/mm/yyyy').format(parsedDate);
+                          String formattedTime = DateFormat('h:mm a').format(parsedDate);
+                      
+                          print(formattedDate);
+                          print(formattedTime);
+                          final time = formattedDate + " " + formattedTime;
+                      
+                          // return SizedBox();
+                          if (type == "profile") {
+                            print("profile");
+                            return tileForFollowing(
+                              image: data.associatedUser.profileImage,
+                              msg: data.message, 
+                              time: time, 
+                              following: data.isFollowedByReqIdUser,
+                              userId: data.associatedUser.id
+                            );
+                          } else if (type == "community") {
+                            print("post");
+                            return tileForCommunity(
+                              image: data.associatedUser.profileImage,
+                              msg: data.message, 
+                              time: time
+                            );
+                          } else {
+                            print("community");
+
+                            return tileForPost(
+                              image: data.associatedUser.profileImage,
+                              msg: data.message, 
+                              time: time
+                            );
+                          }
+                          // else if (){
+
+                          // }
+                          // return tileForFollowing(
+                      
+                          // );
+                          // return SizedBox();
                           // return Column(
                           //   children: [
                           //     tileForlist(
@@ -419,11 +472,259 @@ class _UserNotificationsState extends State<UserNotifications> {
             ),
           ),
         );
+        
+        
       
       })
       
     );
   }
+
+  tileForFollowing({
+    String? image, 
+    required String msg, 
+    required String time,
+    required bool following,
+    required String userId
+  }){
+    return 
+    
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: (){
+            // Get.toNamed("/viewuser");
+            Get.toNamed("/viewuser",
+              arguments: {
+                  "userid": userId
+              }
+            );
+          },
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: image == null 
+              ? AssetImage('assets/default_profile.webp')
+              : Image.network(ApiUrls.base + image) as ImageProvider
+            ),
+            title: Text(
+              msg,
+              // "Mokshada Kesarkar started Following you",
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xff000000)),
+            ),
+            subtitle: Text(
+              time,
+              // "\n09.20 AM",
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xff3B3F43)),
+            ),
+            trailing: following
+            // recipeData!.following!
+                ? Container(
+                        width: 80.w,
+                    height: 35.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(
+                              8.r),
+                      border: Border.all(
+                        color: const Color(
+                            0xFF3B3F43),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.all(5.h),
+                      child: Center(
+                        child: textgreyD14Robo(
+                            "Following"),
+                      ),
+                    ),
+                  )
+                : Container(
+                    //  width: 80.w,
+                    width: 80.w,
+                    height: 35.h,
+                    decoration: BoxDecoration(
+                      color:
+                          AppColors.greyD3B3F43,
+                      borderRadius:
+                          BorderRadius.circular(
+                              8.r),
+                      border: Border.all(
+                          color: Colors
+                              .grey.shade700),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.all(5.h),
+                      child: Center(
+                        child: textWhite14Robo(
+                            "Follow"),
+                      ),
+                    ),
+                  ),
+            // SizedBox(
+            //   height: 31.h,
+            //   child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //           side: BorderSide(
+            //               width: 1.sp, color: const Color(0xff3B3F43)),
+            //           elevation: 0,
+            //           backgroundColor: Colors.white,
+            //           shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(8.sp))),
+            //       onPressed: () {},
+            //       child: Text(
+            //         "Following",
+            //         style: TextStyle(
+            //             fontFamily: 'Studio Pro',
+            //             fontSize: 14.sp,
+            //             color: const Color(0xff3B3F43)),
+            //       )),
+            // ),
+          ),
+        ),
+       
+       
+        const Divider(
+          color: Color(0xff7070707a),
+          thickness: 0.2,
+        ),
+      ],
+    );
+  }
+
+  tileForCommunity({
+    String? image, 
+    required String msg, 
+    required String time,
+    // required bool following
+  }){
+    return Column(
+      children: [
+        ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+            backgroundImage: image == null 
+            ? AssetImage('assets/defaultGroup2.png')
+            : Image.network(ApiUrls.base + image) as ImageProvider
+          ),
+          title: Text(
+            msg,
+            // "You are invited to join WDIPL Community",
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xff000000)),
+          ),
+          subtitle: Text(
+            time,
+            // "\n09.20 AM",
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xff3B3F43)),
+          ),
+          trailing: SizedBox(
+            height: 31.h,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.sp))),
+                onPressed: () {
+                  buildSubscriptionPlan();
+                },
+                child: Text(
+                  "View",
+                  style: TextStyle(
+                      fontFamily: 'Studio Pro',
+                      fontSize: 14.sp,
+                      color: Colors.white),
+                )),
+          ),
+        ),
+        const Divider(
+          color: Color(0xff7070707a),
+          thickness: 0.2,
+        ),
+      ],
+    );
+  }
+
+  tileForPost({
+    String? image, 
+    required String msg, 
+    required String time,
+    // required bool following
+  }){
+    return Column(
+      children: [
+        ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+            backgroundImage: image == null 
+            ? AssetImage('assets/default_profile.webp')
+            : Image.network(ApiUrls.base + image) as ImageProvider
+          ),
+          title: Text(
+            msg,
+            // "You are invited to join WDIPL Community",
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xff000000)),
+          ),
+          subtitle: Text(
+            time,
+            // "\n09.20 AM",
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xff3B3F43)),
+          ),
+          trailing: SizedBox(
+            height: 31.h,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: const Color.fromRGBO(84, 89, 95, 1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.sp))),
+                onPressed: () {
+                  buildSubscriptionPlan();
+                },
+                child: Text(
+                  "View",
+                  style: TextStyle(
+                      fontFamily: 'Studio Pro',
+                      fontSize: 14.sp,
+                      color: Colors.white),
+                )),
+          ),
+        ),
+        const Divider(
+          color: Color(0xff7070707a),
+          thickness: 0.2,
+        ),
+      ],
+    );
+  }
+
 
   buildSubscriptionPlan() {
     return showDialog(

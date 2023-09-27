@@ -51,9 +51,6 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
   FocusNode _focusNode = FocusNode();
   String? commentIdForReply;
 
-  
-
-
   List tags = [
     "Limpopo",
     "Simple greens",
@@ -2468,4 +2465,5 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
       ],
     );
   }
+
 }

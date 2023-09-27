@@ -248,8 +248,29 @@ class _RecipeIngState extends State<RecipeIng>
                         Center(
                           child: GestureDetector(
                             onTap: () {
+                              publish_status_value = "published";
+                              if (recipeIngreController.file == null) {
+                                Get.snackbar("Error", "Select a video");
+                              } else if (recipeIngreController.image == null) {
+                                Get.snackbar("Error", "Select a Cover Image");
+                              } else if (tecRecipeName.text.isEmpty ||
+                                  tecDescription.text.isEmpty) {
+                                Get.snackbar("Error",
+                                    "Enter recipe name and description");
+                              } else if (selectedDifficultyText == null) {
+                                Get.snackbar("Error", "Select difficulty");
+                              } else {
+                                final isValid =
+                                    _newFormKey.currentState!.validate();
+                                print("isValid $isValid");
+                                if (isValid) {
+                                  return callGoToPreview();
+                                }
+                              }
+
                               // Get.to(const Preview());
-                              Get.toNamed("/Preview");
+                              // Get.toNamed("/Preview");
+
                             },
                             child: Text(
                               "Preview",
@@ -422,6 +443,80 @@ class _RecipeIngState extends State<RecipeIng>
         getRecipePublishSuccess();
       }
     }
+  }
+
+
+  callGoToPreview() async {
+    print("callAddRecipeApi");
+    RecipeService recipeService = RecipeService();
+    int cookingTime = _selectedHour * 60 + _selectedMinute;
+    ingredients = [];
+    for (var i = 0; i < dropdownData.length; i++) {
+      ingredients.add({
+        '"name"': '"${_controllers[i].text}"',
+        '"quantity"': '"${_controllers2[i].text + " " + dropdownData[i]!}"'
+      });
+    }
+    instructions = [];
+    for (var i = 0; i < stepsInColumn.length; i++) {
+      // instructions.add('"${tecInstructionList[i].text}"');
+      instructions.add("${tecInstructionList[i].text}");
+
+      // instructionsImages.add()
+    }
+
+    Get.toNamed("/Preview",
+      arguments: {
+        "videoPath": recipeIngreController.file!,
+        "imagePath": recipeIngreController.image!,
+        "name": tecRecipeName.text,
+        "description": tecDescription.text,
+        "difficulty": selectedDifficultyText!.toLowerCase(),
+        "cookingTime": cookingTime.toString(),
+        "serving": servigCount.toString(),
+        "tags": recipeIngreController.tags,
+        "ingredients": ingredients,
+        "instructions": instructions,
+        "publish_status": publish_status_value!,
+        "instructionsImages": imageInstructionList,
+        "challengeId": challengeId ?? null
+      }
+    );
+
+
+
+
+    // var resp = await recipeService.addRecipe(
+    //     // int cookingTime = _selectedHour * 60 + _selectedMinute,
+    //     videoPath: recipeIngreController.file!.path,
+    //     imagePath: recipeIngreController.image!.path,
+    //     name: tecRecipeName.text,
+    //     description: tecDescription.text,
+    //     difficulty: selectedDifficultyText!.toLowerCase(),
+    //     cookingTime: cookingTime.toString(),
+    //     serving: servigCount.toString(),
+    //     tags: recipeIngreController.tags.toString(),
+    //     ingredients: ingredients.toString(),
+    //     // instructions: instructions.toString(),
+    //     instructions: jsonEncode(instructions),
+    //     publish_status: publish_status_value!,
+    //     instructionsImages: imageInstructionList,
+    //     challengeId: challengeId ?? null
+    // );
+
+    // if (resp.status == ResponseStatus.PRIVATE) {
+    //   callAddRecipeApi();
+    // } else if (resp.status == ResponseStatus.SUCCESS) {
+    //   if (challengeId != null) {
+    //     commonSucessDailog(
+    //         msg: "Recipe shared for challenge successfully",
+    //         onPressed: () {
+    //           Get.offAllNamed("/bottomBar");
+    //         });
+    //   } else {
+    //     getRecipePublishSuccess();
+    //   }
+    // }
   }
 
   getRecipePublishSuccess() {
