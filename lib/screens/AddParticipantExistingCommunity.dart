@@ -143,7 +143,7 @@ class _AddParticipantExistingCommunityState
             ),
           ]),
           Container(
-            height: 670.h,
+            height: 668.h,
             child: FutureBuilder<Followes>(
               future: followerFollowing.getfollowfollowing(),
               builder: (context, snapshot) {

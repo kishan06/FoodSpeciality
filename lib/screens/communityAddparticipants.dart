@@ -115,11 +115,11 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
               ),
             ),
             SizedBox(
-              height: 15.h,
+              height: 3.h,
             ),
           ]),
           Container(
-            height: 670.h,
+            height: 668.h,
             child: FutureBuilder<Followes>(
               future: followerFollowing.getfollowfollowing(),
               builder: (context, snapshot) {
@@ -155,7 +155,7 @@ class _CommunityAddParticipantsState extends State<CommunityAddParticipants> {
         
           ),
           SizedBox(
-            height: 50.h,
+            height: 48.h,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
