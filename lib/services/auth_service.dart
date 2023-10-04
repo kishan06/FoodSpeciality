@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../common files/global.dart';
 
 import 'package:foodspeciality/controllers/auth_controller.dart';
@@ -16,6 +17,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common files/common_sucess_dailog.dart';
+import '../common files/sized_box.dart';
 
 class AuthService {
   AuthController authController = Get.put(AuthController());
@@ -98,7 +100,15 @@ class AuthService {
       print(resp);
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
-        authController.changeDailogBool(true);
+        // var resp = await response.stream.bytesToString();
+        // print(resp);
+        // var jsonResp = jsonDecode(resp);
+        var id = jsonResp["id"];
+        print(id);
+        
+        Get.toNamed("/otpverification", arguments: [id, email, true]);
+
+        // authController.changeDailogBool(true);
         return true;
       } else if (response.statusCode == 400) {
         Get.snackbar("Error", jsonResp["message"]);
@@ -132,7 +142,7 @@ class AuthService {
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
         var id = jsonResp["id"];
-        Get.toNamed("/otpverification", arguments: <String>[id, email]);
+        Get.toNamed("/otpverification", arguments: [id, email, false]);
         // Get.offAll("bh");
       } else if (response.statusCode == 404) {
         Get.snackbar("Error", jsonResp["message"]);
@@ -149,6 +159,7 @@ class AuthService {
   Future<void> verifyOtp({
     required String otp,
     required String id,
+    bool? fromRegister
   }) async {
     try {
       // print("calling signInUser");
@@ -174,7 +185,13 @@ class AuthService {
       print(resp);
       var jsonResp = jsonDecode(resp);
       if (response.statusCode == 200) {
-        Get.toNamed("/resetPass", arguments: id);
+        print("verifyOtp api $fromRegister");
+        if (fromRegister == true) {
+          getAccountCreatedDailog();
+          
+        } else {
+          Get.toNamed("/resetPass", arguments: id);
+        }
         // var id = jsonResp["id"];
         // Get.toNamed("/otpverification",
         //   arguments: id
@@ -190,6 +207,124 @@ class AuthService {
       Get.snackbar("Error", e.toString());
     }
   }
+
+  getAccountCreatedDailog() {
+    Get.defaultDialog(
+        titleStyle: const TextStyle(fontSize: 0),
+        titlePadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.all(10.h),
+        title: "",
+        barrierDismissible: false,
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: GestureDetector(
+                  //     onTap: (){
+                  //       Get.back();
+                  //     },
+                  //     child: Icon(Icons.close,
+                  //       color: AppColors.grey54595F,
+                  //       // ColorConstants.kPrimaryColor,
+                  //       size: 25.h,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 30),
+
+                  // LottieBuilder.network(
+                  //   "https://assets3.lottiefiles.com/packages/lf20_jbrw3hcz.json",
+                  //   // height: ,
+                  //   height: 200.h,
+                  //   width: 250.w,
+                  // ),
+
+                  LottieBuilder.asset("assets/sucess_lottie.json",
+                    height: 200.h,
+                    width: 250.w,
+                  ),
+
+                  Text(
+                    "Congratulations",
+                    style: TextStyle(
+                      fontSize: 25.sp,
+                      color: AppColors.greyD3B3F43,
+                      // ColorConstants.kPrimaryColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Text(
+                    "Account Created Successfully",
+                    // HomeApiController().setMoodResponse,
+                    // homeApiController.setMoodResponse.progressBar!,
+                    style: TextStyle(
+                      fontSize: 17.sp,
+                      color: AppColors.greyD3B3F43,
+                    ),
+                  ),
+
+                  sizedBoxHeight(30.h),
+
+                  SizedBox(
+                    height: 50.h,
+                    width: 170.w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        // ignore: deprecated_member_use
+                        primary: const Color(0xFF3B3F43),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(color: Color(0xFF707070)),
+                          borderRadius: BorderRadius.circular(8.h),
+                        ),
+                      ),
+                      child: Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontFamily: 'StudioProR',
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.offAllNamed("/login");
+                        // Get.toNamed("communityaddparticipants");
+                      },
+                    ),
+                  ),
+
+                  // custom
+
+                  // TextSpan(
+                  //         text: appDataController.name.value,
+                  //         style: TextStyle(
+                  //           fontSize: 17,
+                  //           color: ColorConstants.kPrimaryColor,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       )
+
+                  // custom
+
+                  // const SizedBox(height: 34),
+                ],
+              ),
+            ],
+          ),
+        ));
+  }
+
 
   Future<void> resendOtp({
     required String email,

@@ -42,7 +42,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     final FormState? form = _formKey.currentState;
     if (form != null && form.validate()) {
       // AuthService authService = AuthService();
-      bool boolValue = await authService.signUpUser(
+      authService.signUpUser(
           username: tecUserName.text,
           first_name: tecFirstName.text,
           last_name: tecLastName.text,
@@ -50,10 +50,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           email: tecEmail.text,
           password: tecPassword.text,
           confirm_password: tecConfirmPass.text);
-      print(boolValue);
-      if (boolValue) {
-        getAccountCreatedDailog();
-      }
+      // print(boolValue);
+      // if (boolValue) {
+        // getAccountCreatedDailog();
+      //   Get.toNamed("/otpverification", arguments: <String>[id, email]);
+
+      //   // gotootpverify
+      // }
       // AuthService
       // form.save();
 
@@ -829,4 +832,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           ),
         ));
   }
+
 }
+

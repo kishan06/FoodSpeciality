@@ -283,7 +283,7 @@ class invite extends StatelessWidget {
               ),
               const Spacer(),
               CommonInviteButton(
-                text: isInvited ? "Invited" : "Invite",
+                text: isInvited ? "Added" : "Add",
                 onPressed: (text, isInvited) {
                   if (isInvited) {
                     selectedIds.remove(userId.toString());

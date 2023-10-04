@@ -13,7 +13,7 @@ Widget OtherRecipeCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 200.h,
+          height: 160.h,
           // width: 115.w,
           decoration: BoxDecoration(
               image: DecorationImage(
@@ -29,6 +29,7 @@ Widget OtherRecipeCard({
           borderRadius: BorderRadius.circular(9.sp),
           elevation: 1.2,
           child: Container(
+            // Rp@123@2023
             // height: 49.h,
             // width: 115.w,
             decoration: BoxDecoration(

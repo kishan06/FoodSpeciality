@@ -2,6 +2,8 @@ String? accessToken;
 String? myUserId;
 String? myImage;
 String? playerIdGlobal;
+var recipeIdFromDeepLink;
+
 
 bool? onboard;
 // String uri = 'http://<yourip>:3000';

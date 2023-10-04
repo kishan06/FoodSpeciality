@@ -520,7 +520,10 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
             final recipeData = userDataController.userRecipes!.data[index];
             return InkWell(
               onTap: () {
-                Get.toNamed("/InspirationRecipeComment");
+                // Get.toNamed("/InspirationRecipeComment");
+                Get.toNamed("/InspirationRecipeComment",
+                  arguments: recipeData.id
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -569,7 +572,10 @@ class _NewChangedProfileState extends State<NewChangedProfile> {
             final savedRecipeData = userDataController.userSaved!.data[index];
             return InkWell(
               onTap: () {
-                Get.toNamed("/InspirationRecipeComment");
+                // Get.toNamed("/InspirationRecipeComment");
+                Get.toNamed("/InspirationRecipeComment",
+                  arguments: savedRecipeData.id
+                );
               },
               child: Container(
                 decoration: BoxDecoration(

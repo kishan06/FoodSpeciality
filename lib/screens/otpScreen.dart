@@ -14,6 +14,7 @@ class _otpVerificationState extends State<otpVerification> {
 
   String? id;
   String? email;
+  bool? fromRegister;
   
   // String strPin = "";
   // AuthService authService = AuthService();
@@ -25,11 +26,13 @@ class _otpVerificationState extends State<otpVerification> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    List<String> list = Get.arguments;
+    List list = Get.arguments;
     id = list[0];
     email = list[1];
+    fromRegister = list[2];
     print(id);
     print(email);
+    print(fromRegister);
   }
 
   @override
@@ -39,7 +42,7 @@ class _otpVerificationState extends State<otpVerification> {
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: OtpScreen(id: id!,email: email!,),
+        child: OtpScreen(id: id!,email: email!, fromRegister: fromRegister,),
       ),
     );
   }
@@ -48,7 +51,9 @@ class _otpVerificationState extends State<otpVerification> {
 class OtpScreen extends StatefulWidget {
   String id;
   String email;
-  OtpScreen({Key? key, required this.id, required this.email}) : super(key: key);
+  bool? fromRegister;
+
+  OtpScreen({Key? key, required this.id, required this.email, this.fromRegister}) : super(key: key);
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -135,9 +140,16 @@ class _OtpScreenState extends State<OtpScreen> {
                       strPin += e;
                     });
                     print(strPin);
+                    print("otpscreen fromcheck  ${widget.fromRegister}");
+                    if (widget.fromRegister == true) {
+                      authService.verifyOtp(otp: strPin, id: widget.id, fromRegister: widget.fromRegister);
+                      
+                    } else {
+                      authService.verifyOtp(otp: strPin, id: widget.id);
+                      
+                    }
 
                     // AuthService authService = AuthService();
-                    authService.verifyOtp(otp: strPin, id: widget.id);
                   }
                   // print(currentPin);
                   // Get.toNamed("/resetPass");

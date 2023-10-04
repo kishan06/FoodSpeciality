@@ -40,7 +40,7 @@ class Data {
   late final String name;
   late final String description;
   late final String createdAt;
-  late final String coverImage;
+  late final String? coverImage;
   late final User user;
   late final String cookingTime;
   late final List<LikedRecipe> likedRecipe;

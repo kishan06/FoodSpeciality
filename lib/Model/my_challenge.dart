@@ -35,7 +35,7 @@ class Data {
     required this.challengeRecipe,
   });
   late final String id;
-  late final String thumbnail;
+  late final String? thumbnail;
   late final String title;
   late final String description;
   late final String startDate;

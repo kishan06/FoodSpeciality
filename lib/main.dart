@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodspeciality/common%20files/global.dart';
 import 'package:foodspeciality/common%20files/video_player.dart';
@@ -45,6 +46,8 @@ import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'common files/video_player_network.dart';
+import 'constants/app_constants.dart';
+import 'constants/console_utils.dart';
 import 'screens/InsideBottomBar/chats/Screens/ChatCommunityDetail.dart';
 import 'screens/InsideBottomBar/chats/Screens/ViewCommumity.dart';
 import 'screens/InsideBottomBar/chats/Screens/edit_community.dart';
@@ -60,6 +63,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // FlutterBranchSdk.validateSDKIntegration();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // GlobalVariables globalVariables = GlobalVariables();
   accessToken = prefs.getString('accessToken');
@@ -72,6 +76,12 @@ Future<void> main() async {
   // final String? playerId = status!.userId;
   // print("playerId $playerId");
   // playerIdGlobal = playerId;
+  // Future.delayed(Duration(seconds: 0), () {
+  //      listenDeepLinkData();
+      
+  //   });
+  recipeIdFromDeepLink = await listenDeepLinkData();
+  print("recipeIdFromDeepLink $recipeIdFromDeepLink");
 
 
   SystemChrome.setPreferredOrientations(
@@ -80,15 +90,58 @@ Future<void> main() async {
   });
 }
 
-Future<void> initPlatform() async{
-  // OneSignal.initialize("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
-  // final playerId = await OneSignal.User.pushSubscription.id;
-  // print("playerId $playerId");
+// Future<void> initPlatform() async{
+//   // OneSignal.initialize("6c23e354-ecf2-4e7c-8473-aa3724e88a08");
+//   // final playerId = await OneSignal.User.pushSubscription.id;
+//   // print("playerId $playerId");
   
-  // OneSignalS\\
+//   // OneSignalS\\
 
 
-}
+// }
+
+//To Listen Generated Branch IO Link And Get Data From It
+  Future<String?> listenDeepLinkData() async {
+    print("listenDeepLinkData");
+    streamSubscriptionDeepLink = FlutterBranchSdk.initSession().listen((data) {
+      if (data.containsKey(AppConstants.clickedBranchLink) &&
+          data[AppConstants.clickedBranchLink] == true) {
+            print("ddsdfg " + data[AppConstants.deepLinkTitle]);
+            recipeIdFromDeepLink = data[AppConstants.deepLinkTitle];
+            print("ssd $recipeIdFromDeepLink");
+            return data[AppConstants.deepLinkTitle];
+            // final recipeId = await data[AppConstants.deepLinkTitle];
+            // setState(() {
+            //   recipeIdForRoute = data[AppConstants.deepLinkTitle];
+            // });
+            // Future.delayed(Duration(seconds: 5),(){
+            //   print("inside delay");
+            //   Get.toNamed("/InspirationRecipeComment",
+            //     arguments: 
+            //     // "c21e17da-2573-41d0-b2e0-f48ce1301b03"
+            //     data[AppConstants.deepLinkTitle]
+            //   );
+            // });
+            // Get.toNamed("/InspirationRecipeComment",
+            //   arguments: 
+            //   // "c21e17da-2573-41d0-b2e0-f48ce1301b03"
+            //   data[AppConstants.deepLinkTitle]
+            // );
+            // print("ghgh");
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => NextScreen(
+        //               customString: data[AppConstants.deepLinkTitle],
+        //             )));
+      }
+    }, onError: (error) {
+      PlatformException platformException = error as PlatformException;
+      ConsoleLogUtils.printLog(
+          '${platformException.code} - ${platformException.message}');
+      // return "";
+    });
+  }
 
 // checkToken(){
 //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -134,7 +187,10 @@ class _MyAppState extends State<MyApp> {
               ? '/'
               : (accessToken == null || accessToken == "")
                   ? '/login'
-                  : '/bottomBar',
+                  : recipeIdFromDeepLink == null 
+                    
+                    ? '/bottomBar'
+                    : 'InspirationRecipeComment',
           // Get.toNamed("/bottomBar")
           getPages: [
             //SplashScreen2()

@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   int? _notificationCount;
   int? get notificationCount => _notificationCount; 
 
-  bool _isLoading = false;
+  bool _isLoading = true;
   bool get isLoading => _isLoading;
 
   // TabController? _tabController;
@@ -68,10 +68,12 @@ class HomeController extends GetxController {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+      print(response.statusCode);
 
       if (response.statusCode == 200) {
         // print(await response.stream.bytesToString());
         var resp = await response.stream.bytesToString();
+        print("resp $resp");
         var jsonResp = jsonDecode(resp);
         print(jsonResp["data"]["notification_count"]);
         _notificationCount = jsonResp["data"]["notification_count"];
@@ -79,12 +81,14 @@ class HomeController extends GetxController {
         update();
       }
       else {
-        print(response.reasonPhrase);
+        var resp = response.reasonPhrase;
+        print("else resp  $resp");
         _isLoading = false;
         update();
       }
     } catch (e) {
-      print(e);
+      var resp = e;
+      print("catch resp $e");
       _isLoading = false;
       update(); 
     }
