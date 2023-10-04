@@ -80,6 +80,7 @@ class ApiUrls {
   static const getCommunitySearch = _base + "community/searchCommunity?search=";
   static const getNotification = _base + "user/notification";
   static const storeGoogleSigninDetails = _base + "auth/register-auth";
+  static const loginWithGoogleSignin = _base + "auth/login-auth";
 
   // static const commentReplies = _base + "recipe/get-replies";
 }
