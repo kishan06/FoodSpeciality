@@ -29,4 +29,29 @@ class GoogleSigninApi {
     }
     return response;
   }
+
+  Future<ResponseData<dynamic>> googleSigninCheckToken(data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response =
+        await NetworkApi().postApiDio(data, ApiUrls.loginWithGoogleSignin);
+
+    if (response.status == ResponseStatus.SUCCESS) {
+      print("google api resp is $response");
+      if (response.data['success'] == true) {
+        await prefs.setString(
+            'accessToken', response.data["data"]["accessToken"]);
+        await prefs.setString(
+            'refreshToken', response.data["data"]["refreshToken"]);
+      } else {
+        return ResponseData<dynamic>(
+            response.data['message'], ResponseStatus.PRIVATE);
+      }
+
+      // print(await response.stream.bytesToString());
+    } else {
+      return ResponseData<dynamic>(
+          response.data['message'], ResponseStatus.FAILED);
+    }
+    return response;
+  }
 }

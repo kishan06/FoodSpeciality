@@ -4,12 +4,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodspeciality/ViewModel/GoogleSigninApi.dart';
 import 'package:foodspeciality/common%20files/customtextformfield.dart';
 import 'package:foodspeciality/common%20files/sized_box.dart';
 import 'package:foodspeciality/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'constants/base_manager.dart';
 import 'screens/CreateAccountScreenViaOAuth.dart';
 import 'services/appleAuthService.dart';
 import 'services/googleAuthService.dart';
@@ -29,6 +32,35 @@ class _LoginState extends State<Login> {
 
   // bool v1 = false;
   // bool v2 = false;
+
+  checkLoginTokenExists() async {
+    final status = await OneSignal.shared.getDeviceState();
+    final String? playerId = status!.userId;
+    //print("playerId $playerId");
+    Map<String, dynamic> updata = {
+      "playerId": "$playerId",
+      "ID": idTokenGoogleSignin
+    };
+
+    final resp = await GoogleSigninApi().googleSigninCheckToken(updata);
+    if (resp.status == ResponseStatus.PRIVATE) {
+      Get.to(() => CreateAccountScreenViaOAuth());
+    } else {
+      Get.toNamed("/bottomBar");
+    }
+  }
+
+  googleSinginMethod() async {
+    await googleAuthService().handleGoogleSignIn();
+    if (googleSigninController.user.value == null) {
+      // User is not signed in.
+      // Display a login button or navigate to the login screen.
+      print('Not Logged In');
+    } else {
+      checkLoginTokenExists();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -270,16 +302,8 @@ class _LoginState extends State<Login> {
                         ),
                         onPressed: () async {
                           //   Get.to(() => CreateAccountScreenViaOAuth());
-                          await googleAuthService().handleGoogleSignIn();
-                          if (googleSigninController.user.value == null) {
-                            // User is not signed in.
-                            // Display a login button or navigate to the login screen.
-                            print('Not Logged In');
-                          } else {
-                            // User is signed in.
-                            // Display user-specific content or a logout button.
-                            Get.to(() => CreateAccountScreenViaOAuth());
-                          }
+                          googleSinginMethod();
+
                           // //appleAuthService().signInWithApple();
                         },
                         child: Row(

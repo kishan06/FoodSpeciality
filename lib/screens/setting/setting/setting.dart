@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -76,7 +77,7 @@ class _SettingState extends State<Setting> {
                           break;
                         default:
                           Get.toNamed("/BlogsNewsArticles");
-                          // Get.to(const BlogsNewsArticles());
+                        // Get.to(const BlogsNewsArticles());
                       }
                     },
                     child: Container(
@@ -189,9 +190,8 @@ class _SettingState extends State<Setting> {
               await prefs.setString('userId', "");
               await prefs.setString('myImage', "");
               // myImage
-
+              await FirebaseAuth.instance.signOut();
               Get.offAll(Login());
-              
             },
             child: Text(
               "Sign out",
