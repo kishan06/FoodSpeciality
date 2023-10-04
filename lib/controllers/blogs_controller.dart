@@ -24,11 +24,12 @@ class BlogsController extends GetxController {
 
       http.StreamedResponse response = await request.send();
 
-      var resp = await response.stream.bytesToString();
-      // print(resp);
-      var jsonResp = jsonDecode(resp);
-
+      
+      print(response.statusCode);
       if (response.statusCode == 200) {
+        var resp = await response.stream.bytesToString();
+      // print(resp);
+        var jsonResp = jsonDecode(resp);
         // print(await response.stream.bytesToString());
         _blogsData = BlogsModel.fromJson(jsonResp);
         _isLoading = false;

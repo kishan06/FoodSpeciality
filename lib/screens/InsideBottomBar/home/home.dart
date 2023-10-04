@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/Model/Replies.dart';
@@ -21,8 +22,12 @@ import 'package:foodspeciality/utils/colors.dart';
 import 'package:foodspeciality/utils/texts.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 
 import '../../../Model/RecipeModel.dart';
+import '../../../constants/app_constants.dart';
+import '../../../constants/console_utils.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -38,6 +43,8 @@ class _HomeState extends State<Home> {
 
   final createcommunitykey = GlobalKey<FormState>();
   HomeController homeController = Get.put(HomeController());
+  // BranchUniversalObject? buo;
+  // BranchLinkProperties? lp;
   // onback(){
   //   setState(() {
 
@@ -356,6 +363,9 @@ class _IngridentsState extends State<Ingridents> {
   FocusNode _focusNode = FocusNode();
   var isReply = false.obs;
   String? commentIdForReply;
+  BranchUniversalObject? buo;
+  BranchLinkProperties? lp;
+  
 
   // _focusNode.addListener(() { });
 
@@ -1696,7 +1706,23 @@ class _IngridentsState extends State<Ingridents> {
                                         ),
                                         sizedBoxWidth(25.w),
                                         InkWell(
-                                          onTap: share,
+                                          onTap: () async {
+                                            print("share pressed");
+                                            initializeDeepLinkData(recipeData.id!);
+                                            // initializeDeepLinkData(recipeDetailsData!.id);
+                                            // _generateDeepLink();
+                                            _generateDeepLink(context);
+                                              // initializeDeepLinkData(recipeData.id!);
+                                              // var url =  await _generateDeepLink();
+
+                                              // await Share.share(
+                                              //   url,
+                                              //   // "Example share",
+                                              //   // subject: "sd",
+                                              //   // text: 'Example share text',
+                                              //   // chooserTitle: 'Example Chooser Title'
+                                              // );
+                                          },
                                           // (){
                                           //   shar
                                           //   // Share.share('https://www.google.co.in/');
@@ -1860,6 +1886,78 @@ class _IngridentsState extends State<Ingridents> {
       ),
     );
   }
+
+  void initializeDeepLinkData(String recipeId) {
+    print("recipe $recipeId");
+    buo = BranchUniversalObject(
+      canonicalIdentifier: AppConstants.branchIoCanonicalIdentifier,
+      contentMetadata: BranchContentMetaData()
+        ..addCustomMetadata(
+            AppConstants.deepLinkTitle, recipeId),
+    );
+    FlutterBranchSdk.registerView(buo: buo!);
+
+    lp = BranchLinkProperties();
+    lp?.addControlParam(AppConstants.controlParamsKey, '1');
+  }
+
+  //To Generate Deep Link For Branch Io
+  void _generateDeepLink(BuildContext context) async {
+    BranchResponse response =
+        await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp!);
+    if (response.success) {
+      print("Url " + response.result);
+      await Share.share(
+        response.result,
+        // "Example share",
+        // subject: "sd",
+        // text: 'Example share text',
+        // chooserTitle: 'Example Chooser Title'
+      );
+      // ToastUtils.displayToast("${response.result}");
+    } else {
+      ConsoleLogUtils.printLog(
+          '${response.errorCode} - ${response.errorMessage}');
+    }
+  }
+
+
+  // //To Generate Deep Link For Branch Io
+  // _generateDeepLink() async {
+  //   BranchResponse response =
+  //       await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp!);
+  //   if (response.success) {
+  //     print("sucess");
+  //     print( "result " + response.result);
+  //     return response.result;
+  //     // ToastUtils.displayToast("${response.result}");
+  //   } else {
+  //     print("error");
+  //     print(response.errorCode);
+  //     print(response.errorMessage);
+
+  //     // ConsoleLogUtils.printLog(
+  //     //     '${response.errorCode} - ${response.errorMessage}');
+  //   }
+  // }
+
+    
+
+  // //To Setup Data For Generation Of Deep Link
+  // void initializeDeepLinkData(String recipeId) {
+  //   print("initializeDeepLinkData");
+  //   buo = BranchUniversalObject(
+  //     canonicalIdentifier: AppConstants.branchIoCanonicalIdentifier,
+  //     contentMetadata: BranchContentMetaData()
+  //       ..addCustomMetadata(
+  //           "recipeId", recipeId),
+  //   );
+  //   FlutterBranchSdk.registerView(buo: buo!);
+
+  //   lp = BranchLinkProperties();
+  //   lp?.addControlParam(AppConstants.controlParamsKey, '1');
+  // }
+
 
   onback() {
     setState(() {});

@@ -1,4 +1,5 @@
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+// import 'package:share_plus/share_plus.dart';
 // var commentLike = [
 //   {
 //     "like": 0,
@@ -34,12 +35,27 @@ import 'package:share_plus/share_plus.dart';
 // ];
 
 Future<void> share() async {
-  await Share.share(
-    "Example share",
-    subject: 'https://flutter.dev/',
-    // text: 'Example share text',
-    // chooserTitle: 'Example Chooser Title'
-  );
+
+  // await Share.share(
+  //   "Example share",
+  //   subject: 'https://flutter.dev/',
+  //   // text: 'Example share text',
+  //   // chooserTitle: 'Example Chooser Title'
+  // );
+}
+
+// void generateLink(BuildContext context) async {
+//     BranchResponse response =
+//         await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp);
+//     if (response.success) {
+//       if (context.mounted) {
+//         showGeneratedLink(context, response.result);
+//       }
+//     } else {
+//       showSnackBar(
+//           message: 'Error : ${response.errorCode} - ${response.errorMessage}');
+//     }
+//   }
 
 // Widget tileForlist(String comment, int like) {
 //   return Row(
@@ -481,4 +497,4 @@ Future<void> share() async {
 //         ),
 //       ));
 // }
-}
+// }

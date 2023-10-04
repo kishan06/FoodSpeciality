@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodspeciality/common%20files/buttons.dart';
@@ -10,6 +13,8 @@ import 'package:foodspeciality/screens/InsideBottomBar/home/home.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../constants/app_constants.dart';
+import '../constants/console_utils.dart';
 import 'InsideBottomBar/myProfile/new_changed_profile.dart';
 
 class BottomBar extends StatefulWidget {
@@ -19,6 +24,9 @@ class BottomBar extends StatefulWidget {
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
+
+StreamSubscription<Map>? streamSubscriptionDeepLink;
+
 
 class _BottomBarState extends State<BottomBar> {
   var _selectedIndex = 0.obs;
@@ -31,15 +39,55 @@ class _BottomBarState extends State<BottomBar> {
     const NewChangedProfile()
   ];
   bool _canPop = false;
+  BranchContentMetaData metadata = BranchContentMetaData();
+  BranchUniversalObject? buo;
+  BranchLinkProperties lp = BranchLinkProperties();
+  BranchEvent? eventStandard;
+  BranchEvent? eventCustom;
+  String? recipeIdForRoute;
+
+  StreamSubscription<Map>? streamSubscription;
+  StreamController<String> controllerData = StreamController<String>();
+  StreamController<String> controllerInitSession = StreamController<String>();
+
+
 
   @override
   void initState() {
     super.initState();
+    // Future.delayed(Duration(seconds: 10), () {
+    //   listenDeepLinkData(context);
+      
+    // });
     _selectedIndex.value = widget.selectedIndex;
+    // listenDeepLinkData();
+    print("in bottom $recipeIdForRoute");
+    if (recipeIdForRoute != null) {
+      Get.toNamed("/InspirationRecipeComment",
+        arguments: recipeIdForRoute
+      );
+    }
+    // listenDynamicLinks();s
+    // initDeepLinkData();
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    streamSubscriptionDeepLink?.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
+    // if (recipeIdForRoute != null) {
+    //   Get.toNamed("/InspirationRecipeComment",
+    //     arguments: recipeIdForRoute
+    //   );
+    // }
+    // Future.delayed(Duration.zero, () {
+    //   listenDeepLinkData(context);
+    // });
     return WillPopScope(
       onWillPop: () async {
         await dialoBox();
@@ -134,6 +182,105 @@ class _BottomBarState extends State<BottomBar> {
           )),
     );
   }
+
+// comment
+
+  //To Listen Generated Branch IO Link And Get Data From It
+  // void listenDeepLinkData(BuildContext context) async {
+  //   print("listenDeepLinkData");
+  //   streamSubscriptionDeepLink = FlutterBranchSdk.initSession().listen((data) {
+  //     if (data.containsKey(AppConstants.clickedBranchLink) &&
+  //         data[AppConstants.clickedBranchLink] == true) {
+  //           print("dds " + data[AppConstants.deepLinkTitle]);
+  //           // return data[AppConstants.deepLinkTitle];
+  //           // final recipeId = await data[AppConstants.deepLinkTitle];
+  //           // setState(() {
+  //           //   recipeIdForRoute = data[AppConstants.deepLinkTitle];
+  //           // });
+  //           // Future.delayed(Duration(seconds: 5),(){
+  //           //   print("inside delay");
+  //           //   Get.toNamed("/InspirationRecipeComment",
+  //           //     arguments: 
+  //           //     // "c21e17da-2573-41d0-b2e0-f48ce1301b03"
+  //           //     data[AppConstants.deepLinkTitle]
+  //           //   );
+  //           // });
+  //           Get.toNamed("/InspirationRecipeComment",
+  //             arguments: 
+  //             // "c21e17da-2573-41d0-b2e0-f48ce1301b03"
+  //             data[AppConstants.deepLinkTitle]
+  //           );
+  //           print("ghgh");
+  //       // Navigator.push(
+  //       //     context,
+  //       //     MaterialPageRoute(
+  //       //         builder: (context) => NextScreen(
+  //       //               customString: data[AppConstants.deepLinkTitle],
+  //       //             )));
+  //     }
+  //   }, onError: (error) {
+  //     PlatformException platformException = error as PlatformException;
+  //     ConsoleLogUtils.printLog(
+  //         '${platformException.code} - ${platformException.message}');
+  //     // return "";
+  //   });
+  // }
+
+
+// comment 
+
+  // //To Listen Generated Branch IO Link And Get Data From It
+  // void listenDeepLinkData(BuildContext context) async {
+  //   streamSubscriptionDeepLink = FlutterBranchSdk.initSession().listen((data) {
+  //     if (data.containsKey(AppConstants.clickedBranchLink) &&
+  //         data[AppConstants.clickedBranchLink] == true) {
+  //           print("getResul" + data["recipeId"]);
+
+  //       // Navigator.push(
+  //       //     context,
+  //       //     MaterialPageRoute(
+  //       //         builder: (context) => NextScreen(
+  //       //               customString: data[AppConstants.deepLinkTitle],
+  //       //             )));
+  //     }
+  //   }, onError: (error) {
+  //     PlatformException platformException = error as PlatformException;
+  //     ConsoleLogUtils.printLog(
+  //         '${platformException.code} - ${platformException.message}');
+  //   });
+  // }
+
+  // // To Listen Generated Branch IO Link And Get Data From It
+  // void listenDeepLinkData() async {
+  //   print("listenDeepLinkDat");
+  //   print("gh");
+  //   streamSubscriptionDeepLink = FlutterBranchSdk.initSession().listen((data) {
+  //     if (data.containsKey(AppConstants.clickedBranchLink) &&
+  //         data[AppConstants.clickedBranchLink] == true) {
+            
+  //           print("getResul" + data["recipeId"]);
+  //           // Get.toNamed(page)
+  //           Get.toNamed("/InspirationRecipeComment",
+  //             arguments: data["recipeId"]
+  //           );
+  //           // print("getResult" + AppConstants.deepLinkTitle);
+  //           // print("inIf");
+
+  //       // Navigator.push(
+  //       //     context,
+  //       //     MaterialPageRoute(
+  //       //         builder: (context) => NextScreen(
+  //       //               customString: data[AppConstants.deepLinkTitle],
+  //       //             )));
+  //     }
+  //   }, onError: (error) {
+  //           print("inelse");
+
+  //     PlatformException platformException = error as PlatformException;
+  //     ConsoleLogUtils.printLog(
+  //         '${platformException.code} - ${platformException.message}');
+  //   });
+  // }
 
   dialoBox() {
     return showDialog(

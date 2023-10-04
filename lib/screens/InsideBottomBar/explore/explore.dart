@@ -362,7 +362,7 @@ class _ExploreState extends State<Explore> {
     {
     required String recipeId,
     required String recipeName,
-    required String recipeImage,
+    String? recipeImage,
     required String userName,
     // required String ,
     bool? liked,
@@ -1001,7 +1001,13 @@ class _ExploreState extends State<Explore> {
                 GestureDetector(
                     onTap: () {
                       Get.toNamed("/joinchallenge",
-                        arguments: challengeId
+                        arguments: {
+                          "challengeId": challengeId,
+                          "challengeType": 0
+                        }
+                        // challengeId,
+                        // "challengeType": 1
+
                       );
                       // Get.to(const JoinChallenge(),
                       //     duration: const Duration(milliseconds: 500),

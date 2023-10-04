@@ -62,6 +62,19 @@ PODS:
   - GTMSessionFetcher/Core (2.3.0)
   - image_picker_ios (0.0.1):
     - Flutter
+  - onesignal_flutter (3.5.1):
+    - Flutter
+    - OneSignalXCFramework (= 3.12.4)
+  - OneSignalXCFramework (3.12.4):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.4)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.4)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.4)
+  - OneSignalXCFramework/OneSignalCore (3.12.4)
+  - OneSignalXCFramework/OneSignalExtension (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -86,6 +99,7 @@ DEPENDENCIES:
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -105,6 +119,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - OneSignalXCFramework
     - PromisesObjC
     - RecaptchaInterop
 
@@ -121,6 +136,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  onesignal_flutter:
+    :path: ".symlinks/plugins/onesignal_flutter/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   share_plus:
@@ -151,6 +168,8 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
+  onesignal_flutter: b8ac01bc3ebe47e798d7d775455c3a9b5b84f1c5
+  OneSignalXCFramework: 087934ab0d4d7445fcf1c015c7c782359e26c020
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
@@ -162,4 +181,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 666dad8d4d6a566af8bd79031611888159f9b2fd
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0
