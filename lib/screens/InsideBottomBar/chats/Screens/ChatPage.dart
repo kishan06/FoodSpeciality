@@ -106,7 +106,9 @@ class _ChatPageState extends State<ChatPage> {
                             chatRoom.user?.id != myUserId &&
                             chatRoom.user != null)
                         .toList();
-                    return ListView.builder(
+                    return filteredChatRooms.isEmpty 
+                    ? Center(child: textgrey18BoldSP("Something went wrong"))
+                    : ListView.builder(
                       itemCount: filteredChatRooms.length,
                       shrinkWrap: true,
                       // padding: EdgeInsets.only(top:  16.h),
