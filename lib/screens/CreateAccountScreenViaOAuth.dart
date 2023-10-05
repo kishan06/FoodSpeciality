@@ -37,18 +37,7 @@ class _CreateAccountScreenViaOAuthState
   TextEditingController tecEmail = TextEditingController();
   AuthService authService = AuthService();
 
-  storeUserDetails(
-    email,
-    displayname,
-  ) {
-    Map<String, dynamic> updata = {
-      "username": "kishan1",
-      "email": "kishan1@gmail.com",
-      "phone": "123456564",
-      "ID": "efsfsfsefsef"
-    };
-    GoogleSigninApi().googleSigninApi(updata);
-  }
+ 
 
   Future<void> _submit() async {
     final FormState? form = _formKey.currentState;
@@ -57,7 +46,9 @@ class _CreateAccountScreenViaOAuthState
         "username": tecUserName.text,
         "email": tecEmail.text,
         "phone": tecMobileNo.text,
-        "ID": idTokenGoogleSignin
+        "ID": idTokenGoogleSignin,
+        "first_name": tecFirstName.text,
+        "last_name": tecLastName.text
       };
       final data = await GoogleSigninApi().googleSigninApi(updata);
 

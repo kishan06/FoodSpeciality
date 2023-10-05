@@ -21,6 +21,7 @@ class GoogleSigninApi {
           'accessToken', response.data["data"]["accessToken"]);
       await prefs.setString(
           'refreshToken', response.data["data"]["refreshToken"]);
+      accessToken = response.data["data"]["accessToken"];
 
       // print(await response.stream.bytesToString());
     } else {

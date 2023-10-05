@@ -78,13 +78,16 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Text(
-                            policyData.description ??
-                                'No description available.',
-                            style: TextStyle(
-                              fontFamily: "Roboto",
-                              color: Colors.black,
-                              fontSize: 14.sp,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width - 72,  
+                            child: Text(
+                              policyData.description ??
+                                  'No description available.',
+                              style: TextStyle(
+                                fontFamily: "Roboto",
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ),
                         ),

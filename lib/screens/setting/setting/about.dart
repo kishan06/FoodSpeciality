@@ -50,22 +50,23 @@ class _AboutFoodSpecialityState extends State<AboutFoodSpeciality> {
                               TextStyle(fontFamily: "Roboto", fontSize: 16.sp),
                           // overflow: TextOverflow.fade,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              more = !more;
-                            });
-                          },
-                          child: Text(
-                            more ? 'Less' : 'More',
-                            style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 16.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       more = !more;
+                        //     });
+                        //   },
+                        //   child: Text(
+                        //     more ? 'Less' : 'More',
+                        //     style: TextStyle(
+                        //       fontFamily: "Roboto",
+                        //       fontSize: 16.sp,
+                        //       color: Colors.black,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        // ),
+                      
                       ],
                     ),
                   );

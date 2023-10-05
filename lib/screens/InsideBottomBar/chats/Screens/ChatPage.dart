@@ -107,7 +107,7 @@ class _ChatPageState extends State<ChatPage> {
                             chatRoom.user != null)
                         .toList();
                     return filteredChatRooms.isEmpty 
-                    ? Center(child: textgrey18BoldSP("Something went wrong"))
+                    ? Center(child: textgrey18BoldSP("No Chats available"))
                     : ListView.builder(
                       itemCount: filteredChatRooms.length,
                       shrinkWrap: true,
