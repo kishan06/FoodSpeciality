@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -18,7 +17,7 @@ import '../common files/global.dart';
 import 'package:http/http.dart' as http;
 import '../constants/base_manager.dart';
 
-class UserDataController extends GetxController{
+class UserDataController extends GetxController {
   UserData? _userData;
   UserData? get userData => _userData;
 
@@ -33,7 +32,6 @@ class UserDataController extends GetxController{
 
   UserRecipes? _userRecipes;
   UserRecipes? get userRecipes => _userRecipes;
-  
 
   bool _isLoadingUserRecipe = true;
   bool get isLoadingUserRecipe => _isLoadingUserRecipe;
@@ -60,11 +58,11 @@ class UserDataController extends GetxController{
   MyChallenges? get myChallenges => _myChallenges;
   // JoinedChallenge? _joinedChallenge;
   // JoinedChallenge? get joinedChallenge => _joinedChallenge;
-  
 
   getUserProfile() async {
     try {
       print("getUserProfile");
+      print("current token is $accessToken");
       var headers = {
         'x-auth-token': accessToken!
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY4OTkzOTcxNCwiZXhwIjoxNjkwNTQ0NTE0fQ.T_WbFlhU9tXIoIofyiqzAcyo8tqwyHpuGyl1RpoJq_Y'
@@ -85,18 +83,14 @@ class UserDataController extends GetxController{
         _isLoading = false;
         update();
         print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
       }
-
-      
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }
   }
-  
+
   getUserSaved() async {
     try {
       print("getUserSaved");
@@ -105,7 +99,8 @@ class UserDataController extends GetxController{
 
         // 'x-auth-token': 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc'
       };
-      var request = http.MultipartRequest('GET', Uri.parse(ApiUrls.savedRecipes));
+      var request =
+          http.MultipartRequest('GET', Uri.parse(ApiUrls.savedRecipes));
 
       request.headers.addAll(headers);
 
@@ -122,23 +117,18 @@ class UserDataController extends GetxController{
         _isLoadingSaved = false;
         update();
         // print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
         _isLoadingSaved = false;
         update();
-
       }
-
-      
-
     } catch (e) {
       Get.snackbar("Error", e.toString());
       _isLoadingSaved = false;
       update();
     }
   }
-  
+
   getUserRecipe() async {
     try {
       print("getUserSaved");
@@ -147,7 +137,8 @@ class UserDataController extends GetxController{
 
         // 'x-auth-token': 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc'
       };
-      var request = http.MultipartRequest('GET', Uri.parse(ApiUrls.userRecipes));
+      var request =
+          http.MultipartRequest('GET', Uri.parse(ApiUrls.userRecipes));
 
       request.headers.addAll(headers);
 
@@ -156,7 +147,6 @@ class UserDataController extends GetxController{
       var resp = await response.stream.bytesToString();
       // print(resp);
       var jsonResp = jsonDecode(resp);
-      
 
       if (response.statusCode == 200) {
         // print(await response.stream.bytesToString());
@@ -166,23 +156,18 @@ class UserDataController extends GetxController{
         _isLoadingUserRecipe = false;
         update();
         // print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
         _isLoadingUserRecipe = false;
         update();
-
       }
-
-      
-
     } catch (e) {
       // Get.snackbar("Error", e.toString());
       _isLoadingUserRecipe = false;
       update();
     }
   }
-  
+
   getJoinedChallenge() async {
     try {
       // print("getUserSaved");
@@ -191,7 +176,8 @@ class UserDataController extends GetxController{
 
         // 'x-auth-token': 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc'
       };
-      var request = http.MultipartRequest('GET', Uri.parse(ApiUrls.getJoinedChallenge));
+      var request =
+          http.MultipartRequest('GET', Uri.parse(ApiUrls.getJoinedChallenge));
 
       request.headers.addAll(headers);
 
@@ -200,7 +186,6 @@ class UserDataController extends GetxController{
       var resp = await response.stream.bytesToString();
       // print(resp);
       var jsonResp = jsonDecode(resp);
-      
 
       if (response.statusCode == 200) {
         // _userRecipes = UserRecipes.fromJson(jsonResp);
@@ -209,17 +194,12 @@ class UserDataController extends GetxController{
         _isLoadingJoinedChallenge = false;
         update();
         // print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
         // _isLoadingUserRecipe = false;
         _isLoadingJoinedChallenge = false;
         update();
-
       }
-
-      
-
     } catch (e) {
       // Get.snackbar("Error", e.toString());
       // _isLoadingUserRecipe = false;
@@ -228,7 +208,7 @@ class UserDataController extends GetxController{
       update();
     }
   }
-  
+
   getCompletedChallenge() async {
     try {
       // print("getUserSaved");
@@ -237,7 +217,8 @@ class UserDataController extends GetxController{
 
         // 'x-auth-token': 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc'
       };
-      var request = http.MultipartRequest('GET', Uri.parse(ApiUrls.getCompletedChallenge));
+      var request = http.MultipartRequest(
+          'GET', Uri.parse(ApiUrls.getCompletedChallenge));
 
       request.headers.addAll(headers);
 
@@ -246,7 +227,6 @@ class UserDataController extends GetxController{
       var resp = await response.stream.bytesToString();
       // print(resp);
       var jsonResp = jsonDecode(resp);
-      
 
       if (response.statusCode == 200) {
         // _userRecipes = UserRecipes.fromJson(jsonResp);
@@ -257,19 +237,14 @@ class UserDataController extends GetxController{
         _isLoadingCompletedChallenge = false;
         update();
         // print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
         // _isLoadingUserRecipe = false;
         // _isLoadingJoinedChallenge = false;
         _isLoadingCompletedChallenge = false;
 
         update();
-
       }
-
-      
-
     } catch (e) {
       // Get.snackbar("Error", e.toString());
       // _isLoadingUserRecipe = false;
@@ -280,7 +255,7 @@ class UserDataController extends GetxController{
       update();
     }
   }
-  
+
   getMyChallenge() async {
     try {
       // print("getUserSaved");
@@ -289,7 +264,8 @@ class UserDataController extends GetxController{
 
         // 'x-auth-token': 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzdkODRmLTQ3NTItNDg0MS05ZGIyLTY3NThiM2EwODlmMyIsImlhdCI6MTY5MTQ3OTE3MSwiZXhwIjoxNjkyMDgzOTcxfQ.5h8eA9MrZoL1UICFSolER66Iili9PB1TMcxJPNq-uQc'
       };
-      var request = http.MultipartRequest('GET', Uri.parse(ApiUrls.getMyChallenge));
+      var request =
+          http.MultipartRequest('GET', Uri.parse(ApiUrls.getMyChallenge));
 
       request.headers.addAll(headers);
 
@@ -298,7 +274,6 @@ class UserDataController extends GetxController{
       var resp = await response.stream.bytesToString();
       // print(resp);
       var jsonResp = jsonDecode(resp);
-      
 
       if (response.statusCode == 200) {
         // _completedChallenge = CompletedChallengeModel.fromJson(jsonResp);
@@ -308,16 +283,12 @@ class UserDataController extends GetxController{
         update();
 
         // print(_userData);
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
         // _isLoadingCompletedChallenge = false;
         _isLoadingMyChallenges = false;
         update();
       }
-
-      
-
     } catch (e) {
       _isLoadingMyChallenges = false;
       print(e);
@@ -325,29 +296,25 @@ class UserDataController extends GetxController{
     }
   }
 
-  editProfile({
-    required Map<String, String> body,
-    String? profileImage
-  }) async {
+  editProfile({required Map<String, String> body, String? profileImage}) async {
     print(body);
-    var headers = {
-      'x-auth-token': accessToken!
-    };
-    var request = http.MultipartRequest('PATCH', Uri.parse(ApiUrls.editProfile));
-    request.fields.addAll(
-      body
-    //   {
-    //   'bio': 'qwertyuiopasdfghjklzxcvbnm',
-    //   'location': 'Mumbai',
-    //   'social_links': 'asdf',
-    //   'twitter_link': 'twitt',
-    //   'instagram_link': 'int',
-    //   'pinterest_link': 'pinr',
-    //   'facebook_link': 'face'
-    // }
-    );
+    var headers = {'x-auth-token': accessToken!};
+    var request =
+        http.MultipartRequest('PATCH', Uri.parse(ApiUrls.editProfile));
+    request.fields.addAll(body
+        //   {
+        //   'bio': 'qwertyuiopasdfghjklzxcvbnm',
+        //   'location': 'Mumbai',
+        //   'social_links': 'asdf',
+        //   'twitter_link': 'twitt',
+        //   'instagram_link': 'int',
+        //   'pinterest_link': 'pinr',
+        //   'facebook_link': 'face'
+        // }
+        );
     if (profileImage != null) {
-      request.files.add(await http.MultipartFile.fromPath('profile_image', profileImage));
+      request.files.add(
+          await http.MultipartFile.fromPath('profile_image', profileImage));
     }
     request.headers.addAll(headers);
 
@@ -356,20 +323,16 @@ class UserDataController extends GetxController{
     if (response.statusCode == 200) {
       getUserProfile();
       commonSucessDailog(
-        msg: "Profile updated successfully",
-        onPressed: () {
-          // Get.offAllNamed("/bottomBar");
-          Get.back();
-        }
-      );
+          msg: "Profile updated successfully",
+          onPressed: () {
+            // Get.offAllNamed("/bottomBar");
+            Get.back();
+          });
       // print(await response.stream.bytesToString());
       // print("profile updated successfully");
-    }
-    else {
+    } else {
       print(response.reasonPhrase);
       Get.snackbar("Error", "Something went wrong");
     }
-
   }
-  
 }

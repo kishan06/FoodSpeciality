@@ -184,13 +184,15 @@ class _SettingState extends State<Setting> {
           InkWell(
             onTap: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              // print("token " + jsonResp["data"]["accessToken"]);
+              //   print("token " + jsonResp["data"]["accessToken"]);
               await prefs.setString('accessToken', "");
               await prefs.setString('refreshToken', "");
               await prefs.setString('userId', "");
               await prefs.setString('myImage', "");
               // myImage
+              // prefs.clear();
               await FirebaseAuth.instance.signOut();
+              // Get.deleteAll();
               Get.offAll(Login());
             },
             child: Text(

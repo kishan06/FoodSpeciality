@@ -42,6 +42,7 @@ class GoogleSigninApi {
             'accessToken', response.data["data"]["accessToken"]);
         await prefs.setString(
             'refreshToken', response.data["data"]["refreshToken"]);
+        accessToken = response.data["data"]["accessToken"];
       } else {
         return ResponseData<dynamic>(
             response.data['message'], ResponseStatus.PRIVATE);
