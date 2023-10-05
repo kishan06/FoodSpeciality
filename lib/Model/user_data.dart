@@ -54,7 +54,7 @@ class Data {
   late final String lastName;
   late final String email;
   late final String phone;
-  late final String password;
+  late final String? password;
   late final String? bio;
   late final String? location;
   late final String? socialLinks;

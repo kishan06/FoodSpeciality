@@ -1178,85 +1178,7 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
         body: TabBarView(
             // physics: NeverScrollableScrollPhysics(),
             children: [_recipeTabbarView(), _commentTabbarView()]),
-        //     Column(
-        //       children: [
-        //         DefaultTabController(
-        //           length: 2,
-        //           child:
-        //           Column(
-        //             children: [
-        //               PreferredSize(
-        //                 preferredSize: const Size.fromHeight(20),
-        //                 child: TabBar(
-        //                   // controller: _tabController,
-        //                   indicator: UnderlineTabIndicator(
-        //                     borderRadius: BorderRadius.circular(10),
-        //                     borderSide: BorderSide(width: 2.5.sp),
-        //                 // insets: EdgeInsets.symmetric(horizontal: 80.w),
-        //                   ),
-        //                   indicatorSize: TabBarIndicatorSize.tab,
-        //                   indicatorPadding:
-        //                   const EdgeInsets.symmetric(horizontal: 50),
-        //                   // indicatorWeight: 4,
-
-        //                   indicatorColor: const Color(0xFF3B3F43),
-        //                   unselectedLabelStyle:
-        //                   const TextStyle(color: Color(0xFF6B6B6B)),
-        //                   labelColor: const Color.fromRGBO(59, 63, 67, 1),
-        //                   labelStyle: TextStyle(
-        //                     fontWeight: FontWeight.bold,
-        //                     fontSize: 18.sp,
-        //                   ),
-        //                   tabs: [
-        //                     Tab(
-        //                       child: Text(
-        //                         "Recipe",
-        //                         style: TextStyle(
-        //                             fontFamily: "StudioProM", fontSize: 17.sp),
-        //                       ),
-        //                     ),
-        //                     Tab(
-        //                       child: Text(
-        //                         "Comments",
-        //                         style: TextStyle(
-        //                             fontFamily: "StudioProM", fontSize: 17.sp),
-        //                       ),
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-
-        //               // Expanded(
-        //               //   child: TabBarView(
-        //               //   // physics: NeverScrollableScrollPhysics(),
-        //               //     children: [
-        //               //       _recipeTabbarView(),
-        //               //       Padding(
-        //               //         padding: EdgeInsets.symmetric(horizontal: 22.w),
-        //               //         child: _commentTabbarView(),
-        //               //       )
-        //               //     ]
-        //               //   ),
-        //               // )
-
-        //               // SizedBox(
-        //               //     // height: 200.h,
-        //               //     child: TabBarView(
-        //               //       // physics: NeverScrollableScrollPhysics(),
-        //               //         children: [
-        //               //           _recipeTabbarView(),
-        //               //           Padding(
-        //               //             padding: EdgeInsets.symmetric(horizontal: 22.w),
-        //               //             child: _commentTabbarView(),
-        //               //           )
-        //               //         ])
-        //               // ),
-        //             ],
-        //           ),
-
-        //     ),
-        //   ],
-        // )
+      
       ),
     );
   }
@@ -1265,107 +1187,118 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
     required String coverImage, 
     required String recipeName,
     required String userName,
+    required String recipeId,
+
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 93.h,
-          width: 115.w,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(ApiUrls.base + coverImage)
-                  // AssetImage('assets/Chocolate 2.png')
-                  ),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(9.r),
-                  topRight: Radius.circular(9.r))),
-        ),
-        Material(
-          borderRadius: BorderRadius.circular(9.sp),
-          elevation: 1.2,
-          child: Container(
-            // height: 49.h,
+    return InkWell(
+      onTap: (){
+        Get.toNamed("/InspirationRecipeComment",
+          arguments: recipeId,
+          preventDuplicates: false
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 93.h,
             width: 115.w,
             decoration: BoxDecoration(
-                color: Colors.white,
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(ApiUrls.base + coverImage)
+                    // AssetImage('assets/Chocolate 2.png')
+                    ),
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(9.r),
-                    bottomRight: Radius.circular(9.r))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                sizedBoxHeight(3.5.h),
-                Padding(
-                  padding: EdgeInsets.only(left: 7.4.w),
-                  child: Text(
-                    // 'Slappappoffer Recipe',
-                    recipeName,
-                    style: TextStyle(fontFamily: 'Roboto', fontSize: 10.sp),
+                    topLeft: Radius.circular(9.r),
+                    topRight: Radius.circular(9.r))),
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(9.sp),
+            elevation: 1.2,
+            child: Container(
+              // height: 49.h,
+              width: 115.w,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(9.r),
+                      bottomRight: Radius.circular(9.r))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sizedBoxHeight(3.5.h),
+                  Padding(
+                    padding: EdgeInsets.only(left: 7.4.w),
+                    child: Text(
+                      // 'Slappappoffer Recipe',
+                      recipeName,
+                      style: TextStyle(fontFamily: 'Roboto', fontSize: 10.sp),
+                    ),
+                    // sizedBoxWidth(16.w),
+                    // Image.asset(
+                    //   'assets/icons/save.png',
+                    //   height: 9.h,
+                    //   width: 6.8.w,
+    
+                    // ),
                   ),
-                  // sizedBoxWidth(16.w),
-                  // Image.asset(
-                  //   'assets/icons/save.png',
-                  //   height: 9.h,
-                  //   width: 6.8.w,
-
+                  Padding(
+                    padding: EdgeInsets.only(left: 7.4.w),
+                    child: Text(
+                      // '@Priyujoshi',
+                      "@$userName",
+                      style: TextStyle(
+                          color: const Color(0xff6B6B6B),
+                          fontSize: 8.sp,
+                          fontFamily: 'Roboto'),
+                    ),
+                  ),
+                  // sizedBoxHeight(5.h),
+                  // Row(
+                  //   children: [
+                  //     sizedBoxWidth(8.w),
+                  //     Image.asset(
+                  //       'assets/like-svgrepo-com.png',
+                  //       height: 10.h,
+                  //       width: 11.8.w,
+                  //     ),
+                  //     Text(
+                  //       '23k',
+                  //       style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
+                  //     ),
+                  //     sizedBoxWidth(16.w),
+                  //     Image.asset(
+                  //       'assets/comment-blank-svgrepo-com.png',
+                  //       height: 9.7.h,
+                  //       width: 10.18.w,
+                  //     ),
+                  //     Text(
+                  //       '150',
+                  //       style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
+                  //     ),
+                  //     sizedBoxWidth(16.w),
+                  //     Image.asset(
+                  //       'assets/bookmark-svgrepo-com.png',
+                  //       height: 9.h,
+                  //       width: 6.8.w,
+                  //     ),
+                  //     Text(
+                  //       '50',
+                  //       style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
+                  //     ),
+                  //   ],
                   // ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 7.4.w),
-                  child: Text(
-                    // '@Priyujoshi',
-                    "@$userName",
-                    style: TextStyle(
-                        color: const Color(0xff6B6B6B),
-                        fontSize: 8.sp,
-                        fontFamily: 'Roboto'),
-                  ),
-                ),
-                sizedBoxHeight(5.h),
-                Row(
-                  children: [
-                    sizedBoxWidth(8.w),
-                    Image.asset(
-                      'assets/like-svgrepo-com.png',
-                      height: 10.h,
-                      width: 11.8.w,
-                    ),
-                    Text(
-                      '23k',
-                      style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
-                    ),
-                    sizedBoxWidth(16.w),
-                    Image.asset(
-                      'assets/comment-blank-svgrepo-com.png',
-                      height: 9.7.h,
-                      width: 10.18.w,
-                    ),
-                    Text(
-                      '150',
-                      style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
-                    ),
-                    sizedBoxWidth(16.w),
-                    Image.asset(
-                      'assets/bookmark-svgrepo-com.png',
-                      height: 9.h,
-                      width: 6.8.w,
-                    ),
-                    Text(
-                      '50',
-                      style: TextStyle(fontFamily: 'Roboto', fontSize: 6.sp),
-                    ),
-                  ],
-                ),
-                sizedBoxHeight(3.5.h),
-
-                // sizedBoxHeight(5.h)
-              ],
+                
+                  sizedBoxHeight(3.5.h),
+    
+                  // sizedBoxHeight(5.h)
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -1430,200 +1363,120 @@ class _InspirationRecipeCommentState extends State<InspirationRecipeComment>
             //   height: 0,
             // ),
             sizedBoxHeight(10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            allUserRecipes!.isEmpty 
+            ? SizedBox()
+            : Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 0),
-                  child: Text(
-                    'Other Recipes By @${recipeDetailsData!.user.username}',
-                    style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
-                  ),
-                ),
-              ],
-            ),
-            sizedBoxHeight(20.h),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0),
-                    child: SizedBox(
-                      height: 155.h,
-                      child: ListView.separated(
-                        itemCount: allUserRecipes!.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final recipeData = allUserRecipes![index];
-                          return OtherRecipeCard(
-                            coverImage: recipeData.coverImage!,
-                            recipeName: recipeData.name,
-                            userName: recipeDetailsData!.user.username
-
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            width: 11.3.w,
-                          );
-                        },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Text(
+                        'Other Recipes By @${recipeDetailsData!.user.username}',
+                        style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            sizedBoxHeight(20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Similar Recipes',
-                  style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
+                  ],
                 ),
+
+                sizedBoxHeight(20.h),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 0),
+                        child: SizedBox(
+                          height: 155.h,
+                          child: ListView.separated(
+                            itemCount: allUserRecipes!.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final recipeData = allUserRecipes![index];
+                              return OtherRecipeCard(
+                                coverImage: recipeData.coverImage!,
+                                recipeName: recipeData.name,
+                                userName: recipeDetailsData!.user.username,
+                                recipeId: recipeData.id
+                              
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                width: 11.3.w,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                sizedBoxHeight(20.h),
               ],
             ),
-            sizedBoxHeight(20.h),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150.h,
-                    child: GetBuilder<ViewRecipeController>(builder: (context){
-                      return viewRecipeController.isLoadingSimilarRecipe 
-                      ? Center(child: CircularProgressIndicator())
-                      : viewRecipeController.similarRecipesData == null 
-                      ? Center(child: textgrey18BoldSP("Something went wrong"))
-                      : ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final recipeData = viewRecipeController.similarRecipesData!.similarRecipes[index];
-                          return OtherRecipeCard(
-                            coverImage: recipeData.coverImage,
-                            recipeName: recipeData.name,
-                            userName: recipeData.user.username
+            
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Similar Recipes',
+                      style: TextStyle(fontSize: 17.sp, fontFamily: 'StudioProM'),
+                    ),
+                  ],
+                ),
 
-                          );
-                          // return OtherRecipeCard();
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     Container(
-                          //       height: 93.h,
-                          //       width: 115.w,
-                          //       decoration: BoxDecoration(
-                          //           image: const DecorationImage(
-                          //               fit: BoxFit.cover,
-                          //               image: AssetImage(
-                          //                   'assets/Chocolate 2.png')),
-                          //           borderRadius: BorderRadius.only(
-                          //               topLeft: Radius.circular(9.r),
-                          //               topRight: Radius.circular(9.r))),
-                          //       // child: Image.asset(
-                          //       //   'assets/Chocolate 2.png',
-                          //       //   fit: BoxFit.cover,
-                          //       // ),
-                          //     ),
-                          //     Material(
-                          //       borderRadius: BorderRadius.circular(9.sp),
-                          //       elevation: 1.2,
-                          //       child: Container(
-                          //         height: 49.h,
-                          //         width: 115.w,
-                          //         decoration: BoxDecoration(
-                          //             color: Colors.white,
-                          //             borderRadius: BorderRadius.only(
-                          //                 bottomLeft: Radius.circular(9.r),
-                          //                 bottomRight: Radius.circular(9.r))),
-                          //         child: Column(
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           children: [
-                          //             sizedBoxHeight(3.5.h),
-                          //             Padding(
-                          //               padding: EdgeInsets.only(left: 7.4.w),
-                          //               child: Text(
-                          //                 'Slappappoffer Recipe',
-                          //                 style: TextStyle(
-                          //                     fontSize: 8.sp,
-                          //                     fontFamily: 'Roboto'),
-                          //               ),
-                          //             ),
-                          //             Padding(
-                          //               padding: EdgeInsets.only(left: 7.4.w),
-                          //               child: Text(
-                          //                 '@Priyujoshi',
-                          //                 style: TextStyle(
-                          //                     color: const Color(0xff6B6B6B),
-                          //                     fontSize: 5.sp,
-                          //                     fontFamily: 'Roboto'),
-                          //               ),
-                          //             ),
-                          //             Row(
-                          //               children: [
-                          //                 sizedBoxWidth(8.w),
-                          //                 Image.asset(
-                          //                   'assets/like-svgrepo-com.png',
-                          //                   height: 10.h,
-                          //                   width: 11.8.w,
-                          //                 ),
-                          //                 Text(
-                          //                   '23k',
-                          //                   style: TextStyle(
-                          //                       fontFamily: 'Roboto',
-                          //                       fontSize: 6.sp),
-                          //                 ),
-                          //                 sizedBoxWidth(16.w),
-                          //                 Image.asset(
-                          //                   'assets/comment-blank-svgrepo-com.png',
-                          //                   height: 9.7.h,
-                          //                   width: 10.18.w,
-                          //                 ),
-                          //                 Text(
-                          //                   '150',
-                          //                   style: TextStyle(
-                          //                       fontFamily: 'Roboto',
-                          //                       fontSize: 6.sp),
-                          //                 ),
-                          //                 sizedBoxWidth(16.w),
-                          //                 Image.asset(
-                          //                   'assets/bookmark-svgrepo-com.png',
-                          //                   height: 9.h,
-                          //                   width: 6.8.w,
-                          //                 ),
-                          //                 Text(
-                          //                   '50',
-                          //                   style: TextStyle(
-                          //                       fontFamily: 'Roboto',
-                          //                       fontSize: 6.sp),
-                          //                 ),
-                          //               ],
-                          //             )
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            width: 11.3.w,
-                          );
-                        },
-                        itemCount: viewRecipeController.similarRecipesData!.similarRecipes.length
-                        );
-                  
-                    })
-                    
+                sizedBoxHeight(20.h),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 150.h,
+                        child: GetBuilder<ViewRecipeController>(builder: (context){
+                          return viewRecipeController.isLoadingSimilarRecipe 
+                          ? Center(child: CircularProgressIndicator())
+                          : viewRecipeController.similarRecipesData == null 
+                          ? Center(child: textgrey18BoldSP("Something went wrong"))
+                          : ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final recipeData = viewRecipeController.similarRecipesData!.similarRecipes[index];
+                              return OtherRecipeCard(
+                                coverImage: recipeData.coverImage,
+                                recipeName: recipeData.name,
+                                userName: recipeData.user.username,
+                                recipeId: recipeData.id
+                              );
+
+                              // Get.toNamed("/InspirationRecipeComment",
+                              //       arguments: recipeData.id
+                              //     );
+                              
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                width: 11.3.w,
+                              );
+                            },
+                            itemCount: viewRecipeController.similarRecipesData!.similarRecipes.length
+                            );
+                      
+                        })
+                        
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
+                )
+              
+              ],
+            ),
+            
           ],
         ),
           ]

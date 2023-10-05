@@ -9,6 +9,8 @@ import 'package:foodspeciality/services/community_chatlist_service.dart';
 import 'package:foodspeciality/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/texts.dart';
+
 class ChatCommunityPage extends StatefulWidget {
   const ChatCommunityPage({Key? key}) : super(key: key);
 
@@ -139,7 +141,10 @@ class _ChatCommunityPageState extends State<ChatCommunityPage> {
                         }
                       }
 
-                      return ListView.builder(
+                      return filteredCommunityChatRooms.isEmpty 
+                      ? Center(child: textgrey18BoldSP("No Community available"))
+                      
+                      : ListView.builder(
                         itemCount: filteredCommunityChatRooms.length,
                         shrinkWrap: true,
                         // padding: EdgeInsets.only(top: 16),

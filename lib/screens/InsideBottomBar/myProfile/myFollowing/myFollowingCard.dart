@@ -87,7 +87,12 @@ class _myFollowingState extends State<myFollowingCard> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
                   followers = snapshot.data!.data!.followers;
-                  return ListView.builder(
+                  return followers!.isEmpty 
+                  ?  Padding(
+                    padding: EdgeInsets.only(top: 100.h),
+                    child: Center(child: textgrey18BoldSP("No followers")),
+                  )
+                  : ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: followers!.length,
@@ -140,7 +145,12 @@ class _myFollowingState extends State<myFollowingCard> {
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return const Center(child: Text('Failed to load followers'));
+                  return Padding(
+                    padding: EdgeInsets.only(top: 100.h),
+                    child: Center(child: textgrey18BoldSP("Failed to load followers")),
+                  );
+                  // c
+                  // onst Center(child: Text('Failed to load followers'));
                 } else {
                   return Container();
                 }
